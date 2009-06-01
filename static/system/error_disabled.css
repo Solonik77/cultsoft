@@ -1,0 +1,4 @@
+body { font-size: 90%; font-family: sans-serif; line-height: 160%; background: #eee; }
+#framework_error { text-align: center; background: #fff; }
+#framework_error h1 { padding: 0.2em 1em; margin: 0; font-size: 0.9em; font-weight: normal; text-transform: uppercase; background: #cff292; color: #911; }
+#framework_error p { padding: 1em; margin: 0; }

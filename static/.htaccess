@@ -1,0 +1,6 @@
+<Files ~ "\.(exe|com|bin|mp3|pl|log|htm|html|class|inc|ini|nfo|page|php|php2|php3|php4|php5|php6|phps|phpx|phtml|pimg|skin|sql|tpl|txt|uddi|wsdl|xml|xsd|xsl)$">
+	Deny from all
+</Files>
+<IfModule mod_rewrite.c>
+	RewriteEngine Off
+</IfModule>
