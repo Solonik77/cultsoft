@@ -39,7 +39,7 @@ class Profile_IndexController extends App_Controller_Action {
                         $form->setDescription ('Wrong login or password');
                         $this->view->form = $form;
                     } else {
-                        App::Auth ()->getStorage ()->write ($authAdapter->getResultRowObject (array ('member_id', 'login')));
+                        App::Auth ()->getStorage ()->write ($authAdapter->getResultRowObject (array ('id', 'login', 'email')));
                         if (isset ($formData ['remember_me'])) {
                             Zend_Session::rememberMe (3600 * 24 * 14);
                         }
