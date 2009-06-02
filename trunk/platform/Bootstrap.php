@@ -10,8 +10,7 @@
 * @license http://cultsoft.org.ua/engine/license.html
 */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-   
-   /**
+    /**
     * Run the application
     *
     * Checks to see that we have a default controller directory. If not, an
@@ -71,7 +70,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         $response->sendResponse ();
     }
-    
+
     /**
     * Constructor
     *
@@ -99,7 +98,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader = new Zend_Loader_Autoloader_Resource (array ('basePath' => APPLICATION_PATH . 'Resources/Admin', 'namespace' => 'Admin'));
         $resourceLoader->addResourceTypes (array ('dbtable' => array ('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array ('namespace' => 'Form', 'path' => 'forms'), 'model' => array ('namespace' => 'Model', 'path' => 'models'), 'plugin' => array ('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array ('namespace' => 'Service', 'path' => 'services'), 'helper' => array ('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array ('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array ('namespace' => 'View_Filter', 'path' => 'views/filters')));
 
-        App::setConfig (new Zend_Config ($this->getOptions ()));
+        $options = new Zend_Config ($this->getOptions (), APPLICATION_ENV, true);
+        if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', APPLICATION_ENV));
+        }
+        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', APPLICATION_ENV));
+        }
+
+        $options->setReadOnly();
+        App::setConfig($options);
         $this->_initErrorHandler ();
         try {
             $this->_initEnvironment ();
@@ -114,7 +122,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             throw new App_Exception ($e->getMessage ());
         }
     }
-    
+
     /**
     * Setup php, server environment, clean input parameters
     */
@@ -141,7 +149,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         umask (0);
     }
-    
+
     /**
     * Setup system error handler
     *
@@ -161,7 +169,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $logger->addWriter (new Zend_Log_Writer_Stream (App::Config ()->syspath->log . "/system_log_" . date ('Y-m-d') . '.log'));
         App::setLog ($logger);
     }
-    
+
     /**
     * Language setup
     *
@@ -209,10 +217,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $profiler = new Zend_Db_Profiler_Firebug ('All DB Queries');
             $profiler->setEnabled (true);
             App::DB()->setProfiler ($profiler);
-            if (App::config ()->database->metadata_cache == true) {
-                Zend_Db_Table_Abstract::setDefaultMetadataCache (App_Cache::getInstance());
-            }
-
+            Zend_Db_Table_Abstract::setDefaultMetadataCache (App_Cache::getInstance());
             Zend_Db_Table::setDefaultAdapter (App::DB());
             Zend_Db_Table_Abstract::setDefaultAdapter(App::DB());
             App::DB()->query ("SET NAMES 'utf8'");
@@ -221,7 +226,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             throw new App_Exception ($e->getMessage ());
         }
     }
-    
+
     /**
     * PHP Session handler setup
     *
@@ -236,7 +241,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         Zend_Session::start ();
     }
-    
+
     /**
     * View and Layout setup
     */
@@ -252,7 +257,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initRoutes()
     {
         $router = App::front ()->getRouter ();
-        $config = new Zend_Config_Ini (VAR_PATH . 'configs/routes.ini', APPLICATION_ENV);
+        $config = new Zend_Config_Ini (VAR_PATH . 'cache/configs/routes.ini', APPLICATION_ENV);
         $router->addConfig ($config);
     }
 
@@ -275,8 +280,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initDebug()
     {
         if (APPLICATION_ENV == 'development') {
-            App::front ()->registerPlugin (
-                new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables',
+            App::front ()->registerPlugin (new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables',
                             'Html',
                             'Database' => array('adapter' => array('standard' => App::DB())),
                             'File' => array('basePath' => APPLICATION_PATH),
