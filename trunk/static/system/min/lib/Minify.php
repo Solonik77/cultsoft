@@ -171,12 +171,12 @@ class Minify {
         $options = $controller->setupSources($options);
         $options = $controller->analyzeSources($options);
         self::$_options = $controller->mixInDefaultOptions($options);
-        
+
         // check request validity
         if (! $controller->sources) {
             // invalid request!
             if (! self::$_options['quiet']) {
-                header(self::$_options['badRequestHeader']);
+                header(self::$_options['badRequestHeader']); 
                 echo self::$_options['badRequestHeader'];
                 return;
             } else {
