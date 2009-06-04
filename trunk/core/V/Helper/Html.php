@@ -1,5 +1,5 @@
 <?php
-require_once CORE_PATH . 'App/UTF8.php';
+require_once CORE_PATH . 'V/UTF8.php';
 /**
  * HTML helper class.
  *
@@ -13,7 +13,7 @@ require_once CORE_PATH . 'App/UTF8.php';
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class App_Html
+class V_Helper_Html
 {
     // Enable or disable automatic setting of target="_blank"
     public static $windowed_urls = false;

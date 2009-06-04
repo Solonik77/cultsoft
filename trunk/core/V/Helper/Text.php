@@ -1,5 +1,5 @@
 <?php
-require_once CORE_PATH . 'App/UTF8.php';
+require_once CORE_PATH . 'V/UTF8.php';
 /**
  * Text helper class.
  *
@@ -13,7 +13,7 @@ require_once CORE_PATH . 'App/UTF8.php';
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class app_text
+class V_Helper_Text
 {
     /**
      * Limits a phrase to a given number of words.
@@ -49,12 +49,12 @@ class app_text
     {
         $end_char = ($end_char === null) ? '&#8230;' : $end_char;
         $limit = (int) $limit;
-        if (trim($str) === '' or app_utf8::strlen($str) <= $limit)
+        if (trim($str) === '' or V_UTF8::strlen($str) <= $limit)
             return $str;
         if ($limit <= 0)
             return $end_char;
         if ($preserve_words == false) {
-            return rtrim(app_utf8::substr($str, 0, $limit)) . $end_char;
+            return rtrim(V_UTF8::substr($str, 0, $limit)) . $end_char;
         }
         preg_match('/^.{' . ($limit - 1) . '}\S*/us', $str, $matches);
         return rtrim($matches[0]) . (strlen($matches[0]) == strlen($str) ? '' : $end_char);
@@ -112,11 +112,11 @@ class app_text
                 break;
             default:
                 $pool = (string) $type;
-                $utf8 = ! app_utf8::is_ascii($pool);
+                $utf8 = ! V_UTF8::is_ascii($pool);
                 break;
         }
         // Split the pool into an array of characters
-        $pool = ($utf8 === true) ? app_utf8::str_split($pool, 1) : str_split($pool, 1);
+        $pool = ($utf8 === true) ? V_UTF8::str_split($pool, 1) : str_split($pool, 1);
         // Largest pool key
         $max = count($pool) - 1;
         $str = '';
@@ -166,9 +166,9 @@ class app_text
             $regex = '(?<=\b|\s|^)' . $regex . '(?=\b|\s|$)';
         }
         $regex = '!' . $regex . '!ui';
-        if (app_utf8::strlen($replacement) == 1) {
+        if (V_UTF8::strlen($replacement) == 1) {
             $regex .= 'e';
-            return preg_replace($regex, 'str_repeat($replacement, app_utf8::strlen(\'$1\'))', $str);
+            return preg_replace($regex, 'str_repeat($replacement, V_UTF8::strlen(\'$1\'))', $str);
         }
         return preg_replace($regex, $replacement, $str);
     }

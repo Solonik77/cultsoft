@@ -9,7 +9,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class App_Input
+class V_Input
 {
     // Enable or disable automatic XSS cleaning
     protected $use_xss_clean = false;
@@ -27,11 +27,11 @@ class App_Input
      */
     public static function instance ()
     {
-        if (App_Input::$instance === null) {
+        if (V_Input::$instance === null) {
             // Create a new instance
-            return new App_Input();
+            return new V_Input();
         }
-        return App_Input::$instance;
+        return V_Input::$instance;
     }
     /**
      * Sanitizes global GET, POST and COOKIE data. Also takes care of
@@ -43,7 +43,7 @@ class App_Input
     {
         // Use XSS clean?
         $this->use_xss_clean = (bool) App::config()->global_xss_filtering;
-        if (App_Input::$instance === null) {
+        if (V_Input::$instance === null) {
             // magic_quotes_runtime is enabled
             if (get_magic_quotes_runtime()) {
                 set_magic_quotes_runtime(0);
@@ -102,7 +102,7 @@ class App_Input
                 $_COOKIE = array();
             }
             // Create a singleton
-            App_Input::$instance = $this;
+            V_Input::$instance = $this;
             App::Log('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
         }
     }
@@ -198,7 +198,7 @@ class App_Input
         if ($comma = strrpos($this->ip_address, ',') !== false) {
             $this->ip_address = substr($this->ip_address, $comma + 1);
         }
-        if (! App_Valid::ip($this->ip_address)) {
+        if (! V_Helper_Valid::ip($this->ip_address)) {
             // Use an empty IP
             $this->ip_address = '0.0.0.0';
         }

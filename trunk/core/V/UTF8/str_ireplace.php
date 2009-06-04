@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::str_ireplace
+ * V_UTF8::str_ireplace
  *
  * @package Core
  * @author Kohana Team
@@ -10,11 +10,11 @@
  */
 function _str_ireplace ($search, $replace, $str, &$count = null)
 {
-    if (app_utf8::is_ascii($search) and app_utf8::is_ascii($replace) and app_utf8::is_ascii($str))
+    if (V_UTF8::is_ascii($search) and V_UTF8::is_ascii($replace) and V_UTF8::is_ascii($str))
         return str_ireplace($search, $replace, $str, $count);
     if (is_array($str)) {
         foreach ($str as $key => $val) {
-            $str[$key] = app_utf8::str_ireplace($search, $replace, $val, $count);
+            $str[$key] = V_UTF8::str_ireplace($search, $replace, $val, $count);
         }
         return $str;
     }
@@ -23,18 +23,18 @@ function _str_ireplace ($search, $replace, $str, &$count = null)
         foreach ($keys as $k) {
             if (is_array($replace)) {
                 if (array_key_exists($k, $replace)) {
-                    $str = app_utf8::str_ireplace($search[$k], $replace[$k], $str, $count);
+                    $str = V_UTF8::str_ireplace($search[$k], $replace[$k], $str, $count);
                 } else {
-                    $str = app_utf8::str_ireplace($search[$k], '', $str, $count);
+                    $str = V_UTF8::str_ireplace($search[$k], '', $str, $count);
                 }
             } else {
-                $str = app_utf8::str_ireplace($search[$k], $replace, $str, $count);
+                $str = V_UTF8::str_ireplace($search[$k], $replace, $str, $count);
             }
         }
         return $str;
     }
-    $search = app_utf8::strtolower($search);
-    $str_lower = app_utf8::strtolower($str);
+    $search = V_UTF8::strtolower($search);
+    $str_lower = V_UTF8::strtolower($str);
     $total_matched_strlen = 0;
     $i = 0;
     while (preg_match('/(.*?)' . preg_quote($search, '/') . '/s', $str_lower, $matches)) {
