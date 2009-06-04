@@ -68,7 +68,6 @@ DROP TABLE IF EXISTS `members`;
 
 CREATE TABLE `members` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `login` varchar(60) NOT NULL DEFAULT '',
   `password` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
   `role_id` smallint(1) NOT NULL DEFAULT '0',
@@ -78,7 +77,7 @@ CREATE TABLE `members` (
 
 /*Data for the table `members` */
 
-insert  into `members`(`id`,`login`,`password`,`email`,`role_id`,`is_active`) values (1,'admin','admin','admin@example.com',1,1);
+insert  into `members`(`id`,`password`,`email`,`role_id`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,1);
 
 /*Table structure for table `session` */
 
