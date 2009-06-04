@@ -160,7 +160,7 @@ way to fit your requirements.
 
 
 /* make the second level visible when hover on first level list OR link */
-.menu ul li:hover ul, .menu ul a:hover ul {visibility:visible; height:auto; padding-bottom:3em; background:transparent url(images/trans.gif);}
+.menu ul li:hover ul, .menu ul a:hover ul {visibility:visible; height:auto; padding-bottom:3em; background:transparent url(../images/trans.gif);}
 /* keep the third level hidden when you hover on first level list OR link */
 .menu ul :hover ul ul{visibility:hidden;}
 /* keep the fourth level hidden when you hover on second level list OR link */
@@ -212,19 +212,19 @@ padding-bottom:10px;
 width:257px;
 height:10px;
 float:left;
-background:url(images/top_box_bg.gif) no-repeat center;
+background:url(../images/top_box_bg.gif) no-repeat center;
 }
 .center_left_box{
 width:257px;
 height: auto;
 float:left;
-background:url(images/center_box_bg.gif) repeat-y;
+background:url(../images/center_box_bg.gif) repeat-y;
 }
 .bottom_left_box{
 width:257px;
 height:10px;
 float:left;
-background:url(images/bottom_box_bg.gif) no-repeat center;
+background:url(../images/bottom_box_bg.gif) no-repeat center;
 }
 .box_title{
 width:257px;
@@ -244,7 +244,7 @@ padding:5px;
 .proposal{
 width:287px;
 height:85px;
-background:url(images/proposal_box.gif) no-repeat center;
+background:url(../images/proposal_box.gif) no-repeat center;
 background-position:0px 0px;
 margin-left:15px;
 margin-top:15px;
@@ -287,7 +287,7 @@ padding:0px;
 }
 .details_list ul li{
 padding:5px 5px 5px 25px;
-background:url(images/bullet.gif) no-repeat left;
+background:url(../images/bullet.gif) no-repeat left;
 color:#333333;
 }
 .details_list ul li span{
@@ -296,7 +296,7 @@ color:#0464a1;
 .button{
 width:139px;
 height:30px;
-background:url(images/blank_button.gif) no-repeat center;
+background:url(../images/blank_button.gif) no-repeat center;
 text-align:center;
 line-height:30px;
 font-weight:bold;
