@@ -13,9 +13,9 @@ class Default_IndexController extends App_Controller_Action
     public function init ()
     {
         // action body
-        $pages = array(array('label' => 'Home' , 'title' => 'Go Home' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'order' => - 100)// make sure home is the first page
- , array('label' => 'Special offer this week only!' , 'module' => 'store' , 'controller' => 'offer' , 'action' => 'amazing' , 'visible' => false)// not visible
- , array('label' => 'Products' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'test'));
+        $pages = array(array('label' => 'Home' , 'title' => 'Go Home' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'order' => - 100) , // make sure home is the first page
+array('label' => 'Special offer this week only!' , 'module' => 'store' , 'controller' => 'offer' , 'action' => 'amazing' , 'visible' => false) , // not visible
+array('label' => 'Products' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'test'));
         // Create container from array
         $container = new Zend_Navigation($pages);
         $this->view->navigation($container);

@@ -37,10 +37,13 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)->setViewBasePathSpec($template_path)->setViewScriptPathSpec(':module/:controller/:action.:suffix')->setViewScriptPathNoControllerSpec(':module/:action.:suffix')->setViewSuffix('phtml');
         Zend_Layout::startMvc(array('layoutPath' => $template_path , 'layout' => 'layout'));
+        // Set global content type to html with UTF-8 charset
         $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+        // Set default reset.css file. Clear all CSS rules.
+        $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/reset.css');
+        // Add default template styles to html head.
         $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/templates/' . App::Config()->project->template . '/css/style.css');
+        // Add latest Jquery library to html head.
         $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
-        $view->getHelper('HeadScript')->appendScript("var action = '';
-$('foo_form').action = action;");
     }
 }
