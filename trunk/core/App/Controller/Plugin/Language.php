@@ -1,35 +1,34 @@
 <?php
 /**
-* Setting website language and locale settings for request
-*
-* @package Core
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
-
-class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
+ * Setting website language and locale settings for request
+ *
+ * @package Core
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
+class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
+{
     /**
-    * Constructor
-    */
-    public function __construct()
+     * Constructor
+     */
+    public function __construct ()
+    {}
+    public function routeShutdown (Zend_Controller_Request_Abstract $request)
     {
-    }
-    public function routeShutdown(Zend_Controller_Request_Abstract $request)
-    {
-        $system_locales = App::Config ()->locales->toArray ();
+        $system_locales = App::Config()->locales->toArray();
         foreach ($system_locales as $key => $value) {
             $default_lang_key = $key;
-            Zend_Locale::setDefault ($default_lang_key);
+            Zend_Locale::setDefault($default_lang_key);
             break;
         }
-        $request_lang = $request->getParam ('requestLang');
-        $system_lang = (array_key_exists ($request_lang, $system_locales)) ? $request_lang : $default_lang_key;
-        Zend_Translate::setCache (App_Cache::getInstance ());
-        $translate = new Zend_Translate ('csv', APPLICATION_PATH . 'Languages/', $system_lang, array ('scan' => Zend_Translate::LOCALE_FILENAME, 'disableNotices' => true));
-        App::setTranslate ($translate);
-        setlocale (LC_ALL, $system_locales [$system_lang] . '.' . App::Config ()->locale->charset);
-        Zend_Form::setDefaultTranslator ($translate);
-        App::Front ()->setParam ('requestLang', $system_lang);
+        $request_lang = $request->getParam('requestLang');
+        $system_lang = (array_key_exists($request_lang, $system_locales)) ? $request_lang : $default_lang_key;
+        Zend_Translate::setCache(App_Cache::getInstance());
+        $translate = new Zend_Translate('csv', APPLICATION_PATH . 'Languages/', $system_lang, array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
+        App::setTranslate($translate);
+        setlocale(LC_ALL, $system_locales[$system_lang] . '.' . App::Config()->locale->charset);
+        Zend_Form::setDefaultTranslator($translate);
+        App::Front()->setParam('requestLang', $system_lang);
     }
 }

@@ -9,7 +9,6 @@
  * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
  * @version    $Id: Interface.php 13 2009-04-29 21:10:38Z andreas.pankratz@s-square.de $
  */
-
 /**
  * @category   ZFDebug
  * @package    ZFDebug_Controller
@@ -24,19 +23,17 @@ interface ZFDebug_Controller_Plugin_Debug_Plugin_Interface
      *
      * @return string
      */
-    public function getTab();
-
+    public function getTab ();
     /**
      * Has to return html code for the content panel
      *
      * @return string
      */
-    public function getPanel();
-
+    public function getPanel ();
     /**
      * Has to return a unique identifier for the specific plugin
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getIdentifier ();
 }

@@ -9,7 +9,6 @@
  * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
  * @version    $Id: File.php 62 2009-05-14 09:44:38Z gugakfugl $
  */
-
 /**
  * @category   ZFDebug
  * @package    ZFDebug_Controller
@@ -25,7 +24,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      * @var string
      */
     protected $_identifier = 'file';
-
     /**
      * Base path of this application
      * String is used to strip it from filenames
@@ -33,21 +31,18 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      * @var string
      */
     protected $_basePath;
-
     /**
      * Stores included files
      *
      * @var array
      */
     protected $_includedFiles = null;
-
     /**
      * Stores name of own extension library
      *
      * @var string
      */
     protected $_library;
-
     /**
      * Setting Options
      *
@@ -61,93 +56,81 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      * @param array $options
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct (array $options = array())
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
         isset($options['library']) || $options['library'] = null;
-        
         $this->_basePath = $options['base_path'];
         is_array($options['library']) || $options['library'] = array($options['library']);
-        $this->_library = array_merge($options['library'], array('Zend', 'ZFDebug'));
+        $this->_library = array_merge($options['library'], array('Zend' , 'ZFDebug'));
     }
-
     /**
      * Gets identifier for this plugin
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier ()
     {
         return $this->_identifier;
     }
-
     /**
      * Gets menu tab for the Debugbar
      *
      * @return string
      */
-    public function getTab()
+    public function getTab ()
     {
         return count($this->_getIncludedFiles()) . ' Files';
     }
-
     /**
      * Gets content panel for the Debugbar
      *
      * @return string
      */
-    public function getPanel()
+    public function getPanel ()
     {
         $included = $this->_getIncludedFiles();
         $html = '<h4>File Information</h4>';
-        $html .= count($included).' Files Included<br />';
+        $html .= count($included) . ' Files Included<br />';
         $size = 0;
         foreach ($included as $file) {
             $size += filesize($file);
         }
-        $html .= 'Total Size: '. round($size/1024, 1).'K<br />';
-        
+        $html .= 'Total Size: ' . round($size / 1024, 1) . 'K<br />';
         $html .= 'Basepath: ' . $this->_basePath . '<br />';
-
         $libraryFiles = array();
         foreach ($this->_library as $key => $value) {
             if ('' != $value) {
                 $libraryFiles[$key] = '<h4>' . $value . ' Library Files</h4>';
             }
         }
-
         $html .= '<h4>Application Files</h4>';
         foreach ($included as $file) {
             $file = str_replace($this->_basePath, '', $file);
             $inUserLib = false;
-        	foreach ($this->_library as $key => $library)
-        	{
-        		if('' != $library && false !== strstr($file, $library)) {
-        			$libraryFiles[$key] .= $file . '<br />';
-        			$inUserLib = TRUE;
-        		}
-        	}
-        	if (!$inUserLib) {
-    			$html .= $file . '<br />';
-        	}
+            foreach ($this->_library as $key => $library) {
+                if ('' != $library && false !== strstr($file, $library)) {
+                    $libraryFiles[$key] .= $file . '<br />';
+                    $inUserLib = TRUE;
+                }
+            }
+            if (! $inUserLib) {
+                $html .= $file . '<br />';
+            }
         }
-
-    	$html .= implode('', $libraryFiles);
-
+        $html .= implode('', $libraryFiles);
         return $html;
     }
-
     /**
      * Gets included files
      *
      * @return array
      */
-    protected function _getIncludedFiles()
+    protected function _getIncludedFiles ()
     {
         if (null !== $this->_includedFiles) {
             return $this->_includedFiles;
         }
-
         $this->_includedFiles = get_included_files();
         sort($this->_includedFiles);
         return $this->_includedFiles;

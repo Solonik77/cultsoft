@@ -9,7 +9,6 @@
  * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
  * @version    $Id: Exception.php 23 2009-05-01 12:43:13Z andreas.pankratz@s-square.de $
  */
-
 /**
  * @category   ZFDebug
  * @package    ZFDebug_Controller
@@ -25,14 +24,12 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
      * @var string
      */
     protected $_identifier = 'exception';
-
     /**
      * Contains any errors
      *
      * @var param array
      */
     static $errors = array();
-
     /**
      * Gets identifier for this plugin
      *
@@ -42,7 +39,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     {
         return $this->_identifier;
     }
-
     /**
      * Creates Error Plugin ans sets the Error Handler
      *
@@ -52,7 +48,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     {
         set_error_handler(array($this , 'errorHandler'));
     }
-
     /**
      * Gets menu tab for the Debugbar
      *
@@ -75,7 +70,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
         $text = $exception . ($exception == '' || $error == '' ? '' : ' - ') . $error;
         return $text;
     }
-
     /**
      * Gets content panel for the Debugbar
      *
@@ -88,7 +82,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
         if (! $response->isException() && ! $errorCount)
             return '';
         $html = '';
-
         foreach ($response->getException() as $e) {
             $html .= '<h4>' . get_class($e) . ': ' . $e->getMessage() . '</h4><p>thrown in ' . $e->getFile() . ' on line ' . $e->getLine() . '</p>';
             $html .= '<h4>Call Stack</h4><ol>';
@@ -104,7 +97,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
             }
             $html .= '</ol>';
         }
-
         if ($errorCount) {
             $html .= '<h4>Errors</h4><ol>';
             foreach (self::$errors as $error) {
@@ -114,7 +106,6 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
         }
         return $html;
     }
-
     /**
      * Debug Bar php error handler
      *
