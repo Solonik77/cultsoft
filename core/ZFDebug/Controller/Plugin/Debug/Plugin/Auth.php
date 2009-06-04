@@ -9,7 +9,6 @@
  * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
  * @version    $Id: $
  */
-
 /**
  * @category   ZFDebug
  * @package    ZFDebug_Controller
@@ -25,35 +24,30 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
      * @var string
      */
     protected $_identifier = 'auth';
-
     /**
      * Contains Zend_Auth object
      *
      * @var Zend_Auth
      */
     protected $_auth;
-
     /**
      * Contains "column name" for the username
      *
      * @var string
      */
     protected $_user = 'user';
-
     /**
      * Contains "column name" for the role
      *
      * @var string
      */
     protected $_role = 'role';
-
     /**
      * Contains Acls for this application
      *
      * @var Zend_Acl
      */
     protected $_acl;
-
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Auth
      *
@@ -61,7 +55,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
      * @var string $role
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct (array $options = array())
     {
         $this->_auth = Zend_Auth::getInstance();
         if (isset($options['user'])) {
@@ -71,48 +65,43 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
             $this->_role = $options['role'];
         }
     }
-
     /**
      * Gets identifier for this plugin
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier ()
     {
         return $this->_identifier;
     }
-
     /**
      * Gets menu tab for the Debugbar
      *
      * @return string
      */
-    public function getTab()
+    public function getTab ()
     {
-    	$username = 'Not Authed';
-    	$role = 'Unknown Role';
-
-    	if(!$this->_auth->hasIdentity()) {
-    	    return 'Not authorized';
-    	}
-    	$identity = $this->_auth->getIdentity();
-	    if (is_object($identity)) {
-    		$username = $this->_auth->getIdentity()->{$this->_user};
-    		$role = $this->_auth->getIdentity()->{$this->_role};
-    	} 
-    	else {
-    	    $username = $this->_auth->getIdentity();
-    		$role = '';
-    	}
-    	return "$username";
+        $username = 'Not Authed';
+        $role = 'Unknown Role';
+        if (! $this->_auth->hasIdentity()) {
+            return 'Not authorized';
+        }
+        $identity = $this->_auth->getIdentity();
+        if (is_object($identity)) {
+            $username = $this->_auth->getIdentity()->{$this->_user};
+            $role = $this->_auth->getIdentity()->{$this->_role};
+        } else {
+            $username = $this->_auth->getIdentity();
+            $role = '';
+        }
+        return "$username";
     }
-
     /**
      * Gets content panel for the Debugbar
      *
      * @return string
      */
-    public function getPanel()
+    public function getPanel ()
     {
         return '';
     }
