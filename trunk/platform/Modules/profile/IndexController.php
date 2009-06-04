@@ -21,9 +21,9 @@ class Profile_IndexController extends App_Controller_Action
     public function signinAction ()
     {
         if (App::isAuth()) {
-            $this->view->form = 'You are already logged.';
+            $this->view->form = App::_('You are already logged.');
         } else {
-            $form = new Site_Form_Login();
+            $form = new Site_Form_Signin();
             if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
                 $form->populate($formData);
@@ -31,14 +31,14 @@ class Profile_IndexController extends App_Controller_Action
                     $this->view->form = $form;
                     return $this->render();
                 } else {
-                    $authAdapter = $this->_getAuthAdapter($formData['member_login'], $formData['member_password']);
+                    $authAdapter = $this->_getAuthAdapter($formData['member_email'], $formData['member_password']);
                     $result = App::Auth()->authenticate($authAdapter);
                     if (! $result->isValid()) {
                         $form->addDecorator('Description', array('escape' => true , 'placement' => 'prepend'));
-                        $form->setDescription('Wrong login or password');
+                        $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
                     } else {
-                        App::Auth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'login' , 'email')));
+                        App::Auth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'email')));
                         if (isset($formData['remember_me'])) {
                             Zend_Session::rememberMe(3600 * 24 * 14);
                         }
@@ -67,10 +67,10 @@ class Profile_IndexController extends App_Controller_Action
      *
      * @return Zend_Auth_Adapter_DbTable object
      */
-    protected function _getAuthAdapter ($login, $password)
+    protected function _getAuthAdapter ($email, $password)
     {
-        $authAdapter = new Zend_Auth_Adapter_DbTable(App::DB());
-        $authAdapter->setTableName('members')->setIdentityColumn('login')->setCredentialColumn('password')->setIdentity($login)->setCredential($password);
+        $authAdapter = new Zend_Auth_Adapter_DbTable(App::DB(), 'members', 'email', 'password', 'MD5(MD5(?))');
+        $authAdapter->setIdentity($email)->setCredential($password);
         return $authAdapter;
     }
 }
