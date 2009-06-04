@@ -9,7 +9,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class App_Valid
+class V_Helper_Valid
 {
     /**
      * Validate email, commonly used characters only

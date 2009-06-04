@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::ucwords
+ * V_UTF8::ucwords
  *
  * @package Core
  * @author Kohana Team
@@ -12,7 +12,7 @@ function _ucwords ($str)
 {
     if (SERVER_UTF8)
         return mb_convert_case($str, MB_CASE_TITLE);
-    if (app_utf8::is_ascii($str))
+    if (V_UTF8::is_ascii($str))
         return ucwords($str);
         // [\x0c\x09\x0b\x0a\x0d\x20] matches form feeds, horizontal tabs, vertical tabs, linefeeds and carriage returns.
     // This corresponds to the definition of a 'word' defined at http://php.net/ucwords

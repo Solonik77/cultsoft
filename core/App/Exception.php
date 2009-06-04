@@ -108,9 +108,9 @@ class App_Exception extends Zend_Exception
                     if ($file_line >= $start_line) {
                         if ($file_line === $line) {
                             // Wrap the text of this line in <span> tags, for highlighting
-                            $read_line = '<span>' . app_html::specialchars($read_line) . '</span>';
+                            $read_line = '<span>' . v_helper_html::specialchars($read_line) . '</span>';
                         } else {
-                            $read_line = app_html::specialchars($read_line);
+                            $read_line = v_helper_html::specialchars($read_line);
                         }
                         $source .= $read_line;
                     }
@@ -178,7 +178,7 @@ class App_Exception extends Zend_Exception
                             // Sanitize path
                             $arg = $this->debug_path($arg);
                         }
-                        $args[] = '<code>' . app_text::limit_chars(app_html::specialchars(self::debug_var($arg)), 50, '...') . '</code>';
+                        $args[] = '<code>' . V_Helper_Text::limit_chars(v_helper_html::specialchars(self::debug_var($arg)), 50, '...') . '</code>';
                     }
                 }
                 $line[] = implode(', ', $args) . ($inline ? '' : ')');

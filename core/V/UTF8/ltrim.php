@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::rtrim
+ * V_UTF8::ltrim
  *
  * @package Core
  * @author Kohana Team
@@ -8,12 +8,12 @@
  * @copyright (c) 2005 Harry Fuecks
  * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
  */
-function _rtrim ($str, $charlist = null)
+function _ltrim ($str, $charlist = null)
 {
     if ($charlist === null)
-        return rtrim($str);
-    if (app_utf8::is_ascii($charlist))
-        return rtrim($str, $charlist);
+        return ltrim($str);
+    if (V_UTF8::is_ascii($charlist))
+        return ltrim($str, $charlist);
     $charlist = preg_replace('#[-\[\]:\\\\^/]#', '\\\\$0', $charlist);
-    return preg_replace('/[' . $charlist . ']++$/uD', '', $str);
+    return preg_replace('/^[' . $charlist . ']+/u', '', $str);
 }

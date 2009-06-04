@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::trim
+ * V_UTF8::trim
  *
  * @package Core
  * @author Kohana Team
@@ -12,5 +12,5 @@ function _trim ($str, $charlist = null)
 {
     if ($charlist === null)
         return trim($str);
-    return app_utf8::ltrim(app_utf8::rtrim($str, $charlist), $charlist);
+    return V_UTF8::ltrim(V_UTF8::rtrim($str, $charlist), $charlist);
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::str_split
+ * V_UTF8::str_split
  *
  * @package Core
  * @author Kohana Team
@@ -11,13 +11,13 @@
 function _str_split ($str, $split_length = 1)
 {
     $split_length = (int) $split_length;
-    if (app_utf8::is_ascii($str)) {
+    if (V_UTF8::is_ascii($str)) {
         return str_split($str, $split_length);
     }
     if ($split_length < 1) {
         return false;
     }
-    if (app_utf8::strlen($str) <= $split_length) {
+    if (V_UTF8::strlen($str) <= $split_length) {
         return array($str);
     }
     preg_match_all('/.{' . $split_length . '}|[^\x00]{1,' . $split_length . '}$/us', $str, $matches);

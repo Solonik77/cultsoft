@@ -40,5 +40,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
         $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/templates/' . App::Config()->project->template . '/css/style.css');
         $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
+        $view->getHelper('HeadScript')->appendScript("var action = '';
+$('foo_form').action = action;");
     }
 }

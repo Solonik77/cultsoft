@@ -1,6 +1,6 @@
 <?php
 /**
- * app_utf8::ord
+ * V_UTF8::ord
  *
  * @package Core
  * @author Kohana Team
