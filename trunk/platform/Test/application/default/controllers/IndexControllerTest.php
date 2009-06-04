@@ -40,8 +40,8 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
      * Constructs the test case.
      */
     public function __construct ()
-    {    // TODO Auto-generated constructor
-    }
+    {// TODO Auto-generated constructor
+}
     /**
      * Tests FooController->barAction()
      */

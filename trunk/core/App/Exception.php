@@ -86,7 +86,7 @@ class App_Exception extends Zend_Exception
             $layout = new Zend_Layout();
             $view = $layout->getView();
             $view->getHelper('headTitle')->headTitle("System Error");
-            $view->getHelper('headStyle')->headStyle(file_get_contents(STATIC_PATH . 'system/error' . ((APPLICATION_ENV != 'development') ? '_disabled' : '') . '.css'));
+            $view->getHelper('headStyle')->headStyle(file_get_contents(STATIC_PATH . 'system/css/error' . ((APPLICATION_ENV != 'development') ? '_disabled' : '') . '.css'));
             $layout->setLayoutPath(CORE_PATH . '/App/layouts/')->setLayout('error');
             $message = $this->message;
             $file = $this->debug_path($this->file);

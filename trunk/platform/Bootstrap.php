@@ -113,7 +113,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $this->_initRoutes();
             $this->_initAccess();
             $this->_initView();
-            $this->_initDebug();
+            $this->_initDebug();            
         } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
