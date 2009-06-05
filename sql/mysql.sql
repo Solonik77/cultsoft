@@ -64,9 +64,9 @@ CREATE TABLE `blogs` (
 
 /*Table structure for table `members` */
 
-DROP TABLE IF EXISTS `members`;
+DROP TABLE IF EXISTS `prefix_members`;
 
-CREATE TABLE `members` (
+CREATE TABLE `prefix_members` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
@@ -78,7 +78,7 @@ CREATE TABLE `members` (
 
 /*Data for the table `members` */
 
-insert  into `members`(`id`,`password`,`email`,`role_id`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,1);
+insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,1);
 
 /*Table structure for table `session` */
 
