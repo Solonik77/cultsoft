@@ -125,7 +125,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         V_UTF8::clean_globals();
         V_Input::instance();
-        App::$is_win = DIRECTORY_SEPARATOR === '\\';
         // Disable notices and "strict" errors
         $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
         // Set the user agent

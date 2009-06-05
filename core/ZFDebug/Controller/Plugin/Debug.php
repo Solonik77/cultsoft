@@ -223,7 +223,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
 
             /* @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface */
             $html .= '<span class="ZFDebug_span clickable" onclick="ZFDebugPanel(\'ZFDebug_' . $plugin->getIdentifier() . '\');">';
-            $html .= '<img src="' . $this->_icon($plugin->getIdentifier()) . '" style="vertical-align:middle" alt="' . $plugin->getIdentifier() . '" title="' . $plugin->getIdentifier() . '" /> ';
+            $html .= '<img src="' . $this->_icon($plugin->getIdentifier()) . '"  width="16" height="16" style="vertical-align:middle" alt="' . $plugin->getIdentifier() . '" title="' . $plugin->getIdentifier() . '" /> ';
             $html .= $tab . '</span>';
         }
 

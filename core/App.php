@@ -25,8 +25,6 @@ final class App
     protected static $log = null;
     // Zend_Translate object
     protected static $i18n = null;
-    // Are Application operating system is Windows?
-    public static $is_win = false;
     // User agent
     public static $user_agent = '';
     // Base URI
@@ -170,5 +168,13 @@ final class App
         app::$base_uri = rtrim($base_url, '/') . '/';
         // Force a slash on the end of the URL
         return app::$base_uri;
+    }
+    
+     /**
+     * Is Platform running on Windows?
+     */
+    public static function isWin()
+    {
+        return DIRECTORY_SEPARATOR === '\\';
     }
 }

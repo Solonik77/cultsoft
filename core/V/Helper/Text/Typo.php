@@ -62,7 +62,7 @@
  *      + Первый бета-релиз
  */
 
-class V_Jevix
+class V_Helper_Text_Typo extends V_Helper_Text
 {
         const PRINATABLE  = 0x1;
         const ALPHA       = 0x2;

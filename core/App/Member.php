@@ -41,7 +41,7 @@ class App_Member
      */
     private function loadGuest ()
     {
-        $data = array('id' => 0 , 'login' => 'Guest' , 'email' => 'guest@example.com' , 'created' => date("Y", TIME_NOW) , 'is_active' => 1);
+        $data = array('id' => 0 , 'login' => 'Guest' , 'email' => 'guest@example.com' , 'created' =>  V_Helper_Date::now() , 'is_active' => 1);
         $this->_data = (object) $data;
         return $this->_data;
     }
