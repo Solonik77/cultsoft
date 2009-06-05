@@ -69,7 +69,7 @@ class Profile_IndexController extends App_Controller_Action
      */
     protected function _getAuthAdapter ($email, $password)
     {
-        $authAdapter = new Zend_Auth_Adapter_DbTable(App::DB(), 'members', 'email', 'password', 'MD5(MD5(?))');
+        $authAdapter = new Zend_Auth_Adapter_DbTable(App::DB(), DB_TABLE_PREFIX . 'members', 'email', 'password', 'MD5(MD5(?))');
         $authAdapter->setIdentity($email)->setCredential($password);
         return $authAdapter;
     }
