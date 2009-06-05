@@ -9,6 +9,7 @@ require_once CORE_PATH . 'V/UTF8.php';
  * @author Kohana Team
  * @copyright (c) 2007-2008 Kohana Team
  * @license http://kohanaphp.com/license.html
+ *
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
@@ -44,7 +45,7 @@ class V_Helper_Html
         return $str;
     }
     /**
-     * Perform a html::specialchars() with additional URL specific encoding.
+     * Perform a V_Helper_Html::specialchars() with additional URL specific encoding.
      *
      * @param string $ string to convert
      * @param boolean $ encode existing entities
@@ -52,7 +53,7 @@ class V_Helper_Html
      */
     public static function specialurlencode ($str, $double_encode = true)
     {
-        return str_replace(' ', '%20', html::specialchars($str, $double_encode));
+        return str_replace(' ', '%20', V_Helper_Html::specialchars($str, $double_encode));
     }
     /**
      * Create HTML link anchors.
@@ -73,14 +74,14 @@ class V_Helper_Html
         } elseif (strpos($uri, '://') === false) {
             $site_url = url::site($uri, $protocol);
         } else {
-            if (html::$windowed_urls === true and empty($attributes['target'])) {
+            if (V_Helper_Html::$windowed_urls === true and empty($attributes['target'])) {
                 $attributes['target'] = '_blank';
             }
             $site_url = $uri;
         }
         return // Parsed URL
-'<a href="' . html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
-(is_array($attributes) ? html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
+'<a href="' . V_Helper_Html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
+(is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
 (($title === null) ? $site_url : $title) . '</a>';
     }
     /**
@@ -95,8 +96,8 @@ class V_Helper_Html
     public static function file_anchor ($file, $title = null, $attributes = null, $protocol = null)
     {
         return // Base URL + URI = full URL
-'<a href="' . html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
-(is_array($attributes) ? html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
+'<a href="' . V_Helper_Html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
+(is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
 (($title === null) ? end(explode('/', $file)) : $title) . '</a>';
     }
     /**
@@ -110,7 +111,7 @@ class V_Helper_Html
      */
     public static function panchor ($protocol, $uri, $title = null, $attributes = false)
     {
-        return html::anchor($uri, $title, $attributes, $protocol);
+        return V_Helper_Html::anchor($uri, $title, $attributes, $protocol);
     }
     /**
      * Create an array of anchors from an array of link/title pairs.
@@ -123,7 +124,7 @@ class V_Helper_Html
         $anchors = array();
         foreach ($array as $link => $title) {
             // Create list of anchors
-            $anchors[] = html::anchor($link, $title);
+            $anchors[] = V_Helper_Html::anchor($link, $title);
         }
         return $anchors;
     }
@@ -176,11 +177,11 @@ class V_Helper_Html
             $params = '';
         }
         // Obfuscate email address
-        $safe = html::email($email);
+        $safe = V_Helper_Html::email($email);
         // Title defaults to the encoded email address
         empty($title) and $title = $safe;
         // Parse attributes
-        empty($attributes) or $attributes = html::attributes($attributes);
+        empty($attributes) or $attributes = V_Helper_Html::attributes($attributes);
         // Encoded start of the href="" is a static encoded version of 'mailto:'
         return '<a href="&#109;&#097;&#105;&#108;&#116;&#111;&#058;' . $safe . $params . '"' . $attributes . '>' . $title . '</a>';
     }
@@ -195,7 +196,7 @@ class V_Helper_Html
         empty($segments) and $segments = Router::$segments;
         $array = array();
         while ($segment = array_pop($segments)) {
-            $array[] = html::anchor(// Complete URI for the URL
+            $array[] = V_Helper_Html::anchor(// Complete URI for the URL
 implode('/', $segments) . '/' . $segment, // Title for the current segment
 ucwords(inflector::humanize($segment)));
         }
@@ -215,7 +216,7 @@ ucwords(inflector::humanize($segment)));
             $tags = array();
             foreach ($tag as $t => $v) {
                 // Build each tag and add it to the array
-                $tags[] = html::meta($t, $v);
+                $tags[] = V_Helper_Html::meta($t, $v);
             }
             // Return all of the tags as a string
             return implode("\n", $tags);
@@ -234,7 +235,7 @@ ucwords(inflector::humanize($segment)));
      */
     public static function stylesheet ($style, $media = false, $index = false)
     {
-        return html::link($style, 'stylesheet', 'text/css', $media, $index);
+        return V_Helper_Html::link($style, 'stylesheet', 'text/css', $media, $index);
     }
     /**
      * Creates a link tag.
@@ -254,7 +255,7 @@ ucwords(inflector::humanize($segment)));
                 $_rel = is_array($rel) ? array_shift($rel) : $rel;
                 $_type = is_array($type) ? array_shift($type) : $type;
                 $_media = is_array($media) ? array_shift($media) : $media;
-                $compiled .= html::link($_href, $_rel, $_type, $_media, $index);
+                $compiled .= V_Helper_Html::link($_href, $_rel, $_type, $_media, $index);
             }
         } else {
             if (strpos($href, '://') === false) {
@@ -266,7 +267,7 @@ ucwords(inflector::humanize($segment)));
                 // Add the media type to the attributes
                 $attr['media'] = $media;
             }
-            $compiled = '<link' . html::attributes($attr) . ' />';
+            $compiled = '<link' . V_Helper_Html::attributes($attr) . ' />';
         }
         return $compiled . "\n";
     }
@@ -282,7 +283,7 @@ ucwords(inflector::humanize($segment)));
         $compiled = '';
         if (is_array($script)) {
             foreach ($script as $name) {
-                $compiled .= html::script($name, $index);
+                $compiled .= V_Helper_Html::script($name, $index);
             }
         } else {
             if (strpos($script, '://') === false) {
@@ -315,7 +316,7 @@ ucwords(inflector::humanize($segment)));
             // Make the src attribute into an absolute URL
             $attributes['src'] = url::base($index) . $attributes['src'];
         }
-        return '<img' . html::attributes($attributes) . ' />';
+        return '<img' . V_Helper_Html::attributes($attributes) . ' />';
     }
     /**
      * Compiles an array of HTML attributes into an attribute string.
@@ -331,7 +332,7 @@ ucwords(inflector::humanize($segment)));
             return ' ' . $attrs;
         $compiled = '';
         foreach ($attrs as $key => $val) {
-            $compiled .= ' ' . $key . '="' . html::specialchars($val) . '"';
+            $compiled .= ' ' . $key . '="' . V_Helper_Html::specialchars($val) . '"';
         }
         return $compiled;
     }

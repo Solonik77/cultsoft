@@ -23,7 +23,7 @@ CREATE TABLE `blog_comments` (
   `author_email` varchar(100) NOT NULL DEFAULT '',
   `author_url` varchar(200) NOT NULL DEFAULT '',
   `author_ip` varchar(100) NOT NULL DEFAULT '',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `content` text NOT NULL,
   `approved` varchar(20) NOT NULL DEFAULT '1',
   `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -42,7 +42,7 @@ CREATE TABLE `blog_posts` (
   `author_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `title` varchar(200) NOT NULL DEFAULT '',
   `content` longtext NOT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
