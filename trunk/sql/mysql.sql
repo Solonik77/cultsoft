@@ -71,6 +71,7 @@ CREATE TABLE `members` (
   `password` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
   `role_id` smallint(1) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `is_active` smallint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
