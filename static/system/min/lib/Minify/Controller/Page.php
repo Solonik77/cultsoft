@@ -3,9 +3,7 @@
  * Class Minify_Controller_Page  
  * @package Minify
  */
-
 require_once 'Minify/Controller/Base.php';
-
 /**
  * Controller class for serving a single HTML page
  * 
@@ -13,8 +11,9 @@ require_once 'Minify/Controller/Base.php';
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_Controller_Page extends Minify_Controller_Base {
-    
+class Minify_Controller_Page extends Minify_Controller_Base
+{
+
     /**
      * Set up source of HTML content
      * 
@@ -35,43 +34,33 @@ class Minify_Controller_Page extends Minify_Controller_Base {
      *
      * @todo Add 'file' option to read HTML file.
      */
-    public function setupSources($options) {
+    public function setupSources ($options)
+    {
         if (isset($options['file'])) {
-            $sourceSpec = array(
-                'filepath' => $options['file']
-            );
+            $sourceSpec = array('filepath' => $options['file']);
         } else {
             // strip controller options
-            $sourceSpec = array(
-                'content' => $options['content']
-                ,'id' => $options['id']
-            );
+            $sourceSpec = array('content' => $options['content'] , 'id' => $options['id']);
             unset($options['content'], $options['id']);
         }
         if (isset($options['minifyAll'])) {
             // this will be the 2nd argument passed to Minify_HTML::minify()
-            $sourceSpec['minifyOptions'] = array(
-                'cssMinifier' => array('Minify_CSS', 'minify')
-                ,'jsMinifier' => array('Minify_Javascript', 'minify')
-            );
+            $sourceSpec['minifyOptions'] = array('cssMinifier' => array('Minify_CSS' , 'minify') , 'jsMinifier' => array('Minify_Javascript' , 'minify'));
             $this->_loadCssJsMinifiers = true;
             unset($options['minifyAll']);
         }
         $this->sources[] = new Minify_Source($sourceSpec);
-        
         // may not be needed
         //$options['minifier'] = array('Minify_HTML', 'minify');
-        
         $options['contentType'] = Minify::TYPE_HTML;
         return $options;
     }
-    
     protected $_loadCssJsMinifiers = false;
-    
+
     /**
      * @see Minify_Controller_Base::loadMinifier()
      */
-    public function loadMinifier($minifierCallback)
+    public function loadMinifier ($minifierCallback)
     {
         if ($this->_loadCssJsMinifiers) {
             // Minify will not call for these so we must manually load

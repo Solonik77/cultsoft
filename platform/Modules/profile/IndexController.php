@@ -9,12 +9,15 @@
  */
 class Profile_IndexController extends App_Controller_Action
 {
+
     /**
      * Profile action: index
      * View member information
      */
     public function indexAction ()
-    {}
+    {
+    }
+
     /**
      * Profile action: signin
      */
@@ -50,6 +53,7 @@ class Profile_IndexController extends App_Controller_Action
             }
         }
     }
+
     /**
      * Logout action
      */
@@ -62,6 +66,7 @@ class Profile_IndexController extends App_Controller_Action
         Zend_Session::forgetMe();
         $this->_redirect('/');
     }
+
     /**
      * Getting Auth Adapter
      *

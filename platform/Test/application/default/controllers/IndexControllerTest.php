@@ -12,6 +12,7 @@ require_once 'application/Initializer.php';
  */
 class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
+
     /**
      * Prepares the environment before running a test.
      */
@@ -21,6 +22,7 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         parent::setUp();
         // TODO Auto-generated FooControllerTest::setUp()		
     }
+
     /**
      * Prepares the environment before running a test.
      */
@@ -28,6 +30,7 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
         $this->frontController->registerPlugin(new Initializer('test'));
     }
+
     /**
      * Cleans up the environment after running a test.
      */
@@ -36,12 +39,14 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         // TODO Auto-generated FooControllerTest::tearDown()
         parent::tearDown();
     }
+
     /**
      * Constructs the test case.
      */
     public function __construct ()
-    {// TODO Auto-generated constructor
-}
+    { // TODO Auto-generated constructor
+    }
+
     /**
      * Tests FooController->barAction()
      */

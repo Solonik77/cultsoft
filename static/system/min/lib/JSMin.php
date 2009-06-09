@@ -54,18 +54,17 @@
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://code.google.com/p/jsmin-php/
  */
-
-class JSMin {
-    const ORD_LF    = 10;
+class JSMin
+{
+    const ORD_LF = 10;
     const ORD_SPACE = 32;
-
-    protected $a           = '';
-    protected $b           = '';
-    protected $input       = '';
-    protected $inputIndex  = 0;
+    protected $a = '';
+    protected $b = '';
+    protected $input = '';
+    protected $inputIndex = 0;
     protected $inputLength = 0;
-    protected $lookAhead   = null;
-    protected $output      = '';
+    protected $lookAhead = null;
+    protected $output = '';
 
     /**
      * Minify Javascript
@@ -73,30 +72,30 @@ class JSMin {
      * @param string $js Javascript to be minified
      * @return string
      */
-    public static function minify($js)
+    public static function minify ($js)
     {
         $jsmin = new JSMin($js);
         return $jsmin->min();
     }
 
-    protected function __construct($input)
+    protected function __construct ($input)
     {
-        $this->input       = str_replace("\r\n", "\n", $input);
+        $this->input = str_replace("\r\n", "\n", $input);
         $this->inputLength = strlen($this->input);
     }
 
-    protected function action($d)
+    protected function action ($d)
     {
         switch ($d) {
             case 1:
                 $this->output .= $this->a;
-                // fallthrough
+            // fallthrough
             case 2:
                 $this->a = $this->b;
                 if ($this->a === "'" || $this->a === '"') {
                     for (;;) {
                         $this->output .= $this->a;
-                        $this->a       = $this->get();
+                        $this->a = $this->get();
                         if ($this->a === $this->b) {
                             break;
                         }
@@ -105,16 +104,16 @@ class JSMin {
                         }
                         if ($this->a === '\\') {
                             $this->output .= $this->a;
-                            $this->a       = $this->get();
+                            $this->a = $this->get();
                         }
                     }
                 }
-                // fallthrough
+            // fallthrough
             case 3:
                 $this->b = $this->next();
                 if ($this->b === '/') {
                     switch ($this->a) {
-                        case "\n": 
+                        case "\n":
                         case ' ':
                             if (! $this->spaceBeforeRegExp($this->output)) {
                                 break;
@@ -130,14 +129,14 @@ class JSMin {
                         case '&':
                         case '|':
                         case '?':
-                            $this->output .= $this->a.$this->b;
+                            $this->output .= $this->a . $this->b;
                             for (;;) {
                                 $this->a = $this->get();
                                 if ($this->a === '/') {
                                     break; // for (;;)
                                 } elseif ($this->a === '\\') {
                                     $this->output .= $this->a;
-                                    $this->a       = $this->get();
+                                    $this->a = $this->get();
                                 } elseif (ord($this->a) <= self::ORD_LF) {
                                     throw new JSMinException('Unterminated regular expression literal.');
                                 }
@@ -145,15 +144,15 @@ class JSMin {
                             }
                             $this->b = $this->next();
                             break; // switch ($this->a)
-                        // end case ?
+                    // end case ?
                     }
                 }
                 break; // switch ($d)
-            // end case 3
+        // end case 3
         }
     }
 
-    protected function get()
+    protected function get ()
     {
         $c = $this->lookAhead;
         $this->lookAhead = null;
@@ -165,25 +164,18 @@ class JSMin {
                 $c = null;
             }
         }
-        return ($c === "\r") 
-            ? "\n"
-            : ($c === null || $c === "\n" || ord($c) >= self::ORD_SPACE
-                ? $c
-                : ' ');
+        return ($c === "\r") ? "\n" : ($c === null || $c === "\n" || ord($c) >= self::ORD_SPACE ? $c : ' ');
     }
 
-    protected function isAlphaNum($c)
+    protected function isAlphaNum ($c)
     {
-        return (ord($c) > 126 
-                || $c === '\\' 
-                || preg_match('/^[\w\$]$/', $c) === 1);
+        return (ord($c) > 126 || $c === '\\' || preg_match('/^[\w\$]$/', $c) === 1);
     }
 
-    protected function min()
+    protected function min ()
     {
         $this->a = "\n";
         $this->action(3);
-
         while ($this->a !== null) {
             switch ($this->a) {
                 case ' ':
@@ -251,7 +243,7 @@ class JSMin {
         return $this->output;
     }
 
-    protected function next()
+    protected function next ()
     {
         $get = $this->get();
         if ($get === '/') {
@@ -263,9 +255,7 @@ class JSMin {
                         $get = $this->get();
                         $commentContents .= $get;
                         if (ord($get) <= self::ORD_LF) {
-                            return preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $commentContents)
-                                ? "/{$commentContents}"
-                                : $get;
+                            return preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $commentContents) ? "/{$commentContents}" : $get;
                         }
                     }
                 case '*':
@@ -281,9 +271,8 @@ class JSMin {
                                         // YUI Compressor style
                                         return "\n/*" . substr($commentContents, 1) . "*/\n";
                                     }
-                                    return preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $commentContents)
-                                        ? "/*{$commentContents}*/" // IE conditional compilation
-                                        : ' ';
+                                    return preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $commentContents) ? "/*{$commentContents}*/" : // IE conditional compilation
+' ';
                                 }
                                 break;
                             case null:
@@ -298,18 +287,18 @@ class JSMin {
         return $get;
     }
 
-    protected function peek()
+    protected function peek ()
     {
         $this->lookAhead = $this->get();
         return $this->lookAhead;
     }
 
-    protected function spaceBeforeRegExp($output)
+    protected function spaceBeforeRegExp ($output)
     {
         $length = strlen($output);
         $isSpace = false;
         $tmp = "";
-        foreach (array("case", "else", "in", "return", "typeof") as $word) {
+        foreach (array("case" , "else" , "in" , "return" , "typeof") as $word) {
             if ($length === strlen($word)) {
                 $isSpace = ($word === $output);
             } elseif ($length > strlen($word)) {
@@ -320,12 +309,9 @@ class JSMin {
                 break;
             }
         }
-        return ($length < 2) 
-            ? true 
-            : $isSpace;
+        return ($length < 2) ? true : $isSpace;
     }
 }
-
-class JSMinException extends Exception {
-
+class JSMinException extends Exception
+{
 }

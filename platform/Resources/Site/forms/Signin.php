@@ -9,6 +9,7 @@
  */
 class Site_Form_Signin extends Zend_Form
 {
+
     /**
      * Contructor
      *
@@ -19,7 +20,7 @@ class Site_Form_Signin extends Zend_Form
         parent::__construct($options);
         $this->setAction('/signin')->setMethod('post');
         $email = $this->createElement('text', 'member_email', array('label' => 'E-mail'));
-        $email->addValidator('EmailAddress')->addValidator('stringLength', false, array(4, 100))->setRequired(true)->addFilter('StringToLower');
+        $email->addValidator('EmailAddress')->addValidator('stringLength', false, array(4 , 100))->setRequired(true)->addFilter('StringToLower');
         $password = $this->createElement('password', 'member_password', array('label' => 'Password'));
         $password->addValidator('StringLength', false, array(7))->setRequired(true);
         $this->addElement($email)->addElement($password)->addElement('checkbox', 'remember_me', array('label' => 'Remember me'))->addElement('submit', 'enter', array('label' => 'Enter'));

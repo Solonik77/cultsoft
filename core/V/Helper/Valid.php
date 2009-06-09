@@ -11,6 +11,7 @@
  */
 class V_Helper_Valid
 {
+
     /**
      * Validate email, commonly used characters only
      *
@@ -21,6 +22,7 @@ class V_Helper_Valid
     {
         return (bool) preg_match('/^[-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+@(?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?$/iD', (string) $email);
     }
+
     /**
      * Validate the domain of an email address by checking if the domain has a
      * valid MX record.
@@ -37,6 +39,7 @@ class V_Helper_Valid
             // Check if the email domain has a valid MX record
         return (bool) checkdnsrr(preg_replace('/^[^@]+@/', '', $email), 'MX');
     }
+
     /**
      * Validate email, RFC compliant version
      * Note: This function is LESS strict than valid_email. Choose carefully.
@@ -62,6 +65,7 @@ class V_Helper_Valid
         $addr_spec = "$local_part\\x40$domain";
         return (bool) preg_match('/^' . $addr_spec . '$/D', (string) $email);
     }
+
     /**
      * Validate URL
      *
@@ -72,6 +76,7 @@ class V_Helper_Valid
     {
         return (bool) filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED);
     }
+
     /**
      * Validate IP
      *
@@ -90,6 +95,7 @@ class V_Helper_Valid
             return (bool) filter_var($ip, FILTER_VALIDATE_IP, $flags);
         return (bool) filter_var($ip, FILTER_VALIDATE_IP, $flags | FILTER_FLAG_IPV4);
     }
+
     /**
      * Checks if a phone number is valid.
      *
@@ -106,6 +112,7 @@ class V_Helper_Valid
         // Check if the number is within range
         return in_array(strlen($number), $lengths);
     }
+
     /**
      * Tests if a string is a valid date string.
      *
@@ -116,6 +123,7 @@ class V_Helper_Valid
     {
         return (strtotime($str) !== false);
     }
+
     /**
      * Checks whether a string consists of alphabetical characters only.
      *
@@ -127,6 +135,7 @@ class V_Helper_Valid
     {
         return ($utf8 === true) ? (bool) preg_match('/^\pL++$/uD', (string) $str) : ctype_alpha((string) $str);
     }
+
     /**
      * Checks whether a string consists of alphabetical characters and numbers only.
      *
@@ -138,6 +147,7 @@ class V_Helper_Valid
     {
         return ($utf8 === true) ? (bool) preg_match('/^[\pL\pN]++$/uD', (string) $str) : ctype_alnum((string) $str);
     }
+
     /**
      * Checks whether a string consists of alphabetical characters, numbers, underscores and dashes only.
      *
@@ -149,6 +159,7 @@ class V_Helper_Valid
     {
         return ($utf8 === true) ? (bool) preg_match('/^[-\pL\pN_]++$/uD', (string) $str) : (bool) preg_match('/^[-a-z0-9_]++$/iD', (string) $str);
     }
+
     /**
      * Checks whether a string consists of digits only (no dots or dashes).
      *
@@ -160,6 +171,7 @@ class V_Helper_Valid
     {
         return ($utf8 === true) ? (bool) preg_match('/^\pN++$/uD', (string) $str) : ctype_digit((string) $str);
     }
+
     /**
      * Checks whether a string is a valid number (negative and decimal numbers allowed).
      *
@@ -174,6 +186,7 @@ class V_Helper_Valid
         $locale = localeconv();
         return (bool) preg_match('/^-?[0-9' . $locale['decimal_point'] . ']++$/D', (string) $str);
     }
+
     /**
      * Tests if a number is within a range.
      *
@@ -198,6 +211,7 @@ class V_Helper_Valid
         }
         return $status;
     }
+
     /**
      * Checks whether a string is a valid text. Letters, numbers, whitespace,
      * dashes, periods, and underscores are allowed.
@@ -215,6 +229,7 @@ class V_Helper_Valid
         // pPo matches normal puncuation
         return (bool) preg_match('/^[\pL\pN\pZ\p{Pc}\p{Pd}\p{Po}]++$/uD', (string) $str);
     }
+
     /**
      * Checks if a string is a proper decimal format. The format array can be
      * used to specify a decimal length, or a number and decimal length, eg:
@@ -243,6 +258,7 @@ class V_Helper_Valid
         }
         return (bool) preg_match($pattern, (string) $str);
     }
+
     /**
      * Checks if a string is a proper hexadecimal HTML color value. The validation
      * is quite flexible as it does not require an initial "#" and also allows for

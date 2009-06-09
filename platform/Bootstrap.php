@@ -11,6 +11,7 @@
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+
     /**
      * Run the application
      *
@@ -71,6 +72,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         $response->sendResponse();
     }
+
     /**
      * Constructor
      *
@@ -113,11 +115,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $this->_initRoutes();
             $this->_initAccess();
             $this->_initView();
-            $this->_initDebug();            
+            $this->_initDebug();
         } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
+
     /**
      * Setup php, server environment, clean input parameters
      */
@@ -143,6 +146,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         umask(0);
     }
+
     /**
      * Setup system error handler
      *
@@ -162,6 +166,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $logger->addWriter(new Zend_Log_Writer_Stream(App::Config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
+
     /**
      * Language setup
      *
@@ -194,6 +199,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         App::Front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $system_lang), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
     }
+
     /**
      * * Database connection setup
      *
@@ -207,7 +213,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
             $profiler->setEnabled(true);
             App::DB()->setProfiler($profiler);
-            Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance());
+            Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance('File'));
             Zend_Db_Table::setDefaultAdapter(App::DB());
             Zend_Db_Table_Abstract::setDefaultAdapter(App::DB());
             App::DB()->query("SET NAMES 'utf8'");
@@ -216,6 +222,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             throw new App_Exception($e->getMessage());
         }
     }
+
     /**
      * PHP Session handler setup
      *
@@ -230,6 +237,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         Zend_Session::start();
     }
+
     /**
      * View and Layout setup
      */
@@ -237,6 +245,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
+
     /**
      * Setup URI routes
      *
@@ -248,6 +257,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', APPLICATION_ENV);
         $router->addConfig($config);
     }
+
     /**
      * Member access setup
      *
@@ -258,6 +268,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         App_Member::getInstance();
         App::front()->registerPlugin(new App_Controller_Plugin_Access());
     }
+
     /**
      * ZendDebug panel
      *
@@ -266,7 +277,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     private function _initDebug ()
     {
         if (APPLICATION_ENV == 'development') {
-            App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables' , 'Html' , 'Database' => array('adapter' => array('standard' => App::DB())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance()->getBackend()) , 'Exception'))));
+            App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables' , 'Html' , 'Database' => array('adapter' => array('standard' => App::DB())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
         }
     }
 }

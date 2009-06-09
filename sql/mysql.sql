@@ -82,9 +82,9 @@ insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`is_active`) val
 
 /*Table structure for table `session` */
 
-DROP TABLE IF EXISTS `session`;
+DROP TABLE IF EXISTS `prefix_session`;
 
-CREATE TABLE `session` (
+CREATE TABLE `prefix_session` (
   `id` char(32) NOT NULL DEFAULT '',
   `modified` int(11) DEFAULT NULL,
   `lifetime` int(11) DEFAULT NULL,

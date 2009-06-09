@@ -1,4 +1,5 @@
 <?php
+
 /**
  * V_UTF8::str_ireplace
  *

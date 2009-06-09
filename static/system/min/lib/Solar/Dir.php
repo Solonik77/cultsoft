@@ -14,8 +14,8 @@
  * @version $Id: Dir.php 2926 2007-11-09 16:25:44Z pmjones $
  * 
  */
-class Solar_Dir {
-    
+class Solar_Dir
+{
     /**
      * 
      * The OS-specific temporary directory location.
@@ -24,7 +24,7 @@ class Solar_Dir {
      * 
      */
     protected static $_tmp;
-    
+
     /**
      * 
      * Hack for [[php::is_dir() | ]] that checks the include_path.
@@ -46,14 +46,13 @@ class Solar_Dir {
      * absolute path; if not, returns boolean false.
      * 
      */
-    public static function exists($dir)
+    public static function exists ($dir)
     {
         // no file requested?
         $dir = trim($dir);
         if (! $dir) {
             return false;
         }
-        
         // using an absolute path for the file?
         // dual check for Unix '/' and Windows '\',
         // or Windows drive letter and a ':'.
@@ -61,7 +60,6 @@ class Solar_Dir {
         if ($abs && is_dir($dir)) {
             return $dir;
         }
-        
         // using a relative path on the file
         $path = explode(PATH_SEPARATOR, ini_get('include_path'));
         foreach ($path as $base) {
@@ -71,11 +69,10 @@ class Solar_Dir {
                 return $target;
             }
         }
-        
         // never found it
         return false;
     }
-    
+
     /**
      * 
      * "Fixes" a directory string for the operating system.
@@ -91,12 +88,12 @@ class Solar_Dir {
      * @return string The "fixed" directory string.
      * 
      */
-    public static function fix($dir)
+    public static function fix ($dir)
     {
         $dir = str_replace('/', DIRECTORY_SEPARATOR, $dir);
         return rtrim($dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     }
-    
+
     /**
      * 
      * Convenience method for dirname() and higher-level directories.
@@ -109,7 +106,7 @@ class Solar_Dir {
      * @return string The dirname() of the file.
      * 
      */
-    public static function name($file, $up = 0)
+    public static function name ($file, $up = 0)
     {
         $dir = dirname($file);
         while ($up --) {
@@ -117,7 +114,7 @@ class Solar_Dir {
         }
         return $dir;
     }
-    
+
     /**
      * 
      * Returns the OS-specific directory for temporary files.
@@ -128,34 +125,29 @@ class Solar_Dir {
      * @return string The temporary directory path.
      * 
      */
-    public static function tmp($sub = '')
+    public static function tmp ($sub = '')
     {
         // find the tmp dir if needed
         if (! Solar_Dir::$_tmp) {
-            
             // use the system if we can
             if (function_exists('sys_get_temp_dir')) {
                 $tmp = sys_get_temp_dir();
             } else {
                 $tmp = Solar_Dir::_tmp();
             }
-            
             // remove trailing separator and save
             Solar_Dir::$_tmp = rtrim($tmp, DIRECTORY_SEPARATOR);
         }
-        
         // do we have a subdirectory request?
         $sub = trim($sub);
         if ($sub) {
             // remove leading and trailing separators, and force exactly
             // one trailing separator
-            $sub = trim($sub, DIRECTORY_SEPARATOR)
-                 . DIRECTORY_SEPARATOR;
+            $sub = trim($sub, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         }
-        
         return Solar_Dir::$_tmp . DIRECTORY_SEPARATOR . $sub;
     }
-    
+
     /**
      * 
      * Returns the OS-specific temporary directory location.
@@ -163,7 +155,7 @@ class Solar_Dir {
      * @return string The temp directory path.
      * 
      */
-    protected static function _tmp()
+    protected static function _tmp ()
     {
         // non-Windows system?
         if (strtolower(substr(PHP_OS, 0, 3)) != 'win') {
@@ -174,25 +166,21 @@ class Solar_Dir {
                 return '/tmp';
             }
         }
-        
         // Windows 'TEMP'
         $tmp = empty($_ENV['TEMP']) ? getenv('TEMP') : $_ENV['TEMP'];
         if ($tmp) {
             return $tmp;
         }
-    
         // Windows 'TMP'
         $tmp = empty($_ENV['TMP']) ? getenv('TMP') : $_ENV['TMP'];
         if ($tmp) {
             return $tmp;
         }
-    
         // Windows 'windir'
         $tmp = empty($_ENV['windir']) ? getenv('windir') : $_ENV['windir'];
         if ($tmp) {
             return $tmp;
         }
-    
         // final fallback for Windows
         return getenv('SystemRoot') . '\\temp';
     }

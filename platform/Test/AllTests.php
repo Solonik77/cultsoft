@@ -13,6 +13,7 @@ require_once 'test/application/default/controllers/IndexControllerTest.php';
  */
 class AllTests extends PHPUnit_Framework_TestSuite
 {
+
     /**
      * Constructs the test suite handler.
      */
@@ -21,6 +22,7 @@ class AllTests extends PHPUnit_Framework_TestSuite
         $this->setName('AllTests');
         $this->addTestSuite('IndexControllerTest');
     }
+
     /**
      * Creates the suite.
      */

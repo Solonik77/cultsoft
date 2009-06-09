@@ -3,16 +3,15 @@
  * Class Minify_Javascript  
  * @package Minify
  */
-
 require 'JSMin.php';
-
 /**
  * Compress Javascript using Ryan Grove's JSMin class
  * 
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_Javascript {
+class Minify_Javascript
+{
 
     /**
      * Minify a Javascript string
@@ -23,9 +22,9 @@ class Minify_Javascript {
      * 
      * @return string 
      */
-    public static function minify($js, $options = array()) 
+    public static function minify ($js, $options = array())
     {
-        return trim(JSMin::minify($js));    
+        return trim(JSMin::minify($js));
     }
 }
 

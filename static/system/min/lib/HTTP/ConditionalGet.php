@@ -4,7 +4,6 @@
  * @package Minify
  * @subpackage HTTP
  */
-
 /**
  * Implement conditional GET via a timestamp or hash of content
  *
@@ -60,8 +59,8 @@
  * @subpackage HTTP
  * @author Stephen Clay <steve@mrclay.org>
  */
-class HTTP_ConditionalGet {
-
+class HTTP_ConditionalGet
+{
     /**
      * Does the client have a valid copy of the requested resource?
      * 
@@ -102,23 +101,17 @@ class HTTP_ConditionalGet {
      * 
      * @return null
      */
-    public function __construct($spec)
+    public function __construct ($spec)
     {
-        $scope = (isset($spec['isPublic']) && $spec['isPublic'])
-            ? 'public'
-            : 'private';
+        $scope = (isset($spec['isPublic']) && $spec['isPublic']) ? 'public' : 'private';
         $maxAge = 0;
         // backwards compatibility (can be removed later)
-        if (isset($spec['setExpires']) 
-            && is_numeric($spec['setExpires'])
-            && ! isset($spec['maxAge'])) {
+        if (isset($spec['setExpires']) && is_numeric($spec['setExpires']) && ! isset($spec['maxAge'])) {
             $spec['maxAge'] = $spec['setExpires'] - $_SERVER['REQUEST_TIME'];
         }
         if (isset($spec['maxAge'])) {
             $maxAge = $spec['maxAge'];
-            $this->_headers['Expires'] = self::gmtDate(
-                $_SERVER['REQUEST_TIME'] + $spec['maxAge'] 
-            );
+            $this->_headers['Expires'] = self::gmtDate($_SERVER['REQUEST_TIME'] + $spec['maxAge']);
         }
         if (isset($spec['lastModifiedTime'])) {
             $this->_setLastModified($spec['lastModifiedTime']);
@@ -134,11 +127,9 @@ class HTTP_ConditionalGet {
         }
         $this->_headers['Cache-Control'] = "max-age={$maxAge}, {$scope}, must-revalidate";
         // invalidate cache if disabled, otherwise check
-        $this->cacheIsValid = (isset($spec['invalidate']) && $spec['invalidate'])
-            ? false
-            : $this->_isCacheValid();
+        $this->cacheIsValid = (isset($spec['invalidate']) && $spec['invalidate']) ? false : $this->_isCacheValid();
     }
-    
+
     /**
      * Get array of output headers to be sent
      * 
@@ -155,7 +146,7 @@ class HTTP_ConditionalGet {
      *
      * @return array 
      */
-    public function getHeaders()
+    public function getHeaders ()
     {
         return $this->_headers;
     }
@@ -171,7 +162,7 @@ class HTTP_ConditionalGet {
      * 
      * @return int copy of input $bytes
      */
-    public function setContentLength($bytes)
+    public function setContentLength ($bytes)
     {
         return $this->_headers['Content-Length'] = $bytes;
     }
@@ -187,7 +178,7 @@ class HTTP_ConditionalGet {
      *
      * @return null
      */
-    public function sendHeaders()
+    public function sendHeaders ()
     {
         $headers = $this->_headers;
         if (array_key_exists('_responseCode', $headers)) {
@@ -198,7 +189,7 @@ class HTTP_ConditionalGet {
             header($name . ': ' . $val);
         }
     }
-    
+
     /**
      * Exit if the client's cache is valid for this resource
      *
@@ -215,20 +206,19 @@ class HTTP_ConditionalGet {
      *
      * @return null     
      */
-    public static function check($lastModifiedTime = null, $isPublic = false, $options = array())
+    public static function check ($lastModifiedTime = null, $isPublic = false, $options = array())
     {
         if (null !== $lastModifiedTime) {
-            $options['lastModifiedTime'] = (int)$lastModifiedTime;
+            $options['lastModifiedTime'] = (int) $lastModifiedTime;
         }
-        $options['isPublic'] = (bool)$isPublic;
+        $options['isPublic'] = (bool) $isPublic;
         $cg = new HTTP_ConditionalGet($options);
         $cg->sendHeaders();
         if ($cg->cacheIsValid) {
             exit();
         }
     }
-    
-    
+
     /**
      * Get a GMT formatted date for use in HTTP headers
      * 
@@ -240,33 +230,30 @@ class HTTP_ConditionalGet {
      * 
      * @return string
      */
-    public static function gmtDate($time)
+    public static function gmtDate ($time)
     {
         return gmdate('D, d M Y H:i:s \G\M\T', $time);
     }
-    
     protected $_headers = array();
     protected $_lmTime = null;
     protected $_etag = null;
-    
-    protected function _setEtag($hash, $scope)
+
+    protected function _setEtag ($hash, $scope)
     {
-        $this->_etag = '"' . $hash
-            . substr($scope, 0, 3)
-            . '"';
+        $this->_etag = '"' . $hash . substr($scope, 0, 3) . '"';
         $this->_headers['ETag'] = $this->_etag;
     }
 
-    protected function _setLastModified($time)
+    protected function _setLastModified ($time)
     {
-        $this->_lmTime = (int)$time;
+        $this->_lmTime = (int) $time;
         $this->_headers['Last-Modified'] = self::gmtDate($time);
     }
 
     /**
      * Determine validity of client cache and queue 304 header if valid
      */
-    protected function _isCacheValid()
+    protected function _isCacheValid ()
     {
         if (null === $this->_etag) {
             // lmTime is copied to ETag, so this condition implies that the
@@ -281,14 +268,12 @@ class HTTP_ConditionalGet {
         return $isValid;
     }
 
-    protected function resourceMatchedEtag()
+    protected function resourceMatchedEtag ()
     {
-        if (!isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+        if (! isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
             return false;
         }
-        $cachedEtagList = get_magic_quotes_gpc()
-            ? stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])
-            : $_SERVER['HTTP_IF_NONE_MATCH'];
+        $cachedEtagList = get_magic_quotes_gpc() ? stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) : $_SERVER['HTTP_IF_NONE_MATCH'];
         $cachedEtags = split(',', $cachedEtagList);
         foreach ($cachedEtags as $cachedEtag) {
             if (trim($cachedEtag) == $this->_etag) {
@@ -298,9 +283,9 @@ class HTTP_ConditionalGet {
         return false;
     }
 
-    protected function resourceNotModified()
+    protected function resourceNotModified ()
     {
-        if (!isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+        if (! isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
             return false;
         }
         $ifModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
