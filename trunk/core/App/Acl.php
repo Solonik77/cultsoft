@@ -19,7 +19,7 @@ class App_Acl extends Zend_Acl
     {
         if (App_Acl::$instance === null) {
             // Add acl resource
-            $this->add(new Zend_Acl_Resource('admin'));
+            $this->add(new Zend_Acl_Resource('module_admin'));
             // Add groups to the Role registry using Zend_Acl_Role
             // Guest does not inherit access controls
             $roleGuest = new Zend_Acl_Role('guest');

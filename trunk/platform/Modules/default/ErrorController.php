@@ -31,5 +31,12 @@ class Default_ErrorController extends Zend_Controller_Action
         $this->view->exception = $errors->exception;
         $this->view->request = $errors->request;
     }
+    
+    
+        public function denyAction ()
+    { 
+                $this->getResponse()->setHttpResponseCode(401);
+                $this->view->message = 'Access deny';                
+    }
 }
 
