@@ -51,6 +51,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
      * @var Array
      */
     private $_insertData = array();
+
     /**
      * constructor
      */
@@ -61,6 +62,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
             $this->_toString = $this->_primary[1];
         }
     }
+
     /**
      * Additional data to be inserted
      *
@@ -71,6 +73,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
     {
         $this->_insertData = $data;
     }
+
     /**
      * Retrieve whole tree
      *
@@ -91,6 +94,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         ");
         return $ret->fetchAll();
     }
+
     /**
      * Insert node as first child
      *
@@ -109,6 +113,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_insertData = array_merge($this->_insertData, $data);
         return $this->insert($this->_insertData);
     }
+
     /**
      * Insert node as last child
      *
@@ -127,6 +132,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_insertData = array_merge($this->_insertData, $data);
         return $this->insert($this->_insertData);
     }
+
     /**
      * Insert node as next sibling of given node
      *
@@ -149,6 +155,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_insertData = array_merge($this->_insertData, $data);
         return $this->insert($this->_insertData);
     }
+
     /**
      * Insert node as prev sibling of given node
      *
@@ -171,6 +178,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_insertData = array_merge($this->_insertData, $data);
         return $this->insert($this->_insertData);
     }
+
     /**
      * Delete node with it's child(s) and return affected rows
      *
@@ -189,6 +197,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} - {$width} WHERE {$this->_left} > {$right}");
         return $res->rowCount();
     }
+
     /**
      * Insert root node
      *
@@ -201,6 +210,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $this->_insertData = array_merge($this->_insertData, $data);
         return $this->insert($this->_insertData);
     }
+
     /**
      * Insert node
      *
@@ -213,6 +223,7 @@ class V_Db_Nestedsets extends Zend_Db_Table
         $select = $this->select()->where($this->_primary[1] . ' = ?', $id);
         return $this->fetchRow($select);
     }
+
     /*
    *  Get subtree by id
    */

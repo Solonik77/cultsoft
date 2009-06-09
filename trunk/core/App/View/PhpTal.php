@@ -10,6 +10,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
      * @var object PHPTAL
      */
     protected $_engine = null;
+
     /**
      * Constructor.
      *
@@ -25,6 +26,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
         $this->_engine->setPreFilter(new App_View_PhpTal_Filter_ZFSyntax());
         $this->_engine->setForceReparse(true);
     }
+
     /**
      * Plug in PHPTAL object into View
      *
@@ -38,6 +40,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
         $this->_engine->set('this', $this);
         return $this;
     }
+
     /**
      * Get PHPTAL object from View
      *
@@ -48,6 +51,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
     {
         return $this->_engine;
     }
+
     /**
      * Set PHPTAL variables
      *
@@ -59,6 +63,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
     {
         $this->_engine->set($key, $value);
     }
+
     /**
      * Get PHPTAL Variable Value
      *
@@ -70,6 +75,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
     {
         return $this->_engine->$key;
     }
+
     /**
      * Check if PHPTAL variable is set
      *
@@ -80,6 +86,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
     {
         return isset($this->_engine->$key);
     }
+
     /**
      * Unset PHPTAL variable
      *
@@ -92,6 +99,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
             unset($this->_engine->$key);
         }
     }
+
     /**
      * Clone PHPTAL object
      *
@@ -101,6 +109,7 @@ class App_View_PHPTAL extends Zend_View_Abstract
     {
         $this->_engine = clone $this->_engine;
     }
+
     /**
      * Display template
      *

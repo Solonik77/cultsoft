@@ -16,6 +16,7 @@
 */
 class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
 {
+
     /**
      * Render link elements as string
      *
@@ -43,6 +44,7 @@ class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
         }
         return implode("\n", $items);
     }
+
     /*
     * Getting Minify URL
     */

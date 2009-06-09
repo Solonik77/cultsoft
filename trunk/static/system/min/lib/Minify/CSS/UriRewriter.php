@@ -3,22 +3,21 @@
  * Class Minify_CSS_UriRewriter  
  * @package Minify
  */
-
 /**
  * Rewrite file-relative URIs as root-relative in CSS files
  *
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_CSS_UriRewriter {
-    
+class Minify_CSS_UriRewriter
+{
     /**
      * Defines which class to call as part of callbacks, change this
      * if you extend Minify_CSS_UriRewriter
      * @var string
      */
     protected static $className = 'Minify_CSS_UriRewriter';
-    
+
     /**
      * Rewrite file relative URIs as root relative in CSS files
      * 
@@ -41,33 +40,25 @@ class Minify_CSS_UriRewriter {
      * 
      * @return string
      */
-    public static function rewrite($css, $currentDir, $docRoot = null, $symlinks = array()) 
+    public static function rewrite ($css, $currentDir, $docRoot = null, $symlinks = array())
     {
-        self::$_docRoot = $docRoot
-            ? $docRoot
-            : $_SERVER['DOCUMENT_ROOT'];
+        self::$_docRoot = $docRoot ? $docRoot : $_SERVER['DOCUMENT_ROOT'];
         self::$_docRoot = realpath(self::$_docRoot);
         self::$_currentDir = realpath($currentDir);
         self::$_symlinks = array();
-        
         // normalize symlinks
         foreach ($symlinks as $link => $target) {
             $link = str_replace('//', realpath(self::$_docRoot), $link);
             $link = strtr($link, '/', DIRECTORY_SEPARATOR);
             self::$_symlinks[$link] = realpath($target);
         }
-        
         $css = self::_trimUrls($css);
-        
         // rewrite
-        $css = preg_replace_callback('/@import\\s+([\'"])(.*?)[\'"]/'
-            ,array(self::$className, '_uriCB'), $css);
-        $css = preg_replace_callback('/url\\(\\s*([^\\)\\s]+)\\s*\\)/'
-            ,array(self::$className, '_uriCB'), $css);
-
+        $css = preg_replace_callback('/@import\\s+([\'"])(.*?)[\'"]/', array(self::$className , '_uriCB'), $css);
+        $css = preg_replace_callback('/url\\(\\s*([^\\)\\s]+)\\s*\\)/', array(self::$className , '_uriCB'), $css);
         return $css;
     }
-    
+
     /**
      * Prepend a path to relative URIs in CSS files
      * 
@@ -77,46 +68,35 @@ class Minify_CSS_UriRewriter {
      * 
      * @return string
      */
-    public static function prepend($css, $path)
+    public static function prepend ($css, $path)
     {
         self::$_prependPath = $path;
-        
         $css = self::_trimUrls($css);
-        
         // append
-        $css = preg_replace_callback('/@import\\s+([\'"])(.*?)[\'"]/'
-            ,array(self::$className, '_uriCB'), $css);
-        $css = preg_replace_callback('/url\\(\\s*([^\\)\\s]+)\\s*\\)/'
-            ,array(self::$className, '_uriCB'), $css);
-
+        $css = preg_replace_callback('/@import\\s+([\'"])(.*?)[\'"]/', array(self::$className , '_uriCB'), $css);
+        $css = preg_replace_callback('/url\\(\\s*([^\\)\\s]+)\\s*\\)/', array(self::$className , '_uriCB'), $css);
         self::$_prependPath = null;
         return $css;
     }
-    
-    
     /**
      * @var string directory of this stylesheet
      */
     private static $_currentDir = '';
-    
     /**
      * @var string DOC_ROOT
      */
     private static $_docRoot = '';
-    
     /**
      * @var array directory replacements to map symlink targets back to their
      * source (within the document root) E.g. '/var/www/symlink' => '/var/realpath'
      */
     private static $_symlinks = array();
-    
     /**
      * @var string path to prepend
      */
     private static $_prependPath = null;
-    
-    
-    private static function _trimUrls($css)
+
+    private static function _trimUrls ($css)
     {
         return preg_replace('/
             url\\(      # url(
@@ -126,9 +106,8 @@ class Minify_CSS_UriRewriter {
             \\)         # )
         /x', 'url($1)', $css);
     }
-    
-    
-    private static function _uriCB($m)
+
+    private static function _uriCB ($m)
     {
         $isImport = ($m[0][0] === '@');
         if ($isImport) {
@@ -137,17 +116,11 @@ class Minify_CSS_UriRewriter {
         } else {
             // is url()
             // $m[1] is either quoted or not
-            $quoteChar = ($m[1][0] === "'" || $m[1][0] === '"')
-                ? $m[1][0]
-                : '';
-            $uri = ($quoteChar === '')
-                ? $m[1]
-                : substr($m[1], 1, strlen($m[1]) - 2);
+            $quoteChar = ($m[1][0] === "'" || $m[1][0] === '"') ? $m[1][0] : '';
+            $uri = ($quoteChar === '') ? $m[1] : substr($m[1], 1, strlen($m[1]) - 2);
         }
         if ('/' !== $uri[0]) {
-            if (strpos($uri, '//') > 0
-                || 0 === strpos($uri, 'data:')
-            ) {
+            if (strpos($uri, '//') > 0 || 0 === strpos($uri, 'data:')) {
                 // probably starts with protocol, do not alter
             } else {
                 // it's a file relative URI!
@@ -158,8 +131,7 @@ class Minify_CSS_UriRewriter {
                 } else {
                     // rewrite path
                     // prepend path with current dir separator (OS-independent)
-                    $path =  strtr(self::$_currentDir, '/', DIRECTORY_SEPARATOR)  
-                        . DIRECTORY_SEPARATOR . strtr($uri, '/', DIRECTORY_SEPARATOR);
+                    $path = strtr(self::$_currentDir, '/', DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . strtr($uri, '/', DIRECTORY_SEPARATOR);
                     // "unresolve" a symlink back to doc root
                     foreach (self::$_symlinks as $link => $target) {
                         if (0 === strpos($path, $target)) {
@@ -176,7 +148,7 @@ class Minify_CSS_UriRewriter {
                     $uri = str_replace('/./', '/', $uri);
                     // inspired by patch from Oleg Cherniy
                     do {
-                        $uri = preg_replace('@/[^/]+/\\.\\./@', '/', $uri, -1, $changed);
+                        $uri = preg_replace('@/[^/]+/\\.\\./@', '/', $uri, - 1, $changed);
                     } while ($changed);
                 }
             }

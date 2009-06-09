@@ -6,9 +6,7 @@
  * 
  * @package Minify
  */
-
 require_once 'Minify/Build.php';
-
 
 /**
  * Get a timestamped URI to a minified resource using the default Minify install
@@ -26,18 +24,12 @@ require_once 'Minify/Build.php';
  * directives in .htaccess are functional. This will remove the "?" from URIs, making them
  * more cacheable by proxies.
  * @return string
- */ 
-function Minify_groupUri($group, $forceAmpersand = false)
+ */
+function Minify_groupUri ($group, $forceAmpersand = false)
 {
-    $path = $forceAmpersand
-        ? "/g={$group}"
-        : "/?g={$group}";
-    return _Minify_getBuild($group)->uri(
-        '/' . basename(dirname(__FILE__)) . $path
-        ,$forceAmpersand
-    );
+    $path = $forceAmpersand ? "/g={$group}" : "/?g={$group}";
+    return _Minify_getBuild($group)->uri('/' . basename(dirname(__FILE__)) . $path, $forceAmpersand);
 }
-
 
 /**
  * Get the last modification time of the source js/css files used by Minify to
@@ -61,11 +53,11 @@ function Minify_groupUri($group, $forceAmpersand = false)
  *
  * @param array $groups an array of keys from groupsConfig.php
  * @return int Unix timestamp of the latest modification
- */ 
-function Minify_groupsMtime($groups)
+ */
+function Minify_groupsMtime ($groups)
 {
     $max = 0;
-    foreach ((array)$groups as $group) {
+    foreach ((array) $groups as $group) {
         $max = max($max, _Minify_getBuild($group)->lastModified);
     }
     return $max;
@@ -76,7 +68,7 @@ function Minify_groupsMtime($groups)
  * @return Minify_Build
  * @private
  */
-function _Minify_getBuild($group)
+function _Minify_getBuild ($group)
 {
     static $builds = array();
     static $gc = false;

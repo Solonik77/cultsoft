@@ -10,6 +10,7 @@
  */
 class App_Exception extends Zend_Exception
 {
+
     /**
      * Creates a new exception.
      *
@@ -22,6 +23,7 @@ class App_Exception extends Zend_Exception
         // Sets $this->message the proper way
         parent::__construct($message, $code);
     }
+
     /**
      * Enable Application exception handling.
      *
@@ -31,6 +33,7 @@ class App_Exception extends Zend_Exception
     {
         set_exception_handler(array(__CLASS__ , 'handle'));
     }
+
     /**
      * Disable Application exception handling.
      *
@@ -40,6 +43,7 @@ class App_Exception extends Zend_Exception
     {
         restore_exception_handler();
     }
+
     /**
      * Exception handler.
      *
@@ -53,6 +57,7 @@ class App_Exception extends Zend_Exception
         // Exceptions must halt execution
         exit();
     }
+
     /**
      * Outputs an inline error message.
      *
@@ -140,6 +145,7 @@ class App_Exception extends Zend_Exception
             }
         }
     }
+
     /**
      * Simplifies [back trace][ref-btr] information.
      *
@@ -187,6 +193,7 @@ class App_Exception extends Zend_Exception
         }
         return $output;
     }
+
     /**
      * Removes APPLICATION_PATH, CORE_PATH and DOC_ROOT from filenames, replacing
      * them with the plain text equivalents.
@@ -205,6 +212,7 @@ class App_Exception extends Zend_Exception
         }
         return $file;
     }
+
     /**
      * Similar to print_r or var_dump, generates a string representation of
      * any variable.
@@ -267,6 +275,7 @@ class App_Exception extends Zend_Exception
                 return (string) $var;
         }
     }
+
     /**
      * Sends an Internal Server Error header.
      *
@@ -277,6 +286,8 @@ class App_Exception extends Zend_Exception
         // Send the 500 header
         header('HTTP/1.1 500 Internal Server Error');
     }
+
     public function __destruct ()
-    {}
+    {
+    }
 }

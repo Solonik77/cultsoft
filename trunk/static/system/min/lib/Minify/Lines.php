@@ -3,7 +3,6 @@
  * Class Minify_Lines  
  * @package Minify
  */
-
 /**
  * Add line numbers in C-style comments for easier debugging of combined content
  *
@@ -11,7 +10,8 @@
  * @author Stephen Clay <steve@mrclay.org>
  * @author Adam Pedersen (Issue 55 fix)
  */
-class Minify_Lines {
+class Minify_Lines
+{
 
     /**
      * Add line numbers in C-style comments
@@ -28,11 +28,9 @@ class Minify_Lines {
      * 
      * @return string 
      */
-    public static function minify($content, $options = array()) 
+    public static function minify ($content, $options = array())
     {
-        $id = (isset($options['id']) && $options['id'])
-            ? $options['id']
-            : '';
+        $id = (isset($options['id']) && $options['id']) ? $options['id'] : '';
         $content = str_replace("\r\n", "\n", $content);
         $lines = explode("\n", $content);
         $numLines = count($lines);
@@ -45,13 +43,13 @@ class Minify_Lines {
             if (('' !== $id) && (0 == $i % 50)) {
                 array_push($newLines, '', "/* {$id} */", '');
             }
-            ++$i;
+            ++ $i;
             $newLines[] = self::_addNote($line, $i, $inComment, $padTo);
             $inComment = self::_eolInComment($line, $inComment);
         }
         return implode("\n", $newLines) . "\n";
     }
-    
+
     /**
      * Is the parser within a C-style comment at the end of this line?
      *
@@ -62,29 +60,23 @@ class Minify_Lines {
      * 
      * @return bool
      */
-    private static function _eolInComment($line, $inComment)
+    private static function _eolInComment ($line, $inComment)
     {
         while (strlen($line)) {
-            $search = $inComment
-                ? '*/'
-                : '/*';
+            $search = $inComment ? '*/' : '/*';
             $pos = strpos($line, $search);
             if (false === $pos) {
                 return $inComment;
             } else {
-                if ($pos == 0
-                    || ($inComment
-                        ? substr($line, $pos, 3)
-                        : substr($line, $pos-1, 3)) != '*/*')
-                {
-                        $inComment = ! $inComment;
+                if ($pos == 0 || ($inComment ? substr($line, $pos, 3) : substr($line, $pos - 1, 3)) != '*/*') {
+                    $inComment = ! $inComment;
                 }
                 $line = substr($line, $pos + 2);
             }
         }
         return $inComment;
     }
-    
+
     /**
      * Prepend a comment (or note) to the given line
      *
@@ -99,10 +91,8 @@ class Minify_Lines {
      * 
      * @return string
      */
-    private static function _addNote($line, $note, $inComment, $padTo)
+    private static function _addNote ($line, $note, $inComment, $padTo)
     {
-        return $inComment
-            ? '/* ' . str_pad($note, $padTo, ' ', STR_PAD_RIGHT) . ' *| ' . $line
-            : '/* ' . str_pad($note, $padTo, ' ', STR_PAD_RIGHT) . ' */ ' . $line;
+        return $inComment ? '/* ' . str_pad($note, $padTo, ' ', STR_PAD_RIGHT) . ' *| ' . $line : '/* ' . str_pad($note, $padTo, ' ', STR_PAD_RIGHT) . ' */ ' . $line;
     }
 }

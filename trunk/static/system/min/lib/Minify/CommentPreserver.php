@@ -3,29 +3,27 @@
  * Class Minify_CommentPreserver 
  * @package Minify
  */
-
 /**
  * Process a string in pieces preserving C-style comments that begin with "/*!"
  * 
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_CommentPreserver {
-    
+class Minify_CommentPreserver
+{
     /**
      * String to be prepended to each preserved comment
      *
      * @var string
      */
     public static $prepend = "\n";
-    
     /**
      * String to be appended to each preserved comment
      *
      * @var string
      */
     public static $append = "\n";
-    
+
     /**
      * Process a string outside of C-style comments that begin with "/*!"
      *
@@ -40,15 +38,15 @@ class Minify_CommentPreserver {
      * function (default = array())
      * @return string
      */
-    public static function process($content, $processor, $args = array())
+    public static function process ($content, $processor, $args = array())
     {
         $ret = '';
         while (true) {
-            list($beforeComment, $comment, $afterComment) = self::_nextComment($content);
+            list ($beforeComment, $comment, $afterComment) = self::_nextComment($content);
             if ('' !== $beforeComment) {
                 $callArgs = $args;
                 array_unshift($callArgs, $beforeComment);
-                $ret .= call_user_func_array($processor, $callArgs);    
+                $ret .= call_user_func_array($processor, $callArgs);
             }
             if (false === $comment) {
                 break;
@@ -58,7 +56,7 @@ class Minify_CommentPreserver {
         }
         return $ret;
     }
-    
+
     /**
      * Extract comments that YUI Compressor preserves.
      * 
@@ -69,22 +67,14 @@ class Minify_CommentPreserver {
      * strings. If no comment is found, the entire string is returned as the 
      * 1st element and the other two are false.
      */
-    private static function _nextComment($in)
+    private static function _nextComment ($in)
     {
-        if (
-            false === ($start = strpos($in, '/*!'))
-            || false === ($end = strpos($in, '*/', $start + 3))
-        ) {
-            return array($in, false, false);
+        if (false === ($start = strpos($in, '/*!')) || false === ($end = strpos($in, '*/', $start + 3))) {
+            return array($in , false , false);
         }
-        $ret = array(
-            substr($in, 0, $start)
-            ,self::$prepend . '/*' . substr($in, $start + 3, $end - $start - 1) . self::$append
-        );
+        $ret = array(substr($in, 0, $start) , self::$prepend . '/*' . substr($in, $start + 3, $end - $start - 1) . self::$append);
         $endChars = (strlen($in) - $end - 2);
-        $ret[] = (0 === $endChars)
-            ? ''
-            : substr($in, -$endChars);
+        $ret[] = (0 === $endChars) ? '' : substr($in, - $endChars);
         return $ret;
     }
 }

@@ -16,6 +16,7 @@
 */
 class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
 {
+
     /**
      * Render link elements as string
      *
@@ -59,6 +60,7 @@ class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
         }
         return $return;
     }
+
     /*
      Getting Minify URL
     */

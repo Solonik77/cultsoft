@@ -3,10 +3,10 @@
  * Class Minify_Cache_File  
  * @package Minify
  */
+class Minify_Cache_File
+{
 
-class Minify_Cache_File {
-    
-    public function __construct($path = '', $fileLocking = false)
+    public function __construct ($path = '', $fileLocking = false)
     {
         if (! $path) {
             require_once 'Solar/Dir.php';
@@ -15,7 +15,7 @@ class Minify_Cache_File {
         $this->_locking = $fileLocking;
         $this->_path = $path;
     }
-    
+
     /**
      * Write data to cache.
      *
@@ -25,11 +25,9 @@ class Minify_Cache_File {
      * 
      * @return bool success
      */
-    public function store($id, $data)
+    public function store ($id, $data)
     {
-        $flag = $this->_locking
-            ? LOCK_EX
-            : null;
+        $flag = $this->_locking ? LOCK_EX : null;
         if (is_file($this->_path . '/' . $id)) {
             @unlink($this->_path . '/' . $id);
         }
@@ -43,7 +41,7 @@ class Minify_Cache_File {
         }
         return true;
     }
-    
+
     /**
      * Get the size of a cache entry
      *
@@ -51,11 +49,11 @@ class Minify_Cache_File {
      * 
      * @return int size in bytes
      */
-    public function getSize($id)
+    public function getSize ($id)
     {
         return filesize($this->_path . '/' . $id);
     }
-    
+
     /**
      * Does a valid cache entry exist?
      *
@@ -65,18 +63,18 @@ class Minify_Cache_File {
      * 
      * @return bool exists
      */
-    public function isValid($id, $srcMtime)
+    public function isValid ($id, $srcMtime)
     {
         $file = $this->_path . '/' . $id;
         return (is_file($file) && (filemtime($file) >= $srcMtime));
     }
-    
+
     /**
      * Send the cached content to output
      *
      * @param string $id cache id (e.g. a filename)
      */
-    public function display($id)
+    public function display ($id)
     {
         if ($this->_locking) {
             $fp = fopen($this->_path . '/' . $id, 'rb');
@@ -85,18 +83,18 @@ class Minify_Cache_File {
             flock($fp, LOCK_UN);
             fclose($fp);
         } else {
-            readfile($this->_path . '/' . $id);            
+            readfile($this->_path . '/' . $id);
         }
     }
-    
-	/**
+
+    /**
      * Fetch the cached content
      *
      * @param string $id cache id (e.g. a filename)
      * 
      * @return string
      */
-    public function fetch($id)
+    public function fetch ($id)
     {
         if ($this->_locking) {
             $fp = fopen($this->_path . '/' . $id, 'rb');
@@ -109,7 +107,6 @@ class Minify_Cache_File {
             return file_get_contents($this->_path . '/' . $id);
         }
     }
-    
     private $_path = null;
     private $_locking = null;
 }

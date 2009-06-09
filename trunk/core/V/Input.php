@@ -19,6 +19,7 @@ class V_Input
     public $ip_address;
     // Input singleton
     protected static $instance;
+
     /**
      * Retrieve a singleton instance of Input. This will always be the first
      * created instance of this class.
@@ -33,6 +34,7 @@ class V_Input
         }
         return V_Input::$instance;
     }
+
     /**
      * Sanitizes global GET, POST and COOKIE data. Also takes care of
      * magic_quotes and register_globals, if they have been enabled.
@@ -106,6 +108,7 @@ class V_Input
             App::Log('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
         }
     }
+
     /**
      * Fetch an item from the $_GET array.
      *
@@ -118,6 +121,7 @@ class V_Input
     {
         return $this->search_array($_GET, $key, $default, $xss_clean);
     }
+
     /**
      * Fetch an item from the $_POST array.
      *
@@ -130,6 +134,7 @@ class V_Input
     {
         return $this->search_array($_POST, $key, $default, $xss_clean);
     }
+
     /**
      * Fetch an item from the $_COOKIE array.
      *
@@ -142,6 +147,7 @@ class V_Input
     {
         return $this->search_array($_COOKIE, $key, $default, $xss_clean);
     }
+
     /**
      * Fetch an item from the $_SERVER array.
      *
@@ -154,6 +160,7 @@ class V_Input
     {
         return $this->search_array($_SERVER, $key, $default, $xss_clean);
     }
+
     /**
      * Fetch an item from a global array.
      *
@@ -177,6 +184,7 @@ class V_Input
         }
         return $value;
     }
+
     /**
      * Fetch the IP Address.
      *
@@ -204,6 +212,7 @@ class V_Input
         }
         return $this->ip_address;
     }
+
     /**
      * Clean cross site scripting exploits from string.
      * HTMLPurifier may be used if installed, otherwise defaults to built in method.
@@ -242,6 +251,7 @@ class V_Input
         $method = 'xss_filter_' . $tool;
         return $this->$method($data);
     }
+
     /**
      * Default built-in cross site scripting filter.
      *
@@ -302,6 +312,7 @@ class V_Input
         } while ($old_data !== $data);
         return $data;
     }
+
     /**
      * HTMLPurifier cross site scripting filter. This version assumes the
      * existence of the standard htmlpurifier library, and is set to not tidy
@@ -332,6 +343,7 @@ class V_Input
         $data = HTMLPurifier($data, $config);
         return $data;
     }
+
     /**
      * This is a helper method. It enforces W3C specifications for allowed
      * key name strings, to prevent malicious exploitation.
@@ -347,6 +359,7 @@ class V_Input
         }
         return $str;
     }
+
     /**
      * This is a helper method. It escapes data and forces all newline
      * characters to "\n".

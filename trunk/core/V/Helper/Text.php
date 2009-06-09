@@ -9,13 +9,14 @@ require_once CORE_PATH . 'V/UTF8.php';
  * @author Kohana Team
  * @copyright (c) 2007-2008 Kohana Team
  * @license http://kohanaphp.com/license.html
-   *
+ *
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
 class V_Helper_Text
 {
+
     /**
      * Limits a phrase to a given number of words.
      *
@@ -37,6 +38,7 @@ class V_Helper_Text
         // than the starting string.
         return rtrim($matches[0]) . (strlen($matches[0]) === strlen($str) ? '' : $end_char);
     }
+
     /**
      * Limits a phrase to a given number of characters.
      *
@@ -60,6 +62,7 @@ class V_Helper_Text
         preg_match('/^.{' . ($limit - 1) . '}\S*/us', $str, $matches);
         return rtrim($matches[0]) . (strlen($matches[0]) == strlen($str) ? '' : $end_char);
     }
+
     /**
      * Alternates between two or more strings.
      *
@@ -76,6 +79,7 @@ class V_Helper_Text
         $args = func_get_args();
         return $args[($i ++ % count($args))];
     }
+
     /**
      * Generates a random string of a given type and length.
      *
@@ -137,6 +141,7 @@ class V_Helper_Text
         }
         return $str;
     }
+
     /**
      * Reduces multiple slashes in a string to single slashes.
      *
@@ -147,6 +152,7 @@ class V_Helper_Text
     {
         return preg_replace('#(?<!:)//+#', '/', $str);
     }
+
     /**
      * Replaces the given words with a string.
      *
@@ -173,6 +179,7 @@ class V_Helper_Text
         }
         return preg_replace($regex, $replacement, $str);
     }
+
     /**
      * Finds the text that is similar between a set of words.
      *
@@ -193,6 +200,7 @@ class V_Helper_Text
         // Return the similar text
         return substr($word, 0, $i);
     }
+
     /**
      * Converts text email addresses and anchors into links.
      *
@@ -204,6 +212,7 @@ class V_Helper_Text
         // Auto link emails first to prevent problems with "www.domain.com@example.com"
         return text::auto_link_urls(text::auto_link_emails($text));
     }
+
     /**
      * Converts text anchors into links.
      *
@@ -228,6 +237,7 @@ class V_Helper_Text
         }
         return $text;
     }
+
     /**
      * Converts text email addresses into links.
      *
@@ -247,6 +257,7 @@ class V_Helper_Text
         }
         return $text;
     }
+
     /**
      * Automatically applies <p> and <br /> markup to text. Basically nl2br() on steroids.
      *
@@ -287,6 +298,7 @@ class V_Helper_Text
         }
         return $str;
     }
+
     /**
      * Returns human readable sizes.
      *
@@ -318,6 +330,7 @@ else {
         }
         return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
     }
+
     /**
      * Prevents widow words by inserting a non-breaking space between the last two words.
      *

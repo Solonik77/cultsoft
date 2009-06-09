@@ -7,6 +7,7 @@ class App_View_PhpTal_Filter_ZFSyntax implements PHPTAL_Filter
 {
     protected $search = '';
     protected $replace = '';
+
     /**
      * Add ctx-> to this->
      * Used in preg_replace callback function
@@ -25,6 +26,7 @@ class App_View_PhpTal_Filter_ZFSyntax implements PHPTAL_Filter
         $str = preg_replace($search, $replace, $str);
         return $str;
     }
+
     /**
      * String filtering method, returns filtered string
      *

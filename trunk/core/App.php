@@ -29,6 +29,7 @@ final class App
     public static $user_agent = '';
     // Base URI
     protected static $base_uri = '';
+
     /**
      * Return Database object
      */
@@ -36,6 +37,7 @@ final class App
     {
         return App::$db;
     }
+
     /**
      * Return application configuration
      */
@@ -47,6 +49,7 @@ final class App
             throw new Zend_Exception('Config object is not set');
         }
     }
+
     /**
      * Front controller instance
      */
@@ -54,6 +57,7 @@ final class App
     {
         return Zend_Controller_Front::getInstance();
     }
+
     /**
      * Auth instance
      */
@@ -61,6 +65,7 @@ final class App
     {
         return Zend_Auth::getInstance();
     }
+
     /**
      * Zend logger
      */
@@ -69,6 +74,7 @@ final class App
         app::$log->log($message, $type);
         return;
     }
+
     /**
      * Auth check
      */
@@ -76,6 +82,7 @@ final class App
     {
         return App::Auth()->hasIdentity();
     }
+
     /**
      * Set database object
      */
@@ -85,6 +92,7 @@ final class App
             App::$db = $object;
         }
     }
+
     /**
      * Set locale object
      */
@@ -94,6 +102,7 @@ final class App
             App::$locale = $object;
         }
     }
+
     /**
      * Set configuration
      */
@@ -103,6 +112,7 @@ final class App
             App::$config = $object;
         }
     }
+
     /**
      * Set logger
      */
@@ -112,6 +122,7 @@ final class App
             App::$log = $object;
         }
     }
+
     /**
      * Get system locale information
      */
@@ -119,6 +130,7 @@ final class App
     {
         return App::$locale;
     }
+
     /**
      * Set translator object
      */
@@ -128,6 +140,7 @@ final class App
         Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
         Zend_Form::setDefaultTranslator(App::$i18n);
     }
+
     /**
      * Translator method _
      */
@@ -139,6 +152,7 @@ final class App
             return App::$i18n->_($text);
         }
     }
+
     /**
      * Base URL, with or without the index page.
      *
@@ -169,11 +183,11 @@ final class App
         // Force a slash on the end of the URL
         return app::$base_uri;
     }
-    
-     /**
+
+    /**
      * Is Platform running on Windows?
      */
-    public static function isWin()
+    public static function isWin ()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }

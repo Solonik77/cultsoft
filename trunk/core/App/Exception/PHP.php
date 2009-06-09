@@ -10,6 +10,7 @@
  */
 final class App_Exception_PHP extends App_Exception
 {
+
     /**
      * Enable application PHP error handling.
      *
@@ -19,6 +20,7 @@ final class App_Exception_PHP extends App_Exception
     {
         set_error_handler(array(__CLASS__ , 'handle'));
     }
+
     /**
      * Disable application PHP error handling.
      *
@@ -28,6 +30,7 @@ final class App_Exception_PHP extends App_Exception
     {
         restore_error_handler();
     }
+
     /**
      * Create a new PHP error exception.
      *
@@ -41,6 +44,7 @@ final class App_Exception_PHP extends App_Exception
         $this->file = $file;
         $this->line = $line;
     }
+
     /**
      * PHP error handler.
      *

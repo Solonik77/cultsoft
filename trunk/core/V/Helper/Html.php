@@ -18,6 +18,7 @@ class V_Helper_Html
 {
     // Enable or disable automatic setting of target="_blank"
     public static $windowed_urls = false;
+
     /**
      * Convert special characters to HTML entities
      *
@@ -44,6 +45,7 @@ class V_Helper_Html
         }
         return $str;
     }
+
     /**
      * Perform a V_Helper_Html::specialchars() with additional URL specific encoding.
      *
@@ -55,6 +57,7 @@ class V_Helper_Html
     {
         return str_replace(' ', '%20', V_Helper_Html::specialchars($str, $double_encode));
     }
+
     /**
      * Create HTML link anchors.
      *
@@ -84,6 +87,7 @@ class V_Helper_Html
 (is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
 (($title === null) ? $site_url : $title) . '</a>';
     }
+
     /**
      * Creates an HTML anchor to a file.
      *
@@ -100,6 +104,7 @@ class V_Helper_Html
 (is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
 (($title === null) ? end(explode('/', $file)) : $title) . '</a>';
     }
+
     /**
      * Similar to anchor, but with the protocol parameter first.
      *
@@ -113,6 +118,7 @@ class V_Helper_Html
     {
         return V_Helper_Html::anchor($uri, $title, $attributes, $protocol);
     }
+
     /**
      * Create an array of anchors from an array of link/title pairs.
      *
@@ -128,6 +134,7 @@ class V_Helper_Html
         }
         return $anchors;
     }
+
     /**
      * Generates an obfuscated version of an email address.
      *
@@ -154,6 +161,7 @@ class V_Helper_Html
         }
         return $safe;
     }
+
     /**
      * Creates an email anchor.
      *
@@ -185,6 +193,7 @@ class V_Helper_Html
         // Encoded start of the href="" is a static encoded version of 'mailto:'
         return '<a href="&#109;&#097;&#105;&#108;&#116;&#111;&#058;' . $safe . $params . '"' . $attributes . '>' . $title . '</a>';
     }
+
     /**
      * Generate a "breadcrumb" list of anchors representing the URI.
      *
@@ -203,6 +212,7 @@ ucwords(inflector::humanize($segment)));
         // Retrun the array of all the segments
         return array_reverse($array);
     }
+
     /**
      * Creates a meta tag.
      *
@@ -225,6 +235,7 @@ ucwords(inflector::humanize($segment)));
         $attr = in_array(strtolower($tag), Kohana::config('http.meta_equiv')) ? 'http-equiv' : 'name';
         return '<meta ' . $attr . '="' . $tag . '" content="' . $value . '" />';
     }
+
     /**
      * Creates a stylesheet link.
      *
@@ -237,6 +248,7 @@ ucwords(inflector::humanize($segment)));
     {
         return V_Helper_Html::link($style, 'stylesheet', 'text/css', $media, $index);
     }
+
     /**
      * Creates a link tag.
      *
@@ -271,6 +283,7 @@ ucwords(inflector::humanize($segment)));
         }
         return $compiled . "\n";
     }
+
     /**
      * Creates a script link.
      *
@@ -294,6 +307,7 @@ ucwords(inflector::humanize($segment)));
         }
         return $compiled . "\n";
     }
+
     /**
      * Creates a image link.
      *
@@ -318,6 +332,7 @@ ucwords(inflector::humanize($segment)));
         }
         return '<img' . V_Helper_Html::attributes($attributes) . ' />';
     }
+
     /**
      * Compiles an array of HTML attributes into an attribute string.
      *

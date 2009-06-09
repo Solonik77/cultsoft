@@ -3,7 +3,6 @@
  * Class Minify_YUICompressor 
  * @package Minify
  */
-
 /**
  * Compress Javascript/CSS using the YUI Compressor
  * 
@@ -26,8 +25,8 @@
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_YUICompressor {
-
+class Minify_YUICompressor
+{
     /**
      * Filepath of the YUI Compressor jar file. This must be set before
      * calling minifyJs() or minifyCss().
@@ -35,7 +34,6 @@ class Minify_YUICompressor {
      * @var string
      */
     public static $jarFile = null;
-    
     /**
      * Writable temp directory. This must be set before calling minifyJs()
      * or minifyCss().
@@ -43,14 +41,13 @@ class Minify_YUICompressor {
      * @var string
      */
     public static $tempDir = null;
-    
     /**
      * Filepath of "java" executable (may be needed if not in shell's PATH)
      *
      * @var string
      */
     public static $javaExecutable = 'java';
-    
+
     /**
      * Minify a Javascript string
      * 
@@ -62,11 +59,11 @@ class Minify_YUICompressor {
      * 
      * @return string 
      */
-    public static function minifyJs($js, $options = array())
+    public static function minifyJs ($js, $options = array())
     {
         return self::_minify('js', $js, $options);
     }
-    
+
     /**
      * Minify a CSS string
      * 
@@ -78,12 +75,12 @@ class Minify_YUICompressor {
      * 
      * @return string 
      */
-    public static function minifyCss($css, $options = array())
+    public static function minifyCss ($css, $options = array())
     {
         return self::_minify('css', $css, $options);
     }
-    
-    private static function _minify($type, $content, $options)
+
+    private static function _minify ($type, $content, $options)
     {
         self::_prepare();
         if (! ($tmpFile = tempnam(self::$tempDir, 'yuic_'))) {
@@ -94,44 +91,22 @@ class Minify_YUICompressor {
         unlink($tmpFile);
         return implode("\n", $output);
     }
-    
-    private static function _getCmd($userOptions, $type, $tmpFile)
+
+    private static function _getCmd ($userOptions, $type, $tmpFile)
     {
-        $o = array_merge(
-            array(
-                'charset' => ''
-                ,'line-break' => 5000
-                ,'type' => $type
-                ,'nomunge' => false
-                ,'preserve-semi' => false
-                ,'disable-optimizations' => false
-            )
-            ,$userOptions
-        );
-        $cmd = self::$javaExecutable . ' -jar ' . escapeshellarg(self::$jarFile)
-             . " --type {$type}"
-             . (preg_match('/^[a-zA-Z\\-]+$/', $o['charset']) 
-                ? " --charset {$o['charset']}" 
-                : '')
-             . (is_numeric($o['line-break']) && $o['line-break'] >= 0
-                ? ' --line-break ' . (int)$o['line-break']
-                : '');
+        $o = array_merge(array('charset' => '' , 'line-break' => 5000 , 'type' => $type , 'nomunge' => false , 'preserve-semi' => false , 'disable-optimizations' => false), $userOptions);
+        $cmd = self::$javaExecutable . ' -jar ' . escapeshellarg(self::$jarFile) . " --type {$type}" . (preg_match('/^[a-zA-Z\\-]+$/', $o['charset']) ? " --charset {$o['charset']}" : '') . (is_numeric($o['line-break']) && $o['line-break'] >= 0 ? ' --line-break ' . (int) $o['line-break'] : '');
         if ($type === 'js') {
-            foreach (array('nomunge', 'preserve-semi', 'disable-optimizations') as $opt) {
-                $cmd .= $o[$opt] 
-                    ? " --{$opt}"
-                    : '';
+            foreach (array('nomunge' , 'preserve-semi' , 'disable-optimizations') as $opt) {
+                $cmd .= $o[$opt] ? " --{$opt}" : '';
             }
         }
         return $cmd . ' ' . escapeshellarg($tmpFile);
     }
-    
-    private static function _prepare()
+
+    private static function _prepare ()
     {
-        if (! is_file(self::$jarFile) 
-            || ! is_dir(self::$tempDir)
-            || ! is_writable(self::$tempDir)
-        ) {
+        if (! is_file(self::$jarFile) || ! is_dir(self::$tempDir) || ! is_writable(self::$tempDir)) {
             throw new Exception('Minify_YUICompressor : $jarFile and $tempDir must be set.');
         }
     }

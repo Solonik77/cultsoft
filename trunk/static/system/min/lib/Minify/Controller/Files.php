@@ -3,9 +3,7 @@
  * Class Minify_Controller_Files  
  * @package Minify
  */
-
 require_once 'Minify/Controller/Base.php';
-
 /**
  * Controller class for minifying a set of files
  * 
@@ -26,8 +24,9 @@ require_once 'Minify/Controller/Base.php';
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class Minify_Controller_Files extends Minify_Controller_Base {
-    
+class Minify_Controller_Files extends Minify_Controller_Base
+{
+
     /**
      * Set up file sources
      * 
@@ -38,11 +37,11 @@ class Minify_Controller_Files extends Minify_Controller_Base {
      * 
      * 'files': (required) array of complete file paths, or a single path
      */
-    public function setupSources($options) {
+    public function setupSources ($options)
+    {
         // strip controller options
-        $files = (array)$options['files'];
+        $files = (array) $options['files'];
         unset($options['files']);
-        
         $sources = array();
         foreach ($files as $file) {
             if ($file instanceof Minify_Source) {
@@ -54,9 +53,7 @@ class Minify_Controller_Files extends Minify_Controller_Base {
             }
             $realPath = realpath($file);
             if (is_file($realPath)) {
-                $sources[] = new Minify_Source(array(
-                    'filepath' => $realPath
-                ));    
+                $sources[] = new Minify_Source(array('filepath' => $realPath));
             } else {
                 $this->log("The path \"{$file}\" could not be found (or was not a file)");
                 return $options;

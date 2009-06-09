@@ -10,6 +10,7 @@
  */
 class Default_IndexController extends App_Controller_Action
 {
+
     public function init ()
     {
         // action body
@@ -20,15 +21,20 @@ array('label' => 'Products' , 'module' => 'default' , 'controller' => 'index' , 
         $container = new Zend_Navigation($pages);
         $this->view->navigation($container);
     }
+
     /**
      * Default system action
      */
     public function indexAction ()
-    {}
+    {
+        echo App_Member::getInstance()->getRole();
+    }
+
     /**
      * Test Zend_Navigation helpers
      */
     public function testAction ()
-    {}
+    {
+    }
 }
 

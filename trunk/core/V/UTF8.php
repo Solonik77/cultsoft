@@ -34,6 +34,7 @@ final class V_UTF8
 {
     // Called methods
     static $called = array();
+
     /**
      * Recursively clean GET, POST, COOKIE, and SERVER global arrays.
      *
@@ -56,6 +57,7 @@ final class V_UTF8
             $run = true;
         }
     }
+
     /**
      * Recursively cleans arrays, objects, and strings. Removes ASCII control
      * codes and converts to UTF-8 while silently discarding incompatible
@@ -85,6 +87,7 @@ final class V_UTF8
         }
         return $str;
     }
+
     /**
      * Tests whether a string contains only 7bit ASCII bytes. This is used to
      * determine when to use native functions or UTF-8 functions.
@@ -96,6 +99,7 @@ final class V_UTF8
     {
         return ! preg_match('/[^\x00-\x7F]/S', $str);
     }
+
     /**
      * Strips out device control codes in the ASCII range.
      *
@@ -106,6 +110,7 @@ final class V_UTF8
     {
         return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $str);
     }
+
     /**
      * Strips out all non-7bit ASCII bytes.
      *
@@ -116,6 +121,7 @@ final class V_UTF8
     {
         return preg_replace('/[^\x00-\x7F]+/S', '', $str);
     }
+
     /**
      * Replaces special/accented UTF-8 characters by ASCII-7 'equivalents'.
      *
@@ -133,6 +139,7 @@ final class V_UTF8
         }
         return _transliterate_to_ascii($str, $case);
     }
+
     /**
      * Returns the length of the given string.
      *
@@ -149,6 +156,7 @@ final class V_UTF8
         }
         return _strlen($str);
     }
+
     /**
      * Finds position of first occurrence of a UTF-8 string.
      *
@@ -169,6 +177,7 @@ final class V_UTF8
         }
         return _strpos($str, $search, $offset);
     }
+
     /**
      * Finds position of last occurrence of a char in a UTF-8 string.
      *
@@ -189,6 +198,7 @@ final class V_UTF8
         }
         return _strrpos($str, $search, $offset);
     }
+
     /**
      * Returns part of a UTF-8 string.
      *
@@ -208,6 +218,7 @@ final class V_UTF8
         }
         return _substr($str, $offset, $length);
     }
+
     /**
      * Replaces t'.php' within a portion of a UTF-8 string.
      *
@@ -227,6 +238,7 @@ final class V_UTF8
         }
         return _substr_replace($str, $replacement, $offset, $length);
     }
+
     /**
      * Makes a UTF-8 string lowercase.
      *
@@ -244,6 +256,7 @@ final class V_UTF8
         }
         return _strtolower($str);
     }
+
     /**
      * Makes a UTF-8 string uppercase.
      *
@@ -261,6 +274,7 @@ final class V_UTF8
         }
         return _strtoupper($str);
     }
+
     /**
      * Makes a UTF-8 string's first character uppercase.
      *
@@ -278,6 +292,7 @@ final class V_UTF8
         }
         return _ucfirst($str);
     }
+
     /**
      * Makes the first character of every word in a UTF-8 string uppercase.
      *
@@ -295,6 +310,7 @@ final class V_UTF8
         }
         return _ucwords($str);
     }
+
     /**
      * Case-insensitive UTF-8 string comparison.
      *
@@ -315,6 +331,7 @@ final class V_UTF8
         }
         return _strcasecmp($str1, $str2);
     }
+
     /**
      * Returns a string or an array with all occurrences of search in subject (ignoring case).
      * replaced with the given replace value.
@@ -338,6 +355,7 @@ final class V_UTF8
         }
         return _str_ireplace($search, $replace, $str, $count);
     }
+
     /**
      * Case-insenstive UTF-8 version of strstr. Returns all of input string
      * from the first occurrence of needle to the end.
@@ -358,6 +376,7 @@ final class V_UTF8
         }
         return _stristr($str, $search);
     }
+
     /**
      * Finds the length of the initial segment matching mask.
      *
@@ -378,6 +397,7 @@ final class V_UTF8
         }
         return _strspn($str, $mask, $offset, $length);
     }
+
     /**
      * Finds the length of the initial segment not matching mask.
      *
@@ -398,6 +418,7 @@ final class V_UTF8
         }
         return _strcspn($str, $mask, $offset, $length);
     }
+
     /**
      * Pads a UTF-8 string to a certain length with another string.
      *
@@ -418,6 +439,7 @@ final class V_UTF8
         }
         return _str_pad($str, $final_str_length, $pad_str, $pad_type);
     }
+
     /**
      * Converts a UTF-8 string to an array.
      *
@@ -436,6 +458,7 @@ final class V_UTF8
         }
         return _str_split($str, $split_length);
     }
+
     /**
      * Reverses a UTF-8 string.
      *
@@ -453,6 +476,7 @@ final class V_UTF8
         }
         return _strrev($str);
     }
+
     /**
      * Strips whitespace (or other UTF-8 characters) from the beginning and
      * end of a string.
@@ -472,6 +496,7 @@ final class V_UTF8
         }
         return _trim($str, $charlist);
     }
+
     /**
      * Strips whitespace (or other UTF-8 characters) from the beginning of a string.
      *
@@ -490,6 +515,7 @@ final class V_UTF8
         }
         return _ltrim($str, $charlist);
     }
+
     /**
      * Strips whitespace (or other UTF-8 characters) from the end of a string.
      *
@@ -508,6 +534,7 @@ final class V_UTF8
         }
         return _rtrim($str, $charlist);
     }
+
     /**
      * Returns the unicode ordinal for a character.
      *
@@ -525,6 +552,7 @@ final class V_UTF8
         }
         return _ord($chr);
     }
+
     /**
      * Takes an UTF-8 string and returns an array of ints representing the Unicode characters.
      * Astral planes are supported i.e. the ints in the output can be > 0xFFFF.
@@ -549,6 +577,7 @@ final class V_UTF8
         }
         return _to_unicode($str);
     }
+
     /**
      * Takes an array of ints representing the Unicode characters and returns a UTF-8 string.
      * Astral planes are supported i.e. the ints in the input can be > 0xFFFF.

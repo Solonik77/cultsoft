@@ -3,7 +3,6 @@
  * Class Minify_Controller_Base  
  * @package Minify
  */
-
 /**
  * Base class for Minify controller
  * 
@@ -14,8 +13,9 @@
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-abstract class Minify_Controller_Base {
-    
+abstract class Minify_Controller_Base
+{
+
     /**
      * Setup controller sources and set an needed options for Minify::source
      * 
@@ -29,8 +29,8 @@ abstract class Minify_Controller_Base {
      * 
      * return array $options Minify::serve options
      */
-    abstract public function setupSources($options);
-    
+    abstract public function setupSources ($options);
+
     /**
      * Get default Minify options for this controller.
      * 
@@ -38,30 +38,18 @@ abstract class Minify_Controller_Base {
      *
      * @return array options for Minify
      */
-    public function getDefaultMinifyOptions() {
-        return array(
-            'isPublic' => true
-            ,'encodeOutput' => function_exists('gzdeflate')
-            ,'encodeMethod' => null // determine later
-            ,'encodeLevel' => 9
-            ,'minifierOptions' => array() // no minifier options
-            ,'contentTypeCharset' => 'UTF-8'
-            ,'maxAge' => 1800 // 30 minutes
-            ,'rewriteCssUris' => true
-            ,'bubbleCssImports' => false
-            ,'quiet' => false // serve() will send headers and output
-            ,'debug' => false
-            
-            // if you override this, the response code MUST be directly after 
-            // the first space.
-            ,'badRequestHeader' => 'HTTP/1.0 400 Bad Request'
-            
-            // callback function to see/modify content of all sources
-            ,'postprocessor' => null
-            // file to require to load preprocessor
-            ,'postprocessorRequire' => null
-        );
-    }  
+    public function getDefaultMinifyOptions ()
+    {
+        return array('isPublic' => true , 'encodeOutput' => function_exists('gzdeflate') , 'encodeMethod' => null , // determine later
+'encodeLevel' => 9 , 'minifierOptions' => array() , // no minifier options
+'contentTypeCharset' => 'UTF-8' , 'maxAge' => 1800 , // 30 minutes
+'rewriteCssUris' => true , 'bubbleCssImports' => false , 'quiet' => false , // serve() will send headers and output
+'debug' => false , // if you override this, the response code MUST be directly after 
+// the first space.
+        'badRequestHeader' => 'HTTP/1.0 400 Bad Request' , // callback function to see/modify content of all sources
+'postprocessor' => null , // file to require to load preprocessor
+'postprocessorRequire' => null);
+    }
 
     /**
      * Get default minifiers for this controller.
@@ -70,13 +58,14 @@ abstract class Minify_Controller_Base {
      *
      * @return array minifier callbacks for common types
      */
-    public function getDefaultMinifers() {
-        $ret[Minify::TYPE_JS] = array('Minify_Javascript', 'minify');
-        $ret[Minify::TYPE_CSS] = array('Minify_CSS', 'minify');
-        $ret[Minify::TYPE_HTML] = array('Minify_HTML', 'minify');
+    public function getDefaultMinifers ()
+    {
+        $ret[Minify::TYPE_JS] = array('Minify_Javascript' , 'minify');
+        $ret[Minify::TYPE_CSS] = array('Minify_CSS' , 'minify');
+        $ret[Minify::TYPE_HTML] = array('Minify_HTML' , 'minify');
         return $ret;
     }
-    
+
     /**
      * Load any code necessary to execute the given minifier callback.
      * 
@@ -94,16 +83,13 @@ abstract class Minify_Controller_Base {
      * 
      * @return null
      */
-    public function loadMinifier($minifierCallback)
+    public function loadMinifier ($minifierCallback)
     {
-        if (is_array($minifierCallback)
-            && is_string($minifierCallback[0])
-            && !class_exists($minifierCallback[0], false)) {
-            
+        if (is_array($minifierCallback) && is_string($minifierCallback[0]) && ! class_exists($minifierCallback[0], false)) {
             require str_replace('_', '/', $minifierCallback[0]) . '.php';
         }
     }
-    
+
     /**
      * Is a user-given file within an allowable directory, existing,
      * and having an extension js/css/html/txt ?
@@ -118,10 +104,10 @@ abstract class Minify_Controller_Base {
      * 
      * @return bool file is safe
      */
-    public static function _fileIsSafe($file, $safeDirs)
+    public static function _fileIsSafe ($file, $safeDirs)
     {
         $pathOk = false;
-        foreach ((array)$safeDirs as $safeDir) {
+        foreach ((array) $safeDirs as $safeDir) {
             if (strpos($file, $safeDir) === 0) {
                 $pathOk = true;
                 break;
@@ -131,10 +117,9 @@ abstract class Minify_Controller_Base {
         if (! $pathOk || ! is_file($file) || $base[0] === '.') {
             return false;
         }
-        list($revExt) = explode('.', strrev($base));
-        return in_array(strrev($revExt), array('js', 'css', 'html', 'txt'));
+        list ($revExt) = explode('.', strrev($base));
+        return in_array(strrev($revExt), array('js' , 'css' , 'html' , 'txt'));
     }
-    
     /**
      * @var array instances of Minify_Source, which provide content and
      * any individual minification needs.
@@ -142,7 +127,7 @@ abstract class Minify_Controller_Base {
      * @see Minify_Source
      */
     public $sources = array();
-    
+
     /**
      * Mix in default controller options with user-given options
      * 
@@ -150,20 +135,16 @@ abstract class Minify_Controller_Base {
      * 
      * @return array mixed options
      */
-    public final function mixInDefaultOptions($options)
+    public final function mixInDefaultOptions ($options)
     {
-        $ret = array_merge(
-            $this->getDefaultMinifyOptions(), $options
-        );
+        $ret = array_merge($this->getDefaultMinifyOptions(), $options);
         if (! isset($options['minifiers'])) {
             $options['minifiers'] = array();
         }
-        $ret['minifiers'] = array_merge(
-            $this->getDefaultMinifers(), $options['minifiers']
-        );
+        $ret['minifiers'] = array_merge($this->getDefaultMinifers(), $options['minifiers']);
         return $ret;
     }
-    
+
     /**
      * Analyze sources (if there are any) and set $options 'contentType' 
      * and 'lastModifiedTime' if they already aren't.
@@ -172,7 +153,7 @@ abstract class Minify_Controller_Base {
      * 
      * @return array options for Minify
      */
-    public final function analyzeSources($options = array()) 
+    public final function analyzeSources ($options = array())
     {
         if ($this->sources) {
             if (! isset($options['contentType'])) {
@@ -185,7 +166,7 @@ abstract class Minify_Controller_Base {
                     $max = max($source->lastModified, $max);
                 }
                 $options['lastModifiedTime'] = $max;
-            }    
+            }
         }
         return $options;
     }
@@ -195,7 +176,8 @@ abstract class Minify_Controller_Base {
      * @param string $msg
      * @return null
      */
-    protected function log($msg) {
+    protected function log ($msg)
+    {
         require_once 'Minify/Logger.php';
         Minify_Logger::log($msg);
     }
