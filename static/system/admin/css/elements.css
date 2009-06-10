@@ -1,0 +1,270 @@
+/* Form Style */
+form ul {
+	margin: 0;
+	padding: 0;
+}
+
+form ul li {
+	margin: 0 0 15px;
+	padding: 0;
+	list-style: none;
+}
+
+form ul li label {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+label.note {
+	color: #999;
+	font-weight: normal;
+	font-size: 10px;
+}
+
+label.choice {
+	margin: 0 15px 0 0;
+	font-weight: normal;
+	font-size: 12px;
+	color: #666;
+}
+
+input {
+	margin: 0;
+	padding: 0;
+}
+
+input.text,textarea {
+	margin: 5px 0 0 0;
+	padding: 3px 5px;
+	border: 1px solid #c4c4c4;
+	background: #fbfbfb;
+	font-size: 12px;
+}
+
+input.radio,input.checkbox,input.file {
+	margin: 5px 5px 0 0;
+}
+
+input.button {
+	font-size: 12px;
+	margin: 0 10px 0 0;
+}
+
+select.drop {
+	font-size: 12px;
+	margin: 5px 5px 0 0;
+	border: 1px solid #d2d2d2;
+}
+
+input.short {
+	width: 20%;
+}
+
+input.medium {
+	width: 45%;
+}
+
+input.long {
+	width: 75%;
+}
+
+input.max {
+	width: 96%;
+}
+
+.req {
+	color: #d8122d;
+	font-weight: normal;
+}
+
+/* Notice */
+.success {
+	font-size: 11px;
+	margin: 0 0 25px;
+	padding: 10px 15px;
+	background: #d3f2bf;
+	border: 1px solid #a7c394;
+}
+
+.message {
+	font-size: 11px;
+	margin: 0 0 25px;
+	padding: 10px 15px;
+	background: #ffffe0;
+	border: 1px solid #e6db55;
+}
+
+.error_message {
+	font-size: 11px;
+	margin: 0 0 25px;
+	padding: 10px 15px;
+	background: #ffebe8;
+	border: 1px solid #cc0000;
+}
+
+/* Button */
+.button {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	color: #fff;
+	font-weight: bold;
+	background: #000;
+	border: none;
+	padding: 0.25em 6px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: #4a4a4a;
+}
+
+/* Navigation */
+#navigation {
+	min-width: 760px;
+	height: 30px;
+	display: block;
+	margin: 0 20px 25px 20px;
+	padding: 0;
+	position: relative;
+	z-index: 2;
+	background-image: url(../images/navigation-bg.gif);
+	background-repeat: repeat-x;
+	background-position: left;
+	background-color: #E3E3E3;
+}
+
+#navigation li {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	float: left;
+	position: relative;
+	line-height: 30px;
+	background: url('../images/navigation-line.gif') right no-repeat;
+}
+
+#navigation a {
+	display: block;
+	padding: 0 15px;
+}
+
+#navigation ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	margin: 0;
+	padding: 0;
+}
+
+* html #navigation ul {
+	line-height: 0;
+}  /* IE6 "fix" */
+#navigation ul a {
+	zoom: 1;
+}  /* IE6/7 fix */
+#navigation ul li {
+	float: none;
+}
+
+#navigation ul ul {
+	top: 0;
+}
+
+/* Subnavigation Width */
+#navigation ul {
+	width: 140px;
+}
+
+#navigation ul ul {
+	left: 141px;
+}
+
+/* Colors and Fonts */
+#navigation a {
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+	text-decoration: none;
+}
+
+#navigation li.current {
+	background: #000;
+}
+
+#navigation li.current a {
+	color: #fff;
+}
+
+#navigation li:hover a {
+	background-color: #000;
+	color: #fff;
+}
+
+#navigation ul {
+	top: 30px;
+}
+
+#navigation ul li a {
+	background-color: #000;
+	color: #fff;
+	font-size: 11px;
+}
+
+#navigation ul a:hover {
+	background-color: #4a4a4a;
+}
+
+#navigation ul a {
+	border-bottom: 1px solid white;
+	border-right: none;
+}
+
+/* #navigation ul a { border-bottom: none; } - I also needed this for IE6/7 */
+	/* Table Style */
+table {
+	width: 100%;
+	margin: 0 0 15px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid #c4c4c4;
+}
+
+table thead {
+	color: #666;
+}
+
+table th {
+	font-weight: normal;
+	padding: 5px 8px;
+	color: #666;
+	background: #e5e5e5;
+}
+
+table td {
+	padding: 8px;
+	color: #000;
+	border-top: 1px solid #c4c4c4;
+}
+
+table td span.active {
+	color: #55a34a;
+}
+
+table td span.pending {
+	color: #c5a059;
+}
+
+table td span.closed {
+	color: #a02b2b;
+}
+
+table tr {
+	border-top: none;
+	background: #f9f9f9;
+}
+
+table .odd {
+	background: #fff;
+}

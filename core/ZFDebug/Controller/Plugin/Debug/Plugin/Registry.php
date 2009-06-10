@@ -30,6 +30,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
      * @var Zend_Registry
      */
     protected $_registry;
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Registry
      *
@@ -39,6 +40,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     {
         $this->_registry = Zend_Registry::getInstance();
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -48,6 +50,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -57,6 +60,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     {
         return ' Registry (' . $this->_registry->count() . ')';
     }
+
     /**
      * Gets content panel for the Debugbar
      *

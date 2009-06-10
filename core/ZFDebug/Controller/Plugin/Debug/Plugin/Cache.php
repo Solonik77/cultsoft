@@ -30,6 +30,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
      * @var Zend_Cache_Backend_ExtendedInterface
      */
     protected $_cacheBackends = array();
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Cache
      *
@@ -48,6 +49,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
             }
         }
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -57,6 +59,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -66,6 +69,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
     {
         return 'Cache';
     }
+
     /**
      * Gets content panel for the Debugbar
      *
