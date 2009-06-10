@@ -62,7 +62,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         isset($options['library']) || $options['library'] = null;
         $this->_basePath = $options['base_path'];
         is_array($options['library']) || $options['library'] = array($options['library']);
-        $this->_library = array_merge($options['library'], array('Zend' , 'ZFDebug'));
+        $this->_library = array_merge($options['library'], array('Zend', 'ZendX', 'App', 'ZFDebug', ));
     }
     /**
      * Gets identifier for this plugin

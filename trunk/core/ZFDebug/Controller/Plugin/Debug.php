@@ -287,10 +287,10 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
                  '<p>©2008-2009 <a href="http://jokke.dk">Joakim Nygård</a> & <a href="http://www.bangal.de">Andreas Pankratz</a></p>' .
                  '<p>The project is hosted at <a href="http://code.google.com/p/zfdebug/">http://zfdebug.googlecode.com</a> and released under the BSD License<br />' .
                  'Includes images from the <a href="http://www.famfamfam.com/lab/icons/silk/">Silk Icon set</a> by Mark James</p>';
-        // $panel .= '<h4>Zend Framework '.Zend_Version::VERSION.' / PHP '.phpversion().' with extensions:</h4>';
-        // $extensions = get_loaded_extensions();
-        // natcasesort($extensions);
-        // $panel .= implode('<br>', $extensions);
+         $panel .= '<h4>Zend Framework '.Zend_Version::VERSION.' / PHP '.phpversion().' with extensions:</h4>';
+         $extensions = get_loaded_extensions();
+         natcasesort($extensions);
+         $panel .= implode('<br>', $extensions);
         return $panel;
     }
 
