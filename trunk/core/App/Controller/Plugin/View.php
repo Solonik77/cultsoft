@@ -27,6 +27,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             $template_path = STATIC_PATH . 'system/admin/';
         }
         $view = new Zend_View(array('encoding' => 'UTF-8'));
+        $view->strictVars(true);
         $view->setScriptPath($template_path);
         $view->addHelperPath(CORE_PATH . 'App/View/Helper/', 'App_View_Helper');
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
@@ -36,9 +37,19 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
         // Set default reset.css file. Clear all CSS rules.
         $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/reset.css');
-        // Add default template styles to html head.
+        // Add default template styles to html header.
         $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . (($backoffice_controller !== true) ? 'static/templates/' . App::Config()->project->template . '/css/styles.css' : 'static/system/admin/css/styles.css'));
-        // Add latest Jquery library to html head.
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/minmax.js');
+        // Add latest Jquery library to html header.
         $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
+        if ($backoffice_controller) {
+            $view->getHelper('HeadMeta')->appendHttpEquiv('Designer', 'ne-design (www.ragard-jp.com) KuroAdmin Theme');
+            $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/admin/css/elements.css');
+            $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
+            $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
+        }
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
+        $view->getHelper('DeclareVars')->declareVars(array('baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
     }
 }

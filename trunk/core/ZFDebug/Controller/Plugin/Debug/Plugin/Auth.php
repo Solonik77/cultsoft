@@ -48,6 +48,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
      * @var Zend_Acl
      */
     protected $_acl;
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Auth
      *
@@ -65,6 +66,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
             $this->_role = $options['role'];
         }
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -74,6 +76,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -96,6 +99,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
         }
         return "$username";
     }
+
     /**
      * Gets content panel for the Debugbar
      *

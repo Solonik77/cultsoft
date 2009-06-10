@@ -32,6 +32,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      * @var string
      */
     protected $_identifier = 'text';
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Text
      *
@@ -48,6 +49,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
             $this->setPanel($panel);
         }
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -57,6 +59,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
     {
         return $this->_identifier;
     }
+
     /**
      * Sets identifier for this plugin
      *
@@ -68,6 +71,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
         $this->_identifier = $name;
         return $this;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -77,6 +81,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
     {
         return $this->_tab;
     }
+
     /**
      * Gets content panel for the Debugbar
      *
@@ -86,6 +91,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
     {
         return $this->_panel;
     }
+
     /**
      * Sets tab content
      *
@@ -97,6 +103,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
         $this->_tab = $tab;
         return $this;
     }
+
     /**
      * Sets panel content
      *

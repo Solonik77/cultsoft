@@ -32,6 +32,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
      * @var array
      */
     protected $_db = array();
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
      *
@@ -58,6 +59,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
                 }
             }
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -67,6 +69,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -83,6 +86,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
         $html = implode(' / ', $adapterInfo);
         return $html;
     }
+
     /**
      * Gets content panel for the Debugbar
      *

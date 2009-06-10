@@ -36,6 +36,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
      * @var array
      */
     protected $_timer = array();
+
     /**
      * Creating time plugin
      * @return void
@@ -44,6 +45,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         Zend_Controller_Front::getInstance()->registerPlugin($this);
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -53,6 +55,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -62,6 +65,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         return round($this->_timer['postDispatch'], 2) . ' ms';
     }
+
     /**
      * Gets content panel for the Debugbar
      *
@@ -116,6 +120,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
         $html .= '<br />Reset timers by sending ZFDEBUG_RESET as a GET/POST parameter';
         return $html;
     }
+
     /**
      * Sets a time mark identified with $name
      *
@@ -128,6 +133,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
         else
             $this->_timer['user'][$name] = (microtime(true) - $_SERVER['REQUEST_TIME']) * 1000;
     }
+
     #public function routeStartup(Zend_Controller_Request_Abstract $request) {
     #     $this->timer['routeStartup'] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000;
     #}
@@ -149,6 +155,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
         }
         $this->_timer['preDispatch'] = (microtime(true) - $_SERVER['REQUEST_TIME']) * 1000;
     }
+
     /**
      * Defined by Zend_Controller_Plugin_Abstract
      *
@@ -159,6 +166,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         $this->_timer['postDispatch'] = (microtime(true) - $_SERVER['REQUEST_TIME']) * 1000;
     }
+
     /**
      * Calculate average time from $array
      *

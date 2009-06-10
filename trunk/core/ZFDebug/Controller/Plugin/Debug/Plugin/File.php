@@ -43,6 +43,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      * @var string
      */
     protected $_library;
+
     /**
      * Setting Options
      *
@@ -62,8 +63,9 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         isset($options['library']) || $options['library'] = null;
         $this->_basePath = $options['base_path'];
         is_array($options['library']) || $options['library'] = array($options['library']);
-        $this->_library = array_merge($options['library'], array('Zend', 'ZendX', 'App', 'ZFDebug', ));
+        $this->_library = array_merge($options['library'], array('Zend' , 'ZendX' , 'App' , 'ZFDebug'));
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -73,6 +75,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -82,6 +85,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     {
         return count($this->_getIncludedFiles()) . ' Files';
     }
+
     /**
      * Gets content panel for the Debugbar
      *
@@ -121,6 +125,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         $html .= implode('', $libraryFiles);
         return $html;
     }
+
     /**
      * Gets included files
      *

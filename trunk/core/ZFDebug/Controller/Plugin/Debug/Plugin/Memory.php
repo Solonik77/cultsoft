@@ -28,6 +28,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      * @var array
      */
     protected $_memory = array();
+
     /**
      * Creating time plugin
      * @return void
@@ -36,6 +37,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     {
         Zend_Controller_Front::getInstance()->registerPlugin($this);
     }
+
     /**
      * Gets identifier for this plugin
      *
@@ -45,6 +47,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -57,6 +60,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
         }
         return 'MemUsage n.a.';
     }
+
     /**
      * Gets content panel for the Debugbar
      *
@@ -73,6 +77,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
         }
         return $panel;
     }
+
     /**
      * Sets a memory mark identified with $name
      *
@@ -88,6 +93,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
         else
             $this->_memory['user'][$name] = memory_get_peak_usage();
     }
+
     /**
      * Defined by Zend_Controller_Plugin_Abstract
      *
@@ -100,6 +106,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
             $this->_memory['preDispatch'] = memory_get_peak_usage();
         }
     }
+
     /**
      * Defined by Zend_Controller_Plugin_Abstract
      *

@@ -24,6 +24,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
      * @var string
      */
     protected $_identifier = 'html';
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Html
      *
@@ -32,7 +33,9 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
      * @return void
      */
     public function __construct ()
-    {}
+    {
+    }
+
     /**
      * Gets identifier for this plugin
      *
@@ -42,6 +45,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -51,6 +55,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
     {
         return 'HTML';
     }
+
     /**
      * Gets content panel for the Debugbar
      *

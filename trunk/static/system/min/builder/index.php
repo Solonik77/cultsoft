@@ -90,6 +90,7 @@ if (! isset($min_cachePath)) :
 in /min/config.php to improve performance.</p>
 
 
+
 <?php endIf;
 ?>
 

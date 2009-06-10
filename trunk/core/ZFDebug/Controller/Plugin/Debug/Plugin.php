@@ -18,6 +18,7 @@
  */
 class ZFDebug_Controller_Plugin_Debug_Plugin
 {
+
     /**
      * Transforms data into readable format
      *

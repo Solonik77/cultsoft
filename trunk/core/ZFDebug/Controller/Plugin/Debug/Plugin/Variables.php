@@ -28,13 +28,16 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Variables extends ZFDebug_Controlle
      * @var Zend_Controller_Request_Abstract
      */
     protected $_request;
+
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
      *
      * @return void
      */
     public function __construct ()
-    {}
+    {
+    }
+
     /**
      * Gets identifier for this plugin
      *
@@ -44,6 +47,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Variables extends ZFDebug_Controlle
     {
         return $this->_identifier;
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -53,6 +57,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Variables extends ZFDebug_Controlle
     {
         return ' Variables';
     }
+
     /**
      * Gets content panel for the Debugbar
      *

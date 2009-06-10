@@ -30,6 +30,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
      * @var param array
      */
     static $errors = array();
+
     /**
      * Gets identifier for this plugin
      *
@@ -39,6 +40,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     {
         return $this->_identifier;
     }
+
     /**
      * Creates Error Plugin ans sets the Error Handler
      *
@@ -48,6 +50,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     {
         set_error_handler(array($this , 'errorHandler'));
     }
+
     /**
      * Gets menu tab for the Debugbar
      *
@@ -70,6 +73,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
         $text = $exception . ($exception == '' || $error == '' ? '' : ' - ') . $error;
         return $text;
     }
+
     /**
      * Gets content panel for the Debugbar
      *
@@ -106,6 +110,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
         }
         return $html;
     }
+
     /**
      * Debug Bar php error handler
      *
