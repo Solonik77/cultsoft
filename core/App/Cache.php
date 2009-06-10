@@ -69,9 +69,13 @@ class App_Cache
     {
         $data = null;
         if (! ($data = $this->cache->System->load('AclRoles'))) {
-            $data = new Site_Model_DbTable_Acl_Roles();
-            $data = $data->fetchAll();
-            $data = $data->toArray();
+            $model = new Site_Model_DbTable_Acl_Roles();
+            $model = $model->fetchAll();
+            $model = $model->toArray();
+            $data = array();
+            foreach ($model as $item) {
+                $data[$item['id']] = $item;
+            }
             $this->cache->System->save($data);
         }
         return $data;

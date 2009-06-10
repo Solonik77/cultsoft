@@ -62,7 +62,24 @@ CREATE TABLE `blogs` (
 
 /*Data for the table `blogs` */
 
-/*Table structure for table `members` */
+/*Table structure for table `prefix_acl_roles` */
+
+DROP TABLE IF EXISTS `prefix_acl_roles`;
+
+CREATE TABLE `prefix_acl_roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parent` bigint(20) NOT NULL DEFAULT '0',
+  `role` varchar(64) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `res_module_admin` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `prefix_acl_roles` */
+
+insert  into `prefix_acl_roles`(`id`,`parent`,`role`,`description`,`res_module_admin`) values (1,0,'administrator','Administrator Account',1);
+
+/*Table structure for table `prefix_members` */
 
 DROP TABLE IF EXISTS `prefix_members`;
 
@@ -76,11 +93,11 @@ CREATE TABLE `prefix_members` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `members` */
+/*Data for the table `prefix_members` */
 
-insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,1);
+insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`created`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,'0000-00-00 00:00:00',1);
 
-/*Table structure for table `session` */
+/*Table structure for table `prefix_session` */
 
 DROP TABLE IF EXISTS `prefix_session`;
 
@@ -92,7 +109,7 @@ CREATE TABLE `prefix_session` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `session` */
+/*Data for the table `prefix_session` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
