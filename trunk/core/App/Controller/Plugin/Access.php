@@ -49,7 +49,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract
         }
         $resource = 'module_' . $request->getModuleName();
         if ($this->_acl->has($resource)) {
-            if (! $this->_acl->isAllowed($role, $resource, 'view')) {
+            if (! $this->_acl->isAllowed($role, $resource)) {
                 Zend_Registry::set('member_access', 'ACCESS_DENY');
                 $request->setModuleName('default')->setControllerName('error')->setActionName('deny');
             } else {

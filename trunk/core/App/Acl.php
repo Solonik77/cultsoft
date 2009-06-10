@@ -18,23 +18,31 @@ class App_Acl extends Zend_Acl
     public function __construct ()
     {
         if (App_Acl::$instance === null) {
-            // Add acl resource
-            $this->add(new Zend_Acl_Resource('module_admin'));
-            // Add groups to the Role registry using Zend_Acl_Role
-            // Guest does not inherit access controls
-            $roleGuest = new Zend_Acl_Role('guest');
-            $this->addRole($roleGuest);
-            // Staff inherits from guest
-            $this->addRole(new Zend_Acl_Role('staff'), $roleGuest);
-            /**
-             * Alternatively, the above could be written:
-             * $this->addRole(new Zend_Acl_Role('staff'), 'guest');
-             */
-            // Editor inherits from staff
-            $this->addRole(new Zend_Acl_Role('editor'), 'staff');
-            // Administrator does not inherit access controls
-            $this->addRole(new Zend_Acl_Role('administrator'));
-            $this->allow('administrator');
+            $acl = App_Cache::getInstance()->getAclRoles();
+            $res = current($acl);
+            $resources = array();
+            foreach ($res as $key => $value) {
+                if ((strlen($key) > 4) and (substr($key, 0, 4) == 'res_')) {
+                    $resources[substr($key, 4)] = (bool) $value;
+                    $this->add(new Zend_Acl_Resource(substr($key, 4)));
+                }
+            }
+            foreach ($acl as $role) {
+                $this->addRole(new Zend_Acl_Role($role['role']));
+                foreach ($resources as $key => $value) {
+                    if ($role['role'] == 'guest') {
+                        $value = FALSE;
+                    }
+                    if ($role['role'] == 'administrator') {
+                        $value = TRUE;
+                    }
+                    if ($value) {
+                        $this->allow($role['role'], $key);
+                    } else {
+                        $acl->deny($role['role'], $key);
+                    }
+                }
+            }
         }
         App_Acl::$instance = $this;
     }
