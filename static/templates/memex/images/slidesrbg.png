@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content='text/html;charset=UTF-8'/>
+<title>Memex || Page not found</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="../css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="../css/960.css" />
+
+ <link rel="stylesheet" type="text/css" media="all" href="../css/defaultstyle.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="../style.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="blue-theme" href="../css/blue_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="black-theme" href="../css/black_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="coffeetan-theme" href="../css/coffeetan_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="darkbrown-theme" href="../css/darkbrown_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="green-theme" href="../css/green_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="grey-theme" href="../css/grey_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="ivory-theme" href="../css/ivory_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="orange-theme" href="../css/orange_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="red-theme" href="../css/red_styles.css" />
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="vista-theme" href="../css/vista_styles.css" />
+
+
+<script src="../styleswitch.js" type="text/javascript">
+
+/***********************************************
+* Style Sheet Switcher v1.1- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+window.onload=function(){
+var formref=document.getElementById("switchform")
+indicateSelected(formref.choice)
+indicateSelected(formref.switchcontrol)
+}
+</script>
+
+
+
+<!--[if lt IE 7.]>
+<script defer type="text/javascript" src="../js/unitpngfix.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="../js/stepcarousel.js">
+
+/***********************************************
+* Step Carousel Viewer script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+</script>
+</head>
+<body>
+<div class="top_bg">
+      <div class="container_16">
+
+            <div class="grid_5"><div class="colortheme">
+<a href="javascript:chooseStyle('none', 60)" checked="checked"><img src="default.gif"></a>
+<a href="javascript:chooseStyle('blue-theme', 60)"><img src="blue.gif"></a>
+<a href="javascript:chooseStyle('black-theme', 60)"><img src="black.gif"></a>
+<a href="javascript:chooseStyle('coffeetan-theme', 60)"><img src="coffeetan.gif"></a>
+<a href="javascript:chooseStyle('darkbrown-theme', 60)"><img src="brown.gif"></a>
+<a href="javascript:chooseStyle('green-theme', 60)"><img src="green.gif"></a>
+<a href="javascript:chooseStyle('grey-theme', 60)"><img src="gray.gif"></a>
+<a href="javascript:chooseStyle('ivory-theme', 60)"><img src="ivory.gif"></a>
+<a href="javascript:chooseStyle('orange-theme', 60)"><img src="orange.gif"></a>
+<a href="javascript:chooseStyle('red-theme', 60)"><img src="red.gif"></a>
+<a href="javascript:chooseStyle('vista-theme', 60)"><img src="vista.gif"></a>
+</div><a href="../../../../default.htm"><img src="logo.png" class="logo" alt="Memix" /></a></div>
+            <!-- Top menu Start -->
+            <div class="grid_11 menu">
+                  <ul>
+
+<li >
+                <a href="../../../../../memex">Home</a>
+        </li>
+
+
+               
+<li >
+     <a href="../../../../@page_id=2">About Us </a></li>
+
+
+<li >
+     <a href="../../../../@page_id=18">Services </a></li>
+
+
+<li >
+     <a href="../../../../@cat=4">Blog</a></li>
+
+
+<li >
+     <a href="../../../../@cat=3">Portfolio</a></li>
+
+
+<li >
+<a href="../../../../@page_id=41">Contact Us</a></li>
+
+                  </ul>
+                  <!-- Top menu End -->
+            </div>
+      </div>
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="clear">&nbsp;</div>
+<div class="content cbg">
+      <div class="container_16 linebg">
+
+		<h2 class="center">Error 404 - Not Found</h2>
+
+ </div>
+</div>
+</div>
+<div class="clear"> &nbsp; </div>
+<!-- Footer Block Start -->
+<div class="footer">
+      <div class="container_16">
+            <div class="grid_16">
+                  <p class="leftalign"> &copy; 2009 Copyright : All Rights Reserved by MEMEX - 2009.</p>
+                  <p class="textright"> Designed and Developed by system32 | companyName </p>
+            </div>
+      </div>
+</div>
+<!-- Footer Block End -->
+</body>
+</html>
