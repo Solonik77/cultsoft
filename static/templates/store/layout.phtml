@@ -1,0 +1,282 @@
+<?php
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+echo $this->doctype();
+?>
+<html>
+<head>
+<?php
+echo $this->headTitle()?>
+
+<?php
+echo $this->headMeta()?>
+
+<?php
+echo $this->headLink()?>
+
+<?php
+echo $this->headStyle()?>
+
+<?php
+echo $this->headScript()?>
+
+<?php
+echo $this->inlineScript()?>
+
+<base href="<?php
+echo App::baseUri()?>" />
+</head>
+<body>
+<!-- Wrapper Starts -->
+	<div id="wrapper">
+	<!-- Header Starts -->
+		<div id="header">
+		<!-- Logo Starts -->
+			<div id="logo"><h1><a href="index.html"><span></span></a></h1></div>
+		<!-- Logo Ends -->
+		<!-- Mid Part - Cyrrency and links Starts -->
+			<div id="mid-part">
+			<!-- Currency Starts -->
+				<div id="currency">
+					<form action="">
+						Currencies : 
+						<select name="currency"><option value="USD">US Dollar</option><option value="EUR">Euro</option><option value="GBP">GB Pound</option></select>
+					</form>
+				</div>
+			<!-- Currency Ends -->
+			<!-- Head Links Starts -->
+				<div id="head-links">
+					<ul>
+						<li><a href="#">REVIEWS</a></li>  
+						<li>|</li>
+						<li><a href="#">CHECKOUT</a></li>  
+						<li>|</li>  
+						<li><a href="#">SHIPPING &amp; RETURNS</a></li>  
+						<li>|</li>  
+						<li><a href="#">LOGIN</a></li>  
+						<li>|</li>  
+						<li><a href="#">SIGN UP</a></li>
+					</ul>
+				</div>
+			<!-- Head Link Ends -->
+			</div>
+		<!-- Mid Part - Cyrrency and links Ends -->
+		<!-- Shopping Cart Details Box Starts -->
+			<div id="shopping-cart">
+				<h6>Shopping Cart: </h6>
+				<p>now in your cart <a href="#">0 items</a></p>
+			</div>
+		<!-- Shopping Cart Details Box Ends -->
+		</div>
+	<!-- Header Ends -->
+	<!-- Menu Starts  -->
+		<div id="menu">
+			<ul>
+				<li><a href="index.html">Homepage</a></li>
+				<li>|</li>
+				<li><a href="index.html">What's New Here?</a></li>    
+				<li>|</li>        
+				<li><a href="index.html">Special Offer</a></li>      
+				<li>|</li>        
+				<li><a href="index.html">Create an Account</a></li>      
+				<li>|</li>        
+				<li><a href="index.html">online Shopping  Basket</a></li>        
+				<li>|</li>        
+				<li><a href="index.html">Checkout</a></li>
+				<li>|</li>        
+				<li><a href="index.html">Contact Us</a></li>
+			</ul>
+		</div>
+	<!-- Menu Ends -->
+	<!-- Container Starts -->
+		<div id="container" class="clearfix">
+		<!-- Left Column Starts -->
+			<div id="left-col">
+			<!-- Search Block Starts -->
+				<div class="block">
+				<!-- Heading Starts -->
+					<div class="block-top">Search</div>
+				<!-- Heading Ends -->
+				<!-- Content Starts -->
+					<div class="block-bottom">
+					<!-- Search Form Starts -->
+						<form action="#" method="get">
+							<input type="text" class="search-text" />
+							<input type="submit" value="Search Now" class="search-btn" />
+							<p>
+							Use keywords to find the product you are looking for.<br /><a href="#">Advanced Search</a>
+							</p>
+						</form>
+					<!-- Search Form Ends -->
+					</div>
+				<!-- Content Ends -->
+				</div>
+			<!-- Search Block Ends -->
+			<!-- Categories Block Starts -->
+				<div class="block">
+				<!-- Heading Starts -->
+					<div class="block-top">Categories</div>
+				<!-- Heading Ends -->
+				<!-- Content Starts -->
+					<div class="block-bottom">
+					<!-- Items Starts -->
+						<ul>
+							<li><a href="#">Category Item 1</a></li>
+							<li><a href="#">Category Item 2</a></li>
+							<li><a href="#">Category Item 3</a></li>							
+							<li><a href="#">Category Item 4</a></li>
+							<li><a href="#">Category Item 5</a></li>
+							<li class="noborder"><a href="#">Category Item 6</a></li>							
+						</ul>
+					<!-- Items Ends -->
+					</div>
+				<!-- Content Ends -->
+				</div>
+			<!-- Categories BLock Ends -->
+			<!-- Bestsellers Block Starts -->
+				<div class="block">
+				<!-- Heading Starts -->
+					<div class="block-top">Bestsellers</div>
+				<!-- Heading Ends -->
+				<!-- Content Starts -->
+					<div class="block-bottom">
+					<!-- Items Starts -->
+						<ul>
+							<li><a href="#">Bestsellers Item 1</a></li>
+							<li><a href="#">Bestsellers Item 2</a></li>
+							<li><a href="#">Bestsellers Item 3</a></li>							
+							<li><a href="#">Bestsellers Item 4</a></li>
+							<li><a href="#">Bestsellers Item 5</a></li>
+							<li><a href="#">Bestsellers Item 6</a></li>
+							<li class="noborder"><a href="#">Bestsellers Item 7</a></li>							
+						</ul>
+					<!-- Items Ends -->
+					</div>
+				<!-- Content Ends -->
+				</div>
+			<!-- Bestsellers BLock Ends -->
+			</div>
+		<!-- Left Column Ends -->
+		<!-- Center Column Starts -->
+			<div id="center-col">
+			<!-- Banner Styles -->
+				<div id="banner">
+					<img src="<?php echo $this->tplIMG?>banner.jpg" alt="banner" width="530" height="179" />
+				</div>
+			<!-- Banner Ends -->
+			<!-- Featured Products Starts -->
+				<div class="clearfix">
+				<!-- Product 1 Starts -->
+					<div class="products-box">
+						<h3><a href="product-item.html">Product 1</a></h3>
+						<p class="clearfix">
+							<img src="<?php echo $this->tplIMG?>product-img1.jpg" alt="product-img1" width="99" height="101" class="floatleft" />
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque ut quam. Pellentesque vestibulum
+						</p>
+						<div class="clearfix">
+							<span class="floatleft price">$ 85.99</span>
+							<a href="product-item.html" class="floatright details-btn">Details</a><a href="product-item.html" class="floatright details-btn">Add to Cart</a>
+						</div>
+					</div>
+				<!-- Product 1 Ends -->
+				<!-- Product 2 Starts -->
+					<div class="products-box">
+						<h3><a href="product-item.html">Product 2</a></h3>
+						<p class="clearfix">
+							<img src="<?php echo $this->tplIMG?>product-img2.jpg" alt="product-img2" width="99" height="101" class="floatleft" />
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque ut quam. Pellentesque vestibulum
+						</p>
+						<div class="clearfix">
+							<span class="floatleft price">$ 85.99</span>
+							<a href="product-item.html" class="floatright details-btn">Details</a><a href="product-item.html" class="floatright details-btn">Add to Cart</a>
+						</div>
+					</div>
+				<!-- Product 2 Ends -->
+				<!-- Product 3 Starts -->
+					<div class="products-box">
+						<h3><a href="product-item.html">Product 13</a></h3>
+						<p class="clearfix">
+							<img src="<?php echo $this->tplIMG?>product-img1.jpg" alt="product-img1" width="99" height="101" class="floatleft" />
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque ut quam. Pellentesque vestibulum
+						</p>
+						<div class="clearfix">
+							<span class="floatleft price">$ 85.99</span>
+							<a href="product-item.html" class="floatright details-btn">Details</a><a href="product-item.html" class="floatright details-btn">Add to Cart</a>
+						</div>
+					</div>
+				<!-- Product 3 Ends -->
+				<!-- Product 4 Starts -->
+					<div class="products-box">
+						<h3><a href="product-item.html">Product 4</a></h3>
+						<p class="clearfix">
+							<img src="<?php echo $this->tplIMG?>product-img1.jpg" alt="product-img1" width="99" height="101" class="floatleft" />
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque ut quam. Pellentesque vestibulum
+						</p>
+						<div class="clearfix">
+							<span class="floatleft price">$ 85.99</span>
+							<a href="product-item.html" class="floatright details-btn">Details</a><a href="product-item.html" class="floatright details-btn">Add to Cart</a>
+						</div>
+					</div>
+				<!-- Product 4 Ends -->
+				</div>
+			<!-- Featured Products Ends -->
+			</div>
+		<!-- Center Column Ends -->
+		<!-- Right Column Starts -->
+			<div id="right-col">
+			<!-- Login to Cart Block Starts -->
+				<div class="block">
+				<!-- Heading Starts -->
+					<div class="block-top">Login to Cart</div>
+				<!-- Heading Ends -->
+				<!-- Content Starts -->
+					<div class="block-bottom">
+					<!-- Search Form Starts -->
+						<form action="#" method="get">
+							<p><label>Username:</label><br />
+							<input type="text" class="search-text" /></p>
+							<p><label>Password:</label><br />
+							<input type="password" class="search-text" /></p>
+							<input type="submit" value="Login" class="login-btn" />
+							<p class="login-links"><a href="#">Register</a> |  <a href="#">Forgot Password?</a> </p>
+						</form>
+					<!-- Search Form Ends -->
+					</div>
+				<!-- Content Ends -->
+				</div>
+			<!-- Login to Cart Block Ends -->
+			<!-- Free Shopping Banner Starts -->
+				<p><a href="#"><img src="<?php echo $this->tplIMG?>free-shipping-banner.gif" alt="free shipping banner" width="201" height="116" /></a></p>
+			<!-- Free Shopping Banner Ends -->
+			<!-- What's New? Block Starts -->
+				<div class="block">
+				<!-- Heading Starts -->
+					<div class="block-top">What's New?</div>
+				<!-- Heading Ends -->
+				<!-- Content Starts -->
+					<div class="block-bottom">
+						<div class="padding15">
+							<h6 class="textbold">Product Name</h6>
+							<p><img src="<?php echo $this->tplIMG?>what-new-img1.jpg" alt="what-new-img" width="166" height="132" /></p>
+							<div class="clearfix">
+								<span class="floatleft price">$35.99 </span>
+								<a href="product-item.html" class="floatright details-btn">Details</a>
+							</div>
+						</div>
+					</div>
+				<!-- Content Ends -->
+				</div>
+			<!-- What's New? Block Ends -->
+			</div>
+		<!-- Right Column Ends -->
+		</div>
+	<!-- Container Ends -->
+	<!-- Footer Starts -->
+		<div id="footer">
+			<p class="floatleft">Copyright &copy; sancart   - the online shopping store</p>
+			<p class="floatright"><a href="#">Create an Account</a>|<a href="#">Log In</a>|<a href="#">Privacy Notice</a>|<a href="#">Conditions of Use</a></p>
+		</div>
+	<!-- Footer Ends -->
+	</div>
+<!-- Wrapper Ends -->
+</body>
+</html>
