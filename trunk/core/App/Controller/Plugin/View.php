@@ -20,10 +20,9 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
 
     public function preDispatch (Zend_Controller_Request_Abstract $request)
     {
-       try{
+        try {
             $backoffice_controller = false;
             $template_path = STATIC_PATH . 'templates/' . App::Config()->project->template . '/';
- 
             if (Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
                 $backoffice_controller = true;
                 $template_path = STATIC_PATH . 'system/admin/';
@@ -31,10 +30,19 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             $view = new Zend_View(array('encoding' => 'UTF-8'));
             $view->strictVars(true);
             $view->setScriptPath($template_path);
+            $view->addScriptPath($template_path . 'partial/');
             $view->addHelperPath(CORE_PATH . 'App/View/Helper/', 'App_View_Helper');
             $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
             $viewRenderer->setView($view)->setViewBasePathSpec($template_path)->setViewScriptPathSpec((($backoffice_controller !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec((($backoffice_controller !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
-            Zend_Layout::startMvc(array('layoutPath' => $template_path . 'layouts/' , 'layout' => 'default'));
+            $layout = Zend_Layout::startMvc(array('layoutPath' => $template_path . 'layouts/' , 'layout' => 'default' , 'mvcSuccessfulActionOnly' => true));
+            if (! $backoffice_controller) {
+                if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($template_path . 'layouts/homepage.phtml')) {
+                    $layout->setLayout('homepage');
+                } else 
+                    if (file_exists($template_path . 'layouts/' . $request->getModuleName() . '.phtml')) {
+                        $layout->setLayout($request->getModuleName());
+                    }
+            }
             // Set global content type to html with UTF-8 charset
             $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
             // Set default reset.css file. Clear all CSS rules.
@@ -52,10 +60,10 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
                 $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
             }
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
-            $view->getHelper('DeclareVars')->declareVars(array('baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
-       } catch (Zend_View_Exception $e)
-       {
-           throw new App_Exception($e->getMessage());
-       }
+            $requestLang = App::Front()->getParam('requestLang');
+            $view->getHelper('DeclareVars')->declareVars(array('requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
+        } catch (Exception $e) {
+            throw new App_Exception($e->getMessage());
+        }
     }
 }

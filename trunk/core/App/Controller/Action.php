@@ -24,7 +24,8 @@ abstract class App_Controller_Action extends Zend_Controller_Action
         $doctypeHelper->doctype('XHTML1_STRICT');
         $requestLang = App::Front()->getParam('requestLang');
         // Set localized project name in page title first
-        $this->view->headTitle(App::Config()->project->name->$requestLang);
+        App::Config()->project->name->$requestLang;
+        $this->view->headTitle($this->view->project_name);        
         if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
             Zend_Layout::disableLayout();
