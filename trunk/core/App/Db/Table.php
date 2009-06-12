@@ -5,7 +5,7 @@
  * @package Core
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ * @license http://cultsoft.org.ua/platform/license.html
  * @category Zend
  * @package Zend_Db
  * @subpackage Table

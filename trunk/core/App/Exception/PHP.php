@@ -6,7 +6,7 @@
  * @package Core
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ * @license http://cultsoft.org.ua/platform/license.html
  */
 final class App_Exception_PHP extends App_Exception
 {
