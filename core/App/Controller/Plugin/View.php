@@ -34,7 +34,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             $view->addHelperPath(CORE_PATH . 'App/View/Helper/', 'App_View_Helper');
             $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
             $viewRenderer->setView($view)->setViewBasePathSpec($template_path)->setViewScriptPathSpec((($backoffice_controller !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec((($backoffice_controller !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
-            Zend_Layout::startMvc(array('layoutPath' => $template_path , 'layout' => 'layout'));
+            Zend_Layout::startMvc(array('layoutPath' => $template_path . 'layouts/' , 'layout' => 'default'));
             // Set global content type to html with UTF-8 charset
             $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
             // Set default reset.css file. Clear all CSS rules.
