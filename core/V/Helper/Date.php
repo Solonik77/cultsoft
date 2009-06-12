@@ -11,7 +11,7 @@
  *
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ * @license http://cultsoft.org.ua/platform/license.html
  */
 class V_Helper_Date
 {

@@ -6,7 +6,7 @@
  * @package Core
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ * @license http://cultsoft.org.ua/platform/license.html
  */
 class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
 {
@@ -34,7 +34,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             $view->addHelperPath(CORE_PATH . 'App/View/Helper/', 'App_View_Helper');
             $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
             $viewRenderer->setView($view)->setViewBasePathSpec($template_path)->setViewScriptPathSpec((($backoffice_controller !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec((($backoffice_controller !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
-            $layout = Zend_Layout::startMvc(array('layoutPath' => $template_path . 'layouts/' , 'layout' => 'default' , 'mvcSuccessfulActionOnly' => true));
+            $layout = Zend_Layout::startMvc(array('layoutPath' => $template_path . 'layouts/' , 'layout' => 'default' , 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
             if (! $backoffice_controller) {
                 if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($template_path . 'layouts/homepage.phtml')) {
                     $layout->setLayout('homepage');
@@ -61,7 +61,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             }
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
             $requestLang = App::Front()->getParam('requestLang');
-            $view->getHelper('DeclareVars')->declareVars(array('requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
+            $view->getHelper('DeclareVars')->declareVars(array('requestLang' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
         } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }

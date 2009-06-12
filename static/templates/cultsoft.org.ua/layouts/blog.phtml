@@ -28,7 +28,7 @@ echo App::baseUri()?>" />
     
     <div class="grid_11 menu">
 <!-- Top menu Start -->    
-<?php echo $this->partial('top_menu.phtml', array('navigation' => $this->navigation()->menu())) ?>
+<?php echo $this->partial('top_menu.phtml') ?>
       <!-- Top menu End -->
     </div>
   </div>
@@ -40,7 +40,7 @@ echo App::baseUri()?>" />
 <div class="content cbg">
   <div class="container_16 linebg">
     <!--Left part of text follows here-->
-    <?php echo $this->partial('left_part_content.phtml', array('content' => $this->layout()->content))?>
+    <?php echo $this->partial('left_part_content.phtml')?>
     <!--End of the Left part text  -->
 
       <!--Right part of text follows here-->

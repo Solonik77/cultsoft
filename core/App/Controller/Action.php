@@ -5,7 +5,7 @@
  * @package Core
  * @author Denysenko Dmytro
  * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ * @license http://cultsoft.org.ua/platform/license.html
  */
 abstract class App_Controller_Action extends Zend_Controller_Action
 {
@@ -23,9 +23,14 @@ abstract class App_Controller_Action extends Zend_Controller_Action
         // Set global HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');
         $requestLang = App::Front()->getParam('requestLang');
-        // Set localized project name in page title first
-        App::Config()->project->name->$requestLang;
-        $this->view->headTitle($this->view->project_name);        
+        // Set localized project name in page title first       
+        $this->view->headTitle( App::Config()->project->title->$requestLang);
+                
+        $site_pages = new Site_Model_Navigation_Menu();
+        // Create container from array
+        $container = new Zend_Navigation($site_pages->getPageTopMenu());
+        $this->view->navigation($container);
+        
         if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
             Zend_Layout::disableLayout();
