@@ -11,6 +11,7 @@ class App_Cache
 {
     protected static $instance;
     protected $cache;
+    protected $_instances = array();
     protected $_defaultInstance = 'File';
     protected $_defaultFrontendOptions;
     protected $_defaultBackendOptions;
@@ -40,7 +41,7 @@ class App_Cache
         if (App_Cache::$instance === null) {
             $this->_defaultFrontendOptions = array('lifetime' => App::Config()->cache_lifetime , 'automatic_serialization' => true , 'ignore_user_abort' => true);
             $this->_defaultBackendOptions = array('cache_dir' => App::Config()->syspath->cache . '/');
-            $this->initInstance(array('id' => 'System' , 'backend' => 'File' , array('lifetime' => null , 'automatic_serialization' => true, 'ignore_user_abort' => true)));
+            $this->initInstance(array('id' => 'System' , 'backend' => 'File' , array('lifetime' => null , 'automatic_serialization' => true , 'ignore_user_abort' => true)));
             App_Cache::$instance = $this;
         }
     }
@@ -84,13 +85,13 @@ class App_Cache
     /*
      * Get data for website navigation menu tree
      */
-    public function getSiteNavigationTree()
+    public function getSiteNavigationTree ()
     {
         $data = null;
         if (! ($data = $this->cache->System->load('SiteNavigationTree'))) {
             $model = new Site_Model_DbTable_Navigation_Menu();
             $data = $model->getTree();
-            $this->cache->System->save($data);        
+            $this->cache->System->save($data);
         }
         return $data;
     }
@@ -104,8 +105,12 @@ class App_Cache
         $backendOptions = (! is_null($backendOptions) and is_array($backendOptions) and ! empty($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
         if (is_array($instanceId) and isset($instanceId['id'])) {
             $instanceId['id'] = ucfirst(strtolower($instanceId['id']));
-            $backend = (isset($instanceId['backend'])) ? ucfirst(strtolower($instanceId['backend'])) : 'File';
-            $this->cache->$instanceId['id'] = Zend_Cache::factory('Core', $backend, $frontendOptions, $backendOptions);
+            // Create instance only once
+            if (! in_array($instanceId['id'], $this->_instances)) {
+                $backend = (isset($instanceId['backend'])) ? ucfirst(strtolower($instanceId['backend'])) : 'File';
+                $this->cache->$instanceId['id'] = Zend_Cache::factory('Core', $backend, $frontendOptions, $backendOptions);
+                $this->_instances[] = $instanceId['id'];
+            }
         } else {
             throw new App_Exception('Cache instance ID must be valids array');
         }
