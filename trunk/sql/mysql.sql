@@ -97,6 +97,22 @@ CREATE TABLE `prefix_members` (
 
 insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`created`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,'0000-00-00 00:00:00',1);
 
+/*Table structure for table `prefix_navigation_menu` */
+
+DROP TABLE IF EXISTS `prefix_navigation_menu`;
+
+CREATE TABLE `prefix_navigation_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `item` varchar(20) NOT NULL,
+  `lft` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_navigation_menu` */
+
+insert  into `prefix_navigation_menu`(`id`,`item`,`lft`,`rgt`) values (1,'Home',1,20),(2,'Blog',2,9),(3,'IT Blog',3,4),(4,'Music blog',5,6),(5,'3D Blog',7,8),(6,'Shop',10,19),(7,'Titanium',11,14),(8,'FLASH',12,13),(9,'CD PLAYERS',15,16),(10,'2 WAY RADIOS',17,18);
+
 /*Table structure for table `prefix_session` */
 
 DROP TABLE IF EXISTS `prefix_session`;
@@ -110,15 +126,6 @@ CREATE TABLE `prefix_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_session` */
-
-DROP TABLE IF EXISTS `prefix_navigation_menu`;
-CREATE TABLE `prefix_navigation_menu` (
- `id` INT unsigned NOT NULL AUTO_INCREMENT,
- `item` VARCHAR(20) NOT NULL,
- `lft` INT NOT NULL,
- `rgt` INT NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
