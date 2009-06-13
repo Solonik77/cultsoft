@@ -28,7 +28,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action
                 
         $site_pages = new Site_Model_Navigation_Menu();
         // Create container from array
-        $container = new Zend_Navigation($site_pages->getPageTopMenu());
+        $container = new Zend_Navigation($site_pages->getTopMenu());
         $this->view->navigation($container);
         
         if ($this->getRequest()->isXmlHttpRequest()) {

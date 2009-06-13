@@ -14,10 +14,16 @@ class Site_Model_Navigation_Menu
     {
     }
 
-    public function getPageTopMenu ()
+    public function getNavigationTree ()
     {
-        return array(array('label' => 'Home' , 'title' => 'Go Home' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'order' => - 100) , // make sure home is the first page
-array('label' => 'Special offer this week only!' , 'module' => 'store' , 'controller' => 'offer' , 'action' => 'amazing' , 'visible' => false) , // not visible
-array('label' => 'Products' , 'module' => 'default' , 'controller' => 'index' , 'action' => 'test'));
+        return App_Cache::getInstance()->getSiteNavigationTree();
+    }
+
+    public function getTopMenu ()
+    {
+        $tree = $this->getNavigationTree();
+        Zend_Debug::dump($tree);
+        die('@todo class ' . __CLASS__);
+        return;
     }
 }
