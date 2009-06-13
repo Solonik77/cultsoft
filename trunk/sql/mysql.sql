@@ -104,14 +104,14 @@ DROP TABLE IF EXISTS `prefix_navigation_menu`;
 CREATE TABLE `prefix_navigation_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `item` varchar(20) NOT NULL,
-  `lft` int(11) NOT NULL,
-  `rgt` int(11) NOT NULL,
+  `left_column_id` int(11) NOT NULL,
+  `right_column_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_navigation_menu` */
 
-insert  into `prefix_navigation_menu`(`id`,`item`,`lft`,`rgt`) values (1,'Home',1,20),(2,'Blog',2,9),(3,'IT Blog',3,4),(4,'Music blog',5,6),(5,'3D Blog',7,8),(6,'Shop',10,19),(7,'Titanium',11,14),(8,'FLASH',12,13),(9,'CD PLAYERS',15,16),(10,'2 WAY RADIOS',17,18);
+insert  into `prefix_navigation_menu`(`id`,`item`,`left_column_id`,`right_column_id`) values (1,'Home',1,20),(2,'Blog',2,9),(3,'IT Blog',3,4),(4,'Music blog',5,6),(5,'3D Blog',7,8),(6,'Shop',10,19),(7,'Titanium',11,14),(8,'FLASH',12,13),(9,'CD PLAYERS',15,16),(10,'2 WAY RADIOS',17,18);
 
 /*Table structure for table `prefix_session` */
 

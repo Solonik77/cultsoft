@@ -18,7 +18,7 @@
 /**
  * @see Zend_Db_Table
  */
-require_once 'Zend/Db/Table.php';
+require_once 'App/Db/Table.php';
  
 /**
  * Class for SQL Nested set interface.
@@ -37,14 +37,14 @@ class V_Db_Nestedsets extends App_Db_Table
     *
     * @var String
     */
-    protected $_left = 'lft';
+    protected $_left = 'left_column_id';
  
     /**
     * right column in nested table
     *
     * @var String
     */
-    protected $_right = 'rgt';
+    protected $_right = 'right_column_id';
  
     /**
     * Column to be retrieved with getTree method
