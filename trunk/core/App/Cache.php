@@ -40,7 +40,7 @@ class App_Cache
         if (App_Cache::$instance === null) {
             $this->_defaultFrontendOptions = array('lifetime' => App::Config()->cache_lifetime , 'automatic_serialization' => true , 'ignore_user_abort' => true);
             $this->_defaultBackendOptions = array('cache_dir' => App::Config()->syspath->cache . '/');
-            $this->initInstance(array('id' => 'System' , 'backend' => 'File' , array('lifetime' => null , 'automatic_serialization' => true , 'ignore_user_abort' => true)));
+            $this->initInstance(array('id' => 'System' , 'backend' => 'File' , array('lifetime' => null , 'automatic_serialization' => true, 'ignore_user_abort' => true)));
             App_Cache::$instance = $this;
         }
     }
@@ -77,6 +77,20 @@ class App_Cache
                 $data[$item['id']] = $item;
             }
             $this->cache->System->save($data);
+        }
+        return $data;
+    }
+
+    /*
+     * Get data for website navigation menu tree
+     */
+    public function getSiteNavigationTree()
+    {
+        $data = null;
+        if (! ($data = $this->cache->System->load('SiteNavigationTree'))) {
+            $model = new Site_Model_DbTable_Navigation_Menu();
+            $data = $model->getTree();
+            $this->cache->System->save($data);        
         }
         return $data;
     }

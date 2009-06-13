@@ -111,5 +111,14 @@ CREATE TABLE `prefix_session` (
 
 /*Data for the table `prefix_session` */
 
+DROP TABLE IF EXISTS `prefix_navigation_menu`;
+CREATE TABLE `prefix_navigation_menu` (
+ `id` INT unsigned NOT NULL AUTO_INCREMENT,
+ `item` VARCHAR(20) NOT NULL,
+ `lft` INT NOT NULL,
+ `rgt` INT NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

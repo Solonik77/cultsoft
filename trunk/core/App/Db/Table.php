@@ -16,6 +16,13 @@
 require_once 'Zend/Db/Table.php';
 abstract class App_Db_Table extends Zend_Db_Table_Abstract
 {
+    private $_cache;
+
+    public function __construct ($config = array())
+    {
+        parent::__construct($config);
+        $this->_cache = App_Cache::getInstance();
+    }
 
     /**
      * Initialize table and schema names.
