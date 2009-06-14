@@ -97,11 +97,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         require_once (CORE_PATH . 'Zend/Loader/Autoloader.php');
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('App_');
+        $autoloader->registerNamespace('V_');
         $autoloader->setFallbackAutoloader(true);
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'Resources/Site' , 'namespace' => 'Site'));
-        $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'Resources/Admin' , 'namespace' => 'Admin'));
-        $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $options = new Zend_Config($this->getOptions(), APPLICATION_ENV, true);
         if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', APPLICATION_ENV));
@@ -111,6 +108,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         $options->setReadOnly();
         App::setConfig($options);
+        $classFileIncCache = App::Config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
+        if (file_exists($classFileIncCache)) {
+            include_once $classFileIncCache;
+        }
+        Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
+        // Resource autoload
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'Resources/Site' , 'namespace' => 'Site'));
+        $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'Resources/Admin' , 'namespace' => 'Admin'));
+        $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
         try {
             $this->_initEnvironment();
@@ -234,7 +241,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     private function _initSession ()
     {
-        Zend_Session::setOptions(App::config()->session->toArray());        
+        Zend_Session::setOptions(App::config()->session->toArray());
         Zend_Db_Table_Abstract::setDefaultAdapter(App::DB());
         Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         Zend_Session::start();

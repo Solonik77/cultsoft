@@ -21,7 +21,7 @@ define('APPLICATION_PATH', DOC_ROOT . 'platform' . DIRECTORY_SEPARATOR);
 define('APPLICATION_ENV', 'development');
 // define('APPLICATION_ENV', 'production');
 define('CORE_PATH', DOC_ROOT . 'core' . DIRECTORY_SEPARATOR);
-@set_include_path(CORE_PATH . @get_include_path());
+@set_include_path(CORE_PATH . PATH_SEPARATOR . './');
 /**
  * * Zend_Application
  */
