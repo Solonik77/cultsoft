@@ -14,16 +14,28 @@ class Site_Model_Navigation_Menu
     {
     }
 
+    /*
+     * Get all site navigation tree from cache
+     * @return array
+     */
     public function getNavigationTree ()
     {
         return App_Cache::getInstance()->getSiteNavigationTree();
     }
 
+    /*
+     * Get first level from navigation tree
+     * @return array
+     */
     public function getTopMenu ()
     {
         $tree = $this->getNavigationTree();
-        Zend_Debug::dump($tree);
-        die('@todo class ' . __CLASS__);
-        return;
+        $menu_data = array();
+        foreach ($tree as $leaf) {
+            if ($leaf["depth"] == 1) {
+                $menu_data[] = $leaf;
+            }
+        }
+        return $menu_data;
     }
 }
