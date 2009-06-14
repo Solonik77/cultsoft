@@ -103,7 +103,12 @@ DROP TABLE IF EXISTS `prefix_navigation_menu`;
 
 CREATE TABLE `prefix_navigation_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `item` varchar(20) NOT NULL,
+  `label` varchar(100) NOT NULL DEFAULT 'Home',
+  `title` varchar(100) NOT NULL,
+  `controller` varchar(100) NOT NULL DEFAULT 'index',
+  `module` varchar(100) NOT NULL DEFAULT 'default',
+  `action` varchar(100) NOT NULL DEFAULT 'index',
+  `visible` tinyint(1) NOT NULL DEFAULT '1',
   `left_column_id` int(11) NOT NULL,
   `right_column_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -111,7 +116,7 @@ CREATE TABLE `prefix_navigation_menu` (
 
 /*Data for the table `prefix_navigation_menu` */
 
-insert  into `prefix_navigation_menu`(`id`,`item`,`left_column_id`,`right_column_id`) values (1,'Home',1,20),(2,'Blog',2,9),(3,'IT Blog',3,4),(4,'Music blog',5,6),(5,'3D Blog',7,8),(6,'Shop',10,19),(7,'Titanium',11,14),(8,'FLASH',12,13),(9,'CD PLAYERS',15,16),(10,'2 WAY RADIOS',17,18);
+insert  into `prefix_navigation_menu`(`id`,`label`,`title`,`controller`,`module`,`action`,`visible`,`left_column_id`,`right_column_id`) values (1,'Home','','index','default','index',1,1,20),(2,'Blog','','index','default','index',1,2,9),(3,'IT Blog','','index','default','index',1,3,4),(4,'Music blog','','index','default','index',1,5,6),(5,'3D Blog','','index','default','index',1,7,8),(6,'Shop','','index','default','index',1,10,19),(7,'Titanium','','index','default','index',1,11,14),(8,'FLASH','','index','default','index',1,12,13),(9,'CD PLAYERS','','index','default','index',1,15,16),(10,'2 WAY RADIOS','','index','default','index',1,17,18);
 
 /*Table structure for table `prefix_session` */
 
