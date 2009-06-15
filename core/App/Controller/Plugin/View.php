@@ -52,6 +52,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/minmax.js');
             // Add latest Jquery library to html header.
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
+            $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/swfobject.js');
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
             if ($backoffice_controller) {
                 $view->getHelper('HeadMeta')->appendHttpEquiv('Designer', 'ne-design (www.ragard-jp.com) KuroAdmin Theme');
