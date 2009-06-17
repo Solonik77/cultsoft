@@ -99,7 +99,7 @@ class V_Db_Nestedsets extends App_Db_Table
     {
         //todo: add custom node
         $ret = $this->_db->query("
-            SELECT node.*, COUNT(parent.{$this->_primary[0]}) - 1 as depth, node.{$this->_toString}
+            SELECT node.*, COUNT(parent.{$this->_primary[0]}) - 1 as depth
             FROM {$this->_name} AS node, {$this->_name} AS parent
             WHERE node.{$this->_left}
             BETWEEN parent.{$this->_left}
