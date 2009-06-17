@@ -28,8 +28,10 @@ class Default_ErrorController extends Zend_Controller_Action
                 $this->view->message = 'Application error';
                 break;
         }
+        
         $this->view->exception = $errors->exception;
         $this->view->request = $errors->request;
+        App::log($errors->exception->getMessage(), Zend_Log::ERR);
     }
 
     public function denyAction ()
