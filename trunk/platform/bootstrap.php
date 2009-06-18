@@ -99,7 +99,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $autoloader->registerNamespace('App_');
         $autoloader->registerNamespace('V_');
         $autoloader->setFallbackAutoloader(true);
-        $options = new Zend_Config($this->getOptions(), APPLICATION_ENV, true);
+        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', APPLICATION_ENV, true);
         if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', APPLICATION_ENV));
         }
