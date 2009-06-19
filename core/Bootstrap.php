@@ -28,7 +28,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         try {
             $front = $this->getResource('FrontController');
-            $front->setModuleControllerDirectoryName("");
+            $front->setModuleControllerDirectoryName('');
             $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
             $default = $front->getDefaultModule();
             if (null === $front->getControllerDirectory($default)) {
@@ -99,15 +99,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $autoloader->registerNamespace('App_');
         $autoloader->registerNamespace('V_');
         $autoloader->setFallbackAutoloader(true);
-        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', APPLICATION_ENV, true);
-        if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', APPLICATION_ENV));
-        }
-        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', APPLICATION_ENV));
-        }
-        $options->setReadOnly();
-        App::setConfig($options);
+        $this->_initConfiguration();
         $classFileIncCache = App::Config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
         if (file_exists($classFileIncCache)) {
             include_once $classFileIncCache;
@@ -156,6 +148,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
         }
         umask(0);
+    }
+
+    /**
+     * Load system configuration
+     */
+    protected function _initConfiguration ()
+    {
+        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
+        if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
+        }
+        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
+        }
+        $options->setReadOnly();
+        App::setConfig($options);
     }
 
     /**
