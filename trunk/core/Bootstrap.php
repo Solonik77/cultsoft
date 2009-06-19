@@ -178,7 +178,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Enable error handling
         App_Exception_PHP::enable();
         $front = App::front();
-        $front->throwExceptions(false);
+        $front->throwExceptions(TRUE);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'default' , 'controller' => 'error' , 'action' => 'error')));
         $logger = new Zend_Log();
         $logger->addWriter(new Zend_Log_Writer_Firebug());
@@ -213,9 +213,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         $system_lang = (array_key_exists(App::getLocale()->getLanguage(), $system_locales)) ? App::getLocale()->getLanguage() : $default_lang_key;
         // change default router
-        App::Front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $system_lang)));
+        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $system_lang)));
         // add multilingual route
-        App::Front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $system_lang), array('requestLang' => '\w{2}')));
+        App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $system_lang), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
     }
 
