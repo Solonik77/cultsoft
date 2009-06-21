@@ -1,44 +1,46 @@
 <?php
 /**
- * ZFDebug Zend Additions
- *
- * @category   ZFDebug
- * @package    ZFDebug_Controller
- * @subpackage Plugins
- * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
- * @version    $Id: Database.php 74 2009-05-19 12:30:36Z gugakfugl $
- */
+* ZFDebug Zend Additions
+*
+* @category ZFDebug
+* @package ZFDebug_Controller
+* @subpackage Plugins
+* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+* @version $Id: Database.php 74 2009-05-19 12:30:36Z gugakfugl $
+*/
 /**
- * @see Zend_Db_Table_Abstract
- */
+*
+* @see Zend_Db_Table_Abstract
+*/
 require_once 'Zend/Db/Table/Abstract.php';
 /**
- * @category   ZFDebug
- * @package    ZFDebug_Controller
- * @subpackage Plugins
- * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
- */
-class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
-{
+*
+* @category ZFDebug
+* @package ZFDebug_Controller
+* @subpackage Plugins
+* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+*/
+class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
     /**
-     * Contains plugin identifier name
-     *
-     * @var string
-     */
+    * Contains plugin identifier name
+    *
+    * @var string
+    */
     protected $_identifier = 'database';
     /**
-     * @var array
-     */
+    *
+    * @var array
+    */
     protected $_db = array();
 
     /**
-     * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
-     *
-     * @param Zend_Db_Adapter_Abstract|array $adapters
-     * @return void
-     */
+    * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
+    *
+    * @param Zend_Db_Adapter_Abstract $ |array $adapters
+    * @return void
+    */
     public function __construct (array $options = array())
     {
         if (! isset($options['adapter']) || ! count($options['adapter'])) {
@@ -46,35 +48,35 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
                 $this->_db[0] = Zend_Db_Table_Abstract::getDefaultAdapter();
                 $this->_db[0]->getProfiler()->setEnabled(true);
             }
-        } else 
-            if ($options['adapter'] instanceof Zend_Db_Adapter_Abstract) {
-                $this->_db[0] = $options['adapter'];
-                $this->_db[0]->getProfiler()->setEnabled(true);
-            } else {
-                foreach ($options['adapter'] as $name => $adapter) {
-                    if ($adapter instanceof Zend_Db_Adapter_Abstract) {
-                        $adapter->getProfiler()->setEnabled(true);
-                        $this->_db[$name] = $adapter;
-                    }
+        } else
+        if ($options['adapter'] instanceof Zend_Db_Adapter_Abstract) {
+            $this->_db[0] = $options['adapter'];
+            $this->_db[0]->getProfiler()->setEnabled(true);
+        } else {
+            foreach ($options['adapter'] as $name => $adapter) {
+                if ($adapter instanceof Zend_Db_Adapter_Abstract) {
+                    $adapter->getProfiler()->setEnabled(true);
+                    $this->_db[$name] = $adapter;
                 }
             }
+        }
     }
 
     /**
-     * Gets identifier for this plugin
-     *
-     * @return string
-     */
+    * Gets identifier for this plugin
+    *
+    * @return string
+    */
     public function getIdentifier ()
     {
         return $this->_identifier;
     }
 
     /**
-     * Gets menu tab for the Debugbar
-     *
-     * @return string
-     */
+    * Gets menu tab for the Debugbar
+    *
+    * @return string
+    */
     public function getTab ()
     {
         if (! $this->_db)
@@ -88,10 +90,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     }
 
     /**
-     * Gets content panel for the Debugbar
-     *
-     * @return string
-     */
+    * Gets content panel for the Debugbar
+    *
+    * @return string
+    */
     public function getPanel ()
     {
         if (! $this->_db)

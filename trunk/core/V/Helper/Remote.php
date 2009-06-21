@@ -1,26 +1,23 @@
 <?php
 /**
- * Remote url/file helper.
- *
- * $Id: remote.php 3769 2008-12-15 00:48:56Z zombor $
- *
- * @package    Core
- * @author     Kohana Team
- * @copyright  (c) 2007-2008 Kohana Team
- * @license    http://kohanaphp.com/license.html
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class V_Helper_Remote
-{
-
+* Remote url/file helper.
+*
+* $Id: remote.php 3769 2008-12-15 00:48:56Z zombor $
+*
+* @package Core
+* @author Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
+* @license http://kohanaphp.com/license.html
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class V_Helper_Remote {
     public static function status ($url)
     {
         if (! V_Helper_Valid::url($url, 'http'))
-            return FALSE;
-            // Get the hostname and path
+            return false;
+        // Get the hostname and path
         $url = parse_url($url);
         if (empty($url['path'])) {
             // Request the root document
@@ -29,8 +26,8 @@ class V_Helper_Remote
         // Open a remote connection
         $remote = fsockopen($url['host'], 80, $errno, $errstr, 5);
         if (! is_resource($remote))
-            return FALSE;
-            // Set CRLF
+            return false;
+        // Set CRLF
         $CRLF = "\r\n";
         // Send request
         fwrite($remote, 'HEAD ' . $url['path'] . ' HTTP/1.0' . $CRLF);
@@ -50,6 +47,6 @@ class V_Helper_Remote
         }
         // Close the connection
         fclose($remote);
-        return isset($response) ? $response : FALSE;
+        return isset($response) ? $response : false;
     }
 } // End remote

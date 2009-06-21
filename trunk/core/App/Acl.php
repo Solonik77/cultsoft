@@ -1,20 +1,19 @@
 <?php
 /**
- * Default access control list for application.
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class App_Acl extends Zend_Acl
-{
+* Default access control list for application.
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class App_Acl extends Zend_Acl {
     // ACL singleton
     private static $instance = null;
 
-    /*
- * Constructor
- */
+    /**
+    * Constructor
+    */
     public function __construct ()
     {
         if (App_Acl::$instance === null) {
@@ -31,10 +30,10 @@ class App_Acl extends Zend_Acl
                 $this->addRole(new Zend_Acl_Role($role['role']));
                 foreach ($resources as $key => $value) {
                     if ($role['role'] == 'guest') {
-                        $value = FALSE;
+                        $value = false;
                     }
                     if ($role['role'] == 'administrator') {
-                        $value = TRUE;
+                        $value = true;
                     }
                     if ($value) {
                         $this->allow($role['role'], $key);

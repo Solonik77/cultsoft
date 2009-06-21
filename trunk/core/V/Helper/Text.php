@@ -1,30 +1,27 @@
 <?php
 require_once CORE_PATH . 'V/UTF8.php';
 /**
- * Text helper class.
- *
- * $Id: text.php 4329 2009-05-06 15:53:27Z Geert $
- *
- * @package Core
- * @author Kohana Team
- * @copyright (c) 2007-2008 Kohana Team
- * @license http://kohanaphp.com/license.html
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class V_Helper_Text
-{
-
+* Text helper class.
+*
+* $Id: text.php 4329 2009-05-06 15:53:27Z Geert $
+*
+* @package Core
+* @author Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
+* @license http://kohanaphp.com/license.html
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class V_Helper_Text {
     /**
-     * Limits a phrase to a given number of words.
-     *
-     * @param string $ phrase to limit words of
-     * @param integer $ number of words to limit to
-     * @param string $ end character or entity
-     * @return string
-     */
+    * Limits a phrase to a given number of words.
+    *
+    * @param string $ phrase to limit words of
+    * @param integer $ number of words to limit to
+    * @param string $ end character or entity
+    * @return string
+    */
     public static function limit_words ($str, $limit = 100, $end_char = null)
     {
         $limit = (int) $limit;
@@ -40,14 +37,14 @@ class V_Helper_Text
     }
 
     /**
-     * Limits a phrase to a given number of characters.
-     *
-     * @param string $ phrase to limit characters of
-     * @param integer $ number of characters to limit to
-     * @param string $ end character or entity
-     * @param boolean $ enable or disable the preservation of words while limiting
-     * @return string
-     */
+    * Limits a phrase to a given number of characters.
+    *
+    * @param string $ phrase to limit characters of
+    * @param integer $ number of characters to limit to
+    * @param string $ end character or entity
+    * @param boolean $ enable or disable the preservation of words while limiting
+    * @return string
+    */
     public static function limit_chars ($str, $limit = 100, $end_char = null, $preserve_words = false)
     {
         $end_char = ($end_char === null) ? '&#8230;' : $end_char;
@@ -64,11 +61,11 @@ class V_Helper_Text
     }
 
     /**
-     * Alternates between two or more strings.
-     *
-     * @param string $ strings to alternate between
-     * @return string
-     */
+    * Alternates between two or more strings.
+    *
+    * @param string $ strings to alternate between
+    * @return string
+    */
     public static function alternate ()
     {
         static $i;
@@ -81,18 +78,18 @@ class V_Helper_Text
     }
 
     /**
-     * Generates a random string of a given type and length.
-     *
-     * @param string $ a type of pool, or a string of characters to use as the pool
-     * @param integer $ length of string to return
-     * @return string
-     * @tutorial alnum     alpha-numeric characters
-     * @tutorial alpha     alphabetical characters
-     * @tutorial hexdec    hexadecimal characters, 0-9 plus a-f
-     * @tutorial numeric   digit characters, 0-9
-     * @tutorial nozero    digit characters, 1-9
-     * @tutorial distinct  clearly distinct alpha-numeric characters
-     */
+    * Generates a random string of a given type and length.
+    *
+    * @param string $ a type of pool, or a string of characters to use as the pool
+    * @param integer $ length of string to return
+    * @return string
+    * @tutorial alnum     alpha-numeric characters
+    * @tutorial alpha     alphabetical characters
+    * @tutorial hexdec    hexadecimal characters, 0-9 plus a-f
+    * @tutorial numeric   digit characters, 0-9
+    * @tutorial nozero    digit characters, 1-9
+    * @tutorial distinct  clearly distinct alpha-numeric characters
+    */
     public static function random ($type = 'alnum', $length = 8)
     {
         $utf8 = false;
@@ -143,25 +140,25 @@ class V_Helper_Text
     }
 
     /**
-     * Reduces multiple slashes in a string to single slashes.
-     *
-     * @param string $ string to reduce slashes of
-     * @return string
-     */
+    * Reduces multiple slashes in a string to single slashes.
+    *
+    * @param string $ string to reduce slashes of
+    * @return string
+    */
     public static function reduce_slashes ($str)
     {
         return preg_replace('#(?<!:)//+#', '/', $str);
     }
 
     /**
-     * Replaces the given words with a string.
-     *
-     * @param string $ phrase to replace words in
-     * @param array $ words to replace
-     * @param string $ replacement string
-     * @param boolean $ replace words across word boundries (space, period, etc)
-     * @return string
-     */
+    * Replaces the given words with a string.
+    *
+    * @param string $ phrase to replace words in
+    * @param array $ words to replace
+    * @param string $ replacement string
+    * @param boolean $ replace words across word boundries (space, period, etc)
+    * @return string
+    */
     public static function censor ($str, $badwords, $replacement = '#', $replace_partial_words = true)
     {
         foreach ((array) $badwords as $key => $badword) {
@@ -181,11 +178,11 @@ class V_Helper_Text
     }
 
     /**
-     * Finds the text that is similar between a set of words.
-     *
-     * @param array $ words to find similar text of
-     * @return string
-     */
+    * Finds the text that is similar between a set of words.
+    *
+    * @param array $ words to find similar text of
+    * @return string
+    */
     public static function similar (array $words)
     {
         // First word is the word to match against
@@ -202,11 +199,11 @@ class V_Helper_Text
     }
 
     /**
-     * Converts text email addresses and anchors into links.
-     *
-     * @param string $ text to auto link
-     * @return string
-     */
+    * Converts text email addresses and anchors into links.
+    *
+    * @param string $ text to auto link
+    * @return string
+    */
     public static function auto_link ($text)
     {
         // Auto link emails first to prevent problems with "www.domain.com@example.com"
@@ -214,11 +211,11 @@ class V_Helper_Text
     }
 
     /**
-     * Converts text anchors into links.
-     *
-     * @param string $ text to auto link
-     * @return string
-     */
+    * Converts text anchors into links.
+    *
+    * @param string $ text to auto link
+    * @return string
+    */
     public static function auto_link_urls ($text)
     {
         // Finds all http/https/ftp/ftps links that are not part of an existing html anchor
@@ -239,11 +236,11 @@ class V_Helper_Text
     }
 
     /**
-     * Converts text email addresses into links.
-     *
-     * @param string $ text to auto link
-     * @return string
-     */
+    * Converts text email addresses into links.
+    *
+    * @param string $ text to auto link
+    * @return string
+    */
     public static function auto_link_emails ($text)
     {
         // Finds all email addresses that are not part of an existing html mailto anchor
@@ -259,18 +256,18 @@ class V_Helper_Text
     }
 
     /**
-     * Automatically applies <p> and <br /> markup to text. Basically nl2br() on steroids.
-     *
-     * @param string $ subject
-     * @param boolean $ convert single linebreaks to <br />
-     * @return string
-     */
+    * Automatically applies <p> and <br /> markup to text. Basically nl2br() on steroids.
+    *
+    * @param string $ subject
+    * @param boolean $ convert single linebreaks to <br />
+    * @return string
+    */
     public static function auto_p ($str, $br = true)
     {
         // Trim whitespace
         if (($str = trim($str)) === '')
             return '';
-            // Standardize newlines
+        // Standardize newlines
         $str = str_replace(array("\r\n" , "\r"), "\n", $str);
         // Trim whitespace on each line
         $str = preg_replace('~^[ \t]+~m', '', $str);
@@ -300,17 +297,17 @@ class V_Helper_Text
     }
 
     /**
-     * Returns human readable sizes.
-     *
-     * @see Based on original functions written by:
-     * @see Aidan Lister: http://aidanlister.com/repos/v/function.size_readable.php
-     * @see Quentin Zervaas: http://www.phpriot.com/d/code/strings/filesize-format/
-     * @param integer $ size in bytes
-     * @param string $ a definitive unit
-     * @param string $ the return string format
-     * @param boolean $ whether to use SI prefixes or IEC
-     * @return string
-     */
+    * Returns human readable sizes.
+    *
+    * @see Based on original functions written by:
+    * @see Aidan Lister: http://aidanlister.com/repos/v/function.size_readable.php
+    * @see Quentin Zervaas: http://www.phpriot.com/d/code/strings/filesize-format/
+    * @param integer $ size in bytes
+    * @param string $ a definitive unit
+    * @param string $ the return string format
+    * @param boolean $ whether to use SI prefixes or IEC
+    * @return string
+    */
     public static function bytes ($bytes, $force_unit = null, $format = null, $si = true)
     {
         // Format string
@@ -320,7 +317,7 @@ class V_Helper_Text
             $units = array('B' , 'KiB' , 'MiB' , 'GiB' , 'TiB' , 'PiB');
             $mod = 1024;
         } // SI prefixes (decimal)
-else {
+        else {
             $units = array('B' , 'kB' , 'MB' , 'GB' , 'TB' , 'PB');
             $mod = 1000;
         }
@@ -332,12 +329,12 @@ else {
     }
 
     /**
-     * Prevents widow words by inserting a non-breaking space between the last two words.
-     *
-     * @see http://www.shauninman.com/archive/2006/08/22/widont_wordpress_plugin
-     * @param string $ string to remove widows from
-     * @return string
-     */
+    * Prevents widow words by inserting a non-breaking space between the last two words.
+    *
+    * @see http://www.shauninman.com/archive/2006/08/22/widont_wordpress_plugin
+    * @param string $ string to remove widows from
+    * @return string
+    */
     public static function widont ($str)
     {
         $str = rtrim($str);

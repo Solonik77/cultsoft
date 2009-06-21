@@ -1,27 +1,26 @@
 <?php
 /**
- * View Helper 
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-/*
+* View Helper
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+/**
 * App_View_Helper_HeadLink
-* @see        http://www.w3.org/TR/xhtml1/dtds.html
-* @uses       Zend_View_Helper_Placeholder_Container_Standalone
-* @package    Zend_View
+*
+* @see http://www.w3.org/TR/xhtml1/dtds.html
+* @uses Zend_View_Helper_Placeholder_Container_Standalone
+* @package Zend_View
 * @subpackage Helper
 */
-class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
-{
-
+class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
     /**
-     * Render link elements as string
-     *
-     * @return string
-     */
+    * Render link elements as string
+    *
+    * @return string
+    */
     public function toString ()
     {
         $stylesheets = array();
@@ -45,7 +44,7 @@ class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
         return implode("\n", $items);
     }
 
-    /*
+    /**
     * Getting Minify URL
     */
     public function getMinUrl ()

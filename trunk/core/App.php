@@ -1,17 +1,16 @@
 <?php
 /**
- * BASE APPLICATION
- * Provides Zend application-specific helper functions.
- *
- * $Id$
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-final class App
-{
+* BASE APPLICATION
+* Provides Zend application-specific helper functions.
+*
+* $Id$
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+final class App {
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
@@ -31,16 +30,16 @@ final class App
     protected static $base_uri = '';
 
     /**
-     * Return Database object
-     */
+    * Return Database object
+    */
     public static function DB ()
     {
         return App::$db;
     }
 
     /**
-     * Return application configuration
-     */
+    * Return application configuration
+    */
     public static function Config ()
     {
         if (App::$config instanceof Zend_Config) {
@@ -51,24 +50,24 @@ final class App
     }
 
     /**
-     * Front controller instance
-     */
+    * Front controller instance
+    */
     public static function Front ()
     {
         return Zend_Controller_Front::getInstance();
     }
 
     /**
-     * Auth instance
-     */
+    * Auth instance
+    */
     public static function Auth ()
     {
         return Zend_Auth::getInstance();
     }
 
     /**
-     * Zend logger
-     */
+    * Zend logger
+    */
     public static function Log ($message, $type = 1)
     {
         app::$log->log($message, $type);
@@ -76,16 +75,16 @@ final class App
     }
 
     /**
-     * Auth check
-     */
+    * Auth check
+    */
     public static function isAuth ()
     {
         return App::Auth()->hasIdentity();
     }
 
     /**
-     * Set database object
-     */
+    * Set database object
+    */
     public static function setDb ($object)
     {
         if (App::$db === null) {
@@ -94,8 +93,8 @@ final class App
     }
 
     /**
-     * Set locale object
-     */
+    * Set locale object
+    */
     public static function setLocale ($object)
     {
         if (App::$locale === null) {
@@ -104,8 +103,8 @@ final class App
     }
 
     /**
-     * Set configuration
-     */
+    * Set configuration
+    */
     public static function setConfig (Zend_Config $object)
     {
         if (App::$config === null) {
@@ -114,8 +113,8 @@ final class App
     }
 
     /**
-     * Set logger
-     */
+    * Set logger
+    */
     public static function setLog (Zend_Log $object)
     {
         if (App::$log === null) {
@@ -124,16 +123,16 @@ final class App
     }
 
     /**
-     * Get system locale information
-     */
+    * Get system locale information
+    */
     public static function getLocale ()
     {
         return App::$locale;
     }
 
     /**
-     * Set translator object
-     */
+    * Set translator object
+    */
     public static function setTranslate (Zend_Translate $object)
     {
         App::$i18n = $object;
@@ -142,8 +141,8 @@ final class App
     }
 
     /**
-     * Translator method _
-     */
+    * Translator method _
+    */
     public static function _ ($text = '', $print = true)
     {
         if ($print === true) {
@@ -154,15 +153,15 @@ final class App
     }
 
     /**
-     * Base URL, with or without the index page.
-     *
-     * If protocol (and core.site_protocol) and core.site_domain are both empty,
-     * then
-     *
-     * @param boolean $ include the index page
-     * @param boolean $ non-default protocol
-     * @return string
-     */
+    * Base URL, with or without the index page.
+    *
+    * If protocol (and core.site_protocol) and core.site_domain are both empty,
+    * then
+    *
+    * @param boolean $ include the index page
+    * @param boolean $ non-default protocol
+    * @return string
+    */
     public static function baseUri ($index = false, $protocol = false)
     {
         if (! empty(app::$base_uri)) {
@@ -185,8 +184,8 @@ final class App
     }
 
     /**
-     * Is Platform running on Windows?
-     */
+    * Is Platform running on Windows?
+    */
     public static function isWin ()
     {
         return DIRECTORY_SEPARATOR === '\\';
