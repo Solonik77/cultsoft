@@ -1,21 +1,21 @@
 <?php
 
 /**
-* V_UTF8::substr
-*
-* @package Core
-* @author Kohana Team
-* @copyright (c) 2007 Kohana Team
-* @copyright (c) 2005 Harry Fuecks
-* @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
-*/
+ * V_UTF8::substr
+ *
+ * @package Core
+ * @author Kohana Team
+ * @copyright (c) 2007 Kohana Team
+ * @copyright (c) 2005 Harry Fuecks
+ * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+ */
 function _substr ($str, $offset, $length = null)
 {
     if (SERVER_UTF8)
         return ($length === null) ? mb_substr($str, $offset) : mb_substr($str, $offset, $length);
     if (V_UTF8::is_ascii($str))
         return ($length === null) ? substr($str, $offset) : substr($str, $offset, $length);
-    // Normalize params
+        // Normalize params
     $str = (string) $str;
     $strlen = V_UTF8::strlen($str);
     $offset = (int) ($offset < 0) ? max(0, $strlen + $offset) : $offset; // Normalize to positive offset
@@ -23,10 +23,10 @@ function _substr ($str, $offset, $length = null)
     // Impossible
     if ($length === 0 or $offset >= $strlen or ($length < 0 and $length <= $offset - $strlen))
         return '';
-    // Whole string
+        // Whole string
     if ($offset == 0 and ($length === null or $length >= $strlen))
         return $str;
-    // Build regex
+        // Build regex
     $regex = '^';
     // Create an offset expression
     if ($offset > 0) {
@@ -40,7 +40,7 @@ function _substr ($str, $offset, $length = null)
     if ($length === null) {
         $regex .= '(.*)'; // No length set, grab it all
     } // Find length from the left (positive length)
-    elseif ($length > 0) {
+elseif ($length > 0) {
         // Reduce length so that it can't go beyond the end of the string
         $length = min($strlen - $offset, $length);
         $x = (int) ($length / 65535);
@@ -49,7 +49,7 @@ function _substr ($str, $offset, $length = null)
         $regex .= ($x == 0) ? '' : '(?:.{65535}){' . $x . '}';
         $regex .= '.{' . $y . '})';
     } // Find length from the right (negative length)
-    else {
+else {
         $x = (int) (- $length / 65535);
         $y = (int) (- $length % 65535);
         $regex .= '(.*)';

@@ -1,29 +1,30 @@
 <?php
 /**
-* Request helper class.
-*
-* $Id: request.php 4355 2009-05-15 17:18:28Z kiall $
-*
-* @package Core
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class V_Helper_Request {
+ * Request helper class.
+ *
+ * $Id: request.php 4355 2009-05-15 17:18:28Z kiall $
+ *
+ * @package Core
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class V_Helper_Request
+{
     // Possible HTTP methods
     protected static $http_methods = array('get' , 'head' , 'options' , 'post' , 'put' , 'delete');
     // Content types from client's HTTP Accept request header (array)
     protected static $accept_types;
 
     /**
-    * Returns the HTTP referrer, or the default if the referrer is not set.
-    *
-    * @param mixed $ default to return
-    * @return string
-    */
+     * Returns the HTTP referrer, or the default if the referrer is not set.
+     *
+     * @param mixed $ default to return
+     * @return string
+     */
     public static function referrer ($default = false)
     {
         if (! empty($_SERVER['HTTP_REFERER'])) {
@@ -38,11 +39,11 @@ class V_Helper_Request {
     }
 
     /**
-    * Returns the current request protocol, based on $_SERVER['https']. In CLI
-    * mode, NULL will be returned.
-    *
-    * @return string
-    */
+     * Returns the current request protocol, based on $_SERVER['https']. In CLI
+     * mode, NULL will be returned.
+     *
+     * @return string
+     */
     public static function protocol ()
     {
         if (PHP_SAPI === 'cli') {
@@ -55,22 +56,22 @@ class V_Helper_Request {
     }
 
     /**
-    * Tests if the current request is an AJAX request by checking the X-Requested-With HTTP
-    * request header that most popular JS frameworks now set for AJAX calls.
-    *
-    * @return boolean
-    */
+     * Tests if the current request is an AJAX request by checking the X-Requested-With HTTP
+     * request header that most popular JS frameworks now set for AJAX calls.
+     *
+     * @return boolean
+     */
     public static function is_ajax ()
     {
         return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
     /**
-    * Returns current request method.
-    *
-    * @throws App_Exceptionin case of an unknown request method
-    * @return string
-    */
+     * Returns current request method.
+     *
+     * @throws App_Exceptionin case of an unknown request method
+     * @return string
+     */
     public static function method ()
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -80,12 +81,12 @@ class V_Helper_Request {
     }
 
     /**
-    * Returns boolean of whether client accepts content type.
-    *
-    * @param string $ content type
-    * @param boolean $ set to TRUE to disable wildcard checking
-    * @return boolean
-    */
+     * Returns boolean of whether client accepts content type.
+     *
+     * @param string $ content type
+     * @param boolean $ set to TRUE to disable wildcard checking
+     * @return boolean
+     */
     public static function accepts ($type = null, $explicit_check = false)
     {
         V_Helper_Request::parse_accept_header();
@@ -95,14 +96,14 @@ class V_Helper_Request {
     }
 
     /**
-    * Compare the q values for given array of content types and return the one with the highest value.
-    * If items are found to have the same q value, the first one encountered in the given array wins.
-    * If all items in the given array have a q value of 0, FALSE is returned.
-    *
-    * @param array $ content types
-    * @param boolean $ set to TRUE to disable wildcard checking
-    * @return mixed string mime type with highest q value, FALSE if none of the given types are accepted
-    */
+     * Compare the q values for given array of content types and return the one with the highest value.
+     * If items are found to have the same q value, the first one encountered in the given array wins.
+     * If all items in the given array have a q value of 0, FALSE is returned.
+     *
+     * @param array $ content types
+     * @param boolean $ set to TRUE to disable wildcard checking
+     * @return mixed string mime type with highest q value, FALSE if none of the given types are accepted
+     */
     public static function preferred_accept ($types, $explicit_check = false)
     {
         // Initialize
@@ -124,12 +125,12 @@ class V_Helper_Request {
     }
 
     /**
-    * Returns quality factor at which the client accepts content type.
-    *
-    * @param string $ content type (e.g. "image/jpg", "jpg")
-    * @param boolean $ set to TRUE to disable wildcard checking
-    * @return integer |float
-    */
+     * Returns quality factor at which the client accepts content type.
+     *
+     * @param string $ content type (e.g. "image/jpg", "jpg")
+     * @param boolean $ set to TRUE to disable wildcard checking
+     * @return integer |float
+     */
     public static function accepts_at_quality ($type = null, $explicit_check = false)
     {
         V_Helper_Request::parse_accept_header();
@@ -151,27 +152,27 @@ class V_Helper_Request {
         // Exact match
         if (isset(V_Helper_Request::$accept_types[$type[0]][$type[1]]))
             return V_Helper_Request::$accept_types[$type[0]][$type[1]];
-        // Wildcard match (if not checking explicitly)
+            // Wildcard match (if not checking explicitly)
         if ($explicit_check === false and isset(V_Helper_Request::$accept_types[$type[0]]['*']))
             return V_Helper_Request::$accept_types[$type[0]]['*'];
-        // Catch-all wildcard match (if not checking explicitly)
+            // Catch-all wildcard match (if not checking explicitly)
         if ($explicit_check === false and isset(V_Helper_Request::$accept_types['*']['*']))
             return V_Helper_Request::$accept_types['*']['*'];
-        // Content type not accepted
+            // Content type not accepted
         return 0;
     }
 
     /**
-    * Parses client's HTTP Accept request header, and builds array structure representing it.
-    *
-    * @return void
-    */
+     * Parses client's HTTP Accept request header, and builds array structure representing it.
+     *
+     * @return void
+     */
     protected static function parse_accept_header ()
     {
         // Run this function just once
         if (V_Helper_Request::$accept_types !== null)
             return;
-        // Initialize accept_types array
+            // Initialize accept_types array
         V_Helper_Request::$accept_types = array();
         // No HTTP Accept header found
         if (empty($_SERVER['HTTP_ACCEPT'])) {
@@ -188,7 +189,7 @@ class V_Helper_Request {
             // Skip invalid content types
             if (! isset($type[1]))
                 continue;
-            // Assume a default quality factor of 1 if no custom q value found
+                // Assume a default quality factor of 1 if no custom q value found
             $q = (isset($accept_entry[1]) and preg_match('~\bq\s*+=\s*+([.0-9]+)~', $accept_entry[1], $match)) ? (float) $match[1] : 1;
             // Populate accept_types array
             if (! isset(V_Helper_Request::$accept_types[$type[0]][$type[1]]) or $q > V_Helper_Request::$accept_types[$type[0]][$type[1]]) {

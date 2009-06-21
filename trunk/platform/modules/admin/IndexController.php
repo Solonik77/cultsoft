@@ -1,14 +1,15 @@
 <?php
 /**
-* Admin Index controller.
-* This is dashboard controller.
-*
-* @package Core
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class Admin_IndexController extends App_Controller_Action {
+ * Admin Index controller.
+ * This is dashboard controller.
+ *
+ * @package Core
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class Admin_IndexController extends App_Controller_Action
+{
     CONST BACKOFFICE_CONTROLLER = true;
 
     public function init ()
@@ -16,8 +17,8 @@ class Admin_IndexController extends App_Controller_Action {
     }
 
     /**
-    * Default system action
-    */
+     * Default system action
+     */
     public function indexAction ()
     {
     }

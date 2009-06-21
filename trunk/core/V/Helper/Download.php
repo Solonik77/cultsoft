@@ -1,27 +1,29 @@
 <?php
 /**
-* Download helper class.
-*
-* $Id: download.php 3769 2008-12-15 00:48:56Z zombor $
-*
-* @package Core
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class V_Helper_Download {
+ * Download helper class.
+ *
+ * $Id: download.php 3769 2008-12-15 00:48:56Z zombor $
+ *
+ * @package Core
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class V_Helper_Download
+{
+
     /**
-    * Force a download of a file to the user's browser. This function is
-    * binary-safe and will work with any MIME type that Kohana is aware of.
-    *
-    * @param string $ a file path or file name
-    * @param mixed $ data to be sent if the filename does not exist
-    * @param string $ suggested filename to display in the download
-    * @return void
-    */
+     * Force a download of a file to the user's browser. This function is
+     * binary-safe and will work with any MIME type that Kohana is aware of.
+     *
+     * @param string $ a file path or file name
+     * @param mixed $ data to be sent if the filename does not exist
+     * @param string $ suggested filename to display in the download
+     * @return void
+     */
     public static function force ($filename = null, $data = null, $nicename = null)
     {
         if (empty($filename))
