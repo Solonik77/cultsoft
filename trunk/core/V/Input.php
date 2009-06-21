@@ -17,6 +17,8 @@ class V_Input
     protected $magic_quotes_gpc = false;
     // IP address of current user
     public $ip_address;
+    // IP address of current user
+    public $user_agent;
     // Input singleton
     protected static $instance;
 
@@ -76,6 +78,15 @@ class V_Input
                 // Warn the developer about register globals
                 App::Log('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
+            // Disable notices and "strict" errors
+            $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
+            // Set the user agent
+            $this->user_agent = (! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
+            if (utf8::strlen($this->user_agent) > 255) {
+                $this->user_agent = utf8::substr($this->user_agent, 0, 255);
+            }
+            // Restore error reporting
+            error_reporting($ER);
             if (is_array($_GET)) {
                 foreach ($_GET as $key => $val) {
                     // Sanitize $_GET
@@ -211,6 +222,16 @@ class V_Input
             $this->ip_address = '0.0.0.0';
         }
         return $this->ip_address;
+    }
+
+    /**
+     * Fetch the User Agent.
+     *
+     * @return string
+     */
+    public function user_agent()
+    {
+        return $this->user_agent;
     }
 
     /**
