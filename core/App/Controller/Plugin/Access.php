@@ -1,21 +1,20 @@
 <?php
 /**
- * Member access Zend Controller plugin
- * Provide access to controller by ACL rules check
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract
-{
+* Member access Zend Controller plugin
+* Provide access to controller by ACL rules check
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     // Zend_ACL Instance
     private $_acl;
 
     /**
-     * Constructor
-     */
+    * Constructor
+    */
     public function __construct ()
     {
         $this->_acl = App_Acl::getInstance();

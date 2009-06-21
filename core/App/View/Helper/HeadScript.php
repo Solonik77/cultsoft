@@ -1,27 +1,26 @@
 <?php
 /**
- * View Helper 
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-/*
+* View Helper
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+/**
 * App_View_Helper_HeadScript
-* @see        http://www.w3.org/TR/xhtml1/dtds.html
-* @uses       Zend_View_Helper_Placeholder_Container_Standalone
-* @package    Zend_View
+*
+* @see http://www.w3.org/TR/xhtml1/dtds.html
+* @uses Zend_View_Helper_Placeholder_Container_Standalone
+* @package Zend_View
 * @subpackage Helper
 */
-class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
-{
-
+class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
     /**
-     * Render link elements as string
-     *
-     * @return string
-     */
+    * Render link elements as string
+    *
+    * @return string
+    */
     public function toString ($indent = null)
     {
         $indent = (null !== $indent) ? $this->getWhitespace($indent) : $this->getIndent();
@@ -61,8 +60,8 @@ class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
         return $return;
     }
 
-    /*
-     Getting Minify URL
+    /**
+    * Getting Minify URL
     */
     public function getMinUrl ()
     {

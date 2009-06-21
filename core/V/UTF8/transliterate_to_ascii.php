@@ -1,14 +1,14 @@
 <?php
 
 /**
- * V_UTF8::transliterate_to_ascii
- *
- * @package Core
- * @author Kohana Team
- * @copyright (c) 2007 Kohana Team
- * @copyright (c) 2005 Harry Fuecks
- * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
- */
+* V_UTF8::transliterate_to_ascii
+*
+* @package Core
+* @author Kohana Team
+* @copyright (c) 2007 Kohana Team
+* @copyright (c) 2005 Harry Fuecks
+* @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+*/
 function _transliterate_to_ascii ($str, $case = 0)
 {
     static $UTF8_LOWER_ACCENTS = null;

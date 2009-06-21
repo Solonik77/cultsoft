@@ -1,98 +1,101 @@
 <?php
 /**
- * ZFDebug Zend Additions
- *
- * @category   ZFDebug
- * @package    ZFDebug_Controller
- * @subpackage Plugins
- * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
- * @version    $Id: Debug.php 83 2009-05-21 13:36:05Z gugakfugl $
- */
+* ZFDebug Zend Additions
+*
+* @category ZFDebug
+* @package ZFDebug_Controller
+* @subpackage Plugins
+* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+* @version $Id: Debug.php 83 2009-05-21 13:36:05Z gugakfugl $
+*/
 /**
- * @see Zend_Controller_Exception
- */
+*
+* @see Zend_Controller_Exception
+*/
 require_once 'Zend/Controller/Exception.php';
 /**
- * @see Zend_Version
- */
+*
+* @see Zend_Version
+*/
 require_once 'Zend/Version.php';
 /**
- * @see ZFDebug_Controller_Plugin_Debug_Plugin_Text
- */
+*
+* @see ZFDebug_Controller_Plugin_Debug_Plugin_Text
+*/
 require_once 'ZFDebug/Controller/Plugin/Debug/Plugin/Text.php';
 /**
- * @category   ZFDebug
- * @package    ZFDebug_Controller
- * @subpackage Plugins
- * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
- */
-class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
-{
+*
+* @category ZFDebug
+* @package ZFDebug_Controller
+* @subpackage Plugins
+* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+*/
+class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
     /**
-     * Contains registered plugins
-     *
-     * @var array
-     */
+    * Contains registered plugins
+    *
+    * @var array
+    */
     protected $_plugins = array();
     /**
-     * Contains options to change Debug Bar behavior
-     */
+    * Contains options to change Debug Bar behavior
+    */
     protected $_options = array('plugins' => array('Variables' => null , 'Time' => null , 'Memory' => null) , 'z-index' => 10000 , 'jquery_path' => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js' , 'image_path' => null);
     /**
-     * Standard plugins
-     *
-     * @var array
-     */
+    * Standard plugins
+    *
+    * @var array
+    */
     public static $standardPlugins = array('Cache' , 'Html' , 'Database' , 'Exception' , 'File' , 'Memory' , 'Registry' , 'Time' , 'Variables');
     /**
-     * Debug Bar Version Number
-     * for internal use only
-     *
-     * @var string
-     */
+    * Debug Bar Version Number
+    * for internal use only
+    *
+    * @var string
+    */
     protected $_version = '1.5';
 
     /**
-     * Creates a new instance of the Debug Bar
-     *
-     * @param array|Zend_Config $options
-     * @throws Zend_Controller_Exception
-     * @return void
-     */
+    * Creates a new instance of the Debug Bar
+    *
+    * @param array $ |Zend_Config $options
+    * @throws Zend_Controller_Exception
+    * @return void
+    */
     public function __construct ($options = null)
     {
         if (isset($options)) {
             if ($options instanceof Zend_Config) {
                 $options = $options->toArray();
             }
-            /*
-             * Verify that adapter parameters are in an array.
-             */
+            /**
+            * Verify that adapter parameters are in an array.
+            */
             if (! is_array($options)) {
                 throw new Zend_Exception('Debug parameters must be in an array or a Zend_Config object');
             }
             $this->setOptions($options);
         }
         /**
-         * Creating ZF Version Tab always shown
-         */
+        * Creating ZF Version Tab always shown
+        */
         $version = new ZFDebug_Controller_Plugin_Debug_Plugin_Text();
         $version->setPanel($this->_getVersionPanel())->setTab($this->_getVersionTab())->setIdentifier('copyright');
         $this->registerPlugin($version);
         /**
-         * Loading aready defined plugins
-         */
+        * Loading aready defined plugins
+        */
         $this->_loadPlugins();
     }
 
     /**
-     * Sets options of the Debug Bar
-     *
-     * @param array $options
-     * @return ZFDebug_Controller_Plugin_Debug
-     */
+    * Sets options of the Debug Bar
+    *
+    * @param array $options
+    * @return ZFDebug_Controller_Plugin_Debug
+    */
     public function setOptions (array $options = array())
     {
         if (isset($options['jquery_path'])) {
@@ -111,11 +114,11 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Register a new plugin in the Debug Bar
-     *
-     * @param ZFDebug_Controller_Plugin_Debug_Plugin_Interface
-     * @return ZFDebug_Controller_Plugin_Debug
-     */
+    * Register a new plugin in the Debug Bar
+    *
+    * @param ZFDebug_Controller_Plugin_Debug_Plugin_Interface $
+    * @return ZFDebug_Controller_Plugin_Debug
+    */
     public function registerPlugin (ZFDebug_Controller_Plugin_Debug_Plugin_Interface $plugin)
     {
         $this->_plugins[$plugin->getIdentifier()] = $plugin;
@@ -123,11 +126,11 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Unregister a plugin in the Debug Bar
-     *
-     * @param string $plugin
-     * @return ZFDebug_Controller_Plugin_Debug
-     */
+    * Unregister a plugin in the Debug Bar
+    *
+    * @param string $plugin
+    * @return ZFDebug_Controller_Plugin_Debug
+    */
     public function unregisterPlugin ($plugin)
     {
         if (false !== strpos($plugin, '_')) {
@@ -146,11 +149,11 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Get a registered plugin in the Debug Bar
-     *
-     * @param string $identifier
-     * @return ZFDebug_Controller_Plugin_Debug_Plugin_Interface
-     */
+    * Get a registered plugin in the Debug Bar
+    *
+    * @param string $identifier
+    * @return ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+    */
     public function getPlugin ($identifier)
     {
         $identifier = strtolower($identifier);
@@ -161,34 +164,40 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Defined by Zend_Controller_Plugin_Abstract
-     */
+    * Defined by Zend_Controller_Plugin_Abstract
+    */
     public function dispatchLoopShutdown ()
     {
         $html = '';
         if ($this->getRequest()->isXmlHttpRequest())
             return;
         /**
-         * Creating menu tab for all registered plugins
-         */
+        * Creating menu tab for all registered plugins
+        */
         foreach ($this->_plugins as $plugin) {
             $panel = $plugin->getPanel();
             if ($panel == '') {
                 continue;
             }
-            /* @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface */
+            /**
+            *
+            * @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+            */
             $html .= '<div id="ZFDebug_' . $plugin->getIdentifier() . '" class="ZFDebug_panel">' . $panel . '</div>';
         }
         $html .= '<div id="ZFDebug_info">';
         /**
-         * Creating panel content for all registered plugins
-         */
+        * Creating panel content for all registered plugins
+        */
         foreach ($this->_plugins as $plugin) {
             $tab = $plugin->getTab();
             if ($tab == '') {
                 continue;
             }
-            /* @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface */
+            /**
+            *
+            * @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+            */
             $html .= '<span class="ZFDebug_span clickable" onclick="ZFDebugPanel(\'ZFDebug_' . $plugin->getIdentifier() . '\');">';
             $html .= '<img src="' . $this->_icon($plugin->getIdentifier()) . '"  width="16" height="16" style="vertical-align:middle" alt="' . $plugin->getIdentifier() . '" title="' . $plugin->getIdentifier() . '" /> ';
             $html .= $tab . '</span>';
@@ -197,18 +206,17 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
         $html .= '</div>';
         $this->_output($html);
     }
-
-    ### INTERNAL METHODS BELOW ###
+    // ## INTERNAL METHODS BELOW ###
     /**
-     * Load plugins set in config option
-     *
-     * @return void;
-     */
+    * Load plugins set in config option
+    *
+    * @return void ;
+    */
     protected function _loadPlugins ()
     {
         foreach ($this->_options['plugins'] as $plugin => $options) {
             if (is_numeric($plugin)) {
-                # Plugin passed as array value instead of key
+                // Plugin passed as array value instead of key
                 $plugin = $options;
                 $options = array();
             }
@@ -230,23 +238,23 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Return version tab
-     *
-     * @return string
-     */
+    * Return version tab
+    *
+    * @return string
+    */
     protected function _getVersionTab ()
     {
         return ' ' . Zend_Version::VERSION . '/' . phpversion();
     }
 
     /**
-     * Returns version panel
-     *
-     * @return string
-     */
+    * Returns version panel
+    *
+    * @return string
+    */
     protected function _getVersionPanel ()
     {
-        $panel = '<h4>ZFDebug v' . $this->_version . '</h4>' . '<p>©2008-2009 <a href="http://jokke.dk">Joakim Nygård</a> & <a href="http://www.bangal.de">Andreas Pankratz</a></p>' . '<p>The project is hosted at <a href="http://code.google.com/p/zfdebug/">http://zfdebug.googlecode.com</a> and released under the BSD License<br />' . 'Includes images from the <a href="http://www.famfamfam.com/lab/icons/silk/">Silk Icon set</a> by Mark James</p>';
+        $panel = '<h4>ZFDebug v' . $this->_version . '</h4>' . '<p>©2008-2009 <a href="http://jokke.dk">Joakim Nygard</a> & <a href="http://www.bangal.de">Andreas Pankratz</a></p>' . '<p>The project is hosted at <a href="http://code.google.com/p/zfdebug/">http://zfdebug.googlecode.com</a> and released under the BSD License<br />' . 'Includes images from the <a href="http://www.famfamfam.com/lab/icons/silk/">Silk Icon set</a> by Mark James</p>';
         $panel .= '<h4>Zend Framework ' . Zend_Version::VERSION . ' / PHP ' . phpversion() . ' with extensions:</h4>';
         $extensions = get_loaded_extensions();
         natcasesort($extensions);
@@ -255,10 +263,10 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Returns path to the specific icon
-     *
-     * @return string
-     */
+    * Returns path to the specific icon
+    *
+    * @return string
+    */
     protected function _icon ($kind)
     {
         switch ($kind) {
@@ -335,10 +343,10 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Returns html header for the Debug Bar
-     *
-     * @return string
-     */
+    * Returns html header for the Debug Bar
+    *
+    * @return string
+    */
     protected function _headerOutput ()
     {
         $collapsed = isset($_COOKIE['ZFDebugCollapsed']) ? $_COOKIE['ZFDebugCollapsed'] : 0;
@@ -376,7 +384,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
                     jQuery.noConflict();
                     ZFDebugCollapsed();
                 };
-                
+
                 function ZFDebugCollapsed() {
                     if (' . $collapsed . ' == 1) {
                         ZFDebugPanel();
@@ -384,7 +392,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
                         return jQuery("#ZFDebug_debug").css("left", "-"+parseInt(jQuery("#ZFDebug_debug").outerWidth()-jQuery("#ZFDebug_toggler").outerWidth()+1)+"px");
                     }
                 }
-                
+
                 function ZFDebugPanel(name) {
                     jQuery(".ZFDebug_panel").each(function(i){
                         if(jQuery(this).css("display") == "block") {
@@ -426,11 +434,11 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract
     }
 
     /**
-     * Appends Debug Bar html output to the original page
-     *
-     * @param string $html
-     * @return void
-     */
+    * Appends Debug Bar html output to the original page
+    *
+    * @param string $html
+    * @return void
+    */
     protected function _output ($html)
     {
         $response = $this->getResponse();

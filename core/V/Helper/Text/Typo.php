@@ -1,68 +1,67 @@
 <?php
 /**
- * Jevix — средство автоматического применения правил набора текстов,
- * наделённое способностью унифицировать разметку HTML/XML документов,
- * контролировать перечень допустимых тегов и аттрибутов,
- * предотвращать возможные XSS-атаки в коде документов.
- * http://code.google.com/p/jevix/
- *
- * @author ur001 <ur001ur001@gmail.com>, http://ur001.habrahabr.ru
- * @version 1.01
- * 
- * История версий:
- * 1.01
- *  + cfgSetAutoReplace теперь регистронезависимый
- *  + Возможность указать через cfgSetTagIsEmpty теги с пустым содержанием, которые не будут адалены парсером (rus.engine)
- *  + фикс бага удаления контента тега при разном регистре открывающего и закрывающего тегов  (rus.engine)
- *	+ Исправлено поведение парсера при установке правила sfgParamsAutoAdd(). Теперь
- *    параметр устанавливается только в том случае, если его вообще нет в
- *    обрабатываемом тексте. Если есть - оставляется оригинальное значение. (deadyaga)
- * 1.00
- *  + Исправлен баг с закрывающимися тегами приводящий к созданию непарного тега рушащего вёрстку
- * 1.00 RC2
- *  + Небольшая чистка кода
- * 1.00 RC1
- *  + Добавлен символьный класс Jevix::RUS для определния русских символов
- *  + Авторасстановка пробелов после пунктуации только для кирилицы
- *  + Добавлена настройка cfgSetTagNoTypography() отключающая типографирование в указанном теге
- *  + Немного переделан алгоритм обработки кавычек. Он стал более строгим
- *  + Знак дюйма 33" больше не превращается в открывающуюся кавычку. Однако варриант "мой 24" монитор" - парсер не переварит.
- * 0.99
- *  + Расширена функциональность для проверки атрибутов тега:
- *    можно указать тип атрибута ( 'colspan'=>'#int', 'value' => '#text' )
- *    в Jevix, по-умолчанию, определён массив типов для нескольких стандартных атрибутов (src, href, width, height)
- * 0.98
- *  + Расширена функциональность для проверки атрибутов тега:
- *    можно задавать список дозможных значений атрибута (  'align'=>array('left', 'right', 'center') )
- * 0.97
- *  + Обычные "кавычки" сохраняются как &quote; если они были так написаны
- * 0.96
- *  + Добавлены разрешённые протоколы https и ftp для ссылок (a href="https://...)
- * 0.95
- *  + Исправлено типографирование ?.. и !.. (две точки в конце больше не превращаются в троеточие)
- *  + Отключено автоматическое добавление пробела после точки для латиницы из-за чего невозможно было написать
- *    index.php или .htaccess
- * 0.94
- *  + Добавлена настройка автодобавления параметров тегов. Непример rel = "nofolow" для ссылок.
- *    Спасибо Myroslav Holyak (vbhjckfd@gmail.com)
- * 0.93
- *      + Исправлен баг с удалением пробелов (например в "123 &mdash; 123")
- *  + Исправлена ошибка из-за которой иногда не срабатывало автоматическое преобразования URL в ссылу
- *  + Добавлена настройка cfgSetAutoLinkMode для отключения автоматического преобразования URL в ссылки
- *  + Автодобавление пробела после точки, если после неё идёт русский символ
- * 0.92
- *      + Добавлена настройка cfgSetAutoBrMode. При установке в false, переносы строк не будут автоматически заменяться на BR
- *      + Изменена обработка HTML-сущностей. Теперь все сущности имеющие эквивалент в Unicode (за исключением <>)
- *    автоматически преобразуются в символ
- * 0.91
- *      + Добавлена обработка преформатированных тегов <pre>, <code>. Для задания используйте cfgSetTagPreformatted()
- *  + Добавлена настройка cfgSetXHTMLMode. При отключении пустые теги будут оформляться как <br>, при включенном - <br/>
- *      + Несколько незначительных багфиксов
- * 0.9
- *      + Первый бета-релиз
- */
-class V_Helper_Text_Typo extends V_Helper_Text
-{
+* Jevix — средство автоматического применения правил набора текстов,
+* наделённое способностью унифицировать разметку HTML/XML документов,
+* контролировать перечень допустимых тегов и аттрибутов,
+* предотвращать возможные XSS-атаки в коде документов.
+* http://code.google.com/p/jevix/
+*
+* @author ur001 <ur001ur001@gmail.com>
+* @version 1.01
+
+История версий:
+1.01
+  + cfgSetAutoReplace теперь регистронезависимый
+  + Возможность указать через cfgSetTagIsEmpty теги с пустым содержанием, которые не будут адалены парсером (rus.engine)
+  + фикс бага удаления контента тега при разном регистре открывающего и закрывающего тегов  (rus.engine)
+	+ Исправлено поведение парсера при установке правила sfgParamsAutoAdd(). Теперь
+    параметр устанавливается только в том случае, если его вообще нет в
+    обрабатываемом тексте. Если есть - оставляется оригинальное значение. (deadyaga)
+1.00
+  + Исправлен баг с закрывающимися тегами приводящий к созданию непарного тега рушащего вёрстку
+1.00 RC2
+  + Небольшая чистка кода
+1.00 RC1
+  + Добавлен символьный класс Jevix::RUS для определния русских символов
+  + Авторасстановка пробелов после пунктуации только для кирилицы
+  + Добавлена настройка cfgSetTagNoTypography() отключающая типографирование в указанном теге
+  + Немного переделан алгоритм обработки кавычек. Он стал более строгим
+  + Знак дюйма 33" больше не превращается в открывающуюся кавычку. Однако варриант "мой 24" монитор" - парсер не переварит.
+0.99
+  + Расширена функциональность для проверки атрибутов тега:
+    можно указать тип атрибута ( 'colspan'=>'#int', 'value' => '#text' )
+    в Jevix, по-умолчанию, определён массив типов для нескольких стандартных атрибутов (src, href, width, height)
+0.98
+  + Расширена функциональность для проверки атрибутов тега:
+    можно задавать список дозможных значений атрибута (  'align'=>array('left', 'right', 'center') )
+0.97
+  + Обычные "кавычки" сохраняются как &quote; если они были так написаны
+0.96
+  + Добавлены разрешённые протоколы https и ftp для ссылок (a href="https://...)
+0.95
+  + Исправлено типографирование ?.. и !.. (две точки в конце больше не превращаются в троеточие)
+  + Отключено автоматическое добавление пробела после точки для латиницы из-за чего невозможно было написать
+    index.php или .htaccess
+0.94
+  + Добавлена настройка автодобавления параметров тегов. Непример rel = "nofolow" для ссылок.
+    Спасибо Myroslav Holyak (vbhjckfd@gmail.com)
+0.93
+      + Исправлен баг с удалением пробелов (например в "123 &mdash; 123")
+  + Исправлена ошибка из-за которой иногда не срабатывало автоматическое преобразования URL в ссылу
+  + Добавлена настройка cfgSetAutoLinkMode для отключения автоматического преобразования URL в ссылки
+  + Автодобавление пробела после точки, если после неё идёт русский символ
+0.92
+      + Добавлена настройка cfgSetAutoBrMode. При установке в false, переносы строк не будут автоматически заменяться на BR
+      + Изменена обработка HTML-сущностей. Теперь все сущности имеющие эквивалент в Unicode (за исключением <>)
+    автоматически преобразуются в символ
+0.91
+      + Добавлена обработка преформатированных тегов <pre>, <code>. Для задания используйте cfgSetTagPreformatted()
+  + Добавлена настройка cfgSetXHTMLMode. При отключении пустые теги будут оформляться как <br>, при включенном - <br/>
+      + Несколько незначительных багфиксов
+0.9
+      + Первый бета-релиз
+*/
+class V_Helper_Text_Typo extends V_Helper_Text {
     const PRINATABLE = 0x1;
     const ALPHA = 0x2;
     const LAT = 0x4;
@@ -73,8 +72,8 @@ class V_Helper_Text_Typo extends V_Helper_Text
     const URL = 0x100;
     const NOPRINT = 0x200;
     const PUNCTUATUON = 0x400;
-    //const           = 0x800;
-    //const           = 0x1000;
+    // const           = 0x800;
+    // const           = 0x1000;
     const HTML_QUOTE = 0x2000;
     const TAG_QUOTE = 0x4000;
     const QUOTE_CLOSE = 0x8000;
@@ -118,9 +117,8 @@ class V_Helper_Text_Typo extends V_Helper_Text
     public $outBuffer = '';
     public $errors;
     /**
-     * Константы для класификации тегов
-     *
-     */
+    * Константы для класификации тегов
+    */
     const TR_TAG_ALLOWED = 1; // Тег позволен
     const TR_PARAM_ALLOWED = 2; // Параметр тега позволен (a->title, a->src, i->alt)
     const TR_PARAM_REQUIRED = 3; // Параметр тега влятся необходимым (a->href, img->src)
@@ -135,20 +133,20 @@ class V_Helper_Text_Typo extends V_Helper_Text
     const TR_TAG_NO_TYPOGRAPHY = 12; // Отключение типографирования для тега
     const TR_TAG_IS_EMPTY = 13; // Не короткий тег с пустым содержанием имеет право существовать
     /**
-     * Классы символов генерируются symclass.php
-     *
-     * @var array
-     */
+    * Классы символов генерируются symclass.php
+    *
+    * @var array
+    */
     protected $chClasses = array(0 => 512 , 1 => 512 , 2 => 512 , 3 => 512 , 4 => 512 , 5 => 512 , 6 => 512 , 7 => 512 , 8 => 512 , 9 => 32 , 10 => 66048 , 11 => 512 , 12 => 512 , 13 => 66048 , 14 => 512 , 15 => 512 , 16 => 512 , 17 => 512 , 18 => 512 , 19 => 512 , 20 => 512 , 21 => 512 , 22 => 512 , 23 => 512 , 24 => 512 , 25 => 512 , 26 => 512 , 27 => 512 , 28 => 512 , 29 => 512 , 30 => 512 , 31 => 512 , 32 => 32 , 97 => 71 , 98 => 71 , 99 => 71 , 100 => 71 , 101 => 71 , 102 => 71 , 103 => 71 , 104 => 71 , 105 => 71 , 106 => 71 , 107 => 71 , 108 => 71 , 109 => 71 , 110 => 71 , 111 => 71 , 112 => 71 , 113 => 71 , 114 => 71 , 115 => 71 , 116 => 71 , 117 => 71 , 118 => 71 , 119 => 71 , 120 => 71 , 121 => 71 , 122 => 71 , 65 => 71 , 66 => 71 , 67 => 71 , 68 => 71 , 69 => 71 , 70 => 71 , 71 => 71 , 72 => 71 , 73 => 71 , 74 => 71 , 75 => 71 , 76 => 71 , 77 => 71 , 78 => 71 , 79 => 71 , 80 => 71 , 81 => 71 , 82 => 71 , 83 => 71 , 84 => 71 , 85 => 71 , 86 => 71 , 87 => 71 , 88 => 71 , 89 => 71 , 90 => 71 , 1072 => 11 , 1073 => 11 , 1074 => 11 , 1075 => 11 , 1076 => 11 , 1077 => 11 , 1078 => 11 , 1079 => 11 , 1080 => 11 , 1081 => 11 , 1082 => 11 , 1083 => 11 , 1084 => 11 , 1085 => 11 , 1086 => 11 , 1087 => 11 , 1088 => 11 , 1089 => 11 , 1090 => 11 , 1091 => 11 , 1092 => 11 , 1093 => 11 , 1094 => 11 , 1095 => 11 , 1096 => 11 , 1097 => 11 , 1098 => 11 , 1099 => 11 , 1100 => 11 , 1101 => 11 , 1102 => 11 , 1103 => 11 , 1040 => 11 , 1041 => 11 , 1042 => 11 , 1043 => 11 , 1044 => 11 , 1045 => 11 , 1046 => 11 , 1047 => 11 , 1048 => 11 , 1049 => 11 , 1050 => 11 , 1051 => 11 , 1052 => 11 , 1053 => 11 , 1054 => 11 , 1055 => 11 , 1056 => 11 , 1057 => 11 , 1058 => 11 , 1059 => 11 , 1060 => 11 , 1061 => 11 , 1062 => 11 , 1063 => 11 , 1064 => 11 , 1065 => 11 , 1066 => 11 , 1067 => 11 , 1068 => 11 , 1069 => 11 , 1070 => 11 , 1071 => 11 , 48 => 337 , 49 => 337 , 50 => 337 , 51 => 337 , 52 => 337 , 53 => 337 , 54 => 337 , 55 => 337 , 56 => 337 , 57 => 337 , 34 => 57345 , 39 => 16385 , 46 => 1281 , 44 => 1025 , 33 => 1025 , 63 => 1281 , 58 => 1025 , 59 => 1281 , 1105 => 11 , 1025 => 11 , 47 => 257 , 38 => 257 , 37 => 257 , 45 => 257 , 95 => 257 , 61 => 257 , 43 => 257 , 35 => 257 , 124 => 257);
 
     /**
-     * Установка конфигурационного флага для одного или нескольких тегов
-     *
-     * @param array|string $tags тег(и)
-     * @param int $flag флаг
-     * @param mixed $value значеник=е флага
-     * @param boolean $createIfNoExists если тег ещё не определён - создть его
-     */
+    * Установка конфигурационного флага для одного или нескольких тегов
+    *
+    * @param array $ |string $tags тег(и)
+    * @param int $flag флаг
+    * @param mixed $value значеник=е флага
+    * @param boolean $createIfNoExists если тег ещё не определён - создть его
+    */
     protected function _cfgSetTagsFlag ($tags, $flag, $value, $createIfNoExists = true)
     {
         if (! is_array($tags))
@@ -166,72 +164,79 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Разрешение или запрет тегов
-     * Все не разрешённые теги считаются запрещёнными
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Разрешение или запрет тегов
+    * Все не разрешённые теги считаются запрещёнными
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgAllowTags ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_ALLOWED, true);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Коротие теги типа <img>
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Коротие теги типа <img>
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgSetTagShort ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_SHORT, true, false);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Преформатированные теги, в которых всё заменяется на HTML сущности типа <pre>
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Преформатированные теги, в которых всё заменяется на HTML сущности типа <pre>
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgSetTagPreformatted ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_PREFORMATTED, true, false);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Теги в которых отключено типографирование типа <code>
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Теги в которых отключено типографирование типа <code>
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgSetTagNoTypography ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_NO_TYPOGRAPHY, true, false);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Не короткие теги которые не нужно удалять с пустым содержанием, например, <param name="code" value="die!"></param>
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Не короткие теги которые не нужно удалять с пустым содержанием, например, <param name="code" value="die!"></param>
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgSetTagIsEmpty ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_IS_EMPTY, true, false);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Тег необходимо вырезать вместе с контентом (script, iframe)
-     * @param array|string $tags тег(и)
-     */
+    * КОНФИГУРАЦИЯ: Тег необходимо вырезать вместе с контентом (script, iframe)
+    *
+    * @param array $ |string $tags тег(и)
+    */
     function cfgSetTagCutWithContent ($tags)
     {
         $this->_cfgSetTagsFlag($tags, self::TR_TAG_CUT, true);
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Добавление разрешённых параметров тега
-     * @param string $tag тег
-     * @param string|array $params разрешённые параметры
-     */
+    * КОНФИГУРАЦИЯ: Добавление разрешённых параметров тега
+    *
+    * @param string $tag тег
+    * @param string $ |array $params разрешённые параметры
+    */
     function cfgAllowTagParams ($tag, $params)
     {
         if (! isset($this->tagsRules[$tag]))
             throw new Exception("Тег $tag отсутствует в списке разрешённых тегов");
         if (! is_array($params))
             $params = array($params);
-            // Если ключа со списком разрешенных параметров не существует - создаём ео
+        // Если ключа со списком разрешенных параметров не существует - создаём ео
         if (! isset($this->tagsRules[$tag][self::TR_PARAM_ALLOWED])) {
             $this->tagsRules[$tag][self::TR_PARAM_ALLOWED] = array();
         }
@@ -245,17 +250,18 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * КОНФИГУРАЦИЯ: Добавление необходимых параметров тега
-     * @param string $tag тег
-     * @param string|array $params разрешённые параметры
-     */
+    * КОНФИГУРАЦИЯ: Добавление необходимых параметров тега
+    *
+    * @param string $tag тег
+    * @param string $ |array $params разрешённые параметры
+    */
     function cfgSetTagParamsRequired ($tag, $params)
     {
         if (! isset($this->tagsRules[$tag]))
             throw new Exception("Тег $tag отсутствует в списке разрешённых тегов");
         if (! is_array($params))
             $params = array($params);
-            // Если ключа со списком разрешенных параметров не существует - создаём ео
+        // Если ключа со списком разрешенных параметров не существует - создаём ео
         if (! isset($this->tagsRules[$tag][self::TR_PARAM_REQUIRED])) {
             $this->tagsRules[$tag][self::TR_PARAM_REQUIRED] = array();
         }
@@ -264,28 +270,30 @@ class V_Helper_Text_Typo extends V_Helper_Text
         }
     }
 
-    /* КОНФИГУРАЦИЯ: Установка тегов которые может содержать тег-контейнер
-         * @param string $tag тег
-         * @param string|array $childs разрешённые теги
-         * @param boolean $isContainerOnly тег является только контейнером других тегов и не может содержать текст
-         * @param boolean $isChildOnly вложенные теги не могут присутствовать нигде кроме указанного тега
-         */
+    /**
+    * КОНФИГУРАЦИЯ: Установка тегов которые может содержать тег-контейнер
+    *
+    * @param string $tag тег
+    * @param string $ |array $childs разрешённые теги
+    * @param boolean $isContainerOnly тег является только контейнером других тегов и не может содержать текст
+    * @param boolean $isChildOnly вложенные теги не могут присутствовать нигде кроме указанного тега
+    */
     function cfgSetTagChilds ($tag, $childs, $isContainerOnly = false, $isChildOnly = false)
     {
         if (! isset($this->tagsRules[$tag]))
             throw new Exception("Тег $tag отсутствует в списке разрешённых тегов");
         if (! is_array($childs))
             $childs = array($childs);
-            // Тег является контейнером и не может содержать текст
+        // Тег является контейнером и не может содержать текст
         if ($isContainerOnly)
             $this->tagsRules[$tag][self::TR_TAG_CONTAINER] = true;
-            // Если ключа со списком разрешенных тегов не существует - создаём ео
+        // Если ключа со списком разрешенных тегов не существует - создаём ео
         if (! isset($this->tagsRules[$tag][self::TR_TAG_CHILD_TAGS])) {
             $this->tagsRules[$tag][self::TR_TAG_CHILD_TAGS] = array();
         }
         foreach ($childs as $child) {
             $this->tagsRules[$tag][self::TR_TAG_CHILD_TAGS][$child] = true;
-            //  Указанный тег должен сущеаствовать в списке тегов
+            // Указанный тег должен сущеаствовать в списке тегов
             if (! isset($this->tagsRules[$child]))
                 throw new Exception("Тег $child отсутствует в списке разрешённых тегов");
             if (! isset($this->tagsRules[$child][self::TR_TAG_PARENT]))
@@ -298,10 +306,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * CONFIGURATION: Adding autoadd attributes and their values to tag
-     * @param string $tag tag
-     * @param string|array $params array of pairs attributeName => attributeValue
-     */
+    * CONFIGURATION: Adding autoadd attributes and their values to tag
+    *
+    * @param string $tag tag
+    * @param string $ |array $params array of pairs attributeName => attributeValue
+    */
     function cfgSetTagParamsAutoAdd ($tag, $params)
     {
         if (! isset($this->tagsRules[$tag]))
@@ -317,21 +326,21 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Автозамена
-     *
-     * @param array $from с
-     * @param array $to на
-     */
+    * Автозамена
+    *
+    * @param array $from с
+    * @param array $to на
+    */
     function cfgSetAutoReplace ($from, $to)
     {
         $this->autoReplace = array('from' => $from , 'to' => $to);
     }
 
     /**
-     * Включение или выключение режима XTML
-     *
-     * @param boolean $isXHTMLMode
-     */
+    * Включение или выключение режима XTML
+    *
+    * @param boolean $isXHTMLMode
+    */
     function cfgSetXHTMLMode ($isXHTMLMode)
     {
         $this->br = $isXHTMLMode ? '<br/>' : '<br>';
@@ -339,20 +348,20 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Включение или выключение режима замены новых строк на <br/>
-     *
-     * @param boolean $isAutoBrMode
-     */
+    * Включение или выключение режима замены новых строк на <br/>
+    *
+    * @param boolean $isAutoBrMode
+    */
     function cfgSetAutoBrMode ($isAutoBrMode)
     {
         $this->isAutoBrMode = $isAutoBrMode;
     }
 
     /**
-     * Включение или выключение режима автоматического определения ссылок
-     *
-     * @param boolean $isAutoLinkMode
-     */
+    * Включение или выключение режима автоматического определения ссылок
+    *
+    * @param boolean $isAutoLinkMode
+    */
     function cfgSetAutoLinkMode ($isAutoLinkMode)
     {
         $this->isAutoLinkMode = $isAutoLinkMode;
@@ -399,18 +408,20 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Получение следующего символа из входной строки
-     * @return string считанный символ
-     */
+    * Получение следующего символа из входной строки
+    *
+    * @return string считанный символ
+    */
     protected function getCh ()
     {
         return $this->goToPosition($this->curPos + 1);
     }
 
     /**
-     * Перемещение на указанную позицию во входной строке и считывание символа
-     * @return string символ в указанной позиции
-     */
+    * Перемещение на указанную позицию во входной строке и считывание символа
+    *
+    * @return string символ в указанной позиции
+    */
     protected function goToPosition ($position)
     {
         $this->curPos = $position;
@@ -427,9 +438,8 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Сохранить текущее состояние
-     *
-     */
+    * Сохранить текущее состояние
+    */
     protected function saveState ()
     {
         $state = array('pos' => $this->curPos , 'ch' => $this->curCh , 'ord' => $this->curChOrd , 'class' => $this->curChClass);
@@ -438,9 +448,8 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Восстановить
-     *
-     */
+    * Восстановить
+    */
     protected function restoreState ($index = null)
     {
         if (! count($this->states))
@@ -460,12 +469,12 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Проверяет точное вхождение символа в текущей позиции
-     * Если символ соответствует указанному автомат сдвигается на следующий
-     *
-     * @param string $ch
-     * @return boolean
-     */
+    * Проверяет точное вхождение символа в текущей позиции
+    * Если символ соответствует указанному автомат сдвигается на следующий
+    *
+    * @param string $ch
+    * @return boolean
+    */
     protected function matchCh ($ch, $skipSpaces = false)
     {
         if ($this->curCh == $ch) {
@@ -478,15 +487,15 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Проверяет точное вхождение символа указанного класса в текущей позиции
-     * Если символ соответствует указанному классу автомат сдвигается на следующий
-     *
-     * @param int $chClass класс символа
-     * @return string найденый символ или false
-     */
+    * Проверяет точное вхождение символа указанного класса в текущей позиции
+    * Если символ соответствует указанному классу автомат сдвигается на следующий
+    *
+    * @param int $chClass класс символа
+    * @return string найденый символ или false
+    */
     protected function matchChClass ($chClass, $skipSpaces = false)
     {
-        if (($this->curChClass & $chClass) == $chClass) {
+        if (($this->curChClass &$chClass) == $chClass) {
             $ch = $this->curCh;
             $this->getCh();
             if ($skipSpaces)
@@ -497,12 +506,12 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Проверка на точное совпадение строки в текущей позиции
-     * Если строка соответствует указанной автомат сдвигается на следующий после строки символ
-     *
-     * @param string $str
-     * @return boolean
-     */
+    * Проверка на точное совпадение строки в текущей позиции
+    * Если строка соответствует указанной автомат сдвигается на следующий после строки символ
+    *
+    * @param string $str
+    * @return boolean
+    */
     protected function matchStr ($str, $skipSpaces = false)
     {
         $this->saveState();
@@ -523,11 +532,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Пропуск текста до нахождения указанного символа
-     *
-     * @param string $ch сиимвол
-     * @return string найденый символ или false
-     */
+    * Пропуск текста до нахождения указанного символа
+    *
+    * @param string $ch сиимвол
+    * @return string найденый символ или false
+    */
     protected function skipUntilCh ($ch)
     {
         $chPos = strpos($this->text, $ch, $this->curPos);
@@ -539,11 +548,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Пропуск текста до нахождения указанной строки или символа
-     *
-     * @param string $str строка или символ ля поиска
-     * @return boolean
-     */
+    * Пропуск текста до нахождения указанной строки или символа
+    *
+    * @param string $str строка или символ ля поиска
+    * @return boolean
+    */
     protected function skipUntilStr ($str)
     {
         $str = $this->strToArray($str);
@@ -581,22 +590,23 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Возвращает класс символа
-     *
-     * @return int
-     */
+    * Возвращает класс символа
+    *
+    * @return int
+    */
     protected function getCharClass ($ord)
     {
         return isset($this->chClasses[$ord]) ? $this->chClasses[$ord] : self::PRINATABLE;
     }
 
-    /*function isSpace(){
-                return $this->curChClass == slf::SPACE;
-        }*/
     /**
-     * Пропуск пробелов
-     *
-     */
+    * function isSpace(){
+    * return $this->curChClass == slf::SPACE;
+    * }
+    */
+    /**
+    * Пропуск пробелов
+    */
     protected function skipSpaces (&$count = 0)
     {
         while ($this->curChClass == self::SPACE) {
@@ -607,19 +617,18 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     *  Получает име (тега, параметра) по принципу 1 сиивол далее цифра или символ
-     *
-     * @param string $name
-     */
+    * Получает име (тега, параметра) по принципу 1 сиивол далее цифра или символ
+    *
+    * @param string $name
+    */
     protected function name (&$name = '', $minus = false)
     {
-        if (($this->curChClass & self::LAT) == self::LAT) {
+        if (($this->curChClass &self::LAT) == self::LAT) {
             $name .= $this->curCh;
             $this->getCh();
         } else {
             return false;
-        }
-        while ((($this->curChClass & self::NAME) == self::NAME || ($minus && $this->curCh == '-'))) {
+        } while ((($this->curChClass &self::NAME) == self::NAME || ($minus && $this->curCh == '-'))) {
             $name .= $this->curCh;
             $this->getCh();
         }
@@ -637,14 +646,14 @@ class V_Helper_Text_Typo extends V_Helper_Text
         $short = false;
         if (! $this->tagOpen($tag, $params, $short))
             return false;
-            // Короткая запись тега
+        // Короткая запись тега
         if ($short)
             return true;
-            // Сохраняем кавычки и состояние
-        //$oldQuotesopen = $this->quotesOpened;
+        // Сохраняем кавычки и состояние
+        // $oldQuotesopen = $this->quotesOpened;
         $oldState = $this->state;
         $oldNoTypoMode = $this->noTypoMode;
-        //$this->quotesOpened = 0;
+        // $this->quotesOpened = 0;
         // Если в теге не должно быть текста, а только другие теги
         // Переходим в состояние self::STATE_INSIDE_NOTEXT_TAG
         if (! empty($this->tagsRules[$tag][self::TR_TAG_PREFORMATTED])) {
@@ -671,12 +680,12 @@ class V_Helper_Text_Typo extends V_Helper_Text
         $isTagClose = $this->tagClose($closeTag);
         if ($isTagClose && ($tag != $closeTag)) {
             $this->eror("Неверный закрывающийся тег $closeTag. Ожидалось закрытие $tag");
-            //$this->restoreState();
+            // $this->restoreState();
         }
         // Восстанавливаем предыдущее состояние и счетчик кавычек
         $this->state = $oldState;
         $this->noTypoMode = $oldNoTypoMode;
-        //$this->quotesOpened = $oldQuotesopen;
+        // $this->quotesOpened = $oldQuotesopen;
         return true;
     }
 
@@ -691,7 +700,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
                 // Возвращаемся назад, если тег был найден
                 if ($isClosedTag)
                     $this->restoreState();
-                    // Если закрылось то, что открылось - заканчиваем и возвращаем true
+                // Если закрылось то, что открылось - заканчиваем и возвращаем true
                 if ($isClosedTag && $tag == $insideTag)
                     return;
             }
@@ -715,11 +724,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
         // Пробуем получить список атрибутов тега
         if ($this->curCh != '>' && $this->curCh != '/')
             $this->tagParams($params);
-            // Короткая запись тега
+        // Короткая запись тега
         $short = ! empty($this->tagsRules[$name][self::TR_TAG_SHORT]);
         // Short && XHTML && !Slash || Short && !XHTML && !Slash = ERROR
         $slash = $this->matchCh('/');
-        //if(($short && $this->isXHTMLMode && !$slash) || (!$short && !$this->isXHTMLMode && $slash)){
+        // if(($short && $this->isXHTMLMode && !$slash) || (!$short && !$this->isXHTMLMode && $slash)){
         if (! $short && $slash) {
             $this->restoreState();
             return false;
@@ -753,7 +762,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
             return false;
         if (! $this->matchCh('=', true)) {
             // Стремная штука - параметр без значения <input type="checkbox" checked>, <td nowrap class=b>
-            if (($this->curCh == '>' || ($this->curChClass & self::LAT) == self::LAT)) {
+            if (($this->curCh == '>' || ($this->curChClass &self::LAT) == self::LAT)) {
                 $value = null;
                 return true;
             } else {
@@ -790,7 +799,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
             }
         } else {
             // долбаный параметр без кавычек. получаем его пока не пробел и не > и не конец
-            while ($this->curChClass && ! ($this->curChClass & self::SPACE) && $this->curCh != '>') {
+            while ($this->curChClass && ! ($this->curChClass &self::SPACE) && $this->curCh != '>') {
                 // Экранируем символы HTML которые не могут быть в параметрах
                 $value .= isset($this->entities1[$this->curCh]) ? $this->entities1[$this->curCh] : $this->curCh;
                 $this->getCh();
@@ -833,10 +842,10 @@ class V_Helper_Text_Typo extends V_Helper_Text
         // Вырезать тег вместе с содержанием
         if ($tagRules && isset($this->tagsRules[$tag][self::TR_TAG_CUT]))
             return '';
-            // Позволен ли тег
+        // Позволен ли тег
         if (! $tagRules || empty($tagRules[self::TR_TAG_ALLOWED]))
             return $parentTagIsContainer ? '' : $content;
-            // Если тег находится внутри другого - может ли он там находится?
+        // Если тег находится внутри другого - может ли он там находится?
         if ($parentTagIsContainer) {
             if (! isset($this->tagsRules[$parentTag][self::TR_TAG_CHILD_TAGS][$tag]))
                 return '';
@@ -852,11 +861,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
             $value = trim($value);
             if (empty($value))
                 continue;
-                // Атрибут тега разрешён? Какие возможны значения? Получаем список правил
+            // Атрибут тега разрешён? Какие возможны значения? Получаем список правил
             $paramAllowedValues = isset($tagRules[self::TR_PARAM_ALLOWED][$param]) ? $tagRules[self::TR_PARAM_ALLOWED][$param] : false;
             if (empty($paramAllowedValues))
                 continue;
-                // Если есть список разрешённых параметров тега
+            // Если есть список разрешённых параметров тега
             if (is_array($paramAllowedValues) && ! in_array($value, $paramAllowedValues)) {
                 $this->eror("Недопустимое значение для атрибута тега $tag $param=$value");
                 continue;
@@ -935,8 +944,8 @@ class V_Helper_Text_Typo extends V_Helper_Text
         $text = '<' . $tag;
         // Параметры
         foreach ($resParams as $param => $value)
-            $text .= ' ' . $param . '="' . $value . '"';
-            // Закрытие тега (если короткий то без контента)
+        $text .= ' ' . $param . '="' . $value . '"';
+        // Закрытие тега (если короткий то без контента)
         $text .= $short && $this->isXHTMLMode ? '/>' : '>';
         if (isset($tagRules[self::TR_TAG_CONTAINER]))
             $text .= "\r\n";
@@ -1013,19 +1022,19 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Пропуск переводов строк подсчет кол-ва
-     *
-     * @param int $count ссылка для возвращения числа переводов строк
-     * @return boolean
-     */
+    * Пропуск переводов строк подсчет кол-ва
+    *
+    * @param int $count ссылка для возвращения числа переводов строк
+    * @return boolean
+    */
     protected function skipNL (&$count = 0)
     {
-        if (! ($this->curChClass & self::NL))
+        if (! ($this->curChClass &self::NL))
             return false;
         $count ++;
         $firstNL = $this->curCh;
         $nl = $this->getCh();
-        while ($this->curChClass & self::NL) {
+        while ($this->curChClass &self::NL) {
             // Если символ новый строки ткой же как и первый увеличиваем счетчик
             // новых строк. Это сработает при любых сочетаниях
             // \r\n\r\n, \r\r, \n\n - две перевода
@@ -1047,7 +1056,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
         $this->getCh();
         // Несколько подряд
         while ($this->curCh == '-')
-            $this->getCh();
+        $this->getCh();
         if (! $this->skipNL() && ! $this->skipSpaces()) {
             $this->restoreState();
             return false;
@@ -1058,7 +1067,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
 
     protected function punctuation (&$punctuation)
     {
-        if (! ($this->curChClass & self::PUNCTUATUON))
+        if (! ($this->curChClass &self::PUNCTUATUON))
             return false;
         $this->saveState();
         $punctuation = $this->curCh;
@@ -1066,24 +1075,24 @@ class V_Helper_Text_Typo extends V_Helper_Text
         // Проверяем ... и !!! и ?.. и !..
         if ($punctuation == '.' && $this->curCh == '.') {
             while ($this->curCh == '.')
-                $this->getCh();
+            $this->getCh();
             $punctuation = $this->dotes;
         } elseif ($punctuation == '!' && $this->curCh == '!') {
             while ($this->curCh == '!')
-                $this->getCh();
+            $this->getCh();
             $punctuation = '!!!';
         } elseif (($punctuation == '?' || $punctuation == '!') && $this->curCh == '.') {
             while ($this->curCh == '.')
-                $this->getCh();
+            $this->getCh();
             $punctuation .= '..';
         }
         // Далее идёт слово - добавляем пробел
-        if ($this->curChClass & self::RUS) {
+        if ($this->curChClass &self::RUS) {
             if ($punctuation != '.')
                 $punctuation .= ' ';
             return true;
             // Далее идёт пробел, перенос строки, конец текста
-        } elseif (($this->curChClass & self::SPACE) || ($this->curChClass & self::NL) || ! $this->curChClass) {
+        } elseif (($this->curChClass &self::SPACE) || ($this->curChClass &self::NL) || ! $this->curChClass) {
             return true;
         } else {
             $this->restoreState();
@@ -1093,11 +1102,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
 
     protected function number (&$num)
     {
-        if (! (($this->curChClass & self::NUMERIC) == self::NUMERIC))
+        if (! (($this->curChClass &self::NUMERIC) == self::NUMERIC))
             return false;
         $num = $this->curCh;
         $this->getCh();
-        while (($this->curChClass & self::NUMERIC) == self::NUMERIC) {
+        while (($this->curChClass &self::NUMERIC) == self::NUMERIC) {
             $num .= $this->curCh;
             $this->getCh();
         }
@@ -1130,26 +1139,26 @@ class V_Helper_Text_Typo extends V_Helper_Text
     }
 
     /**
-     * Кавычка
-     *
-     * @param boolean $spacesBefore были до этого пробелы
-     * @param string $quote кавычка
-     * @param boolean $closed закрывающаяся
-     * @return boolean
-     */
+    * Кавычка
+    *
+    * @param boolean $spacesBefore были до этого пробелы
+    * @param string $quote кавычка
+    * @param boolean $closed закрывающаяся
+    * @return boolean
+    */
     protected function quote ($spacesBefore, &$quote, &$closed)
     {
         $this->saveState();
         $quote = $this->curCh;
         $this->getCh();
         // Если не одна кавычка ещё не была открыта и следующий символ - не буква - то это нифига не кавычка
-        if ($this->quotesOpened == 0 && ! (($this->curChClass & self::ALPHA) || ($this->curChClass & self::NUMERIC))) {
+        if ($this->quotesOpened == 0 && ! (($this->curChClass &self::ALPHA) || ($this->curChClass &self::NUMERIC))) {
             $this->restoreState();
             return false;
         }
         // Закрывается тогда, одна из кавычек была открыта и (до кавычки не было пробела или пробел или пунктуация есть после кавычки)
         // Или, если открыто больше двух кавычек - точно закрываем
-        $closed = ($this->quotesOpened >= 2) || (($this->quotesOpened > 0) && (! $spacesBefore || $this->curChClass & self::SPACE || $this->curChClass & self::PUNCTUATUON));
+        $closed = ($this->quotesOpened >= 2) || (($this->quotesOpened > 0) && (! $spacesBefore || $this->curChClass &self::SPACE || $this->curChClass &self::PUNCTUATUON));
         return true;
     }
 
@@ -1164,14 +1173,14 @@ class V_Helper_Text_Typo extends V_Helper_Text
     protected function text (&$text)
     {
         $text = '';
-        //$punctuation = '';
+        // $punctuation = '';
         $dash = '';
         $newLine = true;
         $newWord = true; // Возможно начало нового слова
         $url = null;
         $href = null;
         // Включено типографирование?
-        //$typoEnabled = true;
+        // $typoEnabled = true;
         $typoEnabled = ! $this->noTypoMode;
         // Первый символ может быть <, это значит что tag() вернул false
         // и < к тагу не относится
@@ -1186,11 +1195,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
             // автопреобразование сущностей...
             if (! $spCount && $this->curCh == '&' && $this->htmlEntity($entity)) {
                 $text .= isset($this->entities2[$entity]) ? $this->entities2[$entity] : $entity;
-            } elseif ($typoEnabled && ($this->curChClass & self::PUNCTUATUON) && $this->punctuation($punctuation)) {
+            } elseif ($typoEnabled && ($this->curChClass &self::PUNCTUATUON) && $this->punctuation($punctuation)) {
                 // Автопунктуация выключена
                 // Если встретилась пунктуация - добавляем ее
                 // Сохраняем пробел перед точкой если класс следующий символ - латиница
-                if ($spCount && $punctuation == '.' && ($this->curChClass & self::LAT))
+                if ($spCount && $punctuation == '.' && ($this->curChClass &self::LAT))
                     $punctuation = ' ' . $punctuation;
                 $text .= $punctuation;
                 $newWord = true;
@@ -1198,7 +1207,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
                 // Тире
                 $text .= $dash;
                 $newWord = true;
-            } elseif ($typoEnabled && ($this->curChClass & self::HTML_QUOTE) && $this->quote($spCount, $quote, $closed)) {
+            } elseif ($typoEnabled && ($this->curChClass &self::HTML_QUOTE) && $this->quote($spCount, $quote, $closed)) {
                 // Кавычки
                 $this->quotesOpened += $closed ? - 1 : 1;
                 // Исправляем ситуацию если кавычка закрыввается раньше чем открывается
@@ -1223,10 +1232,10 @@ class V_Helper_Text_Typo extends V_Helper_Text
                 $newLine = true;
                 $newWord = true;
                 // !!!Добавление слова
-            } elseif ($newWord && $this->isAutoLinkMode && ($this->curChClass & self::LAT) && $this->openedTag != 'a' && $this->url($url, $href)) {
+            } elseif ($newWord && $this->isAutoLinkMode && ($this->curChClass &self::LAT) && $this->openedTag != 'a' && $this->url($url, $href)) {
                 // URL
                 $text .= $this->makeTag('a', array('href' => $href), $url, false);
-            } elseif ($this->curChClass & self::PRINATABLE) {
+            } elseif ($this->curChClass &self::PRINATABLE) {
                 // Экранируем символы HTML которые нельзя сувать внутрь тега (но не те? которые не могут быть в параметрах)
                 $text .= isset($this->entities2[$this->curCh]) ? $this->entities2[$this->curCh] : $this->curCh;
                 $this->getCh();
@@ -1247,11 +1256,11 @@ class V_Helper_Text_Typo extends V_Helper_Text
     {
         $this->saveState();
         $url = '';
-        //$name = $this->name();
-        //switch($name)
+        // $name = $this->name();
+        // switch($name)
         $urlChMask = self::URL | self::ALPHA;
         if ($this->matchStr('http://')) {
-            while ($this->curChClass & $urlChMask) {
+            while ($this->curChClass &$urlChMask) {
                 $url .= $this->curCh;
                 $this->getCh();
             }
@@ -1262,7 +1271,7 @@ class V_Helper_Text_Typo extends V_Helper_Text
             $href = 'http://' . $url;
             return true;
         } elseif ($this->matchStr('www.')) {
-            while ($this->curChClass & $urlChMask) {
+            while ($this->curChClass &$urlChMask) {
                 $url .= $this->curCh;
                 $this->getCh();
             }
@@ -1290,54 +1299,55 @@ class V_Helper_Text_Typo extends V_Helper_Text
 }
 
 /**
- * Функция ord() для мультибайтовы строк
- *
- * @param string $c символ utf-8
- * @return int код символа
- */
+* Функция ord() для мультибайтовы строк
+*
+* @param string $c символ utf-8
+* @return int код символа
+*/
 function uniord ($c)
 {
     $h = ord($c{0});
     if ($h <= 0x7F) {
         return $h;
-    } else 
-        if ($h < 0xC2) {
-            return false;
-        } else 
-            if ($h <= 0xDF) {
-                return ($h & 0x1F) << 6 | (ord($c{1}) & 0x3F);
-            } else 
-                if ($h <= 0xEF) {
-                    return ($h & 0x0F) << 12 | (ord($c{1}) & 0x3F) << 6 | (ord($c{2}) & 0x3F);
-                } else 
-                    if ($h <= 0xF4) {
-                        return ($h & 0x0F) << 18 | (ord($c{1}) & 0x3F) << 12 | (ord($c{2}) & 0x3F) << 6 | (ord($c{3}) & 0x3F);
-                    } else {
-                        return false;
-                    }
+    } else
+    if ($h < 0xC2) {
+        return false;
+    } else
+    if ($h <= 0xDF) {
+        return ($h &0x1F) << 6 | (ord($c{1}) &0x3F);
+    } else
+    if ($h <= 0xEF) {
+        return ($h &0x0F) << 12 | (ord($c{1}) &0x3F) << 6 | (ord($c{2}) &0x3F);
+    } else
+    if ($h <= 0xF4) {
+        return ($h &0x0F) << 18 | (ord($c{1}) &0x3F) << 12 | (ord($c{2}) &0x3F) << 6 | (ord($c{3}) &0x3F);
+    } else {
+        return false;
+    }
 }
 
 /**
- * Функция chr() для мультибайтовы строк
- *
- * @param int $c код символа
- * @return string символ utf-8
- */
+* Функция chr() для мультибайтовы строк
+*
+* @param int $c код символа
+* @return string символ utf-8
+*/
 function unichr ($c)
 {
     if ($c <= 0x7F) {
         return chr($c);
-    } else 
-        if ($c <= 0x7FF) {
-            return chr(0xC0 | $c >> 6) . chr(0x80 | $c & 0x3F);
-        } else 
-            if ($c <= 0xFFFF) {
-                return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
-            } else 
-                if ($c <= 0x10FFFF) {
-                    return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 & 0x3F) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
-                } else {
-                    return false;
-                }
+    } else
+    if ($c <= 0x7FF) {
+        return chr(0xC0 | $c >> 6) . chr(0x80 | $c &0x3F);
+    } else
+    if ($c <= 0xFFFF) {
+        return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 &0x3F) . chr(0x80 | $c &0x3F);
+    } else
+    if ($c <= 0x10FFFF) {
+        return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 &0x3F) . chr(0x80 | $c >> 6 &0x3F) . chr(0x80 | $c &0x3F);
+    } else {
+        return false;
+    }
 }
+
 ?>
