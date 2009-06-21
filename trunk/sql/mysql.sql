@@ -12,56 +12,6 @@ Server version : 5.1.31-community
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-/*Table structure for table `blog_comments` */
-
-DROP TABLE IF EXISTS `blog_comments`;
-
-CREATE TABLE `blog_comments` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `author` tinytext NOT NULL,
-  `author_email` varchar(100) NOT NULL DEFAULT '',
-  `author_url` varchar(200) NOT NULL DEFAULT '',
-  `author_ip` varchar(100) NOT NULL DEFAULT '',
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `content` text NOT NULL,
-  `approved` varchar(20) NOT NULL DEFAULT '1',
-  `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `blog_comments` */
-
-/*Table structure for table `blog_posts` */
-
-DROP TABLE IF EXISTS `blog_posts`;
-
-CREATE TABLE `blog_posts` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `blog_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `author_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `title` varchar(200) NOT NULL DEFAULT '',
-  `content` longtext NOT NULL,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `blog_posts` */
-
-/*Table structure for table `blogs` */
-
-DROP TABLE IF EXISTS `blogs`;
-
-CREATE TABLE `blogs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL DEFAULT '',
-  `type` smallint(1) NOT NULL DEFAULT '1',
-  `owner_member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `blogs` */
-
 /*Table structure for table `prefix_acl_roles` */
 
 DROP TABLE IF EXISTS `prefix_acl_roles`;
@@ -78,6 +28,66 @@ CREATE TABLE `prefix_acl_roles` (
 /*Data for the table `prefix_acl_roles` */
 
 insert  into `prefix_acl_roles`(`id`,`parent`,`role`,`description`,`res_module_admin`) values (1,0,'administrator','Administrator Account',1);
+
+/*Table structure for table `prefix_blog` */
+
+DROP TABLE IF EXISTS `prefix_blog`;
+
+CREATE TABLE `prefix_blog` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `type` smallint(1) NOT NULL DEFAULT '1',
+  `member_owner_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `member_owner_id` (`member_owner_id`),
+  CONSTRAINT `prefix_blog_fk` FOREIGN KEY (`member_owner_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_blog` */
+
+/*Table structure for table `prefix_blog_comments` */
+
+DROP TABLE IF EXISTS `prefix_blog_comments`;
+
+CREATE TABLE `prefix_blog_comments` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `author` tinytext NOT NULL,
+  `author_email` varchar(100) NOT NULL DEFAULT '',
+  `author_url` varchar(200) NOT NULL DEFAULT '',
+  `author_ip` varchar(100) NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `content` text NOT NULL,
+  `approved` varchar(20) NOT NULL DEFAULT '1',
+  `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `prefix_blog_comments_fk1` FOREIGN KEY (`member_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `prefix_blog_comments_fk` FOREIGN KEY (`post_id`) REFERENCES `prefix_blog_posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_blog_comments` */
+
+/*Table structure for table `prefix_blog_posts` */
+
+DROP TABLE IF EXISTS `prefix_blog_posts`;
+
+CREATE TABLE `prefix_blog_posts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `blog_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `content` longtext NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `blog_id` (`blog_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `prefix_blog_posts_fk1` FOREIGN KEY (`member_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `prefix_blog_posts_fk` FOREIGN KEY (`blog_id`) REFERENCES `prefix_blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_blog_posts` */
 
 /*Table structure for table `prefix_members` */
 
