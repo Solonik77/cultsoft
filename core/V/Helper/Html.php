@@ -1,29 +1,30 @@
 <?php
 require_once CORE_PATH . 'V/UTF8.php';
 /**
-* HTML helper class.
-*
-* $Id: html.php 4318 2009-05-04 01:20:50Z kiall $
-*
-* @package Core
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class V_Helper_Html {
+ * HTML helper class.
+ *
+ * $Id: html.php 4318 2009-05-04 01:20:50Z kiall $
+ *
+ * @package Core
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class V_Helper_Html
+{
     // Enable or disable automatic setting of target="_blank"
     public static $windowed_urls = false;
 
     /**
-    * Convert special characters to HTML entities
-    *
-    * @param string $ string to convert
-    * @param boolean $ encode existing entities
-    * @return string
-    */
+     * Convert special characters to HTML entities
+     *
+     * @param string $ string to convert
+     * @param boolean $ encode existing entities
+     * @return string
+     */
     public static function specialchars ($str, $double_encode = true)
     {
         // Force the string to be a string
@@ -45,26 +46,26 @@ class V_Helper_Html {
     }
 
     /**
-    * Perform a V_Helper_Html::specialchars() with additional URL specific encoding.
-    *
-    * @param string $ string to convert
-    * @param boolean $ encode existing entities
-    * @return string
-    */
+     * Perform a V_Helper_Html::specialchars() with additional URL specific encoding.
+     *
+     * @param string $ string to convert
+     * @param boolean $ encode existing entities
+     * @return string
+     */
     public static function specialurlencode ($str, $double_encode = true)
     {
         return str_replace(' ', '%20', V_Helper_Html::specialchars($str, $double_encode));
     }
 
     /**
-    * Create HTML link anchors.
-    *
-    * @param string $ URL or URI string
-    * @param string $ link text
-    * @param array $ HTML anchor attributes
-    * @param string $ non-default protocol, eg: https
-    * @return string
-    */
+     * Create HTML link anchors.
+     *
+     * @param string $ URL or URI string
+     * @param string $ link text
+     * @param array $ HTML anchor attributes
+     * @param string $ non-default protocol, eg: https
+     * @return string
+     */
     public static function anchor ($uri, $title = null, $attributes = null, $protocol = null)
     {
         if ($uri === '') {
@@ -81,48 +82,48 @@ class V_Helper_Html {
             $site_url = $uri;
         }
         return // Parsed URL
-        '<a href="' . V_Helper_Html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
-        (is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
-        (($title === null) ? $site_url : $title) . '</a>';
+'<a href="' . V_Helper_Html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
+(is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
+(($title === null) ? $site_url : $title) . '</a>';
     }
 
     /**
-    * Creates an HTML anchor to a file.
-    *
-    * @param string $ name of file to link to
-    * @param string $ link text
-    * @param array $ HTML anchor attributes
-    * @param string $ non-default protocol, eg: ftp
-    * @return string
-    */
+     * Creates an HTML anchor to a file.
+     *
+     * @param string $ name of file to link to
+     * @param string $ link text
+     * @param array $ HTML anchor attributes
+     * @param string $ non-default protocol, eg: ftp
+     * @return string
+     */
     public static function file_anchor ($file, $title = null, $attributes = null, $protocol = null)
     {
         return // Base URL + URI = full URL
-        '<a href="' . V_Helper_Html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
-        (is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
-        (($title === null) ? end(explode('/', $file)) : $title) . '</a>';
+'<a href="' . V_Helper_Html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
+(is_array($attributes) ? V_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
+(($title === null) ? end(explode('/', $file)) : $title) . '</a>';
     }
 
     /**
-    * Similar to anchor, but with the protocol parameter first.
-    *
-    * @param string $ link protocol
-    * @param string $ URI or URL to link to
-    * @param string $ link text
-    * @param array $ HTML anchor attributes
-    * @return string
-    */
+     * Similar to anchor, but with the protocol parameter first.
+     *
+     * @param string $ link protocol
+     * @param string $ URI or URL to link to
+     * @param string $ link text
+     * @param array $ HTML anchor attributes
+     * @return string
+     */
     public static function panchor ($protocol, $uri, $title = null, $attributes = false)
     {
         return V_Helper_Html::anchor($uri, $title, $attributes, $protocol);
     }
 
     /**
-    * Create an array of anchors from an array of link/title pairs.
-    *
-    * @param array $ link/title pairs
-    * @return array
-    */
+     * Create an array of anchors from an array of link/title pairs.
+     *
+     * @param array $ link/title pairs
+     * @return array
+     */
     public static function anchor_array (array $array)
     {
         $anchors = array();
@@ -134,11 +135,11 @@ class V_Helper_Html {
     }
 
     /**
-    * Generates an obfuscated version of an email address.
-    *
-    * @param string $ email address
-    * @return string
-    */
+     * Generates an obfuscated version of an email address.
+     *
+     * @param string $ email address
+     * @return string
+     */
     public static function email ($email)
     {
         $safe = '';
@@ -161,18 +162,18 @@ class V_Helper_Html {
     }
 
     /**
-    * Creates an email anchor.
-    *
-    * @param string $ email address to send to
-    * @param string $ link text
-    * @param array $ HTML anchor attributes
-    * @return string
-    */
+     * Creates an email anchor.
+     *
+     * @param string $ email address to send to
+     * @param string $ link text
+     * @param array $ HTML anchor attributes
+     * @return string
+     */
     public static function mailto ($email, $title = null, $attributes = null)
     {
         if (empty($email))
             return $title;
-        // Remove the subject or other parameters that do not need to be encoded
+            // Remove the subject or other parameters that do not need to be encoded
         if (strpos($email, '?') !== false) {
             // Extract the parameters from the email address
             list ($email, $params) = explode('?', $email, 2);
@@ -193,31 +194,31 @@ class V_Helper_Html {
     }
 
     /**
-    * Generate a "breadcrumb" list of anchors representing the URI.
-    *
-    * @param array $ segments to use as breadcrumbs, defaults to using Router::$segments
-    * @return string
-    */
+     * Generate a "breadcrumb" list of anchors representing the URI.
+     *
+     * @param array $ segments to use as breadcrumbs, defaults to using Router::$segments
+     * @return string
+     */
     public static function breadcrumb ($segments = null)
     {
         empty($segments) and $segments = Router::$segments;
         $array = array();
         while ($segment = array_pop($segments)) {
             $array[] = V_Helper_Html::anchor(// Complete URI for the URL
-                implode('/', $segments) . '/' . $segment, // Title for the current segment
-                ucwords(inflector::humanize($segment)));
+implode('/', $segments) . '/' . $segment, // Title for the current segment
+ucwords(inflector::humanize($segment)));
         }
         // Retrun the array of all the segments
         return array_reverse($array);
     }
 
     /**
-    * Creates a meta tag.
-    *
-    * @param string $ |array   tag name, or an array of tags
-    * @param string $ tag "content" value
-    * @return string
-    */
+     * Creates a meta tag.
+     *
+     * @param string $ |array   tag name, or an array of tags
+     * @param string $ tag "content" value
+     * @return string
+     */
     public static function meta ($tag, $value = null)
     {
         if (is_array($tag)) {
@@ -235,28 +236,28 @@ class V_Helper_Html {
     }
 
     /**
-    * Creates a stylesheet link.
-    *
-    * @param string $ |array  filename, or array of filenames to match to array of medias
-    * @param string $ |array  media type of stylesheet, or array to match filenames
-    * @param boolean $ include the index_page in the link
-    * @return string
-    */
+     * Creates a stylesheet link.
+     *
+     * @param string $ |array  filename, or array of filenames to match to array of medias
+     * @param string $ |array  media type of stylesheet, or array to match filenames
+     * @param boolean $ include the index_page in the link
+     * @return string
+     */
     public static function stylesheet ($style, $media = false, $index = false)
     {
         return V_Helper_Html::link($style, 'stylesheet', 'text/css', $media, $index);
     }
 
     /**
-    * Creates a link tag.
-    *
-    * @param string $ |array  filename
-    * @param string $ |array  relationship
-    * @param string $ |array  mimetype
-    * @param string $ |array  specifies on what device the document will be displayed
-    * @param boolean $ include the index_page in the link
-    * @return string
-    */
+     * Creates a link tag.
+     *
+     * @param string $ |array  filename
+     * @param string $ |array  relationship
+     * @param string $ |array  mimetype
+     * @param string $ |array  specifies on what device the document will be displayed
+     * @param boolean $ include the index_page in the link
+     * @return string
+     */
     public static function link ($href, $rel, $type, $media = false, $index = false)
     {
         $compiled = '';
@@ -283,12 +284,12 @@ class V_Helper_Html {
     }
 
     /**
-    * Creates a script link.
-    *
-    * @param string $ |array  filename
-    * @param boolean $ include the index_page in the link
-    * @return string
-    */
+     * Creates a script link.
+     *
+     * @param string $ |array  filename
+     * @param boolean $ include the index_page in the link
+     * @return string
+     */
     public static function script ($script, $index = false)
     {
         $compiled = '';
@@ -307,13 +308,13 @@ class V_Helper_Html {
     }
 
     /**
-    * Creates a image link.
-    *
-    * @param string $ image source, or an array of attributes
-    * @param string $ |array  image alt attribute, or an array of attributes
-    * @param boolean $ include the index_page in the link
-    * @return string
-    */
+     * Creates a image link.
+     *
+     * @param string $ image source, or an array of attributes
+     * @param string $ |array  image alt attribute, or an array of attributes
+     * @param boolean $ include the index_page in the link
+     * @return string
+     */
     public static function image ($src = null, $alt = null, $index = false)
     {
         // Create attribute list
@@ -332,11 +333,11 @@ class V_Helper_Html {
     }
 
     /**
-    * Compiles an array of HTML attributes into an attribute string.
-    *
-    * @param string $ |array  array of attributes
-    * @return string
-    */
+     * Compiles an array of HTML attributes into an attribute string.
+     *
+     * @param string $ |array  array of attributes
+     * @return string
+     */
     public static function attributes ($attrs)
     {
         if (empty($attrs))

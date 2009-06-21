@@ -1,15 +1,16 @@
 <?php
 /**
-* Member Information
-*
-* $Id$
-*
-* @package Core
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class App_Member {
+ * Member Information
+ *
+ * $Id$
+ *
+ * @package Core
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class App_Member
+{
     // Member singleton
     protected static $instance = null;
     protected $_data = null;
@@ -25,8 +26,8 @@ class App_Member {
     }
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct ()
     {
         if (App_Member::$instance === null) {
@@ -41,8 +42,8 @@ class App_Member {
     }
 
     /**
-    * Load default user information for guest
-    */
+     * Load default user information for guest
+     */
     private function loadGuest ()
     {
         $this->_data = (object) array('id' => 0 , 'login' => 'Guest' , 'email' => 'guest@example.com' , 'created' => V_Helper_Date::now() , 'is_active' => 1 , 'role' => 'guest' , 'acl_resource' => array());
@@ -50,8 +51,8 @@ class App_Member {
     }
 
     /**
-    * Load logged member information
-    */
+     * Load logged member information
+     */
     private function loadMember ($id)
     {
         $data = $this->_model->getDataByID($id);
@@ -78,24 +79,24 @@ class App_Member {
     }
 
     /**
-    * Get current member role
-    */
+     * Get current member role
+     */
     public function getRole ()
     {
         return $this->getField('role');
     }
 
     /**
-    * Get member field
-    */
+     * Get member field
+     */
     public function getField ($field)
     {
         return ((isset($this->_data->$field)) ? $this->_data->$field : null);
     }
 
     /**
-    * Get member all data
-    */
+     * Get member all data
+     */
     public function getData ()
     {
         return $this->_data;

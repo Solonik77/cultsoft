@@ -1,17 +1,19 @@
 <?php
 /**
-* Setting Zend View and Layout to load views
-* from STATIC_PATH folders
-*
-* @package Core
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
+ * Setting Zend View and Layout to load views
+ * from STATIC_PATH folders
+ *
+ * @package Core
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
+{
+
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct ()
     {
     }
@@ -36,10 +38,10 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             if (! $backoffice_controller) {
                 if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($template_path . 'layouts/homepage.phtml')) {
                     $layout->setLayout('homepage');
-                } else
-                if (file_exists($template_path . 'layouts/' . $request->getModuleName() . '.phtml')) {
-                    $layout->setLayout($request->getModuleName());
-                }
+                } else 
+                    if (file_exists($template_path . 'layouts/' . $request->getModuleName() . '.phtml')) {
+                        $layout->setLayout($request->getModuleName());
+                    }
             }
             // Set global content type to html with UTF-8 charset
             $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
@@ -61,8 +63,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
             $requestLang = App::Front()->getParam('requestLang');
             $view->getHelper('DeclareVars')->declareVars(array('requestLang' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }

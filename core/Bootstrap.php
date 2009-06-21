@@ -1,27 +1,29 @@
 <?php
 /**
-* Application process control file, loaded by the front controller.
-*
-* $Id$
-*
-* @package Core
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+ * Application process control file, loaded by the front controller.
+ *
+ * $Id$
+ *
+ * @package Core
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+{
+
     /**
-    * Run the application
-    *
-    * Checks to see that we have a default controller directory. If not, an
-    * exception is thrown.
-    *
-    * If so, it registers the bootstrap with the 'bootstrap' parameter of
-    * the front controller, and dispatches the front controller.
-    *
-    * @return void
-    * @throws Zend_Application_Bootstrap_Exception
-    */
+     * Run the application
+     *
+     * Checks to see that we have a default controller directory. If not, an
+     * exception is thrown.
+     *
+     * If so, it registers the bootstrap with the 'bootstrap' parameter of
+     * the front controller, and dispatches the front controller.
+     *
+     * @return void
+     * @throws Zend_Application_Bootstrap_Exception
+     */
     public function run ()
     {
         try {
@@ -70,18 +72,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 }
             }
             $response->sendResponse();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
 
     /**
-    * Constructor
-    *
-    * @param Zend_Application $ |Zend_Application_Bootstrap_Bootstrapper $application
-    * @return void
-    */
+     * Constructor
+     *
+     * @param Zend_Application $ |Zend_Application_Bootstrap_Bootstrapper $application
+     * @return void
+     */
     public function __construct ($application)
     {
         define('TIME_NOW', time());
@@ -119,21 +120,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $this->_initView();
             $this->_initApplicationMailer();
             $this->_initDebug();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
 
     /**
-    * Setup php, server environment, clean input parameters
-    */
+     * Setup php, server environment, clean input parameters
+     */
     protected function _initEnvironment ()
     {
         V_UTF8::clean_globals();
         V_Input::instance();
         // Disable notices and "strict" errors
-        $ER = error_reporting(~ E_NOTICE &~ E_STRICT);
+        $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
         // Set the user agent
         App::$user_agent = (! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
         // Restore error reporting
@@ -143,7 +143,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         ini_set('log_errors', true);
         if (APPLICATION_ENV == 'development') {
             ini_set('display_errors', true);
-            error_reporting(E_ALL &~ E_STRICT);
+            error_reporting(E_ALL & ~ E_STRICT);
         } else {
             ini_set('display_errors', false);
             error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
@@ -152,8 +152,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * Load system configuration
-    */
+     * Load system configuration
+     */
     protected function _initConfiguration ()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
@@ -168,10 +168,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * Setup system error handler
-    *
-    * @return void
-    */
+     * Setup system error handler
+     *
+     * @return void
+     */
     private function _initErrorHandler ()
     {
         // Enable exception handling
@@ -190,10 +190,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * Language setup
-    *
-    * @return void
-    */
+     * Language setup
+     *
+     * @return void
+     */
     private function _setLanguage ()
     {
         $system_locales = App::Config()->locales->toArray();
@@ -211,8 +211,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         try {
             App::setLocale(new Zend_Locale('auto'));
-        }
-        catch (Zend_Locale_Exception $e) {
+        } catch (Zend_Locale_Exception $e) {
             App::setLocale(new Zend_Locale($default_lang_value));
         }
         $system_lang = (array_key_exists(App::getLocale()->getLanguage(), $system_locales)) ? App::getLocale()->getLanguage() : $default_lang_key;
@@ -224,10 +223,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * * Database connection setup
-    *
-    * @return void
-    */
+     * * Database connection setup
+     *
+     * @return void
+     */
     private function _initDatabase ()
     {
         try {
@@ -242,17 +241,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             App::DB()->getConnection();
             App::DB()->query("SET NAMES 'utf8'");
             define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
-        }
-        catch (Zend_Db_Adapter_Exception $e) {
+        } catch (Zend_Db_Adapter_Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
 
     /**
-    * PHP Session handler setup
-    *
-    * @return void
-    */
+     * PHP Session handler setup
+     *
+     * @return void
+     */
     private function _initSession ()
     {
         Zend_Session::setOptions(App::config()->session->toArray());
@@ -262,18 +260,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * View and Layout setup
-    */
+     * View and Layout setup
+     */
     private function _initView ()
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
 
     /**
-    * Setup URI routes
-    *
-    * @return void
-    */
+     * Setup URI routes
+     *
+     * @return void
+     */
     private function _initRoutes ()
     {
         $router = App::front()->getRouter();
@@ -282,10 +280,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * Member access setup
-    *
-    * @return void
-    */
+     * Member access setup
+     *
+     * @return void
+     */
     private function _initAccess ()
     {
         App_Member::getInstance();
@@ -293,20 +291,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-    * Init default application mailer
-    *
-    * @return void
-    */
-    private function _initApplicationMailer()
+     * Init default application mailer
+     *
+     * @return void
+     */
+    private function _initApplicationMailer ()
     {
         App_Mail::setDefaultTransport(App::config()->mail->toArray());
     }
 
     /**
-    * ZendDebug panel
-    *
-    * @return void
-    */
+     * ZendDebug panel
+     *
+     * @return void
+     */
     private function _initDebug ()
     {
         if (APPLICATION_ENV == 'development') {
