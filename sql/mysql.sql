@@ -126,6 +126,7 @@ CREATE TABLE `prefix_session` (
   `id` char(32) NOT NULL DEFAULT '',
   `modified` int(11) DEFAULT NULL,
   `lifetime` int(11) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
   `data` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

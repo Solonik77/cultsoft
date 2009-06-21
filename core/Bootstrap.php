@@ -132,12 +132,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         V_UTF8::clean_globals();
         V_Input::instance();
-        // Disable notices and "strict" errors
-        $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
-        // Set the user agent
-        App::$user_agent = (! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
-        // Restore error reporting
-        error_reporting($ER);
         // Set locale information
         $this->_setLanguage();
         ini_set('log_errors', true);

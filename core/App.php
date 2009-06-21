@@ -25,8 +25,6 @@ final class App
     protected static $log = null;
     // Zend_Translate object
     protected static $i18n = null;
-    // User agent
-    public static $user_agent = '';
     // Base URI
     protected static $base_uri = '';
 
