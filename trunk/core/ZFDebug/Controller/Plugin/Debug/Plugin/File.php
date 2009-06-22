@@ -1,62 +1,63 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: File.php 62 2009-05-14 09:44:38Z gugakfugl $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: File.php 62 2009-05-14 09:44:38Z gugakfugl $
+ */
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
-class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
+class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'file';
     /**
-    * Base path of this application
-    * String is used to strip it from filenames
-    *
-    * @var string
-    */
+     * Base path of this application
+     * String is used to strip it from filenames
+     *
+     * @var string
+     */
     protected $_basePath;
     /**
-    * Stores included files
-    *
-    * @var array
-    */
+     * Stores included files
+     *
+     * @var array
+     */
     protected $_includedFiles = null;
     /**
-    * Stores name of own extension library
-    *
-    * @var string
-    */
+     * Stores name of own extension library
+     *
+     * @var string
+     */
     protected $_library;
 
     /**
-    * Setting Options
-    *
-    * basePath:
-    * This will normally not your document root of your webserver, its your
-    * application root directory with /application, /library and /public
-    *
-    * library:
-    * Your own library extension(s)
-    *
-    * @param array $options
-    * @return void
-    */
+     * Setting Options
+     *
+     * basePath:
+     * This will normally not your document root of your webserver, its your
+     * application root directory with /application, /library and /public
+     *
+     * library:
+     * Your own library extension(s)
+     *
+     * @param array $options
+     * @return void
+     */
     public function __construct (array $options = array())
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
@@ -67,30 +68,30 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     }
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier ()
     {
         return $this->_identifier;
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab ()
     {
         return count($this->_getIncludedFiles()) . ' Files';
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel ()
     {
         $included = $this->_getIncludedFiles();
@@ -127,10 +128,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     }
 
     /**
-    * Gets included files
-    *
-    * @return array
-    */
+     * Gets included files
+     *
+     * @return array
+     */
     protected function _getIncludedFiles ()
     {
         if (null !== $this->_includedFiles) {

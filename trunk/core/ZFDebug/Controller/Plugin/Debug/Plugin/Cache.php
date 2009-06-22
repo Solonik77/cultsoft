@@ -1,41 +1,42 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: Cache.php 70 2009-05-15 12:01:16Z gugakfugl $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: Cache.php 70 2009-05-15 12:01:16Z gugakfugl $
+ */
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
-class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
+class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'cache';
     /**
-    *
-    * @var Zend_Cache_Backend_ExtendedInterface
-    */
+     *
+     * @var Zend_Cache_Backend_ExtendedInterface
+     */
     protected $_cacheBackends = array();
 
     /**
-    * Create ZFDebug_Controller_Plugin_Debug_Plugin_Cache
-    *
-    * @param array $options
-    * @return void
-    */
+     * Create ZFDebug_Controller_Plugin_Debug_Plugin_Cache
+     *
+     * @param array $options
+     * @return void
+     */
     public function __construct (array $options = array())
     {
         if (! isset($options['backend'])) {
@@ -50,30 +51,30 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
     }
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier ()
     {
         return $this->_identifier;
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab ()
     {
         return 'Cache';
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel ()
     {
         $panel = '';
