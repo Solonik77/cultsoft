@@ -82,8 +82,8 @@ class V_Input
             $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
             // Set the user agent
             $this->user_agent = (! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
-            if (utf8::strlen($this->user_agent) > 255) {
-                $this->user_agent = utf8::substr($this->user_agent, 0, 255);
+            if (v_utf8::strlen($this->user_agent) > 255) {
+                $this->user_agent = v_utf8::substr($this->user_agent, 0, 255);
             }
             // Restore error reporting
             error_reporting($ER);
@@ -229,7 +229,7 @@ class V_Input
      *
      * @return string
      */
-    public function user_agent()
+    public function user_agent ()
     {
         return $this->user_agent;
     }

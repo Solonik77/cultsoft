@@ -1,61 +1,62 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: Exception.php 23 2009-05-01 12:43:13Z andreas.pankratz@s-square.de $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: Exception.php 23 2009-05-01 12:43:13Z andreas.pankratz@s-square.de $
+ */
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
-class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
+class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'exception';
     /**
-    * Contains any errors
-    *
-    * @var param array
-    */
+     * Contains any errors
+     *
+     * @var param array
+     */
     static $errors = array();
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier ()
     {
         return $this->_identifier;
     }
 
     /**
-    * Creates Error Plugin ans sets the Error Handler
-    *
-    * @return void
-    */
+     * Creates Error Plugin ans sets the Error Handler
+     *
+     * @return void
+     */
     public function __construct ()
     {
         set_error_handler(array($this , 'errorHandler'));
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab ()
     {
         $response = Zend_Controller_Front::getInstance()->getResponse();
@@ -75,10 +76,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel ()
     {
         $response = Zend_Controller_Front::getInstance()->getResponse();
@@ -112,17 +113,17 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     }
 
     /**
-    * Debug Bar php error handler
-    *
-    * @param string $level
-    * @param string $message
-    * @param string $file
-    * @param string $line
-    * @return bool
-    */
+     * Debug Bar php error handler
+     *
+     * @param string $level
+     * @param string $message
+     * @param string $file
+     * @param string $line
+     * @return bool
+     */
     public static function errorHandler ($level, $message, $file, $line)
     {
-        if (! ($level &error_reporting()))
+        if (! ($level & error_reporting()))
             return false;
         switch ($level) {
             case E_NOTICE:
