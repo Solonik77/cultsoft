@@ -51,6 +51,6 @@ class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
      */
     public function getMinUrl ()
     {
-        return App::baseUri() . 'static/system/min/';
+        return App::baseUri() . 'static/system/vendor/min/';
     }
 }

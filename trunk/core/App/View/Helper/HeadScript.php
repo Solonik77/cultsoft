@@ -67,6 +67,6 @@ class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
      */
     public function getMinUrl ()
     {
-        return App::baseUri() . 'static/system/min/';
+        return App::baseUri() . 'static/system/vendor/min/';
     }
 }
