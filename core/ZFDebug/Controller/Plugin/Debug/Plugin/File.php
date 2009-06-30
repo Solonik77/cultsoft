@@ -58,13 +58,15 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      * @param array $options
      * @return void
      */
-    public function __construct (array $options = array())
+    public function __construct(array $options = array())
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
         isset($options['library']) || $options['library'] = null;
         $this->_basePath = $options['base_path'];
         is_array($options['library']) || $options['library'] = array($options['library']);
-        $this->_library = array_merge($options['library'], array('Zend' , 'ZendX' , 'App' , 'ZFDebug'));
+        $this->_library = array_merge(
+        $options['library'], 
+        array('Zend' , 'ZendX' , 'App' , 'ZFDebug'));
     }
 
     /**
@@ -72,7 +74,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getIdentifier ()
+    public function getIdentifier()
     {
         return $this->_identifier;
     }
@@ -82,7 +84,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getTab ()
+    public function getTab()
     {
         return count($this->_getIncludedFiles()) . ' Files';
     }
@@ -92,34 +94,47 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getPanel ()
+    public function getPanel()
     {
         $included = $this->_getIncludedFiles();
         $html = '<h4>File Information</h4>';
         $html .= count($included) . ' Files Included<br />';
         $size = 0;
-        foreach ($included as $file) {
-            $size += filesize($file);
+        foreach($included as $file)
+        {
+            $size += filesize(
+            $file);
         }
-        $html .= 'Total Size: ' . round($size / 1024, 1) . 'K<br />';
+        $html .= 'Total Size: ' . round(
+        $size / 1024, 1) . 'K<br />';
         $html .= 'Basepath: ' . $this->_basePath . '<br />';
         $libraryFiles = array();
-        foreach ($this->_library as $key => $value) {
-            if ('' != $value) {
+        foreach($this->_library as $key => $value)
+        {
+            if('' != $value)
+            {
                 $libraryFiles[$key] = '<h4>' . $value . ' Library Files</h4>';
             }
         }
         $html .= '<h4>Application Files</h4>';
-        foreach ($included as $file) {
-            $file = str_replace($this->_basePath, '', $file);
+        foreach($included as $file)
+        {
+            $file = str_replace(
+            $this->_basePath, '', 
+            $file);
             $inUserLib = false;
-            foreach ($this->_library as $key => $library) {
-                if ('' != $library && false !== strstr($file, $library)) {
+            foreach($this->_library as $key => $library)
+            {
+                if('' != $library && false !== strstr(
+                $file, 
+                $library))
+                {
                     $libraryFiles[$key] .= $file . '<br />';
                     $inUserLib = true;
                 }
             }
-            if (! $inUserLib) {
+            if(! $inUserLib)
+            {
                 $html .= $file . '<br />';
             }
         }
@@ -132,9 +147,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
      *
      * @return array
      */
-    protected function _getIncludedFiles ()
+    protected function _getIncludedFiles()
     {
-        if (null !== $this->_includedFiles) {
+        if(null !== $this->_includedFiles)
+        {
             return $this->_includedFiles;
         }
         $this->_includedFiles = get_included_files();

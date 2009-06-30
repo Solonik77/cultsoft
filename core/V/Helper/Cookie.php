@@ -27,22 +27,29 @@ class V_Helper_Cookie
      * @param boolean $ HTTP only (requires PHP 5.2 or higher)
      * @return boolean
      */
-    public static function set ($name, $value = null, $expire = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    public static function set($name, $value = null, $expire = null, 
+    $path = null, $domain = null, $secure = null, $httponly = null)
     {
-        if (headers_sent())
+        if(headers_sent())
             return false;
             // If the name param is an array, we import it
-        is_array($name) and extract($name, EXTR_OVERWRITE);
+        is_array(
+        $name) and extract($name, EXTR_OVERWRITE);
         // Fetch default options
-        $config = Kohana::config('cookie');
-        foreach (array('value' , 'expire' , 'domain' , 'path' , 'secure' , 'httponly') as $item) {
-            if ($$item === null and isset($config[$item])) {
+        $config = Kohana::config(
+        'cookie');
+        foreach(array('value' , 'expire' , 'domain' , 'path' , 'secure' , 'httponly') as $item)
+        {
+            if($$item === null and isset(
+            $config[$item]))
+            {
                 $$item = $config[$item];
             }
         }
         // Expiration timestamp
         $expire = ($expire == 0) ? 0 : time() + (int) $expire;
-        return setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        return setcookie($name, $value, $expire, 
+        $path, $domain, $secure, $httponly);
     }
 
     /**
@@ -53,9 +60,11 @@ class V_Helper_Cookie
      * @param boolean $ use XSS cleaning on the value
      * @return string
      */
-    public static function get ($name, $default = null, $xss_clean = false)
+    public static function get($name, $default = null, 
+    $xss_clean = false)
     {
-        return Input::instance()->cookie($name, $default, $xss_clean);
+        return Input::instance()->cookie($name, 
+        $default, $xss_clean);
     }
 
     /**
@@ -66,13 +75,17 @@ class V_Helper_Cookie
      * @param string $ URL domain
      * @return boolean
      */
-    public static function delete ($name, $path = null, $domain = null)
+    public static function delete($name, $path = null, 
+    $domain = null)
     {
-        if (! isset($_COOKIE[$name]))
+        if(! isset($_COOKIE[$name]))
             return false;
             // Delete the cookie from globals
-        unset($_COOKIE[$name]);
+        unset(
+        $_COOKIE[$name]);
         // Sets the cookie value to an empty string, and the expiration to 24 hours ago
-        return V_Helper_Cookie::set($name, '', - 86400, $path, $domain, false, false);
+        return V_Helper_Cookie::set(
+        $name, '', - 86400, $path, $domain, 
+        false, false);
     }
 } // End cookie

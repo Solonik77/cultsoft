@@ -43,13 +43,16 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      * @paran string $panel
      * @return void
      */
-    public function __construct (array $options = array())
+    public function __construct(array $options = array())
     {
-        if (isset($options['tab'])) {
+        if(isset($options['tab']))
+        {
             $this->setTab($tab);
         }
-        if (isset($options['panel'])) {
-            $this->setPanel($panel);
+        if(isset($options['panel']))
+        {
+            $this->setPanel(
+            $panel);
         }
     }
 
@@ -58,7 +61,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getIdentifier ()
+    public function getIdentifier()
     {
         return $this->_identifier;
     }
@@ -69,7 +72,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      * @param string $name
      * @return ZFDebug_Controller_Plugin_Debug_Plugin_Text Provides a fluent interface
      */
-    public function setIdentifier ($name)
+    public function setIdentifier($name)
     {
         $this->_identifier = $name;
         return $this;
@@ -80,7 +83,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getTab ()
+    public function getTab()
     {
         return $this->_tab;
     }
@@ -90,7 +93,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getPanel ()
+    public function getPanel()
     {
         return $this->_panel;
     }
@@ -101,7 +104,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      * @param string $tab
      * @return ZFDebug_Controller_Plugin_Debug_Plugin_Text Provides a fluent interface
      */
-    public function setTab ($tab)
+    public function setTab($tab)
     {
         $this->_tab = $tab;
         return $this;
@@ -113,7 +116,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
      * @param string $panel
      * @return ZFDebug_Controller_Plugin_Debug_Plugin_Text Provides a fluent interface
      */
-    public function setPanel ($panel)
+    public function setPanel($panel)
     {
         $this->_panel = $panel;
         return $this;

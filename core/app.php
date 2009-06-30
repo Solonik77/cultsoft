@@ -31,7 +31,7 @@ final class App
     /**
      * Return Database object
      */
-    public static function DB ()
+    public static function DB()
     {
         return App::$db;
     }
@@ -39,19 +39,23 @@ final class App
     /**
      * Return application configuration
      */
-    public static function Config ()
+    public static function Config()
     {
-        if (App::$config instanceof Zend_Config) {
+        if(App::$config instanceof Zend_Config)
+        {
             return App::$config;
-        } else {
-            throw new Zend_Exception('Config object is not set');
+        }
+        else
+        {
+            throw new Zend_Exception(
+            'Config object is not set');
         }
     }
 
     /**
      * Front controller instance
      */
-    public static function Front ()
+    public static function Front()
     {
         return Zend_Controller_Front::getInstance();
     }
@@ -59,7 +63,7 @@ final class App
     /**
      * Auth instance
      */
-    public static function Auth ()
+    public static function Auth()
     {
         return Zend_Auth::getInstance();
     }
@@ -67,7 +71,7 @@ final class App
     /**
      * Zend logger
      */
-    public static function Log ($message, $type = 1)
+    public static function Log($message, $type = 1)
     {
         app::$log->log($message, $type);
         return;
@@ -76,7 +80,7 @@ final class App
     /**
      * Auth check
      */
-    public static function isAuth ()
+    public static function isAuth()
     {
         return App::Auth()->hasIdentity();
     }
@@ -84,9 +88,10 @@ final class App
     /**
      * Set database object
      */
-    public static function setDb ($object)
+    public static function setDb($object)
     {
-        if (App::$db === null) {
+        if(App::$db === null)
+        {
             App::$db = $object;
         }
     }
@@ -94,9 +99,10 @@ final class App
     /**
      * Set locale object
      */
-    public static function setLocale ($object)
+    public static function setLocale($object)
     {
-        if (App::$locale === null) {
+        if(App::$locale === null)
+        {
             App::$locale = $object;
         }
     }
@@ -104,9 +110,10 @@ final class App
     /**
      * Set configuration
      */
-    public static function setConfig (Zend_Config $object)
+    public static function setConfig(Zend_Config $object)
     {
-        if (App::$config === null) {
+        if(App::$config === null)
+        {
             App::$config = $object;
         }
     }
@@ -114,9 +121,10 @@ final class App
     /**
      * Set logger
      */
-    public static function setLog (Zend_Log $object)
+    public static function setLog(Zend_Log $object)
     {
-        if (App::$log === null) {
+        if(App::$log === null)
+        {
             App::$log = $object;
         }
     }
@@ -124,7 +132,7 @@ final class App
     /**
      * Get system locale information
      */
-    public static function getLocale ()
+    public static function getLocale()
     {
         return App::$locale;
     }
@@ -132,22 +140,29 @@ final class App
     /**
      * Set translator object
      */
-    public static function setTranslate (Zend_Translate $object)
+    public static function setTranslate(Zend_Translate $object)
     {
         App::$i18n = $object;
-        Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
-        Zend_Form::setDefaultTranslator(App::$i18n);
+        Zend_Validate_Abstract::setDefaultTranslator(
+        App::$i18n);
+        Zend_Form::setDefaultTranslator(
+        App::$i18n);
     }
 
     /**
      * Translator method _
      */
-    public static function _ ($text = '', $print = true)
+    public static function _($text = '', $print = true)
     {
-        if ($print === true) {
-            echo App::$i18n->_($text);
-        } else {
-            return App::$i18n->_($text);
+        if($print === true)
+        {
+            echo App::$i18n->_(
+            $text);
+        }
+        else
+        {
+            return App::$i18n->_(
+            $text);
         }
     }
 
@@ -161,19 +176,25 @@ final class App
      * @param boolean $ non-default protocol
      * @return string
      */
-    public static function baseUri ($index = false, $protocol = false)
+    public static function baseUri($index = false, $protocol = false)
     {
-        if (! empty(app::$base_uri)) {
+        if(! empty(app::$base_uri))
+        {
             return app::$base_uri;
         }
-        if ($protocol == false) {
+        if($protocol == false)
+        {
             // Guess the protocol to provide full http://domain/path URL
-            $base_url = ((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'];
-        } else {
+            $base_url = ((empty(
+            $_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'];
+        }
+        else
+        {
             // Guess the server name if the domain starts with slash
             $base_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
         }
-        if ($index === true) {
+        if($index === true)
+        {
             // Append the index page
             $base_url = $base_url . FRONT_CONTROLLER_FILE;
         }
@@ -185,7 +206,7 @@ final class App
     /**
      * Is Platform running on Windows?
      */
-    public static function isWin ()
+    public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }

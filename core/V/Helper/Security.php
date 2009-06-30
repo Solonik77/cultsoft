@@ -21,9 +21,10 @@ class V_Helper_Security
      * @param string $ string to sanitize
      * @return string
      */
-    public static function xss_clean ($str)
+    public static function xss_clean($str)
     {
-        return V_Input::instance()->xss_clean($str);
+        return V_Input::instance()->xss_clean(
+        $str);
     }
 
     /**
@@ -32,9 +33,11 @@ class V_Helper_Security
      * @param string $ string to sanitize
      * @return string
      */
-    public static function strip_image_tags ($str)
+    public static function strip_image_tags($str)
     {
-        return preg_replace('#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is', '$1', $str);
+        return preg_replace(
+        '#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is', 
+        '$1', $str);
     }
 
     /**
@@ -43,8 +46,9 @@ class V_Helper_Security
      * @param string $ string to sanitize
      * @return string
      */
-    public static function encode_php_tags ($str)
+    public static function encode_php_tags($str)
     {
-        return str_replace(array('<?' , '?>'), array('&lt;?' , '?&gt;'), $str);
+        return str_replace(array('<?' , '?>'), 
+        array('&lt;?' , '?&gt;'), $str);
     }
 } // End security

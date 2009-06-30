@@ -22,7 +22,7 @@ class V_Helper_Num
      * @param integer $ number to round to
      * @return integer
      */
-    public static function round ($number, $nearest = 5)
+    public static function round($number, $nearest = 5)
     {
         return round($number / $nearest) * $nearest;
     }

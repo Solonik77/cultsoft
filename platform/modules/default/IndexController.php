@@ -11,23 +11,20 @@
 class Default_IndexController extends App_Controller_Action
 {
 
-    public function init ()
-    {
-    }
+    public function init()
+    {}
 
     /**
      * Default system action
      */
-    public function indexAction ()
-    {
-        // action body
+    public function indexAction()
+    {    // action body
     }
 
     /**
      * Test Zend_Navigation helpers
      */
-    public function testAction ()
-    {
-    }
+    public function testAction()
+    {}
 }
 

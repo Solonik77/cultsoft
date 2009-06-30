@@ -33,16 +33,15 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
      * @paran string $panel
      * @return void
      */
-    public function __construct ()
-    {
-    }
+    public function __construct()
+    {}
 
     /**
      * Gets identifier for this plugin
      *
      * @return string
      */
-    public function getIdentifier ()
+    public function getIdentifier()
     {
         return $this->_identifier;
     }
@@ -52,7 +51,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getTab ()
+    public function getTab()
     {
         return 'HTML';
     }
@@ -62,7 +61,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
      *
      * @return string
      */
-    public function getPanel ()
+    public function getPanel()
     {
         $body = Zend_Controller_Front::getInstance()->getResponse()->getBody();
         $panel = '<h4>HTML Information</h4>';
@@ -79,7 +78,9 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
                 jQuery("#ZFDebug_Html_Imgcount").html(jQuery("img[src]").length);
             };
         </script>';
-        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round(strlen($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities($body) . '"><input type="submit" value="Validate With W3"></form>';
+        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round(
+        strlen($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities(
+        $body) . '"><input type="submit" value="Validate With W3"></form>';
         return $panel;
     }
 }

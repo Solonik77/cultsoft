@@ -12,14 +12,12 @@ class Admin_IndexController extends App_Controller_Action
 {
     CONST BACKOFFICE_CONTROLLER = true;
 
-    public function init ()
-    {
-    }
+    public function init()
+    {}
 
     /**
      * Default system action
      */
-    public function indexAction ()
-    {
-    }
+    public function indexAction()
+    {}
 }
