@@ -18,7 +18,7 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract
 {
     private $_cache;
 
-    public function __construct ($config = array())
+    public function __construct($config = array())
     {
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
@@ -35,13 +35,22 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract
      *
      * @return void
      */
-    protected function _setupTableName ()
+    protected function _setupTableName()
     {
-        if (! $this->_name) {
-            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Model_DbTable_' , 'Site_' , 'Admin_'), '', get_class($this)));
-        } else 
-            if (strpos($this->_name, '.')) {
-                list ($this->_schema, $this->_name) = explode('.', $this->_name);
+        if(! $this->_name)
+        {
+            $this->_name = App::config()->database->table_prefix . strtolower(
+            str_replace(
+            array('Model_DbTable_' , 'Site_' , 'Admin_'), 
+            '', get_class($this)));
+        }
+        else 
+            if(strpos(
+            $this->_name, '.'))
+            {
+                list ($this->_schema, $this->_name) = explode(
+                '.', 
+                $this->_name);
                 $this->_name = App::config()->database->table_prefix . $this->_name;
             }
         parent::_setupTableName();
@@ -52,7 +61,7 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract
      *
      * @return void
      */
-    public function init ()
+    public function init()
     {
         parent::init();
     }

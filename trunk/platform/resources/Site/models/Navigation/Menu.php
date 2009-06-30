@@ -10,16 +10,15 @@
 class Site_Model_Navigation_Menu
 {
 
-    public function __construct ()
-    {
-    }
+    public function __construct()
+    {}
 
     /**
      * Get all site navigation tree from cache
      *
      * @return array
      */
-    public function getNavigationTree ()
+    public function getNavigationTree()
     {
         return App_Cache::getInstance()->getSiteNavigationTree();
     }
@@ -29,12 +28,14 @@ class Site_Model_Navigation_Menu
      *
      * @return array
      */
-    public function getTopMenu ()
+    public function getTopMenu()
     {
         $tree = $this->getNavigationTree();
         $menu_data = array();
-        foreach ($tree as $leaf) {
-            if ($leaf["depth"] == 1) {
+        foreach($tree as $leaf)
+        {
+            if($leaf["depth"] == 1)
+            {
                 $menu_data[] = $leaf;
             }
         }

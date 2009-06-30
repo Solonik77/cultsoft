@@ -64,7 +64,7 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable
      * @return void
      * @throws Zend_Session_SaveHandler_Exception
      */
-    public function __construct ($config)
+    public function __construct($config)
     {
         parent::__construct($config);
     }

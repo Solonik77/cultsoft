@@ -36,9 +36,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      *
      * @return void
      */
-    public function __construct ()
+    public function __construct()
     {
-        Zend_Controller_Front::getInstance()->registerPlugin($this);
+        Zend_Controller_Front::getInstance()->registerPlugin(
+        $this);
     }
 
     /**
@@ -46,7 +47,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      *
      * @return string
      */
-    public function getIdentifier ()
+    public function getIdentifier()
     {
         return $this->_identifier;
     }
@@ -56,10 +57,14 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      *
      * @return string
      */
-    public function getTab ()
+    public function getTab()
     {
-        if (function_exists('memory_get_peak_usage')) {
-            return round(memory_get_peak_usage() / 1024) . 'K of ' . ini_get("memory_limit");
+        if(function_exists(
+        'memory_get_peak_usage'))
+        {
+            return round(
+            memory_get_peak_usage() / 1024) . 'K of ' . ini_get(
+            "memory_limit");
         }
         return 'MemUsage n.a.';
     }
@@ -69,13 +74,19 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      *
      * @return string
      */
-    public function getPanel ()
+    public function getPanel()
     {
         $panel = '<h4>Memory Usage</h4>';
-        $panel .= 'Controller: ' . round(($this->_memory['postDispatch'] - $this->_memory['preDispatch']) / 1024, 2) . 'K<br />';
-        if (isset($this->_memory['user']) && count($this->_memory['user'])) {
-            foreach ($this->_memory['user'] as $key => $value) {
-                $panel .= $key . ': ' . round($value / 1024) . 'K<br />';
+        $panel .= 'Controller: ' . round(
+        ($this->_memory['postDispatch'] - $this->_memory['preDispatch']) / 1024, 
+        2) . 'K<br />';
+        if(isset($this->_memory['user']) && count(
+        $this->_memory['user']))
+        {
+            foreach($this->_memory['user'] as $key => $value)
+            {
+                $panel .= $key . ': ' . round(
+                $value / 1024) . 'K<br />';
             }
         }
         return $panel;
@@ -86,12 +97,14 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      *
      * @param string $name
      */
-    public function mark ($name)
+    public function mark($name)
     {
-        if (! function_exists('memory_get_peak_usage')) {
+        if(! function_exists(
+        'memory_get_peak_usage'))
+        {
             return;
         }
-        if (isset($this->_memory['user'][$name]))
+        if(isset($this->_memory['user'][$name]))
             $this->_memory['user'][$name] = memory_get_peak_usage() - $this->_memory['user'][$name];
         else
             $this->_memory['user'][$name] = memory_get_peak_usage();
@@ -103,9 +116,12 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      * @param Zend_Controller_Request_Abstract $
      * @return void
      */
-    public function preDispatch (Zend_Controller_Request_Abstract $request)
+    public function preDispatch(
+    Zend_Controller_Request_Abstract $request)
     {
-        if (function_exists('memory_get_peak_usage')) {
+        if(function_exists(
+        'memory_get_peak_usage'))
+        {
             $this->_memory['preDispatch'] = memory_get_peak_usage();
         }
     }
@@ -116,9 +132,12 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      * @param Zend_Controller_Request_Abstract $
      * @return void
      */
-    public function postDispatch (Zend_Controller_Request_Abstract $request)
+    public function postDispatch(
+    Zend_Controller_Request_Abstract $request)
     {
-        if (function_exists('memory_get_peak_usage')) {
+        if(function_exists(
+        'memory_get_peak_usage'))
+        {
             $this->_memory['postDispatch'] = memory_get_peak_usage();
         }
     }

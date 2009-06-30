@@ -10,7 +10,7 @@
 class Site_Model_DbTable_Navigation_Menu extends V_Db_Nestedsets
 {
 
-    public function __construct ($config = array())
+    public function __construct($config = array())
     {
         parent::__construct($config);
     }

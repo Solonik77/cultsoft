@@ -10,7 +10,8 @@
 echo $this->message?></h2> 
 
   <?php
-if ('development' == APPLICATION_ENV) :
+if('development' == APPLICATION_ENV)
+:
     ?> 
   
   <h3>Exception information:</h3>
@@ -27,6 +28,7 @@ if ('development' == APPLICATION_ENV) :
 <pre><?php
     var_dump($this->request->getParams())?> 
   </pre>		
+
 
 
 <?php endif ?>
