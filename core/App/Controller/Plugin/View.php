@@ -117,7 +117,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
             'requestLang');
             $view->getHelper(
             'DeclareVars')->declareVars(
-            array('requestLang' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
+            array('uploadIMG' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang , 'projectTitle' => App::Config()->project->title->$requestLang , 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/css/' : 'static/system/admin/css/') , 'tplIMG' => App::baseUri() . ((! $backoffice_controller) ? 'static/templates/' . App::Config()->project->template . '/images/' : 'static/system/admin/images/')));
         }
         catch(Exception $e)
         {
