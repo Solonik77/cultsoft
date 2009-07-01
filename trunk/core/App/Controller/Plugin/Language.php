@@ -18,7 +18,7 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
     public function routeShutdown(
         Zend_Controller_Request_Abstract $request)
     {
-        $system_locales = App::Config()->locales->toArray();
+        $system_locales = App::config()->locales->toArray();
         foreach($system_locales as $key => $value) {
             $default_lang_key = $key;
             Zend_Locale::setDefault($default_lang_key);
@@ -34,7 +34,7 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
             array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
         App::setTranslate($translate);
         setlocale(LC_ALL,
-            $system_locales[$system_lang] . '.' . App::Config()->locale->charset);
+            $system_locales[$system_lang] . '.' . App::config()->locale->charset);
         Zend_Form::setDefaultTranslator($translate);
         App::Front()->setParam('requestLang',
             $system_lang);

@@ -31,9 +31,9 @@ class App_Member {
     {
         if (App_Member::$instance === null) {
             $this->_model = new Site_Model_DbTable_Members();
-            if (App::Auth()->hasIdentity()) {
+            if (App::auth()->hasIdentity()) {
                 $this->loadMember(
-                    App::Auth()->getIdentity()->id);
+                    App::auth()->getIdentity()->id);
             } else {
                 $this->loadGuest();
             }
@@ -103,5 +103,13 @@ class App_Member {
     public function getData()
     {
         return $this->_data;
+    }
+    
+    /**
+    * Auth check
+    */
+    public static function isAuth()
+    {
+        return App::auth()->hasIdentity();
     }
 }

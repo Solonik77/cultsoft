@@ -39,7 +39,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         $autoloader->setFallbackAutoloader(false);
         $this->_initConfiguration();
-        $classFileIncCache = App::Config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
+        $classFileIncCache = App::config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
         if (file_exists($classFileIncCache)) {
             include_once $classFileIncCache;
         }
@@ -137,7 +137,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
         $logger->addWriter(new Zend_Log_Writer_Stream(
-                App::Config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
+                App::config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
 
@@ -148,7 +148,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _setLanguage()
     {
-        $system_locales = App::Config()->locales->toArray();
+        $system_locales = App::config()->locales->toArray();
         foreach($system_locales as $key => $value) {
             $default_lang_key = $key;
             $default_lang_value = $value;
@@ -198,15 +198,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
             $profiler->setEnabled(
                 true);
-            App::DB()->setProfiler($profiler);
+            App::db()->setProfiler($profiler);
             Zend_Db_Table_Abstract::setDefaultMetadataCache(
                 App_Cache::getInstance('File'));
             Zend_Db_Table::setDefaultAdapter(
-                App::DB());
+                App::db());
             Zend_Db_Table_Abstract::setDefaultAdapter(
-                App::DB());
-            App::DB()->getConnection();
-            App::DB()->query("SET NAMES 'utf8'");
+                App::db());
+            App::db()->getConnection();
+            App::db()->query("SET NAMES 'utf8'");
             define('DB_TABLE_PREFIX',
                 App::config()->database->table_prefix);
         }
@@ -225,7 +225,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Session::setOptions(
             App::config()->session->toArray());
         Zend_Db_Table_Abstract::setDefaultAdapter(
-            App::DB());
+            App::db());
         Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(
                 array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         Zend_Session::start();
@@ -284,7 +284,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         if (APPLICATION_ENV == 'development') {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(
-                    array('plugins' => array('Variables' , 'Html' , 'Database' => array('adapter' => array('standard' => App::DB())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
+                    array('plugins' => array('Variables' , 'Html' , 'Database' => array('adapter' => array('standard' => App::db())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
         }
     }
 
