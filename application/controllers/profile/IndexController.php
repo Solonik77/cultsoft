@@ -21,7 +21,7 @@ class Profile_IndexController extends App_Controller_Action {
     */
     public function signinAction()
     {
-        if (App::isAuth()) {
+        if (App_Member::isAuth()) {
             $this->view->form = App::_('You are already logged.');
         } else {
             $form = new Site_Form_Signin();
@@ -34,14 +34,14 @@ class Profile_IndexController extends App_Controller_Action {
                 } else {
                     $authAdapter = $this->_getAuthAdapter($formData['member_email'],
                         $formData['member_password']);
-                    $result = App::Auth()->authenticate($authAdapter);
+                    $result = App::auth()->authenticate($authAdapter);
                     if (! $result->isValid()) {
                         $form->addDecorator('Description',
                             array('escape' => true , 'placement' => 'prepend'));
                         $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
                     } else {
-                        App::Auth()->getStorage()->write($authAdapter->getResultRowObject(
+                        App::auth()->getStorage()->write($authAdapter->getResultRowObject(
                                 array('id' , 'email')));
                         if (isset($formData['remember_me'])) {
                             Zend_Session::rememberMe(3600 * 24 * 14);
@@ -77,7 +77,7 @@ class Profile_IndexController extends App_Controller_Action {
     protected function _getAuthAdapter($email, $password)
     {
         $authAdapter = new Zend_Auth_Adapter_DbTable(
-            App::DB(), DB_TABLE_PREFIX . 'members',
+            App::db(), DB_TABLE_PREFIX . 'members',
             'email', 'password', 'MD5(MD5(?))');
         $authAdapter->setIdentity($email)->setCredential($password);
         return $authAdapter;

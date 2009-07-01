@@ -22,7 +22,7 @@ class App_View_PHPTAL extends Zend_View_Abstract {
         $this->setEngine($phptal);
         $this->_engine->set('this', $this);
         $this->_engine->setPhpCodeDestination(
-            App::Config()->syspath->cache . '/templates');
+            App::config()->syspath->cache . '/templates');
         $this->_engine->setPreFilter(new App_View_PhpTal_Filter_ZFSyntax());
         $this->_engine->setForceReparse(true);
     }

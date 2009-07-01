@@ -73,14 +73,6 @@ final class App {
     }
 
     /**
-    * Auth check
-    */
-    public static function isAuth()
-    {
-        return App::Auth()->hasIdentity();
-    }
-
-    /**
     * Set database object
     */
     public static function setDb($object)
