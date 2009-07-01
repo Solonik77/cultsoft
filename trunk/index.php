@@ -1,14 +1,14 @@
 <?php
 /**
- * APPLICATION FRONT CONTROLLER FILE
- *
- * $Id$
- *
- * @package Core
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
+* APPLICATION FRONT CONTROLLER FILE
+*
+* $Id$
+*
+* @package Core
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
 $pathinfo = pathinfo(__FILE__);
 // Define the front controller name and docroot
 define('DOC_ROOT', $pathinfo['dirname'] . DIRECTORY_SEPARATOR);
@@ -25,10 +25,10 @@ define('APPLICATION_ENV', 'development');
 define('CORE_PATH', DOC_ROOT . 'core' . DIRECTORY_SEPARATOR);
 @set_include_path(CORE_PATH . PATH_SEPARATOR . './');
 /**
- * * Zend_Application
- */
+* * Zend_Application
+*/
 require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
-$application = new Zend_Application(APPLICATION_ENV, 
-array('bootstrap' => array('path' => CORE_PATH . 'bootstrap.php')));
+$application = new Zend_Application(APPLICATION_ENV,
+    array('bootstrap' => array('path' => CORE_PATH . 'bootstrap.php')));
 $application->bootstrap()->run();
