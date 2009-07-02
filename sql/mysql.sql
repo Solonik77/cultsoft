@@ -23,7 +23,7 @@ CREATE TABLE `prefix_acl_roles` (
   `description` varchar(256) DEFAULT NULL,
   `res_module_admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_acl_roles` */
 
