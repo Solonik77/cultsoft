@@ -22,7 +22,7 @@ class Profile_IndexController extends App_Controller_Action {
     public function signinAction()
     {
         if (App_Member::isAuth()) {
-            $this->view->form = App::_('You are already logged.');
+            $this->view->form = __('You are already logged.');
         } else {
             $form = new Site_Form_Signin();
             if ($this->getRequest()->isPost()) {
@@ -34,14 +34,14 @@ class Profile_IndexController extends App_Controller_Action {
                 } else {
                     $authAdapter = $this->_getAuthAdapter($formData['member_email'],
                         $formData['member_password']);
-                    $result = App::auth()->authenticate($authAdapter);
+                    $result = App_Member::getAuth()->authenticate($authAdapter);
                     if (! $result->isValid()) {
                         $form->addDecorator('Description',
                             array('escape' => true , 'placement' => 'prepend'));
                         $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
                     } else {
-                        App::auth()->getStorage()->write($authAdapter->getResultRowObject(
+                        App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(
                                 array('id' , 'email')));
                         if (isset($formData['remember_me'])) {
                             Zend_Session::rememberMe(3600 * 24 * 14);

@@ -31,9 +31,9 @@ class App_Member {
     {
         if (App_Member::$instance === null) {
             $this->_model = new Site_Model_DbTable_Members();
-            if (App::auth()->hasIdentity()) {
+            if (App_Member::getAuth()->hasIdentity()) {
                 $this->loadMember(
-                    App::auth()->getIdentity()->id);
+                    App_Member::getAuth()->getIdentity()->id);
             } else {
                 $this->loadGuest();
             }
@@ -110,6 +110,14 @@ class App_Member {
     */
     public static function isAuth()
     {
-        return App::auth()->hasIdentity();
+        return App_Member::getAuth()->hasIdentity();
+    }
+
+    /**
+    * Auth instance
+    */
+    public static function getAuth()
+    {
+        return Zend_Auth::getInstance();
     }
 }

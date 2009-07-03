@@ -8,6 +8,9 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
+
+require_once 'V/Helper/Html.php';
+
 class App_Exception extends Zend_Exception {
     /**
     * Creates a new exception.

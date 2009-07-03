@@ -23,22 +23,14 @@ final class App {
     // Logger
     protected static $log = null;
     // Zend_Translate object
-    protected static $i18n = null;
+    public static $i18n = null;
     // Base URI
     protected static $base_uri = '';
 
     /**
-    * Return Database object
-    */
-    public static function DB()
-    {
-        return App::$db;
-    }
-
-    /**
     * Return application configuration
     */
-    public static function Config()
+    public static function config()
     {
         if (App::$config instanceof Zend_Config) {
             return App::$config;
@@ -50,46 +42,34 @@ final class App {
     /**
     * Front controller instance
     */
-    public static function Front()
+    public static function front()
     {
         return Zend_Controller_Front::getInstance();
     }
 
     /**
-    * Auth instance
+    * Return Database object
     */
-    public static function Auth()
+    public static function db()
     {
-        return Zend_Auth::getInstance();
+        return App::$db;
     }
 
     /**
     * Zend logger
     */
-    public static function Log($message, $type = 1)
+    public static function log($message, $type = 1)
     {
         app::$log->log($message, $type);
         return;
     }
 
     /**
-    * Set database object
+    * Get system locale information
     */
-    public static function setDb($object)
+    public static function locale()
     {
-        if (App::$db === null) {
-            App::$db = $object;
-        }
-    }
-
-    /**
-    * Set locale object
-    */
-    public static function setLocale($object)
-    {
-        if (App::$locale === null) {
-            App::$locale = $object;
-        }
+        return App::$locale;
     }
 
     /**
@@ -113,34 +93,32 @@ final class App {
     }
 
     /**
-    * Get system locale information
-    */
-    public static function getLocale()
-    {
-        return App::$locale;
-    }
-
-    /**
     * Set translator object
     */
     public static function setTranslate(Zend_Translate $object)
     {
         App::$i18n = $object;
-        Zend_Validate_Abstract::setDefaultTranslator(
-            App::$i18n);
-        Zend_Form::setDefaultTranslator(
-            App::$i18n);
+        Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
+        Zend_Form::setDefaultTranslator(App::$i18n);
     }
 
     /**
-    * Translator method _
+    * Set database object
     */
-    public static function _($text = '', $print = true)
+    public static function setDb($object)
     {
-        if ($print === true) {
-            echo App::$i18n->_($text);
-        } else {
-            return App::$i18n->_($text);
+        if (App::$db === null) {
+            App::$db = $object;
+        }
+    }
+
+    /**
+    * Set locale object
+    */
+    public static function setLocale($object)
+    {
+        if (App::$locale === null) {
+            App::$locale = $object;
         }
     }
 
@@ -181,5 +159,17 @@ final class App {
     public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
+    }
+}
+
+/**
+* Translator function
+*/
+function __($text = '', $print = true)
+{
+    if ($print === true) {
+        echo App::$i18n->_($text);
+    } else {
+        return App::$i18n->_($text);
     }
 }
