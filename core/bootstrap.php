@@ -129,7 +129,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Enable error handling
         App_Exception_PHP::enable();
         $front = App::front();
-        $front->throwExceptions(FALSE);
+        $front->throwExceptions(false);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(
                 array('module' => 'default' , 'controller' => 'error' , 'action' => 'error')));
         $logger = new Zend_Log();
@@ -169,8 +169,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             App::setLocale(new Zend_Locale($default_lang_value));
         }
         $system_lang = (array_key_exists(
-                App::getLocale()->getLanguage(),
-                $system_locales)) ? App::getLocale()->getLanguage() : $default_lang_key;
+                App::locale()->getLanguage(),
+                $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
         // change default router
         App::front()->getRouter()->addRoute('default',
             new Zend_Controller_Router_Route(':module/:controller/:action/*',
@@ -247,9 +247,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initRoutes()
     {
         $router = App::front()->getRouter();
-        $config = new Zend_Config_Ini(
-            VAR_PATH . 'cache/configs/routes.ini',
-            APPLICATION_ENV);
+        $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
     }
 
