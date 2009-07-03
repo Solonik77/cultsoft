@@ -104,7 +104,7 @@ class App_Member {
     {
         return $this->_data;
     }
-    
+
     /**
     * Auth check
     */
