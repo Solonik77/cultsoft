@@ -36,12 +36,11 @@ class V_Helper_Upload {
         $filename = preg_replace('/\s+/', '_', $filename);
         if ($directory === null) {
             // Use the pre-configured upload directory
-            $directory = Kohana::config('upload.directory',
-                true);
+            $directory = App::config()->upload->directory;
         }
         // Make sure the directory ends with a slash
         $directory = rtrim($directory, '/') . '/';
-        if (! is_dir($directory) and Kohana::config('upload.create_directories') === true) {
+        if (! is_dir($directory) and App::config()->upload->create_directories == true) {
             // Create the upload directory
             mkdir($directory, 0777,
                 true);
@@ -93,8 +92,7 @@ class V_Helper_Upload {
     * @param array $ allowed file extensions
     * @return bool
     */
-    public static function type(array $file,
-        array $allowed_types)
+    public static function type(array $file, array $allowed_types)
     {
         if ((int) $file['error'] !== UPLOAD_ERR_OK)
             return true;
@@ -102,10 +100,11 @@ class V_Helper_Upload {
         $extension = strtolower(
             substr(strrchr($file['name'], '.'), 1));
         // Get the mime types for the extension
-        $mime_types = Kohana::config('mimes.' . $extension);
-        // Make sure there is an extension, that the extension is allowed, and that mime types exist
-        return (! empty($extension) and in_array($extension,
-                $allowed_types) and is_array($mime_types));
+        $mime_types = App::config()->mimes->toArray();
+        $mime_types = $mime_types[$extension];
+        // @TODO Make sure there is an extension, that the extension is allowed, and that mime types exist
+        //return (! empty($extension) and in_array($extension, $allowed_types) and is_array($mime_types));
+        return (! empty($extension) and in_array($extension, $allowed_types));
     }
 
     /**
