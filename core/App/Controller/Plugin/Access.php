@@ -23,8 +23,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     public function preDispatch(
         Zend_Controller_Request_Abstract $request)
     {
-        Zend_Registry::set('member_access',
-            'ALLOWED');
+        Zend_Registry::set('member_access', 'ALLOWED');
         Zend_Registry::set('BACKOFFICE_CONTROLLER', false);
         $className = App::Front()->getDispatcher()->getControllerClass($request);
         if (($className) and ! class_exists($className, false)) {
