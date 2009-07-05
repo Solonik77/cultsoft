@@ -29,6 +29,5 @@ define('CORE_PATH', DOC_ROOT . 'core' . DIRECTORY_SEPARATOR);
 */
 require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
-$application = new Zend_Application(APPLICATION_ENV,
-    array('bootstrap' => array('path' => CORE_PATH . 'bootstrap.php')));
+$application = new Zend_Application(APPLICATION_ENV, array('bootstrap' => array('path' => CORE_PATH . 'bootstrap.php')));
 $application->bootstrap()->run();
