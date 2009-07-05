@@ -24,11 +24,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if (extension_loaded('mbstring')) {
             mb_internal_encoding('UTF-8');
-            define('SERVER_UTF8',
-                true);
+            define('SERVER_UTF8', TRUE);
         } else {
-            define('SERVER_UTF8',
-                false);
+            define('SERVER_UTF8', FALSE);
         }
         parent::__construct($application);
         $autoloader = Zend_Loader_Autoloader::getInstance();
@@ -37,7 +35,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         if (APPLICATION_ENV == 'development') {
             $autoloader->registerNamespace('ZFDebug_');
         }
-        $autoloader->setFallbackAutoloader(false);
+        $autoloader->setFallbackAutoloader(FALSE);
         $this->_initConfiguration();
         $classFileIncCache = App::config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
         if (file_exists($classFileIncCache)) {
@@ -168,9 +166,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         catch(Zend_Locale_Exception $e) {
             App::setLocale(new Zend_Locale($default_lang_value));
         }
-        $system_lang = (array_key_exists(
-                App::locale()->getLanguage(),
-                $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
+        $system_lang = (array_key_exists(App::locale()->getLanguage(), $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
         // change default router
         App::front()->getRouter()->addRoute('default',
             new Zend_Controller_Router_Route(':module/:controller/:action/*',
