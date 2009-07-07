@@ -4150,9 +4150,7 @@ jQuery.fx.prototype = {
 
 jQuery.extend( jQuery.fx, {
 	speeds:{
-		slow: 600,
- 		fast: 200,
- 		// Default speed
+		slow: 600,		fast: 200,		// Default speed
  		_default: 400
 	},
 	step: {
