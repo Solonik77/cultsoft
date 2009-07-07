@@ -22,12 +22,12 @@ define('APPLICATION_PATH', DOC_ROOT . 'application' . DIRECTORY_SEPARATOR);
 // Define application environment
 define('APPLICATION_ENV', 'development');
 // define('APPLICATION_ENV', 'production');
-define('CORE_PATH', DOC_ROOT . 'core' . DIRECTORY_SEPARATOR);
-@set_include_path(CORE_PATH . PATH_SEPARATOR . './');
+define('LIBRARY_PATH', DOC_ROOT . 'library' . DIRECTORY_SEPARATOR);
+@set_include_path(LIBRARY_PATH . PATH_SEPARATOR . './');
 /**
 * * Zend_Application
 */
 require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
-$application = new Zend_Application(APPLICATION_ENV, array('bootstrap' => array('path' => CORE_PATH . 'bootstrap.php')));
+$application = new Zend_Application(APPLICATION_ENV, array('bootstrap' => array('path' => LIBRARY_PATH . 'bootstrap.php')));
 $application->bootstrap()->run();

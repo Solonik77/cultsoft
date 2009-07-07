@@ -9,16 +9,16 @@
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class Admin_IndexController extends App_Controller_Action {
-    CONST BACKOFFICE_CONTROLLER = true;
+ CONST BACKOFFICE_CONTROLLER = true;
 
-    public function init()
-    {
-    }
+ public function init()
+ {
+ }
 
-    /**
-    * Default system action
-    */
-    public function indexAction()
-    {
-    }
+ /**
+ * Default system action
+ */
+ public function indexAction()
+ {
+ }
 }
