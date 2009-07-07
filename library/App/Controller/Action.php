@@ -8,50 +8,30 @@
 * @license http://cultsoft.org.ua/platform/license.html
 */
 abstract class App_Controller_Action extends Zend_Controller_Action {
- // Zend_ACL Instance
- private 
-$_acl;
+    // Zend_ACL Instance
+    private $_acl;
 
- public function __construct( Zend_Controller_Request_Abstract 
-$request, Zend_Controller_Response_Abstract 
-$response, array 
-$invokeArgs = array())
- {
-  parent::__construct(
-$request, 
-$response,  
-$invokeArgs);
-  // Make urls absolute
-  
-$request->setBaseUrl(  App::baseUri());
-  // Init ACL in controller
-  
-$this->_acl = App_Acl::getInstance();
-  
-$doctypeHelper = new Zend_View_Helper_Doctype();
-  // Set global HTML doctype
-  
-$doctypeHelper->doctype('XHTML1_STRICT');
-  
-$requestLang = App::Front()->getParam('requestLang');
-  // Set localized project name in page title first
-  
-$this->view->headTitle(  App::config()->project->title->
-$requestLang);
-  
-$site_pages = new Site_Model_Navigation_Menu();
-  // Create container from array
-  
-$container = new Zend_Navigation(
-$site_pages->getTopMenu());
-  
-$this->view->navigation(
-$container);
-  if (
-$this->getRequest()->isXmlHttpRequest()) {
-// AJAX request
-Zend_Layout::disableLayout();
-Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');
-  }
- }
+    public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
+    {
+        parent::__construct ($request, $response, $invokeArgs);
+        // Make urls absolute
+        $request->setBaseUrl (App::baseUri ());
+        // Init ACL in controller
+        $this->_acl = App_Acl::getInstance ();
+        $doctypeHelper = new Zend_View_Helper_Doctype ();
+        // Set global HTML doctype
+        $doctypeHelper->doctype ('XHTML1_STRICT');
+        $requestLang = App::Front ()->getParam ('requestLang');
+        // Set localized project name in page title first
+        $this->view->headTitle (App::config ()->project->title->$requestLang);
+        $site_pages = new Site_Model_Navigation_Menu ();
+        // Create container from array
+        $container = new Zend_Navigation ($site_pages->getTopMenu ());
+        $this->view->navigation ($container);
+        if ($this->getRequest ()->isXmlHttpRequest ()) {
+            // AJAX request
+            Zend_Layout::disableLayout ();
+            Zend_Controller_Action_HelperBroker::removeHelper ('viewRenderer');
+        }
+    }
 }

@@ -8,8 +8,8 @@
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class Site_Model_DbTable_Acl_Roles extends App_DB_Table {
- public function __construct()
- {
-  parent::__construct();
- }
+    public function __construct()
+    {
+        parent::__construct ();
+    }
 }

@@ -38,7 +38,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     */
     public function __construct()
     {
-        $this->_registry = Zend_Registry::getInstance();
+        $this->_registry = Zend_Registry::getInstance ();
     }
 
     /**
@@ -58,7 +58,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     */
     public function getTab()
     {
-        return ' Registry (' . $this->_registry->count() . ')';
+        return ' Registry (' . $this->_registry->count () . ')';
     }
 
     /**
@@ -69,8 +69,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     public function getPanel()
     {
         $html = '<h4>Registered Instances</h4>';
-        $this->_registry->ksort();
-        $html .= $this->_cleanData($this->_registry);
+        $this->_registry->ksort ();
+        $html .= $this->_cleanData ($this->_registry);
         return $html;
     }
 }

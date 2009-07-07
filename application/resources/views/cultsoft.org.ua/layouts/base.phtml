@@ -1,170 +1,241 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype();
+echo $this->doctype ();
 ?>
 <html>
 <head>
 <?php
-echo $this->headTitle()?>
+echo $this->headTitle ()?>
 <?php
-echo $this->headMeta()?>
+
+echo $this->headMeta ()?>
 <?php
-echo $this->headLink()?>
+
+echo $this->headLink ()?>
 <?php
-echo $this->headStyle()?>
+
+echo $this->headStyle ()?>
 <?php
-echo $this->headScript()?>
+
+echo $this->headScript ()?>
 <?php
-echo $this->inlineScript()?>
+
+echo $this->inlineScript ()?>
 <base href="<?php
-echo App::baseUri()?>" />
+echo App::baseUri ()?>" />
 </head>
 <body>
 <div class="top_bg">
-  <div class="container_16">
-    <div class="grid_5">
-      <div class="colortheme"> </div>
-      <a href="default.htm"><img src="<?php echo $this->tplIMG?>logo.png" class="logo" alt="Memix" /></a></div>
-    <!-- Top menu Start -->
-    <div class="grid_11 menu">
-      <ul>
-        <li class="current"> <a href="../memex">Home</a> </li>
-        <li > <a href="@page_id=2">About Us </a></li>
-        <li > <a href="@page_id=18">Services </a></li>
-        <li > <a href="@cat=4">Blog</a></li>
-        <li > <a href="@cat=3">Portfolio</a></li>
-        <li > <a href="@page_id=41">Contact Us</a></li>
-      </ul>
-      <!-- Top menu End -->
-    </div>
-  </div>
+<div class="container_16">
+<div class="grid_5">
+<div class="colortheme"></div>
+<a href="default.htm"><img src="<?php
+echo $this->tplIMG?>logo.png"
+	class="logo" alt="Memix" /></a></div>
+<!-- Top menu Start -->
+<div class="grid_11 menu">
+<ul>
+	<li class="current"><a href="../memex">Home</a></li>
+	<li><a href="@page_id=2">About Us </a></li>
+	<li><a href="@page_id=18">Services </a></li>
+	<li><a href="@cat=4">Blog</a></li>
+	<li><a href="@cat=3">Portfolio</a></li>
+	<li><a href="@page_id=41">Contact Us</a></li>
+</ul>
+<!-- Top menu End --></div>
+</div>
 </div>
 <div class="clear">&nbsp;</div>
 <div class="mainheader">
-  <div class="container_16">
-    <!-- Slider Start-->
-    <div class="grid_8 featured">
-      <div id="mygallery" class="stepcarousel">
-        <div class="belt">
-          <div class="panel"> <a href="@p=37"><img src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fconspicuous.jpg&w=390&h=140" alt="Conspicuous variations of passages of Lorem Ipsum"  class="borderimg" /></a> </div>
-          <div class="panel"> <a href="@p=36"><img src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fplanetfull.jpg&w=390&h=140" alt="Planetfull the majority have suffered"  class="borderimg" /></a> </div>
-          <div class="panel"> <a href="@p=34"><img src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fvisionfull.jpg&w=390&h=140" alt="Vision Business Template"  class="borderimg" /></a> </div>
-        </div>
-      </div>
-      <!-- Slider End -->
-      <p class="textleft"> <b>What are special offers?</b><br />
-        This is the place for your special offers or sign-up section for the users or some campaign monitoring.</p>
-    </div>
-    <div class="grid_8 homeinfo">
-      <h1>We build <span>creative</span> web Designs!</h1>
-      <p class="textright">Here you can place some content related to your specializations or some highlighting features of your product or so. </p>
-      <a href="#" class="tourbutton tb10 rightalign" /></a> </div>
-  </div>
+<div class="container_16"><!-- Slider Start-->
+<div class="grid_8 featured">
+<div id="mygallery" class="stepcarousel">
+<div class="belt">
+<div class="panel"><a href="@p=37"><img
+	src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fconspicuous.jpg&w=390&h=140"
+	alt="Conspicuous variations of passages of Lorem Ipsum"
+	class="borderimg" /></a></div>
+<div class="panel"><a href="@p=36"><img
+	src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fplanetfull.jpg&w=390&h=140"
+	alt="Planetfull the majority have suffered" class="borderimg" /></a></div>
+<div class="panel"><a href="@p=34"><img
+	src="wp-content/themes/memex/timthumb.php@src=http_3A_2F_2Fwpdemo.bannersmonster.com_2Fmemex_2Fwp-content_2Fuploads_2F2009_2F05_2Fvisionfull.jpg&w=390&h=140"
+	alt="Vision Business Template" class="borderimg" /></a></div>
+</div>
+</div>
+<!-- Slider End -->
+<p class="textleft"><b>What are special offers?</b><br />
+This is the place for your special offers or sign-up section for the
+users or some campaign monitoring.</p>
+</div>
+<div class="grid_8 homeinfo">
+<h1>We build <span>creative</span> web Designs!</h1>
+<p class="textright">Here you can place some content related to your
+specializations or some highlighting features of your product or so.</p>
+<a href="#" class="tourbutton tb10 rightalign" /></a></div>
+</div>
 </div>
 <div class="clear">&nbsp;</div>
-<div class="container_16">
-  <!-- 4 Blocks -->
-  <div class="grid_4 fbox"> <img src="<?php echo $this->tplIMG?>new_icon.png" alt="" class="leftalign" />
-    <h6><a href="@page_id=18">Web Designing</a></h6>
-    <p><small>Vestibulum blandit Sedeuism od enimeleifend inter.</small></p>
-  </div>
-  <div class="grid_4 fbox"> <img src="<?php echo $this->tplIMG?>menu_icon.png" alt="" class="leftalign" />
-    <h6><a href="#">Print & Graphics</a></h6>
-    <p><small>aoreetet congueeu osuere sit ametelit Sondimentum.</small></p>
-  </div>
-  <div class="grid_4 fbox"> <img src="<?php echo $this->tplIMG?>download_icon.png" alt="" class="leftalign" />
-    <h6><a href="#">Multimedia</a></h6>
-    <p><small>Loremipsum dolor sit amet, consectetur adipiscing elit.</small></p>
-  </div>
-  <div class="grid_4 fbox"> <img src="<?php echo $this->tplIMG?>copy_icon.png" alt="" class="leftalign" />
-    <h6><a href="#">SEO Marketing</a></h6>
-    <p><small>Nulla Fusce etlibero. Mauri smattis Duis vulpu acilisi cods.</small></p>
-  </div>
-  <!-- 4 Blocks -->
+<div class="container_16"><!-- 4 Blocks -->
+<div class="grid_4 fbox"><img
+	src="<?php
+	echo $this->tplIMG?>new_icon.png" alt="" class="leftalign" />
+<h6><a href="@page_id=18">Web Designing</a></h6>
+<p><small>Vestibulum blandit Sedeuism od enimeleifend inter.</small></p>
 </div>
+<div class="grid_4 fbox"><img
+	src="<?php
+	echo $this->tplIMG?>menu_icon.png" alt=""
+	class="leftalign" />
+<h6><a href="#">Print & Graphics</a></h6>
+<p><small>aoreetet congueeu osuere sit ametelit Sondimentum.</small></p>
+</div>
+<div class="grid_4 fbox"><img
+	src="<?php
+	echo $this->tplIMG?>download_icon.png" alt=""
+	class="leftalign" />
+<h6><a href="#">Multimedia</a></h6>
+<p><small>Loremipsum dolor sit amet, consectetur adipiscing elit.</small></p>
+</div>
+<div class="grid_4 fbox"><img
+	src="<?php
+	echo $this->tplIMG?>copy_icon.png" alt=""
+	class="leftalign" />
+<h6><a href="#">SEO Marketing</a></h6>
+<p><small>Nulla Fusce etlibero. Mauri smattis Duis vulpu acilisi cods.</small></p>
+</div>
+<!-- 4 Blocks --></div>
 <div class="clear">&nbsp;</div>
 <div class="content cbg">
-  <div class="container_16 linebg">
-    <!--Left part of text follows here-->
-    <div class="grid_11 para sepline">
-      <div class="text">
-        <h2>Welcome to <span>memex!</span></h2>
-        <p>The font i have used in this website is an Arial system default font with letter-spacing -1px. In vel orci. Praesent sit amet diam sed orci volutpat facilisis. Aenean varius, ligula a blandit ornare, nulla elit porttitor tellus, quis bibendum elit ante nec metus. Donec metus lacus, porta id, auctor sit amet, aliquam eu, lacus. Quisque sagittis vulputate orci. </p>
-        <p>In vel orci. Praesent sit amet diam sed orci volutpat facilisis. Aenean varius, ligula a blandit ornare, nulla elit porttitor tellus, quis bibendum elit ante nec metus. Donec metus lacus, porta id, auctor sit amet, aliquam eu, lacus. Quisque sagittis vulputate orci.In vel orci. Praesent sit amet diam sed orci volutpat facilisis. Aenean varius, ligula a blandit ornare, nulla elit porttitor tellus, quis bibendum elit ante nec metus. Donec metus lacus, porta id, auctor sit amet, aliquam eu, lacus. Quisque sagittis vulputate orci.</p>
-        <br />
-        <h2>Featured Products</h2>
-        <div class="servicebox"> <img src="wp-content/uploads/2009/05/futuron_15.jpg"alt='Featured Prudct3' class="leftalign" />
-          <div class="rightpara2">
-            <p>This is the placeholder for your services details list and you can place some of the content related to your services and have some list items placed in it in the unordered list style of some ordered list style and you can describe the long text here by adding more images in it and have some extra stuff.</p>
-          </div>
-        </div>
-        <div class="servicebox"> <img src="wp-content/uploads/2009/05/bplanet_15.jpg"alt='Featured Product2' class="leftalign" />
-          <div class="rightpara2">
-            <p>This is the placeholder for your services details list and you can place some of the content related to your services and have some list items placed in it in the unordered list style of some ordered list style and you can describe the long text here by adding more images in it and have some extra stuff.</p>
-          </div>
-        </div>
-        <div class="servicebox"> <img src="wp-content/uploads/2009/05/pro2_15.jpg"alt='Future Product1' class="leftalign" />
-          <div class="rightpara2">
-            <p>This is the placeholder for your services details list and you can place some of the content related to your services and have some list items placed in it in the unordered list style of some ordered list style and you can describe the long text here by adding more images in it and have some extra stuff</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--End of the Left part text  -->
-    <!--Right part of text follows here-->
-    <div class="grid_5">
-      <div class="text">
-        <h2 class="blogimage"> Recent Blog item</h2>
-        <ul class="commonlist">
-          <li>
-            <h5><a href="@p=51">Featured Prudct3</a></h5>
-            <p>This is the placeholder for your services details list and you can place some of the content related to</p>
-            <div class="date"><a href="#"><img src="<?php echo $this->tplIMG?>comments.png" alt="" /> <a href="@p=51#respond" title="Comment on Featured Prudct3">Comments 0</a></a> | <a href="@p=51">readmore</a></div>
-          </li>
-          <li>
-            <h5><a href="@p=49">Featured Product2</a></h5>
-            <p>This is the placeholder for your services details list and you can place some of the content related to</p>
-            <div class="date"><a href="#"><img src="<?php echo $this->tplIMG?>comments.png" alt="" /> <a href="@p=49#respond" title="Comment on Featured Product2">Comments 0</a></a> | <a href="@p=49">readmore</a></div>
-          </li>
-        </ul>
-      </div>
-      <div class="text">
-        <ul class="submenu">
-          <h2>Categories</h2>
-          <ul>
-            <li class="cat-item cat-item-4"><a href="@cat=4" title="Blog">Blog</a> </li>
-            <li class="cat-item cat-item-5"><a href="@cat=5" title="Category1">Category1</a> </li>
-            <li class="cat-item cat-item-6"><a href="@cat=6" title="Category2">Category2</a> </li>
-            <li class="cat-item cat-item-7"><a href="@cat=7" title="Category3">Category3</a> </li>
-            <li class="cat-item cat-item-8"><a href="@cat=8" title="Featured Products">Featured Products</a> </li>
-            <li class="cat-item cat-item-3"><a href="@cat=3" title="Portfolio1">Portfolio</a> </li>
-            <li class="cat-item cat-item-1"><a href="@cat=1" title="View all posts filed under Uncategorized">Uncategorized</a> </li>
-          </ul>
-        </ul>
-        <br />
-        <h2 class="testimonialimg">Testimonials</h2>
-        <div class="testimonial">
-          <blockquote>
-            <p>Maecenas auctor, orci dignissim sodales adipiscing, lectus orci ultricies mi, ac varius mauris enim at magna. Curabitur pretium sodales eros, vitae ornare magna commodo quis. Maecenas eget tincidunt nulla<br/>
-              <br/>
-              Maecenas<br/>
-              <a href="../../aivah.com/default.htm">Maecenas</a><br/>
-          </blockquote>
-        </div>
-      </div>
-      <!--End of the Right part text  -->
-    </div>
-  </div>
+<div class="container_16 linebg"><!--Left part of text follows here-->
+<div class="grid_11 para sepline">
+<div class="text">
+<h2>Welcome to <span>memex!</span></h2>
+<p>The font i have used in this website is an Arial system default font
+with letter-spacing -1px. In vel orci. Praesent sit amet diam sed orci
+volutpat facilisis. Aenean varius, ligula a blandit ornare, nulla elit
+porttitor tellus, quis bibendum elit ante nec metus. Donec metus lacus,
+porta id, auctor sit amet, aliquam eu, lacus. Quisque sagittis vulputate
+orci.</p>
+<p>In vel orci. Praesent sit amet diam sed orci volutpat facilisis.
+Aenean varius, ligula a blandit ornare, nulla elit porttitor tellus,
+quis bibendum elit ante nec metus. Donec metus lacus, porta id, auctor
+sit amet, aliquam eu, lacus. Quisque sagittis vulputate orci.In vel
+orci. Praesent sit amet diam sed orci volutpat facilisis. Aenean varius,
+ligula a blandit ornare, nulla elit porttitor tellus, quis bibendum elit
+ante nec metus. Donec metus lacus, porta id, auctor sit amet, aliquam
+eu, lacus. Quisque sagittis vulputate orci.</p>
+<br />
+<h2>Featured Products</h2>
+<div class="servicebox"><img
+	src="wp-content/uploads/2009/05/futuron_15.jpg" alt='Featured Prudct3'
+	class="leftalign" />
+<div class="rightpara2">
+<p>This is the placeholder for your services details list and you can
+place some of the content related to your services and have some list
+items placed in it in the unordered list style of some ordered list
+style and you can describe the long text here by adding more images in
+it and have some extra stuff.</p>
 </div>
-<div class="clear"> &nbsp; </div>
+</div>
+<div class="servicebox"><img
+	src="wp-content/uploads/2009/05/bplanet_15.jpg" alt='Featured Product2'
+	class="leftalign" />
+<div class="rightpara2">
+<p>This is the placeholder for your services details list and you can
+place some of the content related to your services and have some list
+items placed in it in the unordered list style of some ordered list
+style and you can describe the long text here by adding more images in
+it and have some extra stuff.</p>
+</div>
+</div>
+<div class="servicebox"><img
+	src="wp-content/uploads/2009/05/pro2_15.jpg" alt='Future Product1'
+	class="leftalign" />
+<div class="rightpara2">
+<p>This is the placeholder for your services details list and you can
+place some of the content related to your services and have some list
+items placed in it in the unordered list style of some ordered list
+style and you can describe the long text here by adding more images in
+it and have some extra stuff</p>
+</div>
+</div>
+</div>
+</div>
+<!--End of the Left part text  --> <!--Right part of text follows here-->
+<div class="grid_5">
+<div class="text">
+<h2 class="blogimage">Recent Blog item</h2>
+<ul class="commonlist">
+	<li>
+	<h5><a href="@p=51">Featured Prudct3</a></h5>
+	<p>This is the placeholder for your services details list and you can
+	place some of the content related to</p>
+	<div class="date"><a href="#"><img
+		src="<?php
+		echo $this->tplIMG?>comments.png" alt="" /> <a href="@p=51#respond"
+		title="Comment on Featured Prudct3">Comments 0</a></a> | <a
+		href="@p=51">readmore</a></div>
+	</li>
+	<li>
+	<h5><a href="@p=49">Featured Product2</a></h5>
+	<p>This is the placeholder for your services details list and you can
+	place some of the content related to</p>
+	<div class="date"><a href="#"><img
+		src="<?php
+		echo $this->tplIMG?>comments.png" alt="" /> <a href="@p=49#respond"
+		title="Comment on Featured Product2">Comments 0</a></a> | <a
+		href="@p=49">readmore</a></div>
+	</li>
+</ul>
+</div>
+<div class="text">
+<ul class="submenu">
+	<h2>Categories</h2>
+	<ul>
+		<li class="cat-item cat-item-4"><a href="@cat=4" title="Blog">Blog</a>
+		</li>
+		<li class="cat-item cat-item-5"><a href="@cat=5" title="Category1">Category1</a>
+		</li>
+		<li class="cat-item cat-item-6"><a href="@cat=6" title="Category2">Category2</a>
+		</li>
+		<li class="cat-item cat-item-7"><a href="@cat=7" title="Category3">Category3</a>
+		</li>
+		<li class="cat-item cat-item-8"><a href="@cat=8"
+			title="Featured Products">Featured Products</a></li>
+		<li class="cat-item cat-item-3"><a href="@cat=3" title="Portfolio1">Portfolio</a>
+		</li>
+		<li class="cat-item cat-item-1"><a href="@cat=1"
+			title="View all posts filed under Uncategorized">Uncategorized</a></li>
+	</ul>
+</ul>
+<br />
+<h2 class="testimonialimg">Testimonials</h2>
+<div class="testimonial">
+<blockquote>
+<p>Maecenas auctor, orci dignissim sodales adipiscing, lectus orci
+ultricies mi, ac varius mauris enim at magna. Curabitur pretium sodales
+eros, vitae ornare magna commodo quis. Maecenas eget tincidunt nulla<br />
+<br />
+Maecenas<br />
+<a href="../../aivah.com/default.htm">Maecenas</a><br />
+
+</blockquote>
+</div>
+</div>
+<!--End of the Right part text  --></div>
+</div>
+</div>
+<div class="clear">&nbsp;</div>
 <!-- Footer Block Start -->
 <div class="footer">
-  <div class="container_16">
-    <div class="grid_16">
-      <p class="leftalign"> &copy; 2009 Copyright : All Rights Reserved by MEMEX - 2009.</p>
-      <p class="textright"> Designed and Developed by system32 | companyName </p>
-    </div>
-  </div>
+<div class="container_16">
+<div class="grid_16">
+<p class="leftalign">&copy; 2009 Copyright : All Rights Reserved by
+MEMEX - 2009.</p>
+<p class="textright">Designed and Developed by system32 | companyName</p>
+</div>
+</div>
 </div>
 <!-- Footer Block End -->
 </body>

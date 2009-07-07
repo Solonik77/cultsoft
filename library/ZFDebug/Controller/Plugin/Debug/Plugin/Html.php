@@ -63,7 +63,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
     */
     public function getPanel()
     {
-        $body = Zend_Controller_Front::getInstance()->getResponse()->getBody();
+        $body = Zend_Controller_Front::getInstance ()->getResponse ()->getBody ();
         $panel = '<h4>HTML Information</h4>';
         $panel .= '
         <script type="text/javascript" charset="utf-8">
@@ -78,7 +78,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
                 jQuery("#ZFDebug_Html_Imgcount").html(jQuery("img[src]").length);
             };
         </script>';
-        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round(           strlen($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities($body) . '"><input type="submit" value="Validate With W3"></form>';
+        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round (strlen ($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities ($body) . '"><input type="submit" value="Validate With W3"></form>';
         return $panel;
     }
 }
