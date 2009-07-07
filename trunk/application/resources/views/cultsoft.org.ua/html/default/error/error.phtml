@@ -10,28 +10,29 @@
 echo $this->message?></h2> 
 
   <?php
-if('development' == APPLICATION_ENV)
-:
-    ?> 
+		if ('development' == APPLICATION_ENV) :
+			?> 
   
   <h3>Exception information:</h3>
 <p><b>Message:</b> <?php
-    echo $this->exception->getMessage()?> 
+			echo $this->exception->getMessage ()?> 
   </p>
 
 <h3>Stack trace:</h3>
 <pre><?php
-    echo $this->exception->getTraceAsString()?> 
+			echo $this->exception->getTraceAsString ()?> 
   </pre>
 
 <h3>Request Parameters:</h3>
 <pre><?php
-    var_dump($this->request->getParams())?> 
+			var_dump ( $this->request->getParams () )?> 
   </pre>		
 
 
 
-<?php endif ?>
+
+		
+		<?php endif ?>
   
 </body>
 </html>

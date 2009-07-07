@@ -2,9 +2,7 @@
 /**
 * Number helper class.
 *
-* 
-$Id: num.php 3769 2008-12-15 00:48:56Z zombor 
-$
+* $Id: num.php 3769 2008-12-15 00:48:56Z zombor $
 *
 * @package Core
 * @author Kohana Team
@@ -18,19 +16,12 @@ class V_Helper_Num {
     /**
     * Round a number to the nearest nth
     *
-    * @param integer 
-$ number to round
-    * @param integer 
-$ number to round to
+    * @param integer $ number to round
+    * @param integer $ number to round to
     * @return integer
     */
-    public static function round(
-$number, 
-$nearest = 5)
+    public static function round($number, $nearest = 5)
     {
-        return round(
-$number / 
-$nearest) * 
-$nearest;
+        return round ($number / $nearest) * $nearest;
     }
 } // End num

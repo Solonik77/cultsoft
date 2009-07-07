@@ -2,9 +2,7 @@
 /**
 * Array helper class.
 *
-* 
-$Id: arr.php 4346 2009-05-11 17:08:15Z zombor 
-$
+* $Id: arr.php 4346 2009-05-11 17:08:15Z zombor $
 *
 * @package Core
 * @author Kohana Team
@@ -19,109 +17,62 @@ class V_Helper_arr {
     * Return a callback array from a string, eg: limit[10,20] would become
     * array('limit', array('10', '20'))
     *
-    * @param string 
-$ callback string
+    * @param string $ callback string
     * @return array
     */
-    public static function callback_string(
-$str)
+    public static function callback_string($str)
     {
         // command[param,param]
-        if (preg_match('/([^\[]*+)\[(.+)\]/', (string) 
-$str,                   
-$match)) {
+        if (preg_match ('/([^\[]*+)\[(.+)\]/', (string) $str, $match)) {
             // command
-            
-$command = 
-$match[1];
+            $command = $match [1];
             // param,param
-            
-$params = preg_split('/(?<!\\\\),/',               
-$match[2]);
-            
-$params = str_replace('\,', ',', 
-$params);
+            $params = preg_split ('/(?<!\\\\),/', $match [2]);
+            $params = str_replace ('\,', ',', $params);
         } else {
             // command
-            
-$command = 
-$str;
+            $command = $str;
             // No params
-            
-$params = null;
+            $params = null;
         }
-        return array(
-$command , 
-$params);
+        return array ($command, $params);
     }
 
     /**
     * Rotates a 2D array clockwise.
     * Example, turns a 2x3 array into a 3x2 array.
     *
-    * @param array 
-$ array to rotate
-    * @param boolean 
-$ keep the keys in the final rotated array. the sub arrays of the source array need to have the same key values.
-    *                     if your subkeys might not match, you need to pass FALSE here!
+    * @param array $ array to rotate
+    * @param boolean $ keep the keys in the final rotated array. the sub arrays of the source array need to have the same key values.
+    *                      if your subkeys might not match, you need to pass FALSE here!
     * @return array
     */
-    public static function rotate(
-$source_array,       
-$keep_keys = true)
+    public static function rotate($source_array, $keep_keys = true)
     {
-        
-$new_array = array();
-        foreach(
-$source_array as 
-$key => 
-$value) {
-            
-$value = (
-$keep_keys === true) ? 
-$value : array_values(
-$value);
-            foreach(
-$value as 
-$k => 
-$v) {
-                
-$new_array[
-$k][
-$key] = 
-$v;
+        $new_array = array ();
+        foreach ($source_array as $key => $value) {
+            $value = ($keep_keys === true) ? $value : array_values ($value);
+            foreach ($value as $k => $v) {
+                $new_array [$k] [$key] = $v;
             }
         }
-        return 
-$new_array;
+        return $new_array;
     }
 
     /**
     * Removes a key from an array and returns the value.
     *
-    * @param string 
-$ key to return
-    * @param array 
-$ array to work on
+    * @param string $ key to return
+    * @param array $ array to work on
     * @return mixed value of the requested array key
     */
-    public static function remove(
-$key, &
-$array)
+    public static function remove($key, &$array)
     {
-        if (! array_key_exists(
-$key, 
-$array))
+        if (! array_key_exists ($key, $array))
             return null;
-        
-$val = 
-$array[
-$key];
-        unset(
-$array[
-$key]);
-        return 
-$val;
+        $val = $array [$key];
+        unset ($array [$key]);
+        return $val;
     }
 
     /**
@@ -129,154 +80,80 @@ $val;
     * argument (the array) will be extracted. Keys that do not exist in the
     * search array will be NULL in the extracted data.
     *
-    * @param array 
-$ array to search
-    * @param string 
-$ key name
+    * @param array $ array to search
+    * @param string $ key name
     * @return array
     */
-    public static function extract(array 
-$search, 
-$keys)
+    public static function extract(array $search, $keys)
     {
-        // Get the keys, removing the 
-$search array
-        
-$keys = array_slice(           func_get_args(), 1);
-        
-$found = array();
-        foreach(
-$keys as 
-$key) {
-            if (isset(
-$search[
-$key])) {
-                
-$found[
-$key] = 
-$search[
-$key];
+        // Get the keys, removing the $search array
+        $keys = array_slice (func_get_args (), 1);
+        $found = array ();
+        foreach ($keys as $key) {
+            if (isset ($search [$key])) {
+                $found [$key] = $search [$key];
             } else {
-                
-$found[
-$key] = null;
+                $found [$key] = null;
             }
         }
-        return 
-$found;
+        return $found;
     }
 
     /**
     * Because PHP does not have this function.
     *
-    * @param array 
-$ array to unshift
-    * @param string 
-$ key to unshift
-    * @param mixed 
-$ value to unshift
+    * @param array $ array to unshift
+    * @param string $ key to unshift
+    * @param mixed $ value to unshift
     * @return array
     */
-    public static function unshift_assoc(array &
-$array, 
-$key,       
-$val)
+    public static function unshift_assoc(array &$array, $key, $val)
     {
-        
-$array = array_reverse(
-$array, true);
-        
-$array[
-$key] = 
-$val;
-        
-$array = array_reverse(
-$array, true);
-        return 
-$array;
+        $array = array_reverse ($array, true);
+        $array [$key] = $val;
+        $array = array_reverse ($array, true);
+        return $array;
     }
 
     /**
     * Because PHP does not have this function, and array_walk_recursive creates
     * references in arrays and is not truly recursive.
     *
-    * @param mixed 
-$ callback to apply to each member of the array
-    * @param array 
-$ array to map to
+    * @param mixed $ callback to apply to each member of the array
+    * @param array $ array to map to
     * @return array
     */
-    public static function map_recursive(
-$callback, array 
-$array)
+    public static function map_recursive($callback, array $array)
     {
-        foreach(
-$array as 
-$key => 
-$val) {
+        foreach ($array as $key => $val) {
             // Map the callback to the key
-            
-$array[
-$key] = is_array(
-$val) ? V_Helper_arr::map_recursive(
-$callback, 
-$val) : call_user_func(
-$callback, 
-$val);
+            $array [$key] = is_array ($val) ? V_Helper_arr::map_recursive ($callback, $val) : call_user_func ($callback, $val);
         }
-        return 
-$array;
+        return $array;
     }
 
     /**
     *
-    * @param mixed 
-$needle the value to search for
-    * @param array 
-$haystack an array of values to search in
-    * @param boolean 
-$sort sort the array now
+    * @param mixed $needle the value to search for
+    * @param array $haystack an array of values to search in
+    * @param boolean $sort sort the array now
     * @return integer |FALSE    the index of the match or FALSE when not found
     */
-    public static function binary_search(
-$needle, 
-$haystack,       
-$sort = false)
+    public static function binary_search($needle, $haystack, $sort = false)
     {
-        if (
-$sort) {
-            sort(
-$haystack);
+        if ($sort) {
+            sort ($haystack);
         }
-        
-$high = count(
-$haystack) - 1;
-        
-$low = 0;
-        while (
-$low <= 
-$high) {
-            
-$mid = (
-$low + 
-$high) >> 1;
-            if (
-$haystack[
-$mid] < 
-$needle) {
-                
-$low = 
-$mid + 1;
-            } elseif (
-$haystack[
-$mid] > 
-$needle) {
-                
-$high = 
-$mid - 1;
+        $high = count ($haystack) - 1;
+        $low = 0;
+        while ($low <= $high) {
+            $mid = ($low + $high) >> 1;
+            if ($haystack [$mid] < $needle) {
+                $low = $mid + 1;
+            } elseif ($haystack [$mid] > $needle) {
+                $high = $mid - 1;
             } else {
-                return 
-$mid;
+                return $mid;
             }
         }
         return false;
@@ -286,168 +163,94 @@ $mid;
     * Emulates array_merge_recursive, but appends numeric keys and replaces
     * associative keys, instead of appending all keys.
     *
-    * @param array 
-$ any number of arrays
+    * @param array $ any number of arrays
     * @return array
     */
     public static function merge()
     {
-        
-$total = func_num_args();
-        
-$result = array();
-        for(
-$i = 0; 
-$i < 
-$total; 
-$i ++) {
-            foreach(func_get_arg(
-$i) as 
-$key => 
-$val) {
-                if (isset(
-$result[
-$key])) {
-                    if (is_array(
-$val)) {// Arrays are merged recursively
-$result[
-$key] = V_Helper_arr::merge(
-$result[
-$key],    
-$val);
-                    } elseif (is_int(
-$key)) {// Indexed arrays are appendedarray_push(
-$result,    
-$val);
-                    } else {// Associative arrays are replaced
-$result[
-$key] = 
-$val;
+        $total = func_num_args ();
+        $result = array ();
+        for($i = 0; $i < $total; $i ++) {
+            foreach (func_get_arg ($i) as $key => $val) {
+                if (isset ($result [$key])) {
+                    if (is_array ($val)) {
+                        // Arrays are merged recursively
+                        $result [$key] = V_Helper_arr::merge ($result [$key], $val);
+                    } elseif (is_int ($key)) {
+                        // Indexed arrays are appended
+                        array_push ($result, $val);
+                    } else {
+                        // Associative arrays are replaced
+                        $result [$key] = $val;
                     }
                 } else {
                     // New values are added
-                    
-$result[
-$key] = 
-$val;
+                    $result [$key] = $val;
                 }
             }
         }
-        return 
-$result;
+        return $result;
     }
 
     /**
     * Overwrites an array with values from input array(s).
     * Non-existing keys will not be appended!
     *
-    * @param array 
-$ key array
-    * @param array 
-$ input array(s) that will overwrite key array values
+    * @param array $ key array
+    * @param array $ input array(s) that will overwrite key array values
     * @return array
     */
-    public static function overwrite(
-$array1, 
-$array2)
+    public static function overwrite($array1, $array2)
     {
-        foreach(array_intersect_key(
-$array2,               
-$array1) as 
-$key => 
-$value) {
-            
-$array1[
-$key] = 
-$value;
+        foreach (array_intersect_key ($array2, $array1) as $key => $value) {
+            $array1 [$key] = $value;
         }
-        if (func_num_args() > 2) {
-            foreach(array_slice(                   func_get_args(), 2) as 
-$array2) {
-                foreach(array_intersect_key(
-$array2,
-$array1) as 
-$key => 
-$value) {
-                    
-$array1[
-$key] = 
-$value;
+        if (func_num_args () > 2) {
+            foreach (array_slice (func_get_args (), 2) as $array2) {
+                foreach (array_intersect_key ($array2, $array1) as $key => $value) {
+                    $array1 [$key] = $value;
                 }
             }
         }
-        return 
-$array1;
+        return $array1;
     }
 
     /**
     * Fill an array with a range of numbers.
     *
-    * @param integer 
-$ stepping
-    * @param integer 
-$ ending number
+    * @param integer $ stepping
+    * @param integer $ ending number
     * @return array
     */
-    public static function range(
-$step = 10, 
-$max = 100)
+    public static function range($step = 10, $max = 100)
     {
-        if (
-$step < 1)
-            return array();
-        
-$array = array();
-        for(
-$i = 
-$step; 
-$i <= 
-$max; 
-$i += 
-$step) {
-            
-$array[
-$i] = 
-$i;
+        if ($step < 1)
+            return array ();
+        $array = array ();
+        for($i = $step; $i <= $max; $i += $step) {
+            $array [$i] = $i;
         }
-        return 
-$array;
+        return $array;
     }
 
     /**
     * Recursively convert an array to an object.
     *
-    * @param array 
-$ array to convert
+    * @param array $ array to convert
     * @return object
     */
-    public static function to_object(array 
-$array,       
-$class = 'stdClass')
+    public static function to_object(array $array, $class = 'stdClass')
     {
-        
-$object = new 
-$class();
-        foreach(
-$array as 
-$key => 
-$value) {
-            if (is_array(
-$value)) {
+        $object = new $class ();
+        foreach ($array as $key => $value) {
+            if (is_array ($value)) {
                 // Convert the array to an object
-                
-$value = V_Helper_arr::to_object(
-$value,                   
-$class);
+                $value = V_Helper_arr::to_object ($value, $class);
             }
             // Add the value to the object
-            
-$object-> {
-                
-$key} = 
-$value;
+            $object-> {
+                $key} = $value;
         }
-        return 
-$object;
+        return $object;
     }
 } // End arr

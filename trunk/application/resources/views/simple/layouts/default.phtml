@@ -1,29 +1,29 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype();
+echo $this->doctype ();
 ?>
 <html>
 <head>
 <?php
-echo $this->headTitle()?>
+echo $this->headTitle ()?>
 
 <?php
-echo $this->headMeta()?>
+echo $this->headMeta ()?>
 
 <?php
-echo $this->headLink()?>
+echo $this->headLink ()?>
 
 <?php
-echo $this->headStyle()?>
+echo $this->headStyle ()?>
 
 <?php
-echo $this->headScript()?>
+echo $this->headScript ()?>
 
 <?php
-echo $this->inlineScript()?>
+echo $this->inlineScript ()?>
 
 <base href="<?php
-echo App::baseUri()?>" />
+echo App::baseUri ()?>" />
 </head>
 <body>
 <div id="main_container">
@@ -61,7 +61,7 @@ echo App::baseUri()?>" />
 </div>
 <div id="main_content">
     <?php
-    echo $this->layout()->content?>
+				echo $this->layout ()->content?>
   </div>
 <!-- end of main_content -->
 <div id="footer">

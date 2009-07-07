@@ -29,7 +29,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     *
     * @var param array
     */
-    static $errors = array();
+    static $errors = array ();
 
     /**
     * Gets identifier for this plugin
@@ -48,7 +48,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     */
     public function __construct()
     {
-        set_error_handler(           array($this , 'errorHandler'));
+        set_error_handler (array ($this, 'errorHandler'));
     }
 
     /**
@@ -58,15 +58,15 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     */
     public function getTab()
     {
-        $response = Zend_Controller_Front::getInstance()->getResponse();
-        $errorCount = count(self::$errors);
-        if (! $response->isException() && ! $errorCount)
+        $response = Zend_Controller_Front::getInstance ()->getResponse ();
+        $errorCount = count (self::$errors);
+        if (! $response->isException () && ! $errorCount)
             return '';
         $error = '';
         $exception = '';
         if ($errorCount)
             $error = ($errorCount == 1 ? '1 Error' : $errorCount . ' Errors');
-        $count = count($response->getException());
+        $count = count ($response->getException ());
         // if ($this->_options['show_exceptions'] && $count)
         if ($count)
             $exception = ($count == 1) ? '1 Exception' : $count . ' Exceptions';
@@ -81,30 +81,30 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     */
     public function getPanel()
     {
-        $response = Zend_Controller_Front::getInstance()->getResponse();
-        $errorCount = count(self::$errors);
-        if (! $response->isException() && ! $errorCount)
+        $response = Zend_Controller_Front::getInstance ()->getResponse ();
+        $errorCount = count (self::$errors);
+        if (! $response->isException () && ! $errorCount)
             return '';
         $html = '';
-        foreach($response->getException() as $e) {
-            $html .= '<h4>' . get_class($e) . ': ' . $e->getMessage() . '</h4><p>thrown in ' . $e->getFile() . ' on line ' . $e->getLine() . '</p>';
+        foreach ($response->getException () as $e) {
+            $html .= '<h4>' . get_class ($e) . ': ' . $e->getMessage () . '</h4><p>thrown in ' . $e->getFile () . ' on line ' . $e->getLine () . '</p>';
             $html .= '<h4>Call Stack</h4><ol>';
-            foreach($e->getTrace() as $t) {
-                $func = $t['function'] . '()';
-                if (isset($t['class']))
-                    $func = $t['class'] . $t['type'] . $func;
-                if (! isset($t['file']))
-                    $t['file'] = 'unknown';
-                if (! isset($t['line']))
-                    $t['line'] = 'n/a';
-                $html .= '<li>' . $func . '<br>in ' . str_replace($_SERVER['DOCUMENT_ROOT'],                   '',                   $t['file']) . ' on line ' . $t['line'] . '</li>';
+            foreach ($e->getTrace () as $t) {
+                $func = $t ['function'] . '()';
+                if (isset ($t ['class']))
+                    $func = $t ['class'] . $t ['type'] . $func;
+                if (! isset ($t ['file']))
+                    $t ['file'] = 'unknown';
+                if (! isset ($t ['line']))
+                    $t ['line'] = 'n/a';
+                $html .= '<li>' . $func . '<br>in ' . str_replace ($_SERVER ['DOCUMENT_ROOT'], '', $t ['file']) . ' on line ' . $t ['line'] . '</li>';
             }
             $html .= '</ol>';
         }
         if ($errorCount) {
             $html .= '<h4>Errors</h4><ol>';
-            foreach(self::$errors as $error) {
-                $html .= '<li>' . sprintf("%s: %s in %s on line %d",                   $error['type'],                   $error['message'],                   str_replace($_SERVER['DOCUMENT_ROOT'],'',$error['file']),                   $error['line']) . '</li>';
+            foreach (self::$errors as $error) {
+                $html .= '<li>' . sprintf ("%s: %s in %s on line %d", $error ['type'], $error ['message'], str_replace ($_SERVER ['DOCUMENT_ROOT'], '', $error ['file']), $error ['line']) . '</li>';
             }
             $html .= '</ol>';
         }
@@ -120,30 +120,30 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     * @param string $line
     * @return bool
     */
-    public static function errorHandler($level, $message, $file,       $line)
+    public static function errorHandler($level, $message, $file, $line)
     {
-        if (! ($level &error_reporting()))
+        if (! ($level &error_reporting ()))
             return false;
         switch ($level) {
-            case E_NOTICE:
-            case E_USER_NOTICE:
+            case E_NOTICE :
+            case E_USER_NOTICE :
                 $type = 'Notice';
                 break;
-            case E_WARNING:
-            case E_USER_WARNING:
+            case E_WARNING :
+            case E_USER_WARNING :
                 $type = 'Warning';
                 break;
-            case E_ERROR:
-            case E_USER_ERROR:
+            case E_ERROR :
+            case E_USER_ERROR :
                 $type = 'Fatal Error';
                 break;
-            default:
+            default :
                 $type = 'Unknown, ' . $level;
                 break;
         }
-        self::$errors[] = array('type' => $type , 'message' => $message , 'file' => $file , 'line' => $line);
-        if (ini_get('log_errors'))
-            error_log(               sprintf("%s: %s in %s on line %d",                   $type, $message,                   $file, $line));
+        self::$errors [] = array ('type' => $type, 'message' => $message, 'file' => $file, 'line' => $line);
+        if (ini_get ('log_errors'))
+            error_log (sprintf ("%s: %s in %s on line %d", $type, $message, $file, $line));
         return true;
     }
 }
