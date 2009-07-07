@@ -29,13 +29,22 @@ class Site_Model_Navigation_Menu {
  */
  public function getTopMenu()
  {
-  $tree = $this->getNavigationTree();
-  $menu_data = array();
-  foreach($tree as $leaf) {
-if ($leaf["depth"] == 1) {
- $menu_data[] = $leaf;
+  
+$tree = 
+$this->getNavigationTree();
+  
+$menu_data = array();
+  foreach(
+$tree as 
+$leaf) {
+if (
+$leaf["depth"] == 1) {
+ 
+$menu_data[] = 
+$leaf;
 }
   }
-  return $menu_data;
+  return 
+$menu_data;
  }
 }

@@ -21,43 +21,98 @@ class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
  *
  * @return string
  */
- public function toString($indent = null)
+ public function toString(
+$indent = null)
  {
-  $indent = (null !== $indent) ? $this->getWhitespace($indent) : $this->getIndent();
-  if ($this->view) {
-$useCdata = $this->view->doctype()->isXhtml() ? true : false;
+  
+$indent = (null !== 
+$indent) ? 
+$this->getWhitespace(
+$indent) : 
+$this->getIndent();
+  if (
+$this->view) {
+
+$useCdata = 
+$this->view->doctype()->isXhtml() ? true : false;
   } else {
-$useCdata = $this->useCdata ? true : false;
+
+$useCdata = 
+$this->useCdata ? true : false;
   }
-  $return = '';
-  $escapeStart = ($useCdata) ? '//<![CDATA[' : '//<!--';
-  $escapeStart .= PHP_EOL;
-  $escapeEnd = ($useCdata) ? '//]]>' : '//-->';
-  $escapeEnd = PHP_EOL . $escapeEnd;
-  $scripts = array();
-  $items = array();
-  foreach($this as $item) {
-if (! $this->_isValid($item)) {
+  
+$return = '';
+  
+$escapeStart = (
+$useCdata) ? '//<![CDATA[' : '//<!--';
+  
+$escapeStart .= PHP_EOL;
+  
+$escapeEnd = (
+$useCdata) ? '//]]>' : '//-->';
+  
+$escapeEnd = PHP_EOL . 
+$escapeEnd;
+  
+$scripts = array();
+  
+$items = array();
+  foreach(
+$this as 
+$item) {
+if (! 
+$this->_isValid(
+$item)) {
  continue;
 }
-if (isset($item->attributes['src'])) {
- $scripts[] = $item->attributes['src'];
+if (isset(
+$item->attributes['src'])) {
+ 
+$scripts[] = 
+$item->attributes['src'];
 } else {
- $items[] = $this->itemToString($item, $indent, $escapeStart, $escapeEnd);
+ 
+$items[] = 
+$this->itemToString(
+$item, 
+$indent, 
+$escapeStart, 
+$escapeEnd);
 }
   }
-  if (count($scripts) > 0) {
-$scripts = $this->getMinUrl() . '?f=' . implode(',',str_replace( App::baseUri(), '/', $scripts));
+  if (count(
+$scripts) > 0) {
+
+$scripts = 
+$this->getMinUrl() . '?f=' . implode(',',str_replace( App::baseUri(), '/', 
+$scripts));
+
 $data = new stdClass();
+
 $data->type = 'text/javascript';
-$data->attributes = array('src' => $scripts);
+
+$data->attributes = array('src' => 
+$scripts);
+
 $data->source = null;
-$return .= $this->itemToString($data, $indent,$escapeStart,$escapeEnd) . $this->getSeparator();
+
+$return .= 
+$this->itemToString(
+$data, 
+$indent,
+$escapeStart,
+$escapeEnd) . 
+$this->getSeparator();
   }
-  if (count($items) > 0) {
-$return .= implode($this->getSeparator(),$items);
+  if (count(
+$items) > 0) {
+
+$return .= implode(
+$this->getSeparator(),
+$items);
   }
-  return $return;
+  return 
+$return;
  }
 
  /**

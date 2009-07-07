@@ -1,7 +1,9 @@
 <?php
 /**
 * PHP Errors Class
-* $Id$
+* 
+$Id
+$
 *
 * @package Core
 * @author Denysenko Dmytro
@@ -34,13 +36,25 @@ final class App_Exception_PHP extends App_Exception {
  *
  * @return void
  */
- public function __construct($code, $error, $file, $line, $context = null)
+ public function __construct(
+$code, 
+$error, 
+$file, 
+$line, 
+$context = null)
  {
-  parent::__construct($error);
+  parent::__construct(
+$error);
   // Set the error code, file, line, and context manually
-  $this->code = $code;
-  $this->file = $file;
-  $this->line = $line;
+  
+$this->code = 
+$code;
+  
+$this->file = 
+$file;
+  
+$this->line = 
+$line;
  }
 
  /**
@@ -49,15 +63,28 @@ final class App_Exception_PHP extends App_Exception {
  * @throws App_Exception_PHP
  * @return void
  */
- public static function handle($code, $error = 0, $file = '', $line = 0, $context = null)
+ public static function handle(
+$code, 
+$error = 0, 
+$file = '', 
+$line = 0, 
+$context = null)
  {
-  if ((error_reporting() &$code) === 0) {
+  if ((error_reporting() &
+$code) === 0) {
 // Respect error_reporting settings
 return;
   }
   // Create an exception
-  $exception = new App_Exception_PHP($code, $error, $file, $line, $context);
-  echo $exception;
+  
+$exception = new App_Exception_PHP(
+$code, 
+$error, 
+$file, 
+$line, 
+$context);
+  echo 
+$exception;
   // Execution must halt
   exit();
  }

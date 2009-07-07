@@ -18,9 +18,13 @@
 * [ref-ie]: http://php.net/iconv
 * [ref-mb]: http://php.net/mbstring
 *
-* $Id$
+* 
+$Id
+$
 *
-* $Id$
+* 
+$Id
+$
 *
 * @package Core
 * @author Denysenko Dmytro
@@ -32,7 +36,8 @@
 */
 final class V_UTF8 {
     // Called methods
-    static $called = array();
+    static 
+$called = array();
 
     /**
     * Recursively clean GET, POST, COOKIE, and SERVER global arrays.
@@ -41,19 +46,33 @@ final class V_UTF8 {
     */
     public static function clean_globals()
     {
-        static $run;
-        if ($run === null) {
+        static 
+$run;
+        if (
+$run === null) {
             // Check PCRE support for Unicode properties such as \p and \X.
-            $ER = error_reporting(0);
-            define('PCRE_UNICODE_PROPERTIES',               (bool) preg_match('/^\pL$/u', 'n'));
-            error_reporting($ER);
+            
+$ER = error_reporting(0);
+            define('PCRE_UNICODE_PROPERTIES',               (bool) preg_match('/^\pL
+$/u', 'n'));
+            error_reporting(
+$ER);
             // Convert all global variables to UTF-8.
-            $_GET = V_UTF8::clean($_GET);
-            $_POST = V_UTF8::clean($_POST);
-            $_COOKIE = V_UTF8::clean($_COOKIE);
-            $_SERVER = V_UTF8::clean($_SERVER);
+            
+$_GET = V_UTF8::clean(
+$_GET);
+            
+$_POST = V_UTF8::clean(
+$_POST);
+            
+$_COOKIE = V_UTF8::clean(
+$_COOKIE);
+            
+$_SERVER = V_UTF8::clean(
+$_SERVER);
             // Prevent this from running again
-            $run = true;
+            
+$run = true;
         }
     }
 
@@ -62,98 +81,136 @@ final class V_UTF8 {
     * codes and converts to UTF-8 while silently discarding incompatible
     * UTF-8 characters.
     *
-    * @param string $ string to clean
+    * @param string 
+$ string to clean
     * @return string
     */
-    public static function clean($str)
+    public static function clean(
+$str)
     {
-        if (is_array($str) or is_object($str)) {
-            foreach($str as $key => $val) {
+        if (is_array(
+$str) or is_object(
+$str)) {
+            foreach(
+$str as 
+$key => 
+$val) {
                 // Recursion!
-                $str[self::clean($key)] = self::clean($val);
+                
+$str[self::clean(
+$key)] = self::clean(
+$val);
             }
-        } elseif (is_string($str) and $str !== '') {
+        } elseif (is_string(
+$str) and 
+$str !== '') {
             // Remove control characters
-            $str = self::strip_ascii_ctrl($str);
-            if (! self::is_ascii($str)) {
+            
+$str = self::strip_ascii_ctrl(
+$str);
+            if (! self::is_ascii(
+$str)) {
                 // Disable notices
-                $ER = error_reporting(~ E_NOTICE);
+                
+$ER = error_reporting(~ E_NOTICE);
                 // iconv is expensive, so it is only used when needed
-                $str = iconv(                   App::CHARSET,                   App::CHARSET . '//IGNORE',                   $str);
+                
+$str = iconv(                   App::CHARSET,                   App::CHARSET . '//IGNORE',                   
+$str);
                 // Turn notices back on
-                error_reporting($ER);
+                error_reporting(
+$ER);
             }
         }
-        return $str;
+        return 
+$str;
     }
 
     /**
     * Tests whether a string contains only 7bit ASCII bytes. This is used to
     * determine when to use native functions or UTF-8 functions.
     *
-    * @param string $ string to check
+    * @param string 
+$ string to check
     * @return bool
     */
-    public static function is_ascii($str)
+    public static function is_ascii(
+$str)
     {
-        return ! preg_match('/[^\x00-\x7F]/S',           $str);
+        return ! preg_match('/[^\x00-\x7F]/S',           
+$str);
     }
 
     /**
     * Strips out device control codes in the ASCII range.
     *
-    * @param string $ string to clean
+    * @param string 
+$ string to clean
     * @return string
     */
-    public static function strip_ascii_ctrl($str)
+    public static function strip_ascii_ctrl(
+$str)
     {
-        return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S',           '', $str);
+        return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S',           '', 
+$str);
     }
 
     /**
     * Strips out all non-7bit ASCII bytes.
     *
-    * @param string $ string to clean
+    * @param string 
+$ string to clean
     * @return string
     */
-    public static function strip_non_ascii($str)
+    public static function strip_non_ascii(
+$str)
     {
-        return preg_replace('/[^\x00-\x7F]+/S',           '', $str);
+        return preg_replace('/[^\x00-\x7F]+/S',           '', 
+$str);
     }
 
     /**
     * Replaces special/accented UTF-8 characters by ASCII-7 'equivalents'.
     *
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ string to transliterate
-    * @param integer $ -1 lowercase only, +1 uppercase only, 0 both cases
+    * @param string 
+$ string to transliterate
+    * @param integer 
+$ -1 lowercase only, +1 uppercase only, 0 both cases
     * @return string
     */
-    public static function transliterate_to_ascii($str,       $case = 0)
+    public static function transliterate_to_ascii(
+$str,       
+$case = 0)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _transliterate_to_ascii($str,           $case);
+        return _transliterate_to_ascii(
+$str,           
+$case);
     }
 
     /**
     * Returns the length of the given string.
     *
     * @see http://php.net/strlen
-    * @param string $ string being measured for length
+    * @param string 
+$ string being measured for length
     * @return integer
     */
-    public static function strlen($str)
+    public static function strlen(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strlen($str);
+        return _strlen(
+$str);
     }
 
     /**
@@ -161,20 +218,29 @@ final class V_UTF8 {
     *
     * @see http://php.net/strlen
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ haystack
-    * @param string $ needle
-    * @param integer $ offset from which character in haystack to start searching
+    * @param string 
+$ haystack
+    * @param string 
+$ needle
+    * @param integer 
+$ offset from which character in haystack to start searching
     * @return integer position of needle
     * @return boolean FALSE if the needle is not found
     */
-    public static function strpos($str, $search, $offset = 0)
+    public static function strpos(
+$str, 
+$search, 
+$offset = 0)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strpos($str, $search, $offset);
+        return _strpos(
+$str, 
+$search, 
+$offset);
     }
 
     /**
@@ -182,20 +248,29 @@ final class V_UTF8 {
     *
     * @see http://php.net/strrpos
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ haystack
-    * @param string $ needle
-    * @param integer $ offset from which character in haystack to start searching
+    * @param string 
+$ haystack
+    * @param string 
+$ needle
+    * @param integer 
+$ offset from which character in haystack to start searching
     * @return integer position of needle
     * @return boolean FALSE if the needle is not found
     */
-    public static function strrpos($str, $search, $offset = 0)
+    public static function strrpos(
+$str, 
+$search, 
+$offset = 0)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strrpos($str, $search, $offset);
+        return _strrpos(
+$str, 
+$search, 
+$offset);
     }
 
     /**
@@ -203,19 +278,28 @@ final class V_UTF8 {
     *
     * @see http://php.net/substr
     * @author Chris Smith <chris@jalakai.co.uk>
-    * @param string $ input string
-    * @param integer $ offset
-    * @param integer $ length limit
+    * @param string 
+$ input string
+    * @param integer 
+$ offset
+    * @param integer 
+$ length limit
     * @return string
     */
-    public static function substr($str, $offset, $length = null)
+    public static function substr(
+$str, 
+$offset, 
+$length = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _substr($str, $offset, $length);
+        return _substr(
+$str, 
+$offset, 
+$length);
     }
 
     /**
@@ -223,19 +307,30 @@ final class V_UTF8 {
     *
     * @see http://php.net/substr_replace
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param string $ replacement string
-    * @param integer $ offset
+    * @param string 
+$ input string
+    * @param string 
+$ replacement string
+    * @param integer 
+$ offset
     * @return string
     */
-    public static function substr_replace($str, $replacement,       $offset, $length = null)
+    public static function substr_replace(
+$str, 
+$replacement,       
+$offset, 
+$length = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _substr_replace($str,           $replacement, $offset, $length);
+        return _substr_replace(
+$str,           
+$replacement, 
+$offset, 
+$length);
     }
 
     /**
@@ -243,17 +338,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/strtolower
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ mixed case string
+    * @param string 
+$ mixed case string
     * @return string
     */
-    public static function strtolower($str)
+    public static function strtolower(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strtolower($str);
+        return _strtolower(
+$str);
     }
 
     /**
@@ -261,17 +359,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/strtoupper
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ mixed case string
+    * @param string 
+$ mixed case string
     * @return string
     */
-    public static function strtoupper($str)
+    public static function strtoupper(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strtoupper($str);
+        return _strtoupper(
+$str);
     }
 
     /**
@@ -279,17 +380,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/ucfirst
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ mixed case string
+    * @param string 
+$ mixed case string
     * @return string
     */
-    public static function ucfirst($str)
+    public static function ucfirst(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _ucfirst($str);
+        return _ucfirst(
+$str);
     }
 
     /**
@@ -297,17 +401,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/ucwords
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ mixed case string
+    * @param string 
+$ mixed case string
     * @return string
     */
-    public static function ucwords($str)
+    public static function ucwords(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _ucwords($str);
+        return _ucwords(
+$str);
     }
 
     /**
@@ -315,20 +422,26 @@ final class V_UTF8 {
     *
     * @see http://php.net/strcasecmp
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ string to compare
-    * @param string $ string to compare
+    * @param string 
+$ string to compare
+    * @param string 
+$ string to compare
     * @return integer less than 0 if str1 is less than str2
     * @return integer greater than 0 if str1 is greater than str2
     * @return integer 0 if they are equal
     */
-    public static function strcasecmp($str1, $str2)
+    public static function strcasecmp(
+$str1, 
+$str2)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strcasecmp($str1, $str2);
+        return _strcasecmp(
+$str1, 
+$str2);
     }
 
     /**
@@ -336,23 +449,37 @@ final class V_UTF8 {
     * replaced with the given replace value.
     *
     * @see http://php.net/str_ireplace
-    * @note It's not fast and gets slower if $search and/or $replace are arrays.
+    * @note It's not fast and gets slower if 
+$search and/or 
+$replace are arrays.
     * @author Harry Fuecks <hfuecks@gmail.com
-    * @param string $ |array  t'.php' to replace
-    * @param string $ |array  replacement t'.php'
-    * @param string $ |array  subject t'.php'
-    * @param integer $ number of matched and replaced needles will be returned via this parameter which is passed by reference
+    * @param string 
+$ |array  t'.php' to replace
+    * @param string 
+$ |array  replacement t'.php'
+    * @param string 
+$ |array  subject t'.php'
+    * @param integer 
+$ number of matched and replaced needles will be returned via this parameter which is passed by reference
     * @return string if the input was a string
     * @return array if the input was an array
     */
-    public static function str_ireplace($search, $replace, $str, &$count = null)
+    public static function str_ireplace(
+$search, 
+$replace, 
+$str, &
+$count = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _str_ireplace($search, $replace,           $str, $count);
+        return _str_ireplace(
+$search, 
+$replace,           
+$str, 
+$count);
     }
 
     /**
@@ -361,19 +488,25 @@ final class V_UTF8 {
     *
     * @see http://php.net/stristr
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param string $ needle
+    * @param string 
+$ input string
+    * @param string 
+$ needle
     * @return string matched substring if found
     * @return boolean FALSE if the substring was not found
     */
-    public static function stristr($str, $search)
+    public static function stristr(
+$str, 
+$search)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _stristr($str, $search);
+        return _stristr(
+$str, 
+$search);
     }
 
     /**
@@ -381,20 +514,32 @@ final class V_UTF8 {
     *
     * @see http://php.net/strspn
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param string $ mask for search
-    * @param integer $ start position of the string to examine
-    * @param integer $ length of the string to examine
+    * @param string 
+$ input string
+    * @param string 
+$ mask for search
+    * @param integer 
+$ start position of the string to examine
+    * @param integer 
+$ length of the string to examine
     * @return integer length of the initial segment that contains characters in the mask
     */
-    public static function strspn($str, $mask, $offset = null,       $length = null)
+    public static function strspn(
+$str, 
+$mask, 
+$offset = null,       
+$length = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strspn($str, $mask, $offset,           $length);
+        return _strspn(
+$str, 
+$mask, 
+$offset,           
+$length);
     }
 
     /**
@@ -402,20 +547,32 @@ final class V_UTF8 {
     *
     * @see http://php.net/strcspn
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param string $ mask for search
-    * @param integer $ start position of the string to examine
-    * @param integer $ length of the string to examine
+    * @param string 
+$ input string
+    * @param string 
+$ mask for search
+    * @param integer 
+$ start position of the string to examine
+    * @param integer 
+$ length of the string to examine
     * @return integer length of the initial segment that contains characters not in the mask
     */
-    public static function strcspn($str, $mask, $offset = null,       $length = null)
+    public static function strcspn(
+$str, 
+$mask, 
+$offset = null,       
+$length = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strcspn($str, $mask, $offset,           $length);
+        return _strcspn(
+$str, 
+$mask, 
+$offset,           
+$length);
     }
 
     /**
@@ -423,20 +580,32 @@ final class V_UTF8 {
     *
     * @see http://php.net/str_pad
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param integer $ desired string length after padding
-    * @param string $ string to use as padding
-    * @param string $ padding type: STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH
+    * @param string 
+$ input string
+    * @param integer 
+$ desired string length after padding
+    * @param string 
+$ string to use as padding
+    * @param string 
+$ padding type: STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH
     * @return string
     */
-    public static function str_pad($str, $final_str_length,       $pad_str = ' ', $pad_type = STR_PAD_RIGHT)
+    public static function str_pad(
+$str, 
+$final_str_length,       
+$pad_str = ' ', 
+$pad_type = STR_PAD_RIGHT)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _str_pad($str, $final_str_length,           $pad_str, $pad_type);
+        return _str_pad(
+$str, 
+$final_str_length,           
+$pad_str, 
+$pad_type);
     }
 
     /**
@@ -444,18 +613,24 @@ final class V_UTF8 {
     *
     * @see http://php.net/str_split
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ input string
-    * @param integer $ maximum length of each chunk
+    * @param string 
+$ input string
+    * @param integer 
+$ maximum length of each chunk
     * @return array
     */
-    public static function str_split($str, $split_length = 1)
+    public static function str_split(
+$str, 
+$split_length = 1)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _str_split($str, $split_length);
+        return _str_split(
+$str, 
+$split_length);
     }
 
     /**
@@ -463,17 +638,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/strrev
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ string to be reversed
+    * @param string 
+$ string to be reversed
     * @return string
     */
-    public static function strrev($str)
+    public static function strrev(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _strrev($str);
+        return _strrev(
+$str);
     }
 
     /**
@@ -482,18 +660,24 @@ final class V_UTF8 {
     *
     * @see http://php.net/trim
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ input string
-    * @param string $ string of characters to remove
+    * @param string 
+$ input string
+    * @param string 
+$ string of characters to remove
     * @return string
     */
-    public static function trim($str, $charlist = null)
+    public static function trim(
+$str, 
+$charlist = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _trim($str, $charlist);
+        return _trim(
+$str, 
+$charlist);
     }
 
     /**
@@ -501,18 +685,24 @@ final class V_UTF8 {
     *
     * @see http://php.net/ltrim
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ input string
-    * @param string $ string of characters to remove
+    * @param string 
+$ input string
+    * @param string 
+$ string of characters to remove
     * @return string
     */
-    public static function ltrim($str, $charlist = null)
+    public static function ltrim(
+$str, 
+$charlist = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _ltrim($str, $charlist);
+        return _ltrim(
+$str, 
+$charlist);
     }
 
     /**
@@ -520,18 +710,24 @@ final class V_UTF8 {
     *
     * @see http://php.net/rtrim
     * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $ input string
-    * @param string $ string of characters to remove
+    * @param string 
+$ input string
+    * @param string 
+$ string of characters to remove
     * @return string
     */
-    public static function rtrim($str, $charlist = null)
+    public static function rtrim(
+$str, 
+$charlist = null)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _rtrim($str, $charlist);
+        return _rtrim(
+$str, 
+$charlist);
     }
 
     /**
@@ -539,17 +735,20 @@ final class V_UTF8 {
     *
     * @see http://php.net/ord
     * @author Harry Fuecks <hfuecks@gmail.com>
-    * @param string $ UTF-8 encoded character
+    * @param string 
+$ UTF-8 encoded character
     * @return integer
     */
-    public static function ord($chr)
+    public static function ord(
+$chr)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _ord($chr);
+        return _ord(
+$chr);
     }
 
     /**
@@ -563,18 +762,21 @@ final class V_UTF8 {
     * Ported to PHP by Henri Sivonen <hsivonen@iki.fi>, see http://hsivonen.iki.fi/php-UTF8/.
     * Slight modifications to fit with phputf8 library by Harry Fuecks <hfuecks@gmail.com>.
     *
-    * @param string $ UTF-8 encoded string
+    * @param string 
+$ UTF-8 encoded string
     * @return array unicode code points
     * @return boolean FALSE if the string is invalid
     */
-    public static function to_unicode($str)
+    public static function to_unicode(
+$str)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _to_unicode($str);
+        return _to_unicode(
+$str);
     }
 
     /**
@@ -588,17 +790,20 @@ final class V_UTF8 {
     * Ported to PHP by Henri Sivonen <hsivonen@iki.fi>, see http://hsivonen.iki.fi/php-UTF8/.
     * Slight modifications to fit with phputf8 library by Harry Fuecks <hfuecks@gmail.com>.
     *
-    * @param array $ unicode code points representing a string
+    * @param array 
+$ unicode code points representing a string
     * @return string utf8 string of characters
     * @return boolean FALSE if a code point cannot be found
     */
-    public static function from_unicode($arr)
+    public static function from_unicode(
+$arr)
     {
         if (! isset(self::$called[__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called[__FUNCTION__] = true;
         }
-        return _from_unicode($arr);
+        return _from_unicode(
+$arr);
     }
 } // End utf8

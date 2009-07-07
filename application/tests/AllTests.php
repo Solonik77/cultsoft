@@ -17,8 +17,10 @@ class AllTests extends PHPUnit_Framework_TestSuite {
  */
  public function __construct()
  {
-  $this->setName('AllTests');
-  $this->addTestSuite('IndexControllerTest');
+  
+$this->setName('AllTests');
+  
+$this->addTestSuite('IndexControllerTest');
  }
 
  /**
