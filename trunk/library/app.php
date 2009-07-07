@@ -3,7 +3,9 @@
 * BASE APPLICATION
 * Provides Zend application-specific helper functions.
 *
-* $Id$
+* 
+$Id
+$
 *
 * @package Core
 * @author Denysenko Dmytro
@@ -13,19 +15,26 @@
 final class App {
  const CHARSET = 'UTF-8';
  // Application front controller object
- protected static $front = null;
+ protected static 
+$front = null;
  // Application config object
- protected static $config = null;
+ protected static 
+$config = null;
  // Database object
- protected static $db = null;
+ protected static 
+$db = null;
  // Default system localization
- protected static $locale = null;
+ protected static 
+$locale = null;
  // Logger
- protected static $log = null;
+ protected static 
+$log = null;
  // Zend_Translate object
- public static $i18n = null;
+ public static 
+$i18n = null;
  // Base URI
- protected static $base_uri = '';
+ protected static 
+$base_uri = '';
 
  /**
  * Return application configuration
@@ -58,9 +67,13 @@ throw new Zend_Exception('Config object is not set');
  /**
  * Zend logger
  */
- public static function log($message, $type = 1)
+ public static function log(
+$message, 
+$type = 1)
  {
-  app::$log->log($message, $type);
+  app::$log->log(
+$message, 
+$type);
   return;
  }
 
@@ -75,29 +88,35 @@ throw new Zend_Exception('Config object is not set');
  /**
  * Set configuration
  */
- public static function setConfig(Zend_Config $object)
+ public static function setConfig(Zend_Config 
+$object)
  {
   if (App::$config === null) {
-App::$config = $object;
+App::$config = 
+$object;
   }
  }
 
  /**
  * Set logger
  */
- public static function setLog(Zend_Log $object)
+ public static function setLog(Zend_Log 
+$object)
  {
   if (App::$log === null) {
-App::$log = $object;
+App::$log = 
+$object;
   }
  }
 
  /**
  * Set translator object
  */
- public static function setTranslate(Zend_Translate $object)
+ public static function setTranslate(Zend_Translate 
+$object)
  {
-  App::$i18n = $object;
+  App::$i18n = 
+$object;
   Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
   Zend_Form::setDefaultTranslator(App::$i18n);
  }
@@ -105,20 +124,24 @@ App::$log = $object;
  /**
  * Set database object
  */
- public static function setDb($object)
+ public static function setDb(
+$object)
  {
   if (App::$db === null) {
-App::$db = $object;
+App::$db = 
+$object;
   }
  }
 
  /**
  * Set locale object
  */
- public static function setLocale($object)
+ public static function setLocale(
+$object)
  {
   if (App::$locale === null) {
-App::$locale = $object;
+App::$locale = 
+$object;
   }
  }
 
@@ -127,27 +150,43 @@ App::$locale = $object;
  *
  * If protocol (and core.site_protocol) and core.site_domain are both empty,* then
  *
- * @param boolean $ include the index page
- * @param boolean $ non-default protocol
+ * @param boolean 
+$ include the index page
+ * @param boolean 
+$ non-default protocol
  * @return string
  */
- public static function baseUri($index = false, $protocol = false)
+ public static function baseUri(
+$index = false, 
+$protocol = false)
  {
   if (! empty(app::$base_uri)) {
 return app::$base_uri;
   }
-  if ($protocol == false) {
+  if (
+$protocol == false) {
 // Guess the protocol to provide full http://domain/path URL
-$base_url = ((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'];
+
+$base_url = ((empty(
+$_SERVER['HTTPS']) or 
+$_SERVER['HTTPS'] === 'off') ? 'http' : 'https') . '://' . 
+$_SERVER['HTTP_HOST'];
   } else {
 // Guess the server name if the domain starts with slash
-$base_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
+
+$base_url = 
+$protocol . '://' . 
+$_SERVER['HTTP_HOST'];
   }
-  if ($index === true) {
+  if (
+$index === true) {
 // Append the index page
-$base_url = $base_url . FRONT_CONTROLLER_FILE;
+
+$base_url = 
+$base_url . FRONT_CONTROLLER_FILE;
   }
-  app::$base_uri = rtrim($base_url, '/') . '/';
+  app::$base_uri = rtrim(
+$base_url, '/') . '/';
   // Force a slash on the end of the URL
   return app::$base_uri;
  }
@@ -164,11 +203,16 @@ $base_url = $base_url . FRONT_CONTROLLER_FILE;
 /**
 * Translator function
 */
-function __($text = '', $print = true)
+function __(
+$text = '', 
+$print = true)
 {
- if ($print === true) {
-  echo App::$i18n->_($text);
+ if (
+$print === true) {
+  echo App::$i18n->_(
+$text);
  } else {
-  return App::$i18n->_($text);
+  return App::$i18n->_(
+$text);
  }
 }

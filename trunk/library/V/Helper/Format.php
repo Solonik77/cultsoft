@@ -2,7 +2,9 @@
 /**
 * Format helper class.
 *
-* $Id: format.php 4070 2009-03-11 20:37:38Z Geert $
+* 
+$Id: format.php 4070 2009-03-11 20:37:38Z Geert 
+$
 *
 * @package Core
 * @author Kohana Team
@@ -16,44 +18,79 @@ class V_Helper_Format {
     /**
     * Formats a phone number according to the specified format.
     *
-    * @param string $ phone number
-    * @param string $ format string
+    * @param string 
+$ phone number
+    * @param string 
+$ format string
     * @return string
     */
-    public static function phone($number, $format = '3-3-4')
+    public static function phone(
+$number, 
+$format = '3-3-4')
     {
         // Get rid of all non-digit characters in number string
-        $number_clean = preg_replace('/\D+/', '', (string) $number);
+        
+$number_clean = preg_replace('/\D+/', '', (string) 
+$number);
         // Array of digits we need for a valid format
-        $format_parts = preg_split('/[^1-9][^0-9]*/', $format, - 1,           PREG_SPLIT_NO_EMPTY);
+        
+$format_parts = preg_split('/[^1-9][^0-9]*/', 
+$format, - 1,           PREG_SPLIT_NO_EMPTY);
         // Number must match digit count of a valid format
-        if (strlen($number_clean) !== array_sum($format_parts))
-            return $number;
+        if (strlen(
+$number_clean) !== array_sum(
+$format_parts))
+            return 
+$number;
         // Build regex
-        $regex = '(\d{' . implode('})(\d{', $format_parts) . '})';
+        
+$regex = '(\d{' . implode('})(\d{', 
+$format_parts) . '})';
         // Build replace string
-        for($i = 1, $c = count($format_parts); $i <= $c; $i ++) {
-            $format = preg_replace('/(?<!\$)[1-9][0-9]*/',               '\$' . $i, $format,               1);
+        for(
+$i = 1, 
+$c = count(
+$format_parts); 
+$i <= 
+$c; 
+$i ++) {
+            
+$format = preg_replace('/(?<!\
+$)[1-9][0-9]*/',               '\
+$' . 
+$i, 
+$format,               1);
         }
         // Hocus pocus!
-        return preg_replace('/^' . $regex . '$/', $format,           $number_clean);
+        return preg_replace('/^' . 
+$regex . '
+$/', 
+$format,           
+$number_clean);
     }
 
     /**
     * Formats a URL to contain a protocol at the beginning.
     *
-    * @param string $ possibly incomplete URL
+    * @param string 
+$ possibly incomplete URL
     * @return string
     */
-    public static function url($str = '')
+    public static function url(
+$str = '')
     {
         // Clear protocol-only strings like "http://"
-        if ($str === '' or substr($str, - 3) === '://')
+        if (
+$str === '' or substr(
+$str, - 3) === '://')
             return '';
         // If no protocol given, prepend "http://" by default
-        if (strpos($str, '://') === false)
-            return 'http://' . $str;
+        if (strpos(
+$str, '://') === false)
+            return 'http://' . 
+$str;
         // Return the original URL
-        return $str;
+        return 
+$str;
     }
 } // End format

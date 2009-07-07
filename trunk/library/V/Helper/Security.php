@@ -2,7 +2,9 @@
 /**
 * Security helper class.
 *
-* $Id: security.php 3769 2008-12-15 00:48:56Z zombor $
+* 
+$Id: security.php 3769 2008-12-15 00:48:56Z zombor 
+$
 *
 * @package Core
 * @author Kohana Team
@@ -16,33 +18,43 @@ class V_Helper_Security {
     /**
     * Sanitize a string with the xss_clean method.
     *
-    * @param string $ string to sanitize
+    * @param string 
+$ string to sanitize
     * @return string
     */
-    public static function xss_clean($str)
+    public static function xss_clean(
+$str)
     {
-        return V_Input::instance()->xss_clean($str);
+        return V_Input::instance()->xss_clean(
+$str);
     }
 
     /**
     * Remove image tags from a string.
     *
-    * @param string $ string to sanitize
+    * @param string 
+$ string to sanitize
     * @return string
     */
-    public static function strip_image_tags($str)
+    public static function strip_image_tags(
+$str)
     {
-        return preg_replace('#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is',           '$1', $str);
+        return preg_replace('#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is',           '
+$1', 
+$str);
     }
 
     /**
     * Remove PHP tags from a string.
     *
-    * @param string $ string to sanitize
+    * @param string 
+$ string to sanitize
     * @return string
     */
-    public static function encode_php_tags($str)
+    public static function encode_php_tags(
+$str)
     {
-        return str_replace(array('<?' , '?>'),           array('&lt;?' , '?&gt;'), $str);
+        return str_replace(array('<?' , '?>'),           array('&lt;?' , '?&gt;'), 
+$str);
     }
 } // End security

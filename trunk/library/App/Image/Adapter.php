@@ -4,22 +4,33 @@
 */
 abstract class App_Image_Adapter {
  // Reference to the current image
- protected $image;
+ protected 
+$image;
  // Reference to the temporary processing image
- protected $tmp_image;
+ protected 
+$tmp_image;
  // Processing errors
- protected $errors = array();
+ protected 
+$errors = array();
 
  /**
  * Executes a set of actions, defined in pairs.
  *
- * @param array $ actions
+ * @param array 
+$ actions
  * @return boolean
  */
- public function execute($actions)
+ public function execute(
+$actions)
  {
-  foreach ($actions as $func => $args) {
-if (! $this->$func($args))
+  foreach (
+$actions as 
+$func => 
+$args) {
+if (! 
+$this->
+$func(
+$args))
  return false;
   }
 
@@ -30,35 +41,68 @@ if (! $this->$func($args))
  * Sanitize and normalize a geometry array based on the temporary image
  * width and height. Valid properties are: width, height, top, left.
  *
- * @param array $ geometry properties
+ * @param array 
+$ geometry properties
  * @return void
  */
- protected function sanitize_geometry(&$geometry)
+ protected function sanitize_geometry(&
+$geometry)
  {
-  list($width, $height) = $this->properties();
+  list(
+$width, 
+$height) = 
+$this->properties();
   // Turn off error reporting
-  $reporting = error_reporting(0);
+  
+$reporting = error_reporting(0);
   // Width and height cannot exceed current image size
-  $geometry['width'] = min($geometry['width'], $width);
-  $geometry['height'] = min($geometry['height'], $height);
+  
+$geometry['width'] = min(
+$geometry['width'], 
+$width);
+  
+$geometry['height'] = min(
+$geometry['height'], 
+$height);
   // Set standard coordinates if given, otherwise use pixel values
-  if ($geometry['top'] === 'center') {
-$geometry['top'] = floor(($height / 2) - ($geometry['height'] / 2));
-  } elseif ($geometry['top'] === 'top') {
+  if (
+$geometry['top'] === 'center') {
+
+$geometry['top'] = floor((
+$height / 2) - (
+$geometry['height'] / 2));
+  } elseif (
+$geometry['top'] === 'top') {
+
 $geometry['top'] = 0;
-  } elseif ($geometry['top'] === 'bottom') {
-$geometry['top'] = $height - $geometry['height'];
+  } elseif (
+$geometry['top'] === 'bottom') {
+
+$geometry['top'] = 
+$height - 
+$geometry['height'];
   }
   // Set standard coordinates if given, otherwise use pixel values
-  if ($geometry['left'] === 'center') {
-$geometry['left'] = floor(($width / 2) - ($geometry['width'] / 2));
-  } elseif ($geometry['left'] === 'left') {
+  if (
+$geometry['left'] === 'center') {
+
+$geometry['left'] = floor((
+$width / 2) - (
+$geometry['width'] / 2));
+  } elseif (
+$geometry['left'] === 'left') {
+
 $geometry['left'] = 0;
-  } elseif ($geometry['left'] === 'right') {
-$geometry['left'] = $width - $geometry['height'];
+  } elseif (
+$geometry['left'] === 'right') {
+
+$geometry['left'] = 
+$width - 
+$geometry['height'];
   }
   // Restore error reporting
-  error_reporting($reporting);
+  error_reporting(
+$reporting);
  }
 
  /**
@@ -72,51 +116,69 @@ $geometry['left'] = $width - $geometry['height'];
  /**
  * Process an image with a set of actions.
  *
- * @param string $ image filename
- * @param array $ actions to execute
- * @param string $ destination directory path
- * @param string $ destination filename
+ * @param string 
+$ image filename
+ * @param array 
+$ actions to execute
+ * @param string 
+$ destination directory path
+ * @param string 
+$ destination filename
  * @return boolean
  */
- abstract public function process($image, $actions, $dir, $file);
+ abstract public function process(
+$image, 
+$actions, 
+$dir, 
+$file);
 
  /**
  * Flip an image. Valid directions are horizontal and vertical.
  *
- * @param integer $ direction to flip
+ * @param integer 
+$ direction to flip
  * @return boolean
  */
- abstract function flip($direction);
+ abstract function flip(
+$direction);
 
  /**
  * Crop an image. Valid properties are: width, height, top, left.
  *
- * @param array $ new properties
+ * @param array 
+$ new properties
  * @return boolean
  */
- abstract function crop($properties);
+ abstract function crop(
+$properties);
 
  /**
  * Resize an image. Valid properties are: width, height, and master.
  *
- * @param array $ new properties
+ * @param array 
+$ new properties
  * @return boolean
  */
- abstract public function resize($properties);
+ abstract public function resize(
+$properties);
 
  /**
  * Rotate an image. Valid amounts are -180 to 180.
  *
- * @param integer $ amount to rotate
+ * @param integer 
+$ amount to rotate
  * @return boolean
  */
- abstract public function rotate($amount);
+ abstract public function rotate(
+$amount);
 
  /**
  * Sharpen and image. Valid amounts are 1 to 100.
  *
- * @param integer $ amount to sharpen
+ * @param integer 
+$ amount to sharpen
  * @return boolean
  */
- abstract public function sharpen($amount);
+ abstract public function sharpen(
+$amount);
 } // End Image Adapter

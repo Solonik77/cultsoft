@@ -36,21 +36,25 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
  *
  * @var object
  */
- protected $_v_input;
+ protected 
+$_v_input;
 
  /**
  * User agent table data column
  *
  * @var string
  */
- protected $_userAgentColumn = null;
+ protected 
+$_userAgentColumn = null;
 
- protected $_userAgent = null;
+ protected 
+$_userAgent = null;
 
  /**
  * Constructor
  *
- * $config is an instance of Zend_Config or an array of key/value pairs containing configuration options for
+ * 
+$config is an instance of Zend_Config or an array of key/value pairs containing configuration options for
  * Zend_Session_SaveHandler_DbTable and Zend_Db_Table_Abstract. These are the configuration options for
  * Zend_Session_SaveHandler_DbTable:
  *
@@ -77,46 +81,88 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
  * overrideLifetime  => (boolean) Whether or not the lifetime of an existing session should be overridden
  *  (optional; default: false)
  *
- * @param Zend_Config $ |array $configUser-provided configuration
+ * @param Zend_Config 
+$ |array 
+$configUser-provided configuration
  * @return void
  * @throws Zend_Session_SaveHandler_Exception
  */
- public function __construct($config)
+ public function __construct(
+$config)
  {
-  $this->_v_input = V_Input::instance();
-  $this->_userAgentColumn = (isset($config['userAgentColumn'])) ? (string) $config['userAgentColumn'] : 'user_agent';
-  parent::__construct($config);
+  
+$this->_v_input = V_Input::instance();
+  
+$this->_userAgentColumn = (isset(
+$config['userAgentColumn'])) ? (string) 
+$config['userAgentColumn'] : 'user_agent';
+  parent::__construct(
+$config);
  }
 
  /**
  * Write session data
  *
- * @param string $id
- * @param string $data
+ * @param string 
+$id
+ * @param string 
+$data
  * @return boolean
  */
- public function write($id, $data)
+ public function write(
+$id, 
+$data)
  {
-  $return = false;
+  
+$return = false;
 
-  $data = array($this->_userAgentColumn => $this->_v_input->user_agent(),  $this->_modifiedColumn => time(),  $this->_dataColumn => (string) $data);
+  
+$data = array(
+$this->_userAgentColumn => 
+$this->_v_input->user_agent(),  
+$this->_modifiedColumn => time(),  
+$this->_dataColumn => (string) 
+$data);
 
-  $rows = call_user_func_array(array(&$this, 'find'), $this->_getPrimary($id));
+  
+$rows = call_user_func_array(array(&
+$this, 'find'), 
+$this->_getPrimary(
+$id));
 
-  if (count($rows)) {
-$data[$this->_lifetimeColumn] = $this->_getLifetime($rows->current());
+  if (count(
+$rows)) {
 
-if ($this->update($data, $this->_getPrimary($id, self::PRIMARY_TYPE_WHERECLAUSE))) {
- $return = true;
+$data[
+$this->_lifetimeColumn] = 
+$this->_getLifetime(
+$rows->current());
+
+if (
+$this->update(
+$data, 
+$this->_getPrimary(
+$id, self::PRIMARY_TYPE_WHERECLAUSE))) {
+ 
+$return = true;
 }
   } else {
-$data[$this->_lifetimeColumn] = $this->_lifetime;
-if ($this->insert(array_merge($this->_getPrimary($id, self::PRIMARY_TYPE_ASSOC), $data))) {
- $return = true;
+
+$data[
+$this->_lifetimeColumn] = 
+$this->_lifetime;
+if (
+$this->insert(array_merge(
+$this->_getPrimary(
+$id, self::PRIMARY_TYPE_ASSOC), 
+$data))) {
+ 
+$return = true;
 }
   }
 
-  return $return;
+  return 
+$return;
  }
 
  /**
@@ -126,6 +172,7 @@ if ($this->insert(array_merge($this->_getPrimary($id, self::PRIMARY_TYPE_ASSOC),
  */
  public function getUserAgent()
  {
-  return $this->_userAgent;
+  return 
+$this->_userAgent;
  }
 }

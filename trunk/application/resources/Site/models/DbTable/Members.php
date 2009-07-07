@@ -16,8 +16,12 @@ class Site_Model_DbTable_Members extends App_DB_Table {
  /**
  * Get all member db fields as objects by his ID
  */
- public function getDataByID($id = 0)
+ public function getDataByID(
+$id = 0)
  {
-  return $this->fetchRow($this->select()->where('id = ?', $id));
+  return 
+$this->fetchRow(
+$this->select()->where('id = ?', 
+$id));
  }
 }
