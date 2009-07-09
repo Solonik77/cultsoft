@@ -69,7 +69,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initEnvironment()
     {
         V_UTF8::clean_globals ();
-        V_Input::instance ();
+        App_Input::instance ();
         // Set locale information
         $this->_setLanguage ();
         ini_set ('log_errors', true);
