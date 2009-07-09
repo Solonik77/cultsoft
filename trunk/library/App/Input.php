@@ -81,8 +81,8 @@ class App_Input {
             $ER = error_reporting (~ E_NOTICE &~ E_STRICT);
             // Set the user agent
             $this->user_agent = (! empty ($_SERVER ['HTTP_USER_AGENT']) ? trim ($_SERVER ['HTTP_USER_AGENT']) : '');
-            if (v_utf8::strlen ($this->user_agent) > 255) {
-                $this->user_agent = v_utf8::substr ($this->user_agent, 0, 255);
+            if (app_utf8::strlen ($this->user_agent) > 255) {
+                $this->user_agent = app_utf8::substr ($this->user_agent, 0, 255);
             }
             // Restore error reporting
             error_reporting ($ER);

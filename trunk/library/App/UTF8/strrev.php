@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::strrev
+* App_Utf8::strrev
 *
 * @package Core
 * @author Kohana Team
@@ -11,7 +11,7 @@
 */
 function _strrev($str)
 {
-    if (V_UTF8::is_ascii ($str))
+    if (App_Utf8::is_ascii ($str))
         return strrev ($str);
     preg_match_all ('/./us', $str, $matches);
     return implode ('', array_reverse ($matches [0]));

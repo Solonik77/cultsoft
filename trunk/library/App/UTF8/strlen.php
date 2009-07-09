@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::strlen
+* App_Utf8::strlen
 *
 * @package Core
 * @author Kohana Team
@@ -14,7 +14,7 @@ function _strlen($str)
     // Try mb_strlen() first because it's faster than combination of is_ascii() and strlen()
     if (SERVER_UTF8)
         return mb_strlen ($str);
-    if (V_UTF8::is_ascii ($str))
+    if (App_Utf8::is_ascii ($str))
         return strlen ($str);
     return strlen (utf8_decode ($str));
 }

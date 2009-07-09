@@ -1,5 +1,5 @@
 <?php
-require_once LIBRARY_PATH . 'V/UTF8.php';
+require_once LIBRARY_PATH . 'App/UTF8.php';
 /**
 * Text helper class.
 *
@@ -49,12 +49,12 @@ class V_Helper_Text {
     {
         $end_char = ($end_char === null) ? '&#8230;' : $end_char;
         $limit = (int) $limit;
-        if (trim ($str) === '' or V_UTF8::strlen ($str) <= $limit)
+        if (trim ($str) === '' or App_Utf8::strlen ($str) <= $limit)
             return $str;
         if ($limit <= 0)
             return $end_char;
         if ($preserve_words == false) {
-            return rtrim (V_UTF8::substr ($str, 0, $limit)) . $end_char;
+            return rtrim (App_Utf8::substr ($str, 0, $limit)) . $end_char;
         }
         preg_match ('/^.{' . ($limit - 1) . '}\S*/us', $str, $matches);
         return rtrim ($matches [0]) . (strlen ($matches [0]) == strlen ($str) ? '' : $end_char);
@@ -114,11 +114,11 @@ class V_Helper_Text {
                 break;
             default :
                 $pool = (string) $type;
-                $utf8 = ! V_UTF8::is_ascii ($pool);
+                $utf8 = ! App_Utf8::is_ascii ($pool);
                 break;
         }
         // Split the pool into an array of characters
-        $pool = ($utf8 === true) ? V_UTF8::str_split ($pool, 1) : str_split ($pool, 1);
+        $pool = ($utf8 === true) ? App_Utf8::str_split ($pool, 1) : str_split ($pool, 1);
         // Largest pool key
         $max = count ($pool) - 1;
         $str = '';
@@ -170,9 +170,9 @@ class V_Helper_Text {
             $regex = '(?<=\b|\s|^)' . $regex . '(?=\b|\s|$)';
         }
         $regex = '!' . $regex . '!ui';
-        if (V_UTF8::strlen ($replacement) == 1) {
+        if (App_Utf8::strlen ($replacement) == 1) {
             $regex .= 'e';
-            return preg_replace ($regex, 'str_repeat($replacement, V_UTF8::strlen(\'$1\'))', $str);
+            return preg_replace ($regex, 'str_repeat($replacement, App_Utf8::strlen(\'$1\'))', $str);
         }
         return preg_replace ($regex, $replacement, $str);
     }

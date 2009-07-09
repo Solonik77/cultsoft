@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::strcasecmp
+* App_Utf8::strcasecmp
 *
 * @package Core
 * @author Kohana Team
@@ -11,9 +11,9 @@
 */
 function _strcasecmp($str1, $str2)
 {
-    if (V_UTF8::is_ascii ($str1) and V_UTF8::is_ascii ($str2))
+    if (App_Utf8::is_ascii ($str1) and App_Utf8::is_ascii ($str2))
         return strcasecmp ($str1, $str2);
-    $str1 = V_UTF8::strtolower ($str1);
-    $str2 = V_UTF8::strtolower ($str2);
+    $str1 = App_Utf8::strtolower ($str1);
+    $str2 = App_Utf8::strtolower ($str2);
     return strcmp ($str1, $str2);
 }
