@@ -107,11 +107,11 @@ CREATE TABLE `prefix_members` (
 
 insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`created`,`is_active`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,'0000-00-00 00:00:00',1);
 
-/*Table structure for table `prefix_navigation_menu` */
+/*Table structure for table `prefix_site_structure` */
 
-DROP TABLE IF EXISTS `prefix_navigation_menu`;
+DROP TABLE IF EXISTS `prefix_site_structure`;
 
-CREATE TABLE `prefix_navigation_menu` (
+CREATE TABLE `prefix_site_structure` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(100) NOT NULL DEFAULT 'Home',
   `title` varchar(100) DEFAULT NULL,
@@ -124,9 +124,9 @@ CREATE TABLE `prefix_navigation_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_navigation_menu` */
+/*Data for the table `prefix_site_structure` */
 
-insert  into `prefix_navigation_menu`(`id`,`label`,`title`,`module`,`controller`,`action`,`visible`,`left_column_id`,`right_column_id`) values (1,'Home','','default','index','index',1,1,20),(2,'Blog','','blog','index','index',1,2,9),(3,'IT Blog','','blog','index','it',1,3,4),(4,'Music blog','','blog','index','music',1,5,6),(5,'3D Blog','','blog','index','3d',1,7,8),(6,'Shop','','store','index','index',1,10,19),(7,'Titanium','','store','product','titanium',1,11,14),(8,'FLASH','','store','product','flash',1,12,13),(9,'CD PLAYERS','','store','product','cd',1,15,16),(10,'2 WAY RADIOS','','store','product','radios',1,17,18);
+insert  into `prefix_site_structure`(`id`,`label`,`title`,`module`,`controller`,`action`,`visible`,`left_column_id`,`right_column_id`) values (1,'Home','','default','index','index',1,1,20),(2,'Blog','','blog','index','index',1,2,9),(3,'IT Blog','','blog','index','it',1,3,4),(4,'Music blog','','blog','index','music',1,5,6),(5,'3D Blog','','blog','index','3d',1,7,8),(6,'Shop','','store','index','index',1,10,19),(7,'Titanium','','store','product','titanium',1,11,14),(8,'FLASH','','store','product','flash',1,12,13),(9,'CD PLAYERS','','store','product','cd',1,15,16),(10,'2 WAY RADIOS','','store','product','radios',1,17,18);
 
 /*Table structure for table `prefix_session` */
 
