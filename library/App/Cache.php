@@ -37,7 +37,7 @@ class App_Cache {
     public function __construct()
     {
         if (App_Cache::$instance === null) {
-            $this->_defaultFrontendOptions = array ('lifetime' => App::config ()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_?ontrol' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
+            $this->_defaultFrontendOptions = array ('lifetime' => App::config ()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
             $this->_defaultBackendOptions = array ('cache_dir' => App::config ()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
             $systemCacheFrontend = $this->_defaultFrontendOptions;
             // Permanent storage
