@@ -32,11 +32,11 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
     const USER_AGENT_COLUMN = 'userAgentColumn';
 
     /**
-    * V_Input Instance
+    * App_Input Instance
     *
     * @var object
     */
-    protected $_v_input;
+    protected $_app_input;
 
     /**
     * User agent table data column
@@ -83,7 +83,7 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
     */
     public function __construct($config)
     {
-        $this->_v_input = V_Input::instance ();
+        $this->_app_input = App_Input::instance ();
         $this->_userAgentColumn = (isset ($config ['userAgentColumn'])) ? (string) $config ['userAgentColumn'] : 'user_agent';
         parent::__construct ($config);
     }
@@ -99,7 +99,7 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
     {
         $return = false;
 
-        $data = array ($this->_userAgentColumn => $this->_v_input->user_agent (), $this->_modifiedColumn => time (), $this->_dataColumn => (string) $data);
+        $data = array ($this->_userAgentColumn => $this->_app_input->user_agent (), $this->_modifiedColumn => time (), $this->_dataColumn => (string) $data);
 
         $rows = call_user_func_array (array (&$this, 'find'), $this->_getPrimary ($id));
 

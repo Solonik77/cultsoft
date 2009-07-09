@@ -9,7 +9,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
-class V_Input {
+class App_Input {
     // Enable or disable automatic XSS cleaning
     protected $use_xss_clean = false;
     // Are magic quotes enabled?
@@ -29,11 +29,11 @@ class V_Input {
     */
     public static function instance()
     {
-        if (V_Input::$instance === null) {
+        if (App_Input::$instance === null) {
             // Create a new instance
-            return new V_Input ();
+            return new App_Input ();
         }
-        return V_Input::$instance;
+        return App_Input::$instance;
     }
 
     /**
@@ -46,7 +46,7 @@ class V_Input {
     {
         // Use XSS clean?
         $this->use_xss_clean = (bool) true;
-        if (V_Input::$instance === null) {
+        if (App_Input::$instance === null) {
             // magic_quotes_runtime is enabled
             if (get_magic_quotes_runtime ()) {
                 set_magic_quotes_runtime (0);
@@ -114,7 +114,7 @@ class V_Input {
                 $_COOKIE = array ();
             }
             // Create a singleton
-            V_Input::$instance = $this;
+            App_Input::$instance = $this;
             App::Log ('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
         }
     }
