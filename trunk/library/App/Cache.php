@@ -90,7 +90,7 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->System->load ('SiteNavigationTree'))) {
-            $model = new Site_Model_DbTable_Navigation_Menu ();
+            $model = new Site_Model_DbTable_Site_Structure ();
             $data = $model->getTree ();
             $this->cache->System->save ($data);
         }

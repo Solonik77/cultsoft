@@ -7,7 +7,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
-class Site_Model_Navigation_Menu {
+class Site_Model_Site_Structure{
     public function __construct()
     {
     }
