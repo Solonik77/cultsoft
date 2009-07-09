@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::strpos
+* App_Utf8::strpos
 *
 * @package Core
 * @author Kohana Team
@@ -14,13 +14,13 @@ function _strpos($str, $search, $offset = 0)
     $offset = (int) $offset;
     if (SERVER_UTF8)
         return mb_strpos ($str, $search, $offset);
-    if (V_UTF8::is_ascii ($str) and V_UTF8::is_ascii ($search))
+    if (App_Utf8::is_ascii ($str) and App_Utf8::is_ascii ($search))
         return strpos ($str, $search, $offset);
     if ($offset == 0) {
         $array = explode ($search, $str, 2);
-        return isset ($array [1]) ? V_UTF8::strlen ($array [0]) : false;
+        return isset ($array [1]) ? App_Utf8::strlen ($array [0]) : false;
     }
-    $str = V_UTF8::substr ($str, $offset);
-    $pos = V_UTF8::strpos ($str, $search);
+    $str = App_Utf8::substr ($str, $offset);
+    $pos = App_Utf8::strpos ($str, $search);
     return ($pos === false) ? false : $pos + $offset;
 }

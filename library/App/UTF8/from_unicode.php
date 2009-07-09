@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::from_unicode
+* App_Utf8::from_unicode
 *
 * @package Core
 * @author Kohana Team

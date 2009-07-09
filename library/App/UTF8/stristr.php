@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::stristr
+* App_Utf8::stristr
 *
 * @package Core
 * @author Kohana Team
@@ -11,12 +11,12 @@
 */
 function _stristr($str, $search)
 {
-    if (V_UTF8::is_ascii ($str) and V_UTF8::is_ascii ($search))
+    if (App_Utf8::is_ascii ($str) and App_Utf8::is_ascii ($search))
         return stristr ($str, $search);
     if ($search == '')
         return $str;
-    $str_lower = V_UTF8::strtolower ($str);
-    $search_lower = V_UTF8::strtolower ($search);
+    $str_lower = App_Utf8::strtolower ($str);
+    $search_lower = App_Utf8::strtolower ($search);
     preg_match ('/^(.*?)' . preg_quote ($search, '/') . '/s', $str_lower, $matches);
     if (isset ($matches [1]))
         return substr ($str, strlen ($matches [1]));

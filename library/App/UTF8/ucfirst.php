@@ -1,7 +1,7 @@
 <?php
 
 /**
-* V_UTF8::ucfirst
+* App_Utf8::ucfirst
 *
 * @package Core
 * @author Kohana Team
@@ -11,8 +11,8 @@
 */
 function _ucfirst($str)
 {
-    if (V_UTF8::is_ascii ($str))
+    if (App_Utf8::is_ascii ($str))
         return ucfirst ($str);
     preg_match ('/^(.?)(.*)$/us', $str, $matches);
-    return V_UTF8::strtoupper ($matches [1]) . $matches [2];
+    return App_Utf8::strtoupper ($matches [1]) . $matches [2];
 }
