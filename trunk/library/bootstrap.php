@@ -163,10 +163,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initDatabase()
     {
         try {
-            $config = App::config ();
-            App::setDb (Zend_Db::factory ($config->database->adapter, $config->database->toArray ()));
+            $config = App::config()->database->toArray();
+            $config['driver_options'] = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => TRUE);
+            App::setDb (Zend_Db::factory ($config['adapter'], $config));
             $profiler = new Zend_Db_Profiler_Firebug ('All DB Queries');
-            $profiler->setEnabled (true);
+            $profiler->setEnabled (TRUE);
             App::db ()->setProfiler ($profiler);
             Zend_Db_Table_Abstract::setDefaultMetadataCache (App_Cache::getInstance ('File'));
             Zend_Db_Table::setDefaultAdapter (App::db ());
