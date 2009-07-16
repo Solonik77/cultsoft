@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
+* @copyright(c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Date {
@@ -21,14 +21,14 @@ class V_Helper_Date {
     */
     public static function unix2dos($timestamp = false)
     {
-        $timestamp = ($timestamp === false) ? getdate() : getdate ($timestamp);
-        if ($timestamp ['year'] < 1980) {
-            return (1 << 21 | 1 << 16);
+        $timestamp =($timestamp === false) ? getdate() : getdate($timestamp);
+        if($timestamp ['year'] < 1980) {
+            return(1 << 21 | 1 << 16);
         }
         $timestamp ['year'] -= 1980;
         // What voodoo is this? I have no idea... Geert can explain it though,
         // and that's good enough for me.
-        return ($timestamp ['year'] << 25 | $timestamp ['mon'] << 21 | $timestamp ['mday'] << 16 | $timestamp ['hours'] << 11 | $timestamp ['minutes'] << 5 | $timestamp ['seconds'] >> 1);
+        return($timestamp ['year'] << 25 | $timestamp ['mon'] << 21 | $timestamp ['mday'] << 16 | $timestamp ['hours'] << 11 | $timestamp ['minutes'] << 5 | $timestamp ['seconds'] >> 1);
     }
 
     /**
@@ -39,17 +39,17 @@ class V_Helper_Date {
     */
     public static function dos2unix($timestamp = false)
     {
-        $sec = 2 * ($timestamp &0x1f);
-        $min = ($timestamp >> 5) &0x3f;
-        $hrs = ($timestamp >> 11) &0x1f;
-        $day = ($timestamp >> 16) &0x1f;
-        $mon = ($timestamp >> 21) &0x0f;
-        $year = ($timestamp >> 25) &0x7f;
-        return mktime ($hrs, $min, $sec, $mon, $day, $year + 1980);
+        $sec = 2 *($timestamp &0x1f);
+        $min =($timestamp >> 5) &0x3f;
+        $hrs =($timestamp >> 11) &0x1f;
+        $day =($timestamp >> 16) &0x1f;
+        $mon =($timestamp >> 21) &0x0f;
+        $year =($timestamp >> 25) &0x7f;
+        return mktime($hrs, $min, $sec, $mon, $day, $year + 1980);
     }
 
     /**
-    * Returns the offset (in seconds) between two time zones.
+    * Returns the offset(in seconds) between two time zones.
     *
     * @see http://php.net/timezones
     * @param string $ timezone that to find the offset of
@@ -60,19 +60,19 @@ class V_Helper_Date {
     {
         static $offsets;
         // Default values
-        $remote = (string) $remote;
-        $local = ($local === true) ? date_default_timezone_get() : (string) $local;
+        $remote =(string) $remote;
+        $local =($local === true) ? date_default_timezone_get() :(string) $local;
         // Cache key name
         $cache = $remote . $local;
-        if (empty ($offsets [$cache])) {
+        if(empty($offsets [$cache])) {
             // Create timezone objects
-            $remote = new DateTimeZone ($remote);
-            $local = new DateTimeZone ($local);
+            $remote = new DateTimeZone($remote);
+            $local = new DateTimeZone($local);
             // Create date objects from timezones
-            $time_there = new DateTime ('now', $remote);
-            $time_here = new DateTime ('now', $local);
+            $time_there = new DateTime('now', $remote);
+            $time_here = new DateTime('now', $local);
             // Find the offset
-            $offsets [$cache] = $remote->getOffset ($time_there) - $local->getOffset ($time_here);
+            $offsets [$cache] = $remote->getOffset($time_there) - $local->getOffset($time_here);
         }
         return $offsets [$cache];
     }
@@ -83,15 +83,15 @@ class V_Helper_Date {
     * @param integer $ amount to increment each step by, 1 to 30
     * @param integer $ start value
     * @param integer $ end value
-    * @return array A mirrored (foo => foo) array from 1-60.
+    * @return array A mirrored(foo => foo) array from 1-60.
     */
     public static function seconds($step = 1, $start = 0, $end = 60)
     {
         // Always integer
-        $step = (int) $step;
+        $step =(int) $step;
         $seconds = array();
         for($i = $start; $i < $end; $i += $step) {
-            $seconds [$i] = ($i < 10) ? '0' . $i : $i;
+            $seconds [$i] =($i < 10) ? '0' . $i : $i;
         }
         return $seconds;
     }
@@ -100,7 +100,7 @@ class V_Helper_Date {
     * Number of minutes in an hour, incrementing by a step.
     *
     * @param integer $ amount to increment each step by, 1 to 30
-    * @return array A mirrored (foo => foo) array from 1-60.
+    * @return array A mirrored(foo => foo) array from 1-60.
     */
     public static function minutes($step = 5)
     {
@@ -108,7 +108,7 @@ class V_Helper_Date {
         // we choose to re-use seconds(), rather than creating an entirely new
         // function. Shhhh, it's cheating! ;) There are several more of these
         // in the following methods.
-        return V_Helper_Date::seconds ($step);
+        return V_Helper_Date::seconds($step);
     }
 
     /**
@@ -117,21 +117,21 @@ class V_Helper_Date {
     * @param integer $ amount to increment each step by
     * @param boolean $ use 24-hour time
     * @param integer $ the hour to start at
-    * @return array A mirrored (foo => foo) array from start-12 or start-23.
+    * @return array A mirrored(foo => foo) array from start-12 or start-23.
     */
     public static function hours($step = 1, $long = false, $start = null)
     {
         // Default values
-        $step = (int) $step;
-        $long = (bool) $long;
+        $step =(int) $step;
+        $long =(bool) $long;
         $hours = array();
         // Set the default start if none was specified.
-        if ($start === null) {
-            $start = ($long === false) ? 1 : 0;
+        if($start === null) {
+            $start =($long === false) ? 1 : 0;
         }
         $hours = array();
         // 24-hour time has 24 hours, instead of 12
-        $size = ($long === true) ? 23 : 12;
+        $size =($long === true) ? 23 : 12;
         for($i = $start; $i <= $size; $i += $step) {
             $hours [$i] = $i;
         }
@@ -147,8 +147,8 @@ class V_Helper_Date {
     public static function ampm($hour)
     {
         // Always integer
-        $hour = (int) $hour;
-        return ($hour > 11) ? 'PM' : 'AM';
+        $hour =(int) $hour;
+        return($hour > 11) ? 'PM' : 'AM';
     }
 
     /**
@@ -160,19 +160,19 @@ class V_Helper_Date {
     */
     public static function adjust($hour, $ampm)
     {
-        $hour = (int) $hour;
-        $ampm = strtolower ($ampm);
-        switch ($ampm) {
+        $hour =(int) $hour;
+        $ampm = strtolower($ampm);
+        switch($ampm) {
             case 'am' :
-                if ($hour == 12)
+                if($hour == 12)
                     $hour = 0;
                 break;
             case 'pm' :
-                if ($hour < 12)
+                if($hour < 12)
                     $hour += 12;
                 break;
         }
-        return sprintf ('%02s', $hour);
+        return sprintf('%02s', $hour);
     }
 
     /**
@@ -180,21 +180,21 @@ class V_Helper_Date {
     *
     * @param integer $ number of month
     * @param integer $ number of year to check month, defaults to the current year
-    * @return array A mirrored (foo => foo) array of the days.
+    * @return array A mirrored(foo => foo) array of the days.
     */
     public static function days($month, $year = false)
     {
         static $months;
         // Always integers
-        $month = (int) $month;
-        $year = (int) $year;
+        $month =(int) $month;
+        $year =(int) $year;
         // Use the current year by default
-        $year = ($year == false) ? date ('Y') : $year;
+        $year =($year == false) ? date('Y') : $year;
         // We use caching for months, because time functions are used
-        if (empty ($months [$year] [$month])) {
+        if(empty($months [$year] [$month])) {
             $months [$year] [$month] = array();
             // Use date to find the number of days in the given month
-            $total = date ('t', mktime (1, 0, 0, $month, 1, $year)) + 1;
+            $total = date('t', mktime(1, 0, 0, $month, 1, $year)) + 1;
             for($i = 1; $i < $total; $i ++) {
                 $months [$year] [$month] [$i] = $i;
             }
@@ -205,7 +205,7 @@ class V_Helper_Date {
     /**
     * Number of months in a year
     *
-    * @return array A mirrored (foo => foo) array from 1-12.
+    * @return array A mirrored(foo => foo) array from 1-12.
     */
     public static function months()
     {
@@ -223,8 +223,8 @@ class V_Helper_Date {
     public static function years($start = false, $end = false)
     {
         // Default values
-        $start = ($start === false) ? date ('Y') - 5 : (int) $start;
-        $end = ($end === false) ? date ('Y') + 5 : (int) $end;
+        $start =($start === false) ? date('Y') - 5 :(int) $start;
+        $end =($end === false) ? date('Y') + 5 :(int) $end;
         $years = array();
         // Add one, so that "less than" works
         $end += 1;
@@ -245,51 +245,51 @@ class V_Helper_Date {
     public static function timespan($time1, $time2 = null, $output = 'years,months,weeks,days,hours,minutes,seconds')
     {
         // Array with the output formats
-        $output = preg_split ('/[^a-z]+/', strtolower ((string) $output));
+        $output = preg_split('/[^a-z]+/', strtolower((string) $output));
         // Invalid output
-        if (empty ($output))
+        if(empty($output))
             return false;
         // Make the output values into keys
-        extract (array_flip ($output), EXTR_SKIP);
+        extract(array_flip($output), EXTR_SKIP);
         // Default values
-        $time1 = max (0, (int) $time1);
-        $time2 = empty ($time2) ? time() : max (0, (int) $time2);
-        // Calculate timespan (seconds)
-        $timespan = abs ($time1 - $time2);
+        $time1 = max(0,(int) $time1);
+        $time2 = empty($time2) ? time() : max(0,(int) $time2);
+        // Calculate timespan(seconds)
+        $timespan = abs($time1 - $time2);
         // All values found using Google Calculator.
         // Years and months do not match the formula exactly, due to leap years.
         // Years ago, 60 * 60 * 24 * 365
-        isset ($years) and $timespan -= 31556926 * ($years = (int) floor ($timespan / 31556926));
+        isset($years) and $timespan -= 31556926 *($years =(int) floor($timespan / 31556926));
         // Months ago, 60 * 60 * 24 * 30
-        isset ($months) and $timespan -= 2629744 * ($months = (int) floor ($timespan / 2629743.83));
+        isset($months) and $timespan -= 2629744 *($months =(int) floor($timespan / 2629743.83));
         // Weeks ago, 60 * 60 * 24 * 7
-        isset ($weeks) and $timespan -= 604800 * ($weeks = (int) floor ($timespan / 604800));
+        isset($weeks) and $timespan -= 604800 *($weeks =(int) floor($timespan / 604800));
         // Days ago, 60 * 60 * 24
-        isset ($days) and $timespan -= 86400 * ($days = (int) floor ($timespan / 86400));
+        isset($days) and $timespan -= 86400 *($days =(int) floor($timespan / 86400));
         // Hours ago, 60 * 60
-        isset ($hours) and $timespan -= 3600 * ($hours = (int) floor ($timespan / 3600));
+        isset($hours) and $timespan -= 3600 *($hours =(int) floor($timespan / 3600));
         // Minutes ago, 60
-        isset ($minutes) and $timespan -= 60 * ($minutes = (int) floor ($timespan / 60));
+        isset($minutes) and $timespan -= 60 *($minutes =(int) floor($timespan / 60));
         // Seconds ago, 1
-        isset ($seconds) and $seconds = $timespan;
+        isset($seconds) and $seconds = $timespan;
         // Remove the variables that cannot be accessed
-        unset ($timespan, $time1, $time2);
+        unset($timespan, $time1, $time2);
         // Deny access to these variables
-        $deny = array_flip (array('deny', 'key', 'difference', 'output'));
+        $deny = array_flip(array('deny', 'key', 'difference', 'output'));
         // Return the difference
         $difference = array();
-        foreach ($output as $key) {
-            if (isset ($$key) and ! isset ($deny [$key])) {
+        foreach($output as $key) {
+            if(isset($$key) and ! isset($deny [$key])) {
                 // Add requested key to the output
                 $difference [$key] = $$key;
             }
         }
         // Invalid output formats string
-        if (empty ($difference))
+        if(empty($difference))
             return false;
         // If only one output format was asked, don't put it in an array
-        if (count ($difference) === 1)
-            return current ($difference);
+        if(count($difference) === 1)
+            return current($difference);
         // Return array
         return $difference;
     }
@@ -305,28 +305,28 @@ class V_Helper_Date {
     */
     public static function timespan_string($time1, $time2 = null, $output = 'years,months,weeks,days,hours,minutes,seconds')
     {
-        if ($difference = V_Helper_Date::timespan ($time1, $time2, $output) and is_array($difference)) {
+        if($difference = V_Helper_Date::timespan($time1, $time2, $output) and is_array($difference)) {
             // Determine the key of the last item in the array
-            $last = end ($difference);
-            $last = key ($difference);
+            $last = end($difference);
+            $last = key($difference);
             $span = array();
-            foreach ($difference as $name => $amount) {
-                if ($amount === 0) {
+            foreach($difference as $name => $amount) {
+                if($amount === 0) {
                     // Skip empty amounts
                     continue;
                 }
                 // Add the amount to the span
-                $span [] = ($name === $last ? ' and ' : ', ') . $amount . ' ' . ($amount === 1 ? inflector::singular ($name) : $name);
+                $span [] =($name === $last ? ' and ' : ', ') . $amount . ' ' .($amount === 1 ? inflector::singular($name) : $name);
             }
             // If the difference is less than 60 seconds, remove the preceding and.
-            if (count ($span) === 1) {
-                $span [0] = ltrim ($span [0], 'and ');
+            if(count($span) === 1) {
+                $span [0] = ltrim($span [0], 'and ');
             }
             // Replace difference by making the span into a string
-            $difference = trim (implode ('', $span), ',');
-        } elseif (is_int ($difference)) {
+            $difference = trim(implode('', $span), ',');
+        } elseif(is_int($difference)) {
             // Single-value return
-            $difference = $difference . ' ' . ($difference === 1 ? inflector::singular ($output) : $output);
+            $difference = $difference . ' ' .($difference === 1 ? inflector::singular($output) : $output);
         }
         return $difference;
     }
@@ -339,7 +339,7 @@ class V_Helper_Date {
     */
     public static function now($dayOnly = false)
     {
-        return date ($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+        return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
     }
 
     /**
@@ -350,6 +350,6 @@ class V_Helper_Date {
     */
     public static function is_empty_date($date)
     {
-        return preg_replace ('#[ 0:-]#', '', $date) === '';
+        return preg_replace('#[ 0:-]#', '', $date) === '';
     }
 } // End date

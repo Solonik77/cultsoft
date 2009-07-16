@@ -5,7 +5,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 * @version $Id$
 */
@@ -14,7 +14,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
@@ -69,7 +69,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
         <script type="text/javascript" charset="utf-8">
             var ZFHtmlLoad = window.onload;
             window.onload = function(){
-                if (ZFHtmlLoad) {
+                if(ZFHtmlLoad) {
                     ZFHtmlLoad();
                 }
                 jQuery("#ZFDebug_Html_Tagcount").html(document.getElementsByTagName("*").length);
@@ -78,7 +78,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
                 jQuery("#ZFDebug_Html_Imgcount").html(jQuery("img[src]").length);
             };
         </script>';
-        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round (strlen ($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities ($body) . '"><input type="submit" value="Validate With W3"></form>';
+        $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags<br />' . 'HTML Size: ' . round(strlen($body) / 1024, 2) . 'K<br />' . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files<br />' . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files<br />' . '<span id="ZFDebug_Html_Imgcount"></span> Images<br />' . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="' . htmlentities($body) . '"><input type="submit" value="Validate With W3"></form>';
         return $panel;
     }
 }

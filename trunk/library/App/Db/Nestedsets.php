@@ -7,7 +7,7 @@
 * @category Custom
 * @package Custom_Db
 * @subpackage Nestedset
-* @copyright Copyright (c) 2008 Ivan Iordanov <ivan@iordanov.net>
+* @copyright Copyright(c) 2008 Ivan Iordanov <ivan@iordanov.net>
 * @version $Id: Nestedset.php 2008-06-06
 * @see http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
 */
@@ -22,7 +22,7 @@ require_once 'App/Db/Table.php';
 * @category Custom
 * @package Custom_Db
 * @subpackage Nestedset
-* @copyright Copyright (c) 2008 Ivan Iordanov (http://dev.iordanov.net)
+* @copyright Copyright(c) 2008 Ivan Iordanov(http://dev.iordanov.net)
 */
 class App_Db_Nestedsets extends App_Db_Table {
     /**
@@ -56,11 +56,11 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function __construct($config = array())
     {
-        if (! isset ($config ['primary'])) {
+        if(! isset($config ['primary'])) {
             $config ['primary'] = array('id');
         }
-        parent::__construct ($config);
-        if (! $this->_toString) {
+        parent::__construct($config);
+        if(! $this->_toString) {
             $this->_toString = $this->_primary [0];
         }
     }
@@ -85,7 +85,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function getTree()
     {
         // todo: add custom node
-        $ret = $this->_db->query ("
+        $ret = $this->_db->query("
             SELECT node.*, COUNT(parent.{$this->_primary[0]}) - 1 as depth
             FROM {$this->_name} AS node, {$this->_name} AS parent
             WHERE node.{$this->_left}
@@ -106,16 +106,16 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function insertAsFirstChildOf($id)
     {
-        $row = $this->retrieveData ($id);
-        $right = (int) $row-> {
+        $row = $this->retrieveData($id);
+        $right =(int) $row-> {
             $this->_right} ;
-        $left = (int) $row-> {
+        $left =(int) $row-> {
             $this->_left} ;
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$left}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$left}");
         $data = array($this->_left => $left + 1, $this->_right => $left + 2);
-        $this->_insertData = array_merge ($this->_insertData, $data);
-        return $this->insert ($this->_insertData);
+        $this->_insertData = array_merge($this->_insertData, $data);
+        return $this->insert($this->_insertData);
     }
 
     /**
@@ -127,16 +127,16 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function insertAsLastChildOf($id)
     {
-        $row = $this->retrieveData ($id);
-        $right = (int) $row-> {
+        $row = $this->retrieveData($id);
+        $right =(int) $row-> {
             $this->_right} ;
-        $left = (int) $row-> {
+        $left =(int) $row-> {
             $this->_left} ;
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} >= {$right}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} >= {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
         $data = array($this->_left => $right, $this->_right => $right + 1);
-        $this->_insertData = array_merge ($this->_insertData, $data);
-        return $this->insert ($this->_insertData);
+        $this->_insertData = array_merge($this->_insertData, $data);
+        return $this->insert($this->_insertData);
     }
 
     /**
@@ -149,19 +149,19 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function insertAsNextSiblingOf($id)
     {
-        $row = $this->retrieveData ($id);
-        $right = (int) $row-> {
+        $row = $this->retrieveData($id);
+        $right =(int) $row-> {
             $this->_right} ;
-        $left = (int) $row-> {
+        $left =(int) $row-> {
             $this->_left} ;
-        if ($left === 1) {
-            throw new Exception ("Root node can't have siblings");
+        if($left === 1) {
+            throw new Exception("Root node can't have siblings");
         }
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$right}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
         $data = array($this->_left => $right + 1, $this->_right => $right + 2);
-        $this->_insertData = array_merge ($this->_insertData, $data);
-        return $this->insert ($this->_insertData);
+        $this->_insertData = array_merge($this->_insertData, $data);
+        return $this->insert($this->_insertData);
     }
 
     /**
@@ -174,19 +174,19 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function insertAsPrevSiblingOf($id)
     {
-        $row = $this->retrieveData ($id);
-        $right = (int) $row-> {
+        $row = $this->retrieveData($id);
+        $right =(int) $row-> {
             $this->_right} ;
-        $left = (int) $row-> {
+        $left =(int) $row-> {
             $this->_left} ;
-        if ($left === 1) {
-            throw new Exception ("Root node can't have siblings");
+        if($left === 1) {
+            throw new Exception("Root node can't have siblings");
         }
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} >= {$left}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} >= {$left}");
         $data = array($this->_left => $left, $this->_right => $left + 1);
-        $this->_insertData = array_merge ($this->_insertData, $data);
-        return $this->insert ($this->_insertData);
+        $this->_insertData = array_merge($this->_insertData, $data);
+        return $this->insert($this->_insertData);
     }
 
     /**
@@ -198,15 +198,15 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function deleteNode($id)
     {
-        $row = $this->retrieveData ($id);
-        $right = (int) $row-> {
+        $row = $this->retrieveData($id);
+        $right =(int) $row-> {
             $this->_right} ;
-        $left = (int) $row-> {
+        $left =(int) $row-> {
             $this->_left} ;
         $width = $right - $left + 1;
-        $res = $this->_db->query ("DELETE FROM {$this->_name} WHERE {$this->_left} BETWEEN {$left} AND {$right}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} - {$width} WHERE {$this->_right} > {$right}");
-        $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} - {$width} WHERE {$this->_left} > {$right}");
+        $res = $this->_db->query("DELETE FROM {$this->_name} WHERE {$this->_left} BETWEEN {$left} AND {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} - {$width} WHERE {$this->_right} > {$right}");
+        $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} - {$width} WHERE {$this->_left} > {$right}");
         return $res->rowCount();
     }
 
@@ -219,8 +219,8 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function createRoot()
     {
         $data = array($this->_left => 1, $this->_right => 2);
-        $this->_insertData = array_merge ($this->_insertData, $data);
-        return $this->insert ($this->_insertData);
+        $this->_insertData = array_merge($this->_insertData, $data);
+        return $this->insert($this->_insertData);
     }
 
     /**
@@ -232,7 +232,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     private function retrieveData($id)
     {
-        $select = $this->select()->where ($this->_primary [0] . ' = ?', $id);
-        return $this->fetchRow ($select);
+        $select = $this->select()->where($this->_primary [0] . ' = ?', $id);
+        return $this->fetchRow($select);
     }
 }

@@ -7,7 +7,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 final class App {
@@ -32,10 +32,10 @@ final class App {
     */
     public static function config()
     {
-        if (App::$config instanceof Zend_Config) {
+        if(App::$config instanceof Zend_Config) {
             return App::$config;
         } else {
-            throw new Zend_Exception ('Config object is not set');
+            throw new Zend_Exception('Config object is not set');
         }
     }
 
@@ -60,7 +60,7 @@ final class App {
     */
     public static function log($message, $type = 1)
     {
-        app::$log->log ($message, $type);
+        app::$log->log($message, $type);
         return;
     }
 
@@ -77,7 +77,7 @@ final class App {
     */
     public static function setConfig(Zend_Config $object)
     {
-        if (App::$config === null) {
+        if(App::$config === null) {
             App::$config = $object;
         }
     }
@@ -87,7 +87,7 @@ final class App {
     */
     public static function setLog(Zend_Log $object)
     {
-        if (App::$log === null) {
+        if(App::$log === null) {
             App::$log = $object;
         }
     }
@@ -98,8 +98,8 @@ final class App {
     public static function setTranslate(Zend_Translate $object)
     {
         App::$i18n = $object;
-        Zend_Validate_Abstract::setDefaultTranslator (App::$i18n);
-        Zend_Form::setDefaultTranslator (App::$i18n);
+        Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
+        Zend_Form::setDefaultTranslator(App::$i18n);
     }
 
     /**
@@ -107,7 +107,7 @@ final class App {
     */
     public static function setDb($object)
     {
-        if (App::$db === null) {
+        if(App::$db === null) {
             App::$db = $object;
         }
     }
@@ -117,7 +117,7 @@ final class App {
     */
     public static function setLocale($object)
     {
-        if (App::$locale === null) {
+        if(App::$locale === null) {
             App::$locale = $object;
         }
     }
@@ -125,7 +125,7 @@ final class App {
     /**
     * Base URL, with or without the index page.
     *
-    * If protocol (and core.site_protocol) and core.site_domain are both empty,
+    * If protocol(and core.site_protocol) and core.site_domain are both empty,
     * then
     *
     * @param boolean $ include the index page
@@ -134,21 +134,21 @@ final class App {
     */
     public static function baseUri($index = false, $protocol = false)
     {
-        if (! empty (app::$base_uri)) {
+        if(! empty(app::$base_uri)) {
             return app::$base_uri;
         }
-        if ($protocol == false) {
+        if($protocol == false) {
             // Guess the protocol to provide full http://domain/path URL
-            $base_url = ((empty ($_SERVER ['HTTPS']) or $_SERVER ['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER ['HTTP_HOST'];
+            $base_url =((empty($_SERVER ['HTTPS']) or $_SERVER ['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER ['HTTP_HOST'];
         } else {
             // Guess the server name if the domain starts with slash
             $base_url = $protocol . '://' . $_SERVER ['HTTP_HOST'];
         }
-        if ($index === true) {
+        if($index === true) {
             // Append the index page
             $base_url = $base_url . FRONT_CONTROLLER_FILE;
         }
-        app::$base_uri = rtrim ($base_url, '/') . '/';
+        app::$base_uri = rtrim($base_url, '/') . '/';
         // Force a slash on the end of the URL
         return app::$base_uri;
     }
@@ -167,9 +167,9 @@ final class App {
 */
 function __($text = '', $print = true)
 {
-    if ($print === true) {
-        echo App::$i18n->_ ($text);
+    if($print === true) {
+        echo App::$i18n->_($text);
     } else {
-        return App::$i18n->_ ($text);
+        return App::$i18n->_($text);
     }
 }

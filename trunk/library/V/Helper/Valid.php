@@ -6,7 +6,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Valid {
@@ -18,7 +18,7 @@ class V_Helper_Valid {
     */
     public static function email($email)
     {
-        return (bool) preg_match ('/^[-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+@(?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?$/iD', (string) $email);
+        return(bool) preg_match('/^[-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+@(?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?$/iD',(string) $email);
     }
 
     /**
@@ -32,10 +32,10 @@ class V_Helper_Valid {
     {
         // If we can't prove the domain is invalid, consider it valid
         // Note: checkdnsrr() is not implemented on Windows platforms
-        if (! function_exists ('checkdnsrr'))
+        if(! function_exists('checkdnsrr'))
             return true;
         // Check if the email domain has a valid MX record
-        return (bool) checkdnsrr (preg_replace ('/^[^@]+@/', '', $email), 'MX');
+        return(bool) checkdnsrr(preg_replace('/^[^@]+@/', '', $email), 'MX');
     }
 
     /**
@@ -61,7 +61,7 @@ class V_Helper_Valid {
         $domain = "$sub_domain(\\x2e$sub_domain)*";
         $local_part = "$word(\\x2e$word)*";
         $addr_spec = "$local_part\\x40$domain";
-        return (bool) preg_match ('/^' . $addr_spec . '$/D', (string) $email);
+        return(bool) preg_match('/^' . $addr_spec . '$/D',(string) $email);
     }
 
     /**
@@ -72,7 +72,7 @@ class V_Helper_Valid {
     */
     public static function url($url)
     {
-        return (bool) filter_var ($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED);
+        return(bool) filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED);
     }
 
     /**
@@ -87,11 +87,11 @@ class V_Helper_Valid {
     {
         // By default do not allow private and reserved range IPs
         $flags = FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
-        if ($allow_private === true)
+        if($allow_private === true)
             $flags = FILTER_FLAG_NO_RES_RANGE;
-        if ($ipv6 === true)
-            return (bool) filter_var ($ip, FILTER_VALIDATE_IP, $flags);
-        return (bool) filter_var ($ip, FILTER_VALIDATE_IP, $flags | FILTER_FLAG_IPV4);
+        if($ipv6 === true)
+            return(bool) filter_var($ip, FILTER_VALIDATE_IP, $flags);
+        return(bool) filter_var($ip, FILTER_VALIDATE_IP, $flags | FILTER_FLAG_IPV4);
     }
 
     /**
@@ -102,13 +102,13 @@ class V_Helper_Valid {
     */
     public static function phone($number, $lengths = null)
     {
-        if (! is_array($lengths)) {
+        if(! is_array($lengths)) {
             $lengths = array(7, 10, 11);
         }
         // Remove all non-digit characters from the number
-        $number = preg_replace ('/\D+/', '', $number);
+        $number = preg_replace('/\D+/', '', $number);
         // Check if the number is within range
-        return in_array(strlen ($number), $lengths);
+        return in_array(strlen($number), $lengths);
     }
 
     /**
@@ -119,7 +119,7 @@ class V_Helper_Valid {
     */
     public static function date($str)
     {
-        return (strtotime ($str) !== false);
+        return(strtotime($str) !== false);
     }
 
     /**
@@ -131,7 +131,7 @@ class V_Helper_Valid {
     */
     public static function alpha($str, $utf8 = false)
     {
-        return ($utf8 === true) ? (bool) preg_match ('/^\pL++$/uD', (string) $str) : ctype_alpha ((string) $str);
+        return($utf8 === true) ?(bool) preg_match('/^\pL++$/uD',(string) $str) : ctype_alpha((string) $str);
     }
 
     /**
@@ -143,7 +143,7 @@ class V_Helper_Valid {
     */
     public static function alpha_numeric($str, $utf8 = false)
     {
-        return ($utf8 === true) ? (bool) preg_match ('/^[\pL\pN]++$/uD', (string) $str) : ctype_alnum ((string) $str);
+        return($utf8 === true) ?(bool) preg_match('/^[\pL\pN]++$/uD',(string) $str) : ctype_alnum((string) $str);
     }
 
     /**
@@ -155,11 +155,11 @@ class V_Helper_Valid {
     */
     public static function alpha_dash($str, $utf8 = false)
     {
-        return ($utf8 === true) ? (bool) preg_match ('/^[-\pL\pN_]++$/uD', (string) $str) : (bool) preg_match ('/^[-a-z0-9_]++$/iD', (string) $str);
+        return($utf8 === true) ?(bool) preg_match('/^[-\pL\pN_]++$/uD',(string) $str) :(bool) preg_match('/^[-a-z0-9_]++$/iD',(string) $str);
     }
 
     /**
-    * Checks whether a string consists of digits only (no dots or dashes).
+    * Checks whether a string consists of digits only(no dots or dashes).
     *
     * @param string $ input string
     * @param boolean $ trigger UTF-8 compatibility
@@ -167,11 +167,11 @@ class V_Helper_Valid {
     */
     public static function digit($str, $utf8 = false)
     {
-        return ($utf8 === true) ? (bool) preg_match ('/^\pN++$/uD', (string) $str) : ctype_digit ((string) $str);
+        return($utf8 === true) ?(bool) preg_match('/^\pN++$/uD',(string) $str) : ctype_digit((string) $str);
     }
 
     /**
-    * Checks whether a string is a valid number (negative and decimal numbers allowed).
+    * Checks whether a string is a valid number(negative and decimal numbers allowed).
     *
     * @see Uses locale conversion to allow decimal point to be locale specific.
     * @see http://www.php.net/manual/en/function.localeconv.php
@@ -182,7 +182,7 @@ class V_Helper_Valid {
     {
         // Use localeconv to set the decimal_point value: Usually a comma or period.
         $locale = localeconv();
-        return (bool) preg_match ('/^-?[0-9' . $locale ['decimal_point'] . ']++$/D', (string) $str);
+        return(bool) preg_match('/^-?[0-9' . $locale ['decimal_point'] . ']++$/D',(string) $str);
     }
 
     /**
@@ -196,13 +196,13 @@ class V_Helper_Valid {
     {
         // Invalid by default
         $status = false;
-        if (is_int ($number) or ctype_digit ($number)) {
-            if (count ($range) > 1) {
-                if ($number >= $range [0] and $number <= $range [1]) {
+        if(is_int($number) or ctype_digit($number)) {
+            if(count($range) > 1) {
+                if($number >= $range [0] and $number <= $range [1]) {
                     // Number is within the required range
                     $status = true;
                 }
-            } elseif ($number >= $range [0]) {
+            } elseif($number >= $range [0]) {
                 // Number is greater than the minimum
                 $status = true;
             }
@@ -225,7 +225,7 @@ class V_Helper_Valid {
         // pPc matches underscores
         // pPd matches dashes
         // pPo matches normal puncuation
-        return (bool) preg_match ('/^[\pL\pN\pZ\p{Pc}\p{Pd}\p{Po}]++$/uD', (string) $str);
+        return(bool) preg_match('/^[\pL\pN\pZ\p{Pc}\p{Pd}\p{Po}]++$/uD',(string) $str);
     }
 
     /**
@@ -242,19 +242,19 @@ class V_Helper_Valid {
     {
         // Create the pattern
         $pattern = '/^[0-9]%s\.[0-9]%s$/';
-        if (! empty ($format)) {
-            if (count ($format) > 1) {
+        if(! empty($format)) {
+            if(count($format) > 1) {
                 // Use the format for number and decimal length
-                $pattern = sprintf ($pattern, '{' . $format [0] . '}', '{' . $format [1] . '}');
-            } elseif (count ($format) > 0) {
+                $pattern = sprintf($pattern, '{' . $format [0] . '}', '{' . $format [1] . '}');
+            } elseif(count($format) > 0) {
                 // Use the format as decimal length
-                $pattern = sprintf ($pattern, '+', '{' . $format [0] . '}');
+                $pattern = sprintf($pattern, '+', '{' . $format [0] . '}');
             }
         } else {
             // No format
-            $pattern = sprintf ($pattern, '+', '+');
+            $pattern = sprintf($pattern, '+', '+');
         }
-        return (bool) preg_match ($pattern, (string) $str);
+        return(bool) preg_match($pattern,(string) $str);
     }
 
     /**
@@ -268,6 +268,6 @@ class V_Helper_Valid {
     */
     public static function color($str)
     {
-        return (bool) preg_match ('/^#?+[0-9a-f]{3}(?:[0-9a-f]{3})?$/iD', $str);
+        return(bool) preg_match('/^#?+[0-9a-f]{3}(?:[0-9a-f]{3})?$/iD', $str);
     }
 } // End valid

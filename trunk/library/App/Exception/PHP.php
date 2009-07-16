@@ -5,7 +5,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 final class App_Exception_PHP extends App_Exception {
@@ -16,7 +16,7 @@ final class App_Exception_PHP extends App_Exception {
     */
     public static function enable()
     {
-        set_error_handler (array(__CLASS__, 'handle'));
+        set_error_handler(array(__CLASS__, 'handle'));
     }
 
     /**
@@ -36,7 +36,7 @@ final class App_Exception_PHP extends App_Exception {
     */
     public function __construct($code, $error, $file, $line, $context = null)
     {
-        parent::__construct ($error);
+        parent::__construct($error);
         // Set the error code, file, line, and context manually
         $this->code = $code;
         $this->file = $file;
@@ -51,12 +51,12 @@ final class App_Exception_PHP extends App_Exception {
     */
     public static function handle($code, $error = 0, $file = '', $line = 0, $context = null)
     {
-        if ((error_reporting() &$code) === 0) {
+        if((error_reporting() &$code) === 0) {
             // Respect error_reporting settings
             return;
         }
         // Create an exception
-        $exception = new App_Exception_PHP ($code, $error, $file, $line, $context);
+        $exception = new App_Exception_PHP($code, $error, $file, $line, $context);
         echo $exception;
         // Execution must halt
         exit();
