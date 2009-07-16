@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Download {
@@ -24,9 +24,9 @@ class V_Helper_Download {
     */
     public static function force($filename = null, $data = null, $nicename = null)
     {
-        if(empty($filename))
+        if (empty($filename))
             return false;
-        if(is_file($filename)) {
+        if (is_file($filename)) {
             // Get the real path
             $filepath = str_replace('\\', '/', realpath($filename));
             // Set filesize
@@ -45,18 +45,18 @@ class V_Helper_Download {
         }
         // Get the mime type of the file
         $mime = Kohana::config('mimes.' . $extension);
-        if(empty($mime)) {
+        if (empty($mime)) {
             // Set a default mime if none was found
             $mime = array('application/octet-stream');
         }
         // Generate the server headers
         header('Content-Type: ' . $mime [0]);
-        header('Content-Disposition: attachment; filename="' .(empty($nicename) ? $filename : $nicename) . '"');
+        header('Content-Disposition: attachment; filename="' . (empty($nicename) ? $filename : $nicename) . '"');
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . sprintf('%d', $filesize));
         // More caching prevention
         header('Expires: 0');
-        if(Kohana::user_agent('browser') === 'Internet Explorer') {
+        if (Kohana::user_agent('browser') === 'Internet Explorer') {
             // Send IE headers
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
             header('Pragma: public');
@@ -65,7 +65,7 @@ class V_Helper_Download {
             header('Pragma: no-cache');
         }
         ob_end_clean();
-        if(isset($filepath)) {
+        if (isset($filepath)) {
             // Open the file
             $handle = fopen($filepath, 'rb');
             // Send the file data

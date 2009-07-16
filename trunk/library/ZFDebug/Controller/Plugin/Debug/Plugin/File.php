@@ -104,7 +104,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         $html .= 'Basepath: ' . $this->_basePath . '<br />';
         $libraryFiles = array();
         foreach($this->_library as $key => $value) {
-            if('' != $value) {
+            if ('' != $value) {
                 $libraryFiles [$key] = '<h4>' . $value . ' Library Files</h4>';
             }
         }
@@ -113,12 +113,12 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
             $file = str_replace($this->_basePath, '', $file);
             $inUserLib = false;
             foreach($this->_library as $key => $library) {
-                if('' != $library && false !== strstr($file, $library)) {
+                if ('' != $library && false !== strstr($file, $library)) {
                     $libraryFiles [$key] .= $file . '<br />';
                     $inUserLib = true;
                 }
             }
-            if(! $inUserLib) {
+            if (! $inUserLib) {
                 $html .= $file . '<br />';
             }
         }
@@ -133,7 +133,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     */
     protected function _getIncludedFiles()
     {
-        if(null !== $this->_includedFiles) {
+        if (null !== $this->_includedFiles) {
             return $this->_includedFiles;
         }
         $this->_includedFiles = get_included_files();

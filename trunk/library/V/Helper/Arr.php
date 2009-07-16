@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_arr {
@@ -23,7 +23,7 @@ class V_Helper_arr {
     public static function callback_string($str)
     {
         // command[param,param]
-        if(preg_match('/([^\[]*+)\[(.+)\]/',(string) $str, $match)) {
+        if (preg_match('/([^\[]*+)\[(.+)\]/', (string) $str, $match)) {
             // command
             $command = $match [1];
             // param,param
@@ -44,14 +44,14 @@ class V_Helper_arr {
     *
     * @param array $ array to rotate
     * @param boolean $ keep the keys in the final rotated array. the sub arrays of the source array need to have the same key values.
-    *                       if your subkeys might not match, you need to pass FALSE here!
+    *                        if your subkeys might not match, you need to pass FALSE here!
     * @return array
     */
     public static function rotate($source_array, $keep_keys = true)
     {
         $new_array = array();
         foreach($source_array as $key => $value) {
-            $value =($keep_keys === true) ? $value : array_values($value);
+            $value = ($keep_keys === true) ? $value : array_values($value);
             foreach($value as $k => $v) {
                 $new_array [$k] [$key] = $v;
             }
@@ -68,7 +68,7 @@ class V_Helper_arr {
     */
     public static function remove($key, &$array)
     {
-        if(! array_key_exists($key, $array))
+        if (! array_key_exists($key, $array))
             return null;
         $val = $array [$key];
         unset($array [$key]);
@@ -90,7 +90,7 @@ class V_Helper_arr {
         $keys = array_slice(func_get_args(), 1);
         $found = array();
         foreach($keys as $key) {
-            if(isset($search [$key])) {
+            if (isset($search [$key])) {
                 $found [$key] = $search [$key];
             } else {
                 $found [$key] = null;
@@ -141,16 +141,16 @@ class V_Helper_arr {
     */
     public static function binary_search($needle, $haystack, $sort = false)
     {
-        if($sort) {
+        if ($sort) {
             sort($haystack);
         }
         $high = count($haystack) - 1;
         $low = 0;
-        while($low <= $high) {
-            $mid =($low + $high) >> 1;
-            if($haystack [$mid] < $needle) {
+        while ($low <= $high) {
+            $mid = ($low + $high) >> 1;
+            if ($haystack [$mid] < $needle) {
                 $low = $mid + 1;
-            } elseif($haystack [$mid] > $needle) {
+            } elseif ($haystack [$mid] > $needle) {
                 $high = $mid - 1;
             } else {
                 return $mid;
@@ -172,11 +172,11 @@ class V_Helper_arr {
         $result = array();
         for($i = 0; $i < $total; $i ++) {
             foreach(func_get_arg($i) as $key => $val) {
-                if(isset($result [$key])) {
-                    if(is_array($val)) {
+                if (isset($result [$key])) {
+                    if (is_array($val)) {
                         // Arrays are merged recursively
                         $result [$key] = V_Helper_arr::merge($result [$key], $val);
-                    } elseif(is_int($key)) {
+                    } elseif (is_int($key)) {
                         // Indexed arrays are appended
                         array_push($result, $val);
                     } else {
@@ -205,7 +205,7 @@ class V_Helper_arr {
         foreach(array_intersect_key($array2, $array1) as $key => $value) {
             $array1 [$key] = $value;
         }
-        if(func_num_args() > 2) {
+        if (func_num_args() > 2) {
             foreach(array_slice(func_get_args(), 2) as $array2) {
                 foreach(array_intersect_key($array2, $array1) as $key => $value) {
                     $array1 [$key] = $value;
@@ -224,7 +224,7 @@ class V_Helper_arr {
     */
     public static function range($step = 10, $max = 100)
     {
-        if($step < 1)
+        if ($step < 1)
             return array();
         $array = array();
         for($i = $step; $i <= $max; $i += $step) {
@@ -243,7 +243,7 @@ class V_Helper_arr {
     {
         $object = new $class();
         foreach($array as $key => $value) {
-            if(is_array($value)) {
+            if (is_array($value)) {
                 // Convert the array to an object
                 $value = V_Helper_arr::to_object($value, $class);
             }

@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class Site_Model_Site_Structure {
@@ -32,7 +32,7 @@ class Site_Model_Site_Structure {
         $tree = $this->getNavigationTree();
         $menu_data = array();
         foreach($tree as $leaf) {
-            if($leaf ["depth"] == 1) {
+            if ($leaf ["depth"] == 1) {
                 $menu_data [] = $leaf;
             }
         }

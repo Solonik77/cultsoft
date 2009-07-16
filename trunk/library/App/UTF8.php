@@ -24,10 +24,10 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
-* @copyright(c) 2007-2009 RS Team
-* @copyright(c) 2005 Harry Fuecks
+* @copyright (c) 2007-2009 RS Team
+* @copyright (c) 2005 Harry Fuecks
 * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
 */
 final class App_Utf8 {
@@ -42,10 +42,10 @@ final class App_Utf8 {
     public static function clean_globals()
     {
         static $run;
-        if($run === null) {
+        if ($run === null) {
             // Check PCRE support for Unicode properties such as \p and \X.
             $ER = error_reporting(0);
-            define('PCRE_UNICODE_PROPERTIES',(bool) preg_match('/^\pL$/u', 'n'));
+            define('PCRE_UNICODE_PROPERTIES', (bool) preg_match('/^\pL$/u', 'n'));
             error_reporting($ER);
             // Convert all global variables to UTF-8.
             $_GET = App_Utf8::clean($_GET);
@@ -67,15 +67,15 @@ final class App_Utf8 {
     */
     public static function clean($str)
     {
-        if(is_array($str) or is_object($str)) {
+        if (is_array($str) or is_object($str)) {
             foreach($str as $key => $val) {
                 // Recursion!
                 $str [self::clean($key)] = self::clean($val);
             }
-        } elseif(is_string($str) and $str !== '') {
+        } elseif (is_string($str) and $str !== '') {
             // Remove control characters
             $str = self::strip_ascii_ctrl($str);
-            if(! self::is_ascii($str)) {
+            if (! self::is_ascii($str)) {
                 // Disable notices
                 $ER = error_reporting(~ E_NOTICE);
                 // iconv is expensive, so it is only used when needed
@@ -131,7 +131,7 @@ final class App_Utf8 {
     */
     public static function transliterate_to_ascii($str, $case = 0)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -148,7 +148,7 @@ final class App_Utf8 {
     */
     public static function strlen($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -169,7 +169,7 @@ final class App_Utf8 {
     */
     public static function strpos($str, $search, $offset = 0)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -190,7 +190,7 @@ final class App_Utf8 {
     */
     public static function strrpos($str, $search, $offset = 0)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -210,7 +210,7 @@ final class App_Utf8 {
     */
     public static function substr($str, $offset, $length = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -230,7 +230,7 @@ final class App_Utf8 {
     */
     public static function substr_replace($str, $replacement, $offset, $length = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -248,7 +248,7 @@ final class App_Utf8 {
     */
     public static function strtolower($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -266,7 +266,7 @@ final class App_Utf8 {
     */
     public static function strtoupper($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -284,7 +284,7 @@ final class App_Utf8 {
     */
     public static function ucfirst($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -302,7 +302,7 @@ final class App_Utf8 {
     */
     public static function ucwords($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -323,7 +323,7 @@ final class App_Utf8 {
     */
     public static function strcasecmp($str1, $str2)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -347,7 +347,7 @@ final class App_Utf8 {
     */
     public static function str_ireplace($search, $replace, $str, &$count = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'V/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -368,7 +368,7 @@ final class App_Utf8 {
     */
     public static function stristr($str, $search)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -389,7 +389,7 @@ final class App_Utf8 {
     */
     public static function strspn($str, $mask, $offset = null, $length = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -410,7 +410,7 @@ final class App_Utf8 {
     */
     public static function strcspn($str, $mask, $offset = null, $length = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -431,7 +431,7 @@ final class App_Utf8 {
     */
     public static function str_pad($str, $final_str_length, $pad_str = ' ', $pad_type = STR_PAD_RIGHT)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -450,7 +450,7 @@ final class App_Utf8 {
     */
     public static function str_split($str, $split_length = 1)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -468,7 +468,7 @@ final class App_Utf8 {
     */
     public static function strrev($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -488,7 +488,7 @@ final class App_Utf8 {
     */
     public static function trim($str, $charlist = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -507,7 +507,7 @@ final class App_Utf8 {
     */
     public static function ltrim($str, $charlist = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -526,7 +526,7 @@ final class App_Utf8 {
     */
     public static function rtrim($str, $charlist = null)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -544,7 +544,7 @@ final class App_Utf8 {
     */
     public static function ord($chr)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -569,7 +569,7 @@ final class App_Utf8 {
     */
     public static function to_unicode($str)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;
@@ -594,7 +594,7 @@ final class App_Utf8 {
     */
     public static function from_unicode($arr)
     {
-        if(! isset(self::$called [__FUNCTION__])) {
+        if (! isset(self::$called [__FUNCTION__])) {
             require LIBRARY_PATH . 'App/UTF8/' . __FUNCTION__ . '.php';
             // Function has been called
             self::$called [__FUNCTION__] = true;

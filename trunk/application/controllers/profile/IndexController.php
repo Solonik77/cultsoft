@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class Profile_IndexController extends App_Controller_Action {
@@ -21,26 +21,26 @@ class Profile_IndexController extends App_Controller_Action {
     */
     public function signinAction()
     {
-        if(App_Member::isAuth()) {
+        if (App_Member::isAuth()) {
             $this->view->form = __('You are already logged.');
         } else {
             $form = new Site_Form_Signin();
-            if($this->getRequest()->isPost()) {
+            if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
                 $form->populate($formData);
-                if(! $form->isValid($_POST)) {
+                if (! $form->isValid($_POST)) {
                     $this->view->form = $form;
                     return $this->render();
                 } else {
                     $authAdapter = $this->_getAuthAdapter($formData ['member_email'], $formData ['member_password']);
                     $result = App_Member::getAuth()->authenticate($authAdapter);
-                    if(! $result->isValid()) {
+                    if (! $result->isValid()) {
                         $form->addDecorator('Description', array('escape' => true, 'placement' => 'prepend'));
                         $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
                     } else {
                         App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(array('id', 'email')));
-                        if(isset($formData ['remember_me'])) {
+                        if (isset($formData ['remember_me'])) {
                             Zend_Session::rememberMe(3600 * 24 * 14);
                         }
                         $this->_redirect('admin');

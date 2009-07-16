@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Num {

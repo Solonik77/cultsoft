@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 abstract class App_Controller_Action extends Zend_Controller_Action {
@@ -28,7 +28,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         // Create container from array
         $container = new Zend_Navigation($site_pages->getTopMenu());
         $this->view->navigation($container);
-        if($this->getRequest()->isXmlHttpRequest()) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
             Zend_Layout::disableLayout();
             Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');

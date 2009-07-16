@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Acl extends Zend_Acl {
@@ -16,14 +16,14 @@ class App_Acl extends Zend_Acl {
     */
     public function __construct()
     {
-        if(App_Acl::$instance === null) {
+        if (App_Acl::$instance === null) {
             $acl = App_Cache::getInstance()->getAclRoles();
             $res = current($acl);
             $resources = array();
-            if($res) {
+            if ($res) {
                 foreach($res as $key => $value) {
-                    if((strlen($key) > 4) and(substr($key, 0, 4) == 'res_')) {
-                        $resources [substr($key, 4)] =(bool) $value;
+                    if ((strlen($key) > 4) and(substr($key, 0, 4) == 'res_')) {
+                        $resources [substr($key, 4)] = (bool) $value;
                         $this->add(new Zend_Acl_Resource(substr($key, 4)));
                     }
                 }
@@ -31,13 +31,13 @@ class App_Acl extends Zend_Acl {
             foreach($acl as $role) {
                 $this->addRole(new Zend_Acl_Role($role ['role']));
                 foreach($resources as $key => $value) {
-                    if($role ['role'] == 'guest') {
+                    if ($role ['role'] == 'guest') {
                         $value = false;
                     }
-                    if($role ['role'] == 'administrator') {
+                    if ($role ['role'] == 'administrator') {
                         $value = true;
                     }
-                    if($value) {
+                    if ($value) {
                         $this->allow($role ['role'], $key);
                     } else {
                         $acl->deny($role ['role'], $key);
@@ -50,7 +50,7 @@ class App_Acl extends Zend_Acl {
 
     public static function getInstance()
     {
-        if(App_Acl::$instance == null) {
+        if (App_Acl::$instance == null) {
             // Create a new instance
             new App_Acl();
         }

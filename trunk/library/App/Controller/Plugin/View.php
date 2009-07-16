@@ -5,7 +5,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
@@ -28,7 +28,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             $this->_initViewRenderer();
             $this->_initZendLayout($request);
             $this->_loadDefaultTemplateResources();
-            if($this->_isBackofficeController) {
+            if ($this->_isBackofficeController) {
                 $this->_loadAdminTemplateResources();
             } else {
                 $this->_loadSiteTemplateResources();
@@ -45,7 +45,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     {
         $this->_isBackofficeController = false;
         $this->_templatePath = APPLICATION_PATH . 'resources/views/' . App::config()->project->template . '/';
-        if(Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
+        if (Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
             $this->_templatePath = STATIC_PATH . 'system/admin/';
         }
@@ -68,11 +68,11 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
     private function _initZendLayout(Zend_Controller_Request_Abstract $request)
     {
-        $layout = Zend_Layout::startMvc(array('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' =>('development' === APPLICATION_ENV)));
-        if(! $this->_isBackofficeController) {
-            if($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($this->_templatePath . 'layouts/homepage.phtml')) {
+        $layout = Zend_Layout::startMvc(array('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
+        if (! $this->_isBackofficeController) {
+            if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($this->_templatePath . 'layouts/homepage.phtml')) {
                 $layout->setLayout('homepage');
-            } else if(file_exists($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
+            } else if (file_exists($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
                 $layout->setLayout($request->getModuleName());
             }
         }
@@ -110,6 +110,6 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private function _declareDefaultVars()
     {
         $requestLang = App::Front()->getParam('requestLang');
-        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
+        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
     }
 }

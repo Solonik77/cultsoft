@@ -6,7 +6,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Mail {
@@ -21,26 +21,26 @@ class App_Mail {
     public static function send($to, $subject, $message, $html = false, $from = null)
     {
         // Connect to Zend_Mail
-       (self::$mail === null) and App_Mail::connect();
+        (self::$mail === null) and App_Mail::connect();
         try {
-            if(is_string($to)) {
+            if (is_string($to)) {
                 App_Mail::$mail->addTo($to);
-            } else if(is_array($to) and count($to) == 2) {
+            } else if (is_array($to) and count($to) == 2) {
                 App_Mail::$mail->addTo($to [0], $to [1]);
                 $to = $to [0];
             }
-            if($from === null) {
+            if ($from === null) {
                 $requestLang = App::Front()->getParam('requestLang');
                 $from = array(App::config()->project->email, App::config()->project->title->$requestLang);
             }
-            if(is_string($from)) {
+            if (is_string($from)) {
                 App_Mail::$mail->setFrom($from);
-            } else if(is_array($from) and count($from) == 2) {
+            } else if (is_array($from) and count($from) == 2) {
                 App_Mail::$mail->setFrom($from [0], $from [1]);
                 $from = $from [0];
             }
             App_Mail::$mail->setSubject($subject);
-           ($html) ? App_Mail::$mail->setBodyHtml($message) : App_Mail::$mail->setBodyText($message);
+            ($html) ? App_Mail::$mail->setBodyHtml($message) : App_Mail::$mail->setBodyText($message);
             App_Mail::$mail->send();
             return true;
         }
@@ -78,16 +78,16 @@ class App_Mail {
     */
     public static function setDefaultTransport(array $config = array())
     {
-        if(! isset($config ['transport'])) {
+        if (! isset($config ['transport'])) {
             throw new App_Exception('Default email transport is not set.');
         } else {
             $config ['transport'] = strtolower($config ['transport']);
         }
-        switch($config ['transport']) {
+        switch ($config ['transport']) {
             case 'smtp' :
                 $config ['port'] = intval($config ['port']);
                 $config ['auth'] = strtolower($config ['auth']);
-                if(! empty($config ['auth']) and ! in_array($config ['auth'], array('crammd5', 'login', 'plain'))) {
+                if (! empty($config ['auth']) and ! in_array($config ['auth'], array('crammd5', 'login', 'plain'))) {
                     throw new App_Exception('Wrong auth parameter for smtp connection.');
                 }
                 App_Mail::$transport = new Zend_Mail_Transport_Smtp($config ['host'], $config);

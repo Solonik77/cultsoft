@@ -6,7 +6,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Input {
@@ -29,7 +29,7 @@ class App_Input {
     */
     public static function instance()
     {
-        if(App_Input::$instance === null) {
+        if (App_Input::$instance === null) {
             // Create a new instance
             return new App_Input();
         }
@@ -45,21 +45,21 @@ class App_Input {
     public function __construct()
     {
         // Use XSS clean?
-        $this->use_xss_clean =(bool) true;
-        if(App_Input::$instance === null) {
+        $this->use_xss_clean = (bool) true;
+        if (App_Input::$instance === null) {
             // magic_quotes_runtime is enabled
-            if((function_exists('get_magic_quotes_runtime')) AND(get_magic_quotes_runtime())) {
+            if ((function_exists('get_magic_quotes_runtime')) AND(get_magic_quotes_runtime())) {
                 set_magic_quotes_runtime(0);
                 App::log('Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // magic_quotes_gpc is enabled
-            if((function_exists('get_magic_quotes_gpc')) AND(get_magic_quotes_gpc())) {
+            if ((function_exists('get_magic_quotes_gpc')) AND(get_magic_quotes_gpc())) {
                 $this->magic_quotes_gpc = true;
                 App::log('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // register_globals is enabled
-            if(ini_get('register_globals')) {
-                if(isset($_REQUEST ['GLOBALS'])) {
+            if (ini_get('register_globals')) {
+                if (isset($_REQUEST ['GLOBALS'])) {
                     // Prevent GLOBALS override attacks
                     exit('Global variable overload attack.');
                 }
@@ -80,13 +80,13 @@ class App_Input {
             // Disable notices and "strict" errors
             $ER = error_reporting(~ E_NOTICE &~ E_STRICT);
             // Set the user agent
-            $this->user_agent =(! empty($_SERVER ['HTTP_USER_AGENT']) ? trim($_SERVER ['HTTP_USER_AGENT']) : '');
-            if(app_utf8::strlen($this->user_agent) > 255) {
+            $this->user_agent = (! empty($_SERVER ['HTTP_USER_AGENT']) ? trim($_SERVER ['HTTP_USER_AGENT']) : '');
+            if (app_utf8::strlen($this->user_agent) > 255) {
                 $this->user_agent = app_utf8::substr($this->user_agent, 0, 255);
             }
             // Restore error reporting
             error_reporting($ER);
-            if(is_array($_GET)) {
+            if (is_array($_GET)) {
                 foreach($_GET as $key => $val) {
                     // Sanitize $_GET
                     $_GET [$this->clean_input_keys($key)] = $this->clean_input_data($val);
@@ -94,7 +94,7 @@ class App_Input {
             } else {
                 $_GET = array();
             }
-            if(is_array($_POST)) {
+            if (is_array($_POST)) {
                 foreach($_POST as $key => $val) {
                     // Sanitize $_POST
                     $_POST [$this->clean_input_keys($key)] = $this->clean_input_data($val);
@@ -102,10 +102,10 @@ class App_Input {
             } else {
                 $_POST = array();
             }
-            if(is_array($_COOKIE)) {
+            if (is_array($_COOKIE)) {
                 foreach($_COOKIE as $key => $val) {
                     // Ignore special attributes in RFC2109 compliant cookies
-                    if($key == '$Version' or $key == '$Path' or $key == '$Domain')
+                    if ($key == '$Version' or $key == '$Path' or $key == '$Domain')
                         continue;
                     // Sanitize $_COOKIE
                     $_COOKIE [$this->clean_input_keys($key)] = $this->clean_input_data($val);
@@ -182,13 +182,13 @@ class App_Input {
     */
     protected function search_array($array, $key, $default = null, $xss_clean = false)
     {
-        if($key === array())
+        if ($key === array())
             return $array;
-        if(! isset($array [$key]))
+        if (! isset($array [$key]))
             return $default;
         // Get the value
         $value = $array [$key];
-        if($this->use_xss_clean === false and $xss_clean === true) {
+        if ($this->use_xss_clean === false and $xss_clean === true) {
             // XSS clean the value
             $value = $this->xss_clean($value);
         }
@@ -202,21 +202,21 @@ class App_Input {
     */
     public function ip_address()
     {
-        if($this->ip_address !== null)
+        if ($this->ip_address !== null)
             return $this->ip_address;
         // Server keys that could contain the client IP address
         $keys = array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
         foreach($keys as $key) {
-            if($ip = $this->server($key)) {
+            if ($ip = $this->server($key)) {
                 $this->ip_address = $ip;
                 // An IP address has been found
                 break;
             }
         }
-        if($comma = strrpos($this->ip_address, ',') !== false) {
+        if ($comma = strrpos($this->ip_address, ',') !== false) {
             $this->ip_address = substr($this->ip_address, $comma + 1);
         }
-        if(! V_Helper_Valid::ip($this->ip_address)) {
+        if (! V_Helper_Valid::ip($this->ip_address)) {
             // Use an empty IP
             $this->ip_address = '0.0.0.0';
         }
@@ -246,23 +246,23 @@ class App_Input {
     */
     public function xss_clean($data, $tool = null)
     {
-        if($tool === null) {
+        if ($tool === null) {
             // Use the default tool
             $tool = 'default';
         }
-        if(is_array($data)) {
+        if (is_array($data)) {
             foreach($data as $key => $val) {
                 $data [$key] = $this->xss_clean($val, $tool);
             }
             return $data;
         }
         // Do not clean empty strings
-        if(trim($data) === '') {
+        if (trim($data) === '') {
             return $data;
         }
-        if($tool === true) {
+        if ($tool === true) {
             $tool = 'default';
-        } elseif($tool == ! method_exists($this, 'xss_filter_' . $tool)) {
+        } elseif ($tool == ! method_exists($this, 'xss_filter_' . $tool)) {
             App::log('Unable to use Input::xss_filter_' . $tool . '(), no such method exists', Zend_Log::ERR);
             $tool = 'default';
         }
@@ -326,7 +326,7 @@ class App_Input {
             // Remove really unwanted tags
             $old_data = $data;
             $data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
-        } while($old_data !== $data);
+        } while ($old_data !== $data);
         return $data;
     }
 
@@ -344,7 +344,7 @@ class App_Input {
         *
         * @todo License should go here, http://htmlpurifier.org/
         */
-        if(! class_exists('HTMLPurifier_Config', false)) {
+        if (! class_exists('HTMLPurifier_Config', false)) {
             // Load HTMLPurifier
             require 'HTMLPurifier/HTMLPurifier.auto.php';
             require 'HTMLPurifier.func.php';
@@ -367,7 +367,7 @@ class App_Input {
     public function clean_input_keys($str)
     {
         $chars = PCRE_UNICODE_PROPERTIES ? '\pL' : 'a-zA-Z';
-        if(! preg_match('#^[' . $chars . '0-9:_.-]++$#uD', $str)) {
+        if (! preg_match('#^[' . $chars . '0-9:_.-]++$#uD', $str)) {
             exit('Disallowed key characters in global data.');
         }
         return $str;
@@ -382,7 +382,7 @@ class App_Input {
     */
     public function clean_input_data($str)
     {
-        if(is_array($str)) {
+        if (is_array($str)) {
             $new_array = array();
             foreach($str as $key => $val) {
                 // Recursion!
@@ -390,14 +390,14 @@ class App_Input {
             }
             return $new_array;
         }
-        if($this->magic_quotes_gpc === true) {
+        if ($this->magic_quotes_gpc === true) {
             // Remove annoying magic quotes
             $str = stripslashes($str);
         }
-        if($this->use_xss_clean === true) {
+        if ($this->use_xss_clean === true) {
             $str = $this->xss_clean($str);
         }
-        if(strpos($str, "\r") !== false) {
+        if (strpos($str, "\r") !== false) {
             // Standardize newlines
             $str = str_replace(array("\r\n", "\r"), "\n", $str);
         }

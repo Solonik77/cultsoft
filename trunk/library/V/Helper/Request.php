@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Request {
@@ -26,10 +26,10 @@ class V_Helper_Request {
     */
     public static function referrer($default = false)
     {
-        if(! empty($_SERVER ['HTTP_REFERER'])) {
+        if (! empty($_SERVER ['HTTP_REFERER'])) {
             // Set referrer
             $ref = $_SERVER ['HTTP_REFERER'];
-            if(strpos($ref, V_Helper_url::base(false)) === 0) {
+            if (strpos($ref, V_Helper_url::base(false)) === 0) {
                 // Remove the base URL from the referrer
                 $ref = substr($ref, strlen(V_Helper_url::base(false)));
             }
@@ -45,9 +45,9 @@ class V_Helper_Request {
     */
     public static function protocol()
     {
-        if(PHP_SAPI === 'cli') {
+        if (PHP_SAPI === 'cli') {
             return null;
-        } elseif(! empty($_SERVER ['HTTPS']) and $_SERVER ['HTTPS'] === 'on') {
+        } elseif (! empty($_SERVER ['HTTPS']) and $_SERVER ['HTTPS'] === 'on') {
             return 'https';
         } else {
             return 'http';
@@ -74,7 +74,7 @@ class V_Helper_Request {
     public static function method()
     {
         $method = strtolower($_SERVER ['REQUEST_METHOD']);
-        if(! in_array($method, V_Helper_Request::$http_methods))
+        if (! in_array($method, V_Helper_Request::$http_methods))
             throw new App_Exception('Unknown request method: ' . $method);
         return $method;
     }
@@ -89,7 +89,7 @@ class V_Helper_Request {
     public static function accepts($type = null, $explicit_check = false)
     {
         V_Helper_Request::parse_accept_header();
-        if($type === null)
+        if ($type === null)
             return V_Helper_Request::$accept_types;
         return(V_Helper_Request::accepts_at_quality($type, $explicit_check) > 0);
     }
@@ -115,7 +115,7 @@ class V_Helper_Request {
         }
         // Look for the highest q value
         foreach($mime_types as $type => $q) {
-            if($q > $max_q) {
+            if ($q > $max_q) {
                 $max_q = $q;
                 $preferred = $type;
             }
@@ -136,26 +136,26 @@ class V_Helper_Request {
         // Normalize type
         $type = strtolower((string) $type);
         // General content type(e.g. "jpg")
-        if(strpos($type, '/') === false) {
+        if (strpos($type, '/') === false) {
             // Don't accept anything by default
             $q = 0;
             // Look up relevant mime types
             foreach((array) Kohana::config('mimes.' . $type) as $type) {
                 $q2 = V_Helper_Request::accepts_at_quality($type, $explicit_check);
-                $q =($q2 > $q) ? $q2 : $q;
+                $q = ($q2 > $q) ? $q2 : $q;
             }
             return $q;
         }
         // Content type with subtype given(e.g. "image/jpg")
         $type = explode('/', $type, 2);
         // Exact match
-        if(isset(V_Helper_Request::$accept_types [$type [0]] [$type [1]]))
+        if (isset(V_Helper_Request::$accept_types [$type [0]] [$type [1]]))
             return V_Helper_Request::$accept_types [$type [0]] [$type [1]];
         // Wildcard match(if not checking explicitly)
-        if($explicit_check === false and isset(V_Helper_Request::$accept_types [$type [0]] ['*']))
+        if ($explicit_check === false and isset(V_Helper_Request::$accept_types [$type [0]] ['*']))
             return V_Helper_Request::$accept_types [$type [0]] ['*'];
         // Catch-all wildcard match(if not checking explicitly)
-        if($explicit_check === false and isset(V_Helper_Request::$accept_types ['*'] ['*']))
+        if ($explicit_check === false and isset(V_Helper_Request::$accept_types ['*'] ['*']))
             return V_Helper_Request::$accept_types ['*'] ['*'];
         // Content type not accepted
         return 0;
@@ -169,12 +169,12 @@ class V_Helper_Request {
     protected static function parse_accept_header()
     {
         // Run this function just once
-        if(V_Helper_Request::$accept_types !== null)
+        if (V_Helper_Request::$accept_types !== null)
             return;
         // Initialize accept_types array
         V_Helper_Request::$accept_types = array();
         // No HTTP Accept header found
-        if(empty($_SERVER ['HTTP_ACCEPT'])) {
+        if (empty($_SERVER ['HTTP_ACCEPT'])) {
             // Accept everything
             V_Helper_Request::$accept_types ['*'] ['*'] = 1;
             return;
@@ -186,12 +186,12 @@ class V_Helper_Request {
             // Explode each content type(e.g. "text/html")
             $type = explode('/', $accept_entry [0], 2);
             // Skip invalid content types
-            if(! isset($type [1]))
+            if (! isset($type [1]))
                 continue;
             // Assume a default quality factor of 1 if no custom q value found
-            $q =(isset($accept_entry [1]) and preg_match('~\bq\s*+=\s*+([.0-9]+)~', $accept_entry [1], $match)) ?(float) $match [1] : 1;
+            $q = (isset($accept_entry [1]) and preg_match('~\bq\s*+=\s*+([.0-9]+)~', $accept_entry [1], $match)) ?(float) $match [1] : 1;
             // Populate accept_types array
-            if(! isset(V_Helper_Request::$accept_types [$type [0]] [$type [1]]) or $q > V_Helper_Request::$accept_types [$type [0]] [$type [1]]) {
+            if (! isset(V_Helper_Request::$accept_types [$type [0]] [$type [1]]) or $q > V_Helper_Request::$accept_types [$type [0]] [$type [1]]) {
                 V_Helper_Request::$accept_types [$type [0]] [$type [1]] = $q;
             }
         }
