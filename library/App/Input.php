@@ -48,14 +48,14 @@ class App_Input {
         $this->use_xss_clean = (bool) true;
         if (App_Input::$instance === null) {
             // magic_quotes_runtime is enabled
-            if (get_magic_quotes_runtime ()) {
+            if ((function_exists('get_magic_quotes_runtime')) AND (get_magic_quotes_runtime ())) {
                 set_magic_quotes_runtime (0);
-                App::Log ('Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
+                App::log ('Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // magic_quotes_gpc is enabled
-            if (get_magic_quotes_gpc ()) {
+            if ((function_exists('get_magic_quotes_gpc')) AND (get_magic_quotes_gpc ())) {
                 $this->magic_quotes_gpc = true;
-                App::Log ('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
+                App::log ('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // register_globals is enabled
             if (ini_get ('register_globals')) {
@@ -75,7 +75,7 @@ class App_Input {
                     unset ($GLOBALS [$key], $$key);
                 }
                 // Warn the developer about register globals
-                App::Log ('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
+                App::log ('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // Disable notices and "strict" errors
             $ER = error_reporting (~ E_NOTICE &~ E_STRICT);
@@ -115,7 +115,7 @@ class App_Input {
             }
             // Create a singleton
             App_Input::$instance = $this;
-            App::Log ('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
+            App::log ('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
         }
     }
 
@@ -263,7 +263,7 @@ class App_Input {
         if ($tool === true) {
             $tool = 'default';
         } elseif ($tool == ! method_exists ($this, 'xss_filter_' . $tool)) {
-            App::Log ('Unable to use Input::xss_filter_' . $tool . '(), no such method exists', Zend_Log::ERR);
+            App::log ('Unable to use Input::xss_filter_' . $tool . '(), no such method exists', Zend_Log::ERR);
             $tool = 'default';
         }
         $method = 'xss_filter_' . $tool;

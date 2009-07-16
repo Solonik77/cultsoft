@@ -2,7 +2,7 @@
 /**
 * Default system errors controller.
 * This controller used for view system error
-*      information pages in development environment and simple warnings in production.
+*       information pages in development environment and simple warnings in production.
 *
 * @package Core
 * @author Denysenko Dmytro
