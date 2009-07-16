@@ -52,7 +52,7 @@ class V_Helper_File {
             // Return the mime type using mime_content_type
             return mime_content_type ($filename);
         }
-        if (! app::isWin ()) {
+        if (! app::isWin()) {
             // Attempt to locate use the file command, checking the return value
             if ($command = trim (exec ('which file', $output, $return)) and $return === 0) {
                 return trim (exec ($command . ' -bi ' . escapeshellarg ($filename)));
@@ -170,9 +170,9 @@ class V_Helper_File {
     public static function isDirWriteable($dir)
     {
         if (is_dir ($dir) && is_writable ($dir)) {
-            if (! App::isWin ()) {
+            if (! App::isWin()) {
                 $dir = ltrim ($dir, DIRECTORY_SEPARATOR);
-                $file = $dir . DIRECTORY_SEPARATOR . uniqid (mt_rand ()) . '.tmp';
+                $file = $dir . DIRECTORY_SEPARATOR . uniqid (mt_rand()) . '.tmp';
                 $exist = file_exists ($file);
                 $fp = @fopen ($file, 'a');
                 if ($fp === false) {
