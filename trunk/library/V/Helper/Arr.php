@@ -44,7 +44,7 @@ class V_Helper_arr {
     *
     * @param array $ array to rotate
     * @param boolean $ keep the keys in the final rotated array. the sub arrays of the source array need to have the same key values.
-    *                      if your subkeys might not match, you need to pass FALSE here!
+    *                       if your subkeys might not match, you need to pass FALSE here!
     * @return array
     */
     public static function rotate($source_array, $keep_keys = true)
