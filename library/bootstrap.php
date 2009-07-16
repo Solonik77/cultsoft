@@ -273,8 +273,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             if (null === $front->getControllerDirectory ($default)) {
                 throw new App_Exception ('No default controller directory registered with front controller');
             }
-            $front->setParam ('bootstrap', $this)->setParam ('prefixDefaultModule', true);
-            $front->returnResponse (true);
+            $front->setParam('bootstrap', $this)->setParam ('prefixDefaultModule', true);
+            $front->returnResponse(true);
             $response = App::front()->dispatch();
             $response->setHeader ('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader ('Last-Modified', gmdate ('D, d M Y H:i:s') . ' GMT')->setHeader ('Cache-Control', 'no-cache, must-revalidate')->setHeader ('Cache-Control', 'post-check=0,pre-check=0')->setHeader ('Cache-Control', 'max-age=0')->setHeader ('Pragma', 'no-cache')->setHeader ('Content-type', 'text/html; charset=' . App::config()->locale->charset);
             if ($level = 9 and ini_get ('output_handler') !== 'ob_gzhandler' and (int) ini_get ('zlib.output_compression') === 0) {
@@ -293,7 +293,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 switch ($compress) {
                     case 'gzip' :
                         // Compress output using gzip
-                        $response->setBody (gzencode ($response->getBody(), $level));
+                        $response->setBody(gzencode ($response->getBody(), $level));
                         break;
                     case 'deflate' :
                         // Compress output using zlib (HTTP deflate)
@@ -311,6 +311,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 }
             }
             $response->sendResponse();
+            exit;
         }
         catch (Exception $e) {
             throw new App_Exception ($e->getMessage());
