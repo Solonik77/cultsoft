@@ -102,13 +102,13 @@ class V_Helper_Valid {
     */
     public static function phone($number, $lengths = null)
     {
-        if (! is_array ($lengths)) {
-            $lengths = array (7, 10, 11);
+        if (! is_array($lengths)) {
+            $lengths = array(7, 10, 11);
         }
         // Remove all non-digit characters from the number
         $number = preg_replace ('/\D+/', '', $number);
         // Check if the number is within range
-        return in_array (strlen ($number), $lengths);
+        return in_array(strlen ($number), $lengths);
     }
 
     /**

@@ -35,11 +35,11 @@ class Profile_IndexController extends App_Controller_Action {
                     $authAdapter = $this->_getAuthAdapter ($formData ['member_email'], $formData ['member_password']);
                     $result = App_Member::getAuth()->authenticate ($authAdapter);
                     if (! $result->isValid()) {
-                        $form->addDecorator ('Description', array ('escape' => true, 'placement' => 'prepend'));
+                        $form->addDecorator ('Description', array('escape' => true, 'placement' => 'prepend'));
                         $form->setDescription ('Wrong email or password');
                         $this->view->form = $form;
                     } else {
-                        App_Member::getAuth()->getStorage()->write ($authAdapter->getResultRowObject (array ('id', 'email')));
+                        App_Member::getAuth()->getStorage()->write ($authAdapter->getResultRowObject (array('id', 'email')));
                         if (isset ($formData ['remember_me'])) {
                             Zend_Session::rememberMe (3600 * 24 * 14);
                         }

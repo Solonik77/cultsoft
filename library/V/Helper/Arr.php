@@ -35,7 +35,7 @@ class V_Helper_arr {
             // No params
             $params = null;
         }
-        return array ($command, $params);
+        return array($command, $params);
     }
 
     /**
@@ -127,7 +127,7 @@ class V_Helper_arr {
     {
         foreach ($array as $key => $val) {
             // Map the callback to the key
-            $array [$key] = is_array ($val) ? V_Helper_arr::map_recursive ($callback, $val) : call_user_func ($callback, $val);
+            $array [$key] = is_array($val) ? V_Helper_arr::map_recursive ($callback, $val) : call_user_func ($callback, $val);
         }
         return $array;
     }
@@ -173,7 +173,7 @@ class V_Helper_arr {
         for($i = 0; $i < $total; $i ++) {
             foreach (func_get_arg ($i) as $key => $val) {
                 if (isset ($result [$key])) {
-                    if (is_array ($val)) {
+                    if (is_array($val)) {
                         // Arrays are merged recursively
                         $result [$key] = V_Helper_arr::merge ($result [$key], $val);
                     } elseif (is_int ($key)) {
@@ -243,7 +243,7 @@ class V_Helper_arr {
     {
         $object = new $class();
         foreach ($array as $key => $value) {
-            if (is_array ($value)) {
+            if (is_array($value)) {
                 // Convert the array to an object
                 $value = V_Helper_arr::to_object ($value, $class);
             }

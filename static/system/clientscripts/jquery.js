@@ -2132,7 +2132,7 @@ if ( document.documentElement.compareDocumentPosition ) {
 (function(){
 	// We're going to inject a fake input element with a specified name
 	var form = document.createElement("form"),
-		id = "script" + (new Date).getTime();
+		id = "script" +(new Date).getTime();
 	form.innerHTML = "<input name='" + id + "'/>";
 
 	// Inject it into the root element, check its status, and remove it quickly
@@ -3116,7 +3116,7 @@ jQuery( window ).bind( 'unload', function(){
 	var root = document.documentElement,
 		script = document.createElement("script"),
 		div = document.createElement("div"),
-		id = "script" + (new Date).getTime();
+		id = "script" +(new Date).getTime();
 
 	div.style.display = "none";
 	div.innerHTML = '   <link/><table></table><a href="/a" style="color:red;float:left;opacity:.5;">a</a><select><option>text</option></select><object><param/></object>';

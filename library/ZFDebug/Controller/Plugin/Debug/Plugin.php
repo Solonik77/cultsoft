@@ -26,7 +26,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin {
     */
     protected function _cleanData($values)
     {
-        if (is_array ($values))
+        if (is_array($values))
             ksort ($values);
         $retVal = '<div class="pre">';
         foreach ($values as $key => $value) {
@@ -35,7 +35,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin {
                 $retVal .= $key . ' => ' . $value . '<br>';
             } else if (is_string ($value)) {
                 $retVal .= $key . ' => \'' . htmlspecialchars ($value) . '\'<br>';
-            } else if (is_array ($value)) {
+            } else if (is_array($value)) {
                 $retVal .= $key . ' => ' . self::_cleanData ($value);
             } else if (is_object ($value)) {
                 $retVal .= $key . ' => ' . get_class ($value) . ' Object()<br>';

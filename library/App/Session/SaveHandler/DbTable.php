@@ -99,9 +99,9 @@ class App_Session_SaveHandler_DbTable extends Zend_Session_SaveHandler_DbTable {
     {
         $return = false;
 
-        $data = array ($this->_userAgentColumn => $this->_app_input->user_agent(), $this->_modifiedColumn => time(), $this->_dataColumn => (string) $data);
+        $data = array($this->_userAgentColumn => $this->_app_input->user_agent(), $this->_modifiedColumn => time(), $this->_dataColumn => (string) $data);
 
-        $rows = call_user_func_array (array (&$this, 'find'), $this->_getPrimary ($id));
+        $rows = call_user_func_array(array(&$this, 'find'), $this->_getPrimary ($id));
 
         if (count ($rows)) {
             $data [$this->_lifetimeColumn] = $this->_getLifetime ($rows->current());

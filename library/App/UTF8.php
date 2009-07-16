@@ -45,7 +45,7 @@ final class App_Utf8 {
         if ($run === null) {
             // Check PCRE support for Unicode properties such as \p and \X.
             $ER = error_reporting (0);
-            define ('PCRE_UNICODE_PROPERTIES', (bool) preg_match ('/^\pL$/u', 'n'));
+            define('PCRE_UNICODE_PROPERTIES', (bool) preg_match ('/^\pL$/u', 'n'));
             error_reporting ($ER);
             // Convert all global variables to UTF-8.
             $_GET = App_Utf8::clean ($_GET);
@@ -67,7 +67,7 @@ final class App_Utf8 {
     */
     public static function clean($str)
     {
-        if (is_array ($str) or is_object ($str)) {
+        if (is_array($str) or is_object ($str)) {
             foreach ($str as $key => $val) {
                 // Recursion!
                 $str [self::clean ($key)] = self::clean ($val);

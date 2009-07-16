@@ -48,7 +48,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
     */
     public function __construct()
     {
-        set_error_handler (array ($this, 'errorHandler'));
+        set_error_handler (array($this, 'errorHandler'));
     }
 
     /**
@@ -141,7 +141,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
                 $type = 'Unknown, ' . $level;
                 break;
         }
-        self::$errors [] = array ('type' => $type, 'message' => $message, 'file' => $file, 'line' => $line);
+        self::$errors [] = array('type' => $type, 'message' => $message, 'file' => $file, 'line' => $line);
         if (ini_get ('log_errors'))
             error_log (sprintf ("%s: %s in %s on line %d", $type, $message, $file, $line));
         return true;

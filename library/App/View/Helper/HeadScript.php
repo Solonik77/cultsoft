@@ -50,7 +50,7 @@ class App_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
             $scripts = $this->getMinUrl() . '?f=' . implode (',', str_replace (App::baseUri(), '/', $scripts));
             $data = new stdClass();
             $data->type = 'text/javascript';
-            $data->attributes = array ('src' => $scripts);
+            $data->attributes = array('src' => $scripts);
             $data->source = null;
             $return .= $this->itemToString ($data, $indent, $escapeStart, $escapeEnd) . $this->getSeparator();
         }

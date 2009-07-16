@@ -44,7 +44,7 @@ class App_Encrypt {
                 throw new App_Exception ('The ' . $name . ' group is not defined in your configuration.');
         }
 
-        if (is_array ($config)) {
+        if (is_array($config)) {
             // Append the default configuration options
             $config += App::config()->encryption->default->toArray();
             } else {

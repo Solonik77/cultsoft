@@ -38,7 +38,7 @@ class V_Helper_Html {
                 $str = htmlspecialchars ($str, ENT_QUOTES, 'UTF-8', false);
             } else {
                 $str = preg_replace ('/&(?!(?:#\d++|[a-z]++);)/ui', '&amp;', $str);
-                $str = str_replace (array ('<', '>', '\'', '"'), array ('&lt;', '&gt;', '&#39;', '&quot;'), $str);
+                $str = str_replace (array('<', '>', '\'', '"'), array('&lt;', '&gt;', '&#39;', '&quot;'), $str);
             }
         }
         return $str;
@@ -82,7 +82,7 @@ class V_Helper_Html {
         }
         return // Parsed URL
         '<a href="' . V_Helper_Html::specialurlencode ($site_url, false) . '"' . // Attributes empty? Use an empty string
-        (is_array ($attributes) ? V_Helper_Html::attributes ($attributes) : '') . '>' . // Title empty? Use the parsed URL
+        (is_array($attributes) ? V_Helper_Html::attributes ($attributes) : '') . '>' . // Title empty? Use the parsed URL
         (($title === null) ? $site_url : $title) . '</a>';
     }
 
@@ -99,7 +99,7 @@ class V_Helper_Html {
     {
         return // Base URL + URI = full URL
         '<a href="' . V_Helper_Html::specialurlencode (url::base (false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
-        (is_array ($attributes) ? V_Helper_Html::attributes ($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
+        (is_array($attributes) ? V_Helper_Html::attributes ($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
         (($title === null) ? end (explode ('/', $file)) : $title) . '</a>';
     }
 
@@ -220,7 +220,7 @@ class V_Helper_Html {
     */
     public static function meta($tag, $value = null)
     {
-        if (is_array ($tag)) {
+        if (is_array($tag)) {
             $tags = array();
             foreach ($tag as $t => $v) {
                 // Build each tag and add it to the array
@@ -230,7 +230,7 @@ class V_Helper_Html {
             return implode ("\n", $tags);
         }
         // Set the meta attribute value
-        $attr = in_array (strtolower ($tag), Kohana::config ('http.meta_equiv')) ? 'http-equiv' : 'name';
+        $attr = in_array(strtolower ($tag), Kohana::config ('http.meta_equiv')) ? 'http-equiv' : 'name';
         return '<meta ' . $attr . '="' . $tag . '" content="' . $value . '" />';
     }
 
@@ -260,11 +260,11 @@ class V_Helper_Html {
     public static function link($href, $rel, $type, $media = false, $index = false)
     {
         $compiled = '';
-        if (is_array ($href)) {
+        if (is_array($href)) {
             foreach ($href as $_href) {
-                $_rel = is_array ($rel) ? array_shift ($rel) : $rel;
-                $_type = is_array ($type) ? array_shift ($type) : $type;
-                $_media = is_array ($media) ? array_shift ($media) : $media;
+                $_rel = is_array($rel) ? array_shift ($rel) : $rel;
+                $_type = is_array($type) ? array_shift ($type) : $type;
+                $_media = is_array($media) ? array_shift ($media) : $media;
                 $compiled .= V_Helper_Html::link ($_href, $_rel, $_type, $_media, $index);
             }
         } else {
@@ -272,7 +272,7 @@ class V_Helper_Html {
                 // Make the URL absolute
                 $href = url::base ($index) . $href;
             }
-            $attr = array ('rel' => $rel, 'type' => $type, 'href' => $href);
+            $attr = array('rel' => $rel, 'type' => $type, 'href' => $href);
             if (! empty ($media)) {
                 // Add the media type to the attributes
                 $attr ['media'] = $media;
@@ -292,7 +292,7 @@ class V_Helper_Html {
     public static function script($script, $index = false)
     {
         $compiled = '';
-        if (is_array ($script)) {
+        if (is_array($script)) {
             foreach ($script as $name) {
                 $compiled .= V_Helper_Html::script ($name, $index);
             }
@@ -317,8 +317,8 @@ class V_Helper_Html {
     public static function image($src = null, $alt = null, $index = false)
     {
         // Create attribute list
-        $attributes = is_array ($src) ? $src : array ('src' => $src);
-        if (is_array ($alt)) {
+        $attributes = is_array($src) ? $src : array('src' => $src);
+        if (is_array($alt)) {
             $attributes += $alt;
         } elseif (! empty ($alt)) {
             // Add alt to attributes

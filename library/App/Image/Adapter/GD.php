@@ -257,14 +257,14 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
         // Amount should be in the range of 18-10
         $amount = round (abs (- 18 + ($amount * 0.08)), 2);
         // Gaussian blur matrix
-        $matrix = array (array (- 1, - 1, - 1), array (- 1, $amount, - 1), array (- 1, - 1, - 1));
+        $matrix = array(array(- 1, - 1, - 1), array(- 1, $amount, - 1), array(- 1, - 1, - 1));
         // Perform the sharpen
         return imageconvolution ($this->tmp_image, $matrix, $amount - 8, 0);
     }
 
     protected function properties()
     {
-        return array (imagesx ($this->tmp_image), imagesy ($this->tmp_image));
+        return array(imagesx ($this->tmp_image), imagesy ($this->tmp_image));
     }
 
     /**

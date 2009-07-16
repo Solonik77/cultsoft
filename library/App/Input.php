@@ -66,7 +66,7 @@ class App_Input {
                 // Destroy the REQUEST global
                 $_REQUEST = array();
                 // These globals are standard and should not be removed
-                $preserve = array ('GLOBALS', '_REQUEST', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER', '_ENV', '_SESSION');
+                $preserve = array('GLOBALS', '_REQUEST', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER', '_ENV', '_SESSION');
                 // This loop has the same effect as disabling register_globals
                 foreach (array_diff (array_keys ($GLOBALS), $preserve) as $key) {
                     global $$key;
@@ -86,7 +86,7 @@ class App_Input {
             }
             // Restore error reporting
             error_reporting ($ER);
-            if (is_array ($_GET)) {
+            if (is_array($_GET)) {
                 foreach ($_GET as $key => $val) {
                     // Sanitize $_GET
                     $_GET [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);
@@ -94,7 +94,7 @@ class App_Input {
             } else {
                 $_GET = array();
             }
-            if (is_array ($_POST)) {
+            if (is_array($_POST)) {
                 foreach ($_POST as $key => $val) {
                     // Sanitize $_POST
                     $_POST [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);
@@ -102,7 +102,7 @@ class App_Input {
             } else {
                 $_POST = array();
             }
-            if (is_array ($_COOKIE)) {
+            if (is_array($_COOKIE)) {
                 foreach ($_COOKIE as $key => $val) {
                     // Ignore special attributes in RFC2109 compliant cookies
                     if ($key == '$Version' or $key == '$Path' or $key == '$Domain')
@@ -129,7 +129,7 @@ class App_Input {
     */
     public function get($key = array(), $default = null, $xss_clean = false)
     {
-        return $this->search_array ($_GET, $key, $default, $xss_clean);
+        return $this->search_array($_GET, $key, $default, $xss_clean);
     }
 
     /**
@@ -142,7 +142,7 @@ class App_Input {
     */
     public function post($key = array(), $default = null, $xss_clean = false)
     {
-        return $this->search_array ($_POST, $key, $default, $xss_clean);
+        return $this->search_array($_POST, $key, $default, $xss_clean);
     }
 
     /**
@@ -155,7 +155,7 @@ class App_Input {
     */
     public function cookie($key = array(), $default = null, $xss_clean = false)
     {
-        return $this->search_array ($_COOKIE, $key, $default, $xss_clean);
+        return $this->search_array($_COOKIE, $key, $default, $xss_clean);
     }
 
     /**
@@ -168,7 +168,7 @@ class App_Input {
     */
     public function server($key = array(), $default = null, $xss_clean = false)
     {
-        return $this->search_array ($_SERVER, $key, $default, $xss_clean);
+        return $this->search_array($_SERVER, $key, $default, $xss_clean);
     }
 
     /**
@@ -205,7 +205,7 @@ class App_Input {
         if ($this->ip_address !== null)
             return $this->ip_address;
         // Server keys that could contain the client IP address
-        $keys = array ('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
+        $keys = array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
         foreach ($keys as $key) {
             if ($ip = $this->server ($key)) {
                 $this->ip_address = $ip;
@@ -250,7 +250,7 @@ class App_Input {
             // Use the default tool
             $tool = 'default';
         }
-        if (is_array ($data)) {
+        if (is_array($data)) {
             foreach ($data as $key => $val) {
                 $data [$key] = $this->xss_clean ($val, $tool);
             }
@@ -306,7 +306,7 @@ class App_Input {
         // * Split up alternation alternatives
         // * Made some quantifiers possessive
         // Fix &entity\n;
-        $data = str_replace (array ('&amp;', '&lt;', '&gt;'), array ('&amp;amp;', '&amp;lt;', '&amp;gt;'), $data);
+        $data = str_replace (array('&amp;', '&lt;', '&gt;'), array('&amp;amp;', '&amp;lt;', '&amp;gt;'), $data);
         $data = preg_replace ('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
         $data = preg_replace ('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
         $data = html_entity_decode ($data, ENT_COMPAT, 'UTF-8');
@@ -382,7 +382,7 @@ class App_Input {
     */
     public function clean_input_data($str)
     {
-        if (is_array ($str)) {
+        if (is_array($str)) {
             $new_array = array();
             foreach ($str as $key => $val) {
                 // Recursion!
@@ -399,7 +399,7 @@ class App_Input {
         }
         if (strpos ($str, "\r") !== false) {
             // Standardize newlines
-            $str = str_replace (array ("\r\n", "\r"), "\n", $str);
+            $str = str_replace (array("\r\n", "\r"), "\n", $str);
         }
         return $str;
     }

@@ -30,10 +30,10 @@ class V_Helper_Cookie {
         if (headers_sent())
             return false;
         // If the name param is an array, we import it
-        is_array ($name) and extract ($name, EXTR_OVERWRITE);
+        is_array($name) and extract ($name, EXTR_OVERWRITE);
         // Fetch default options
         $config = Kohana::config ('cookie');
-        foreach (array ('value', 'expire', 'domain', 'path', 'secure', 'httponly') as $item) {
+        foreach (array('value', 'expire', 'domain', 'path', 'secure', 'httponly') as $item) {
             if ($$item === null and isset ($config [$item])) {
                 $$item = $config [$item];
             }

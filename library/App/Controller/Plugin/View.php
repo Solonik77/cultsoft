@@ -53,7 +53,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
     private function _initView()
     {
-        $this->_view = new Zend_View (array ('encoding' => 'UTF-8'));
+        $this->_view = new Zend_View (array('encoding' => 'UTF-8'));
         $this->_view->strictVars (true);
         $this->_view->setScriptPath ($this->_templatePath);
         $this->_view->addScriptPath ($this->_templatePath . 'partial/');
@@ -68,7 +68,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
     private function _initZendLayout(Zend_Controller_Request_Abstract $request)
     {
-        $layout = Zend_Layout::startMvc (array ('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
+        $layout = Zend_Layout::startMvc (array('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
         if (! $this->_isBackofficeController) {
             if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists ($this->_templatePath . 'layouts/homepage.phtml')) {
                 $layout->setLayout ('homepage');
@@ -110,6 +110,6 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private function _declareDefaultVars()
     {
         $requestLang = App::Front()->getParam ('requestLang');
-        $this->_view->getHelper ('DeclareVars')->declareVars (array ('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
+        $this->_view->getHelper ('DeclareVars')->declareVars (array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
     }
 }

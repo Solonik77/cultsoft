@@ -25,17 +25,17 @@ class App_Mail {
         try {
             if (is_string ($to)) {
                 App_Mail::$mail->addTo ($to);
-            } else if (is_array ($to) and count ($to) == 2) {
+            } else if (is_array($to) and count ($to) == 2) {
                 App_Mail::$mail->addTo ($to [0], $to [1]);
                 $to = $to [0];
             }
             if ($from === null) {
                 $requestLang = App::Front()->getParam ('requestLang');
-                $from = array (App::config()->project->email, App::config()->project->title->$requestLang);
+                $from = array(App::config()->project->email, App::config()->project->title->$requestLang);
             }
             if (is_string ($from)) {
                 App_Mail::$mail->setFrom ($from);
-            } else if (is_array ($from) and count ($from) == 2) {
+            } else if (is_array($from) and count ($from) == 2) {
                 App_Mail::$mail->setFrom ($from [0], $from [1]);
                 $from = $from [0];
             }
@@ -87,7 +87,7 @@ class App_Mail {
             case 'smtp' :
                 $config ['port'] = intval ($config ['port']);
                 $config ['auth'] = strtolower ($config ['auth']);
-                if (! empty ($config ['auth']) and ! in_array ($config ['auth'], array ('crammd5', 'login', 'plain'))) {
+                if (! empty ($config ['auth']) and ! in_array($config ['auth'], array('crammd5', 'login', 'plain'))) {
                     throw new App_Exception ('Wrong auth parameter for smtp connection.');
                 }
                 App_Mail::$transport = new Zend_Mail_Transport_Smtp ($config ['host'], $config);

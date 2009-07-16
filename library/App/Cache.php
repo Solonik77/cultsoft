@@ -37,12 +37,12 @@ class App_Cache {
     public function __construct()
     {
         if (App_Cache::$instance === null) {
-            $this->_defaultFrontendOptions = array ('lifetime' => App::config()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
-            $this->_defaultBackendOptions = array ('cache_dir' => App::config()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
+            $this->_defaultFrontendOptions = array('lifetime' => App::config()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
+            $this->_defaultBackendOptions = array('cache_dir' => App::config()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
             $systemCacheFrontend = $this->_defaultFrontendOptions;
             // Permanent storage
             $systemCacheFrontend ['lifetime'] = null;
-            $this->initInstance (array ('id' => 'System', $systemCacheFrontend));
+            $this->initInstance (array('id' => 'System', $systemCacheFrontend));
             App_Cache::$instance = $this;
         }
     }
@@ -56,7 +56,7 @@ class App_Cache {
         if ((strlen ($method) > 11) and (substr ($method, 0, 11) == 'getInstance')) {
             $id = ucfirst (strtolower (substr ($method, 11)));
             if (! isset ($this->cache->$id)) {
-                $return = $this->initInstance (array ('id' => $id));
+                $return = $this->initInstance (array('id' => $id));
             } else {
                 $return = $this->cache->$id;
             }
@@ -102,12 +102,12 @@ class App_Cache {
     */
     public function initInstance(array $instanceId, $frontendOptions = null, $backendOptions = null)
     {
-        $frontendOptions = (! is_null ($frontendOptions) and is_array ($frontendOptions) and ! empty ($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;
-        $backendOptions = (! is_null ($backendOptions) and is_array ($backendOptions) and ! empty ($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
-        if (is_array ($instanceId) and isset ($instanceId ['id'])) {
+        $frontendOptions = (! is_null ($frontendOptions) and is_array($frontendOptions) and ! empty ($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;
+        $backendOptions = (! is_null ($backendOptions) and is_array($backendOptions) and ! empty ($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
+        if (is_array($instanceId) and isset ($instanceId ['id'])) {
             $instanceId ['id'] = ucfirst (strtolower ($instanceId ['id']));
             // Create instance only once
-            if (! in_array ($instanceId ['id'], $this->_instances)) {
+            if (! in_array($instanceId ['id'], $this->_instances)) {
                 $backend = (isset ($instanceId ['backend'])) ? ucfirst (strtolower ($instanceId ['backend'])) : 'File';
                 $this->cache->$instanceId ['id'] = Zend_Cache::factory ('Core', $backend, $frontendOptions, $backendOptions);
                 $this->_instances [] = $instanceId ['id'];
