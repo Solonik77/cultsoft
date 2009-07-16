@@ -11,7 +11,7 @@
 */
 function _from_unicode($arr)
 {
-    ob_start ();
+    ob_start();
     $keys = array_keys ($arr);
     foreach ($keys as $k) {
         // ASCII range (including control chars)
@@ -46,7 +46,7 @@ function _from_unicode($arr)
             return false;
         }
     }
-    $result = ob_get_contents ();
-    ob_end_clean ();
+    $result = ob_get_contents();
+    ob_end_clean();
     return $result;
 }

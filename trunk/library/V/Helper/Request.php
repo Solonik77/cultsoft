@@ -88,7 +88,7 @@ class V_Helper_Request {
     */
     public static function accepts($type = null, $explicit_check = false)
     {
-        V_Helper_Request::parse_accept_header ();
+        V_Helper_Request::parse_accept_header();
         if ($type === null)
             return V_Helper_Request::$accept_types;
         return (V_Helper_Request::accepts_at_quality ($type, $explicit_check) > 0);
@@ -106,7 +106,7 @@ class V_Helper_Request {
     public static function preferred_accept($types, $explicit_check = false)
     {
         // Initialize
-        $mime_types = array ();
+        $mime_types = array();
         $max_q = 0;
         $preferred = false;
         // Load q values for all given content types
@@ -132,7 +132,7 @@ class V_Helper_Request {
     */
     public static function accepts_at_quality($type = null, $explicit_check = false)
     {
-        V_Helper_Request::parse_accept_header ();
+        V_Helper_Request::parse_accept_header();
         // Normalize type
         $type = strtolower ((string) $type);
         // General content type (e.g. "jpg")
@@ -172,7 +172,7 @@ class V_Helper_Request {
         if (V_Helper_Request::$accept_types !== null)
             return;
         // Initialize accept_types array
-        V_Helper_Request::$accept_types = array ();
+        V_Helper_Request::$accept_types = array();
         // No HTTP Accept header found
         if (empty ($_SERVER ['HTTP_ACCEPT'])) {
             // Accept everything

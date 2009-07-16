@@ -21,7 +21,7 @@ class V_Helper_Security {
     */
     public static function xss_clean($str)
     {
-        return App_Input::instance ()->xss_clean ($str);
+        return App_Input::instance()->xss_clean ($str);
     }
 
     /**

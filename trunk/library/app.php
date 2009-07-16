@@ -44,7 +44,7 @@ final class App {
     */
     public static function front()
     {
-        return Zend_Controller_Front::getInstance ();
+        return Zend_Controller_Front::getInstance();
     }
 
     /**

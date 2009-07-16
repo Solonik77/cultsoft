@@ -10,7 +10,7 @@
 class Site_Model_DbTable_Members extends App_DB_Table {
     public function __construct()
     {
-        parent::__construct ();
+        parent::__construct();
     }
 
     /**
@@ -18,6 +18,6 @@ class Site_Model_DbTable_Members extends App_DB_Table {
     */
     public function getDataByID($id = 0)
     {
-        return $this->fetchRow ($this->select ()->where ('id = ?', $id));
+        return $this->fetchRow ($this->select()->where ('id = ?', $id));
     }
 }

@@ -17,7 +17,7 @@ class App_Image {
     // Adapter instance
     protected $adapter;
     // Adapter actions
-    protected $actions = array ();
+    protected $actions = array();
     // Reference to the current image filename
     protected $image = '';
 
@@ -67,7 +67,7 @@ class App_Image {
         // Image has been validated, load it
         $this->image = array ('file' => str_replace ('\\', '/', realpath ($image)), 'width' => $image_info [0], 'height' => $image_info [1], 'type' => $image_info [2], 'ext' => App_Image::$allowed_types [$image_info [2]], 'mime' => $image_info ['mime']);
         // Load configuration
-        $this->config = (array) $config + App::config ()->image->toArray ();
+        $this->config = (array) $config + App::config()->image->toArray();
         // Set adapter class name
         $adapter = 'App_Image_Adapter_' . ucfirst ($this->config ['adapter']);
         // Load the adapter
@@ -265,7 +265,7 @@ class App_Image {
         }
         // Reset actions. Subsequent save() or render() will not apply previous actions.
         if ($keep_actions === false)
-            $this->actions = array ();
+            $this->actions = array();
 
         return $status;
     }
@@ -288,7 +288,7 @@ class App_Image {
         $status = $this->adapter->process ($this->image, $this->actions, $dir, $file, $render = true);
         // Reset actions. Subsequent save() or render() will not apply previous actions.
         if ($keep_actions === false)
-            $this->actions = array ();
+            $this->actions = array();
 
         return $status;
     }

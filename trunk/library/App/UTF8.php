@@ -32,7 +32,7 @@
 */
 final class App_Utf8 {
     // Called methods
-    static $called = array ();
+    static $called = array();
 
     /**
     * Recursively clean GET, POST, COOKIE, and SERVER global arrays.

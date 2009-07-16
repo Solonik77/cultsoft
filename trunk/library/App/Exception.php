@@ -42,7 +42,7 @@ class App_Exception extends Zend_Exception {
     */
     public static function disable()
     {
-        restore_exception_handler ();
+        restore_exception_handler();
     }
 
     /**
@@ -56,7 +56,7 @@ class App_Exception extends Zend_Exception {
         // Display (and log the error message)
         echo $code;
         // Exceptions must halt execution
-        exit ();
+        exit();
     }
 
     /**
@@ -67,9 +67,9 @@ class App_Exception extends Zend_Exception {
     public function __toString()
     {
         try {
-            if (method_exists ($this, 'sendHeaders') and ! headers_sent ()) {
+            if (method_exists ($this, 'sendHeaders') and ! headers_sent()) {
                 // Send the headers if they have not already been sent
-                $this->sendHeaders ();
+                $this->sendHeaders();
             }
             // Load the error message information
             if (is_numeric ($this->code)) {
@@ -89,8 +89,8 @@ class App_Exception extends Zend_Exception {
             }
             // Log the error
             App::log ('Uncaught ' . $type . ' ' . $this->message . ' in file ' . $this->debug_path ($this->file) . ' on line ' . $this->line, Zend_Log::ERR);
-            $layout = new Zend_Layout ();
-            $view = $layout->getView ();
+            $layout = new Zend_Layout();
+            $view = $layout->getView();
             $view->getHelper ('headTitle')->headTitle ("System Error");
             $view->getHelper ('headStyle')->headStyle (file_get_contents (STATIC_PATH . 'system/css/error' . ((APPLICATION_ENV != 'development') ? '_disabled' : '') . '.css'));
             $layout->setLayoutPath (STATIC_PATH . 'system/')->setLayout ('system_error');
@@ -131,17 +131,17 @@ class App_Exception extends Zend_Exception {
                 $layout->line = $line;
                 $layout->message = $this->message;
                 $layout->source = $source;
-                $trace = $this->getTrace ();
+                $trace = $this->getTrace();
                 // Read trace
                 $layout->trace = $this->read_trace ($trace);
                 $layout->content = "";
             }
-            return $layout->render ();
+            return $layout->render();
         }
         catch (Exception $e) {
             // This shouldn't happen unless core files are missing
             if (APPLICATION_ENV == 'development') {
-                exit ('Exception thrown inside ' . __CLASS__ . ': ' . $e->getMessage ());
+                exit ('Exception thrown inside ' . __CLASS__ . ': ' . $e->getMessage());
             } else {
                 exit ('Unknown Error');
             }
@@ -159,7 +159,7 @@ class App_Exception extends Zend_Exception {
     public function read_trace(array $trace_array)
     {
         $file = null;
-        $ouput = array ();
+        $ouput = array();
         foreach ($trace_array as $trace) {
             if (isset ($trace ['file'])) {
                 $line = '<strong>' . $this->debug_path ($trace ['file']) . '</strong>';
@@ -171,7 +171,7 @@ class App_Exception extends Zend_Exception {
             if (isset ($trace ['function'])) {
                 // Is this an inline function?
                 $inline = in_array ($trace ['function'], array ('require', 'require_once', 'include', 'include_once', 'echo', 'print'));
-                $line = array ();
+                $line = array();
                 if (isset ($trace ['class'])) {
                     $line [] = $trace ['class'];
                     if (isset ($trace ['type'])) {
@@ -179,7 +179,7 @@ class App_Exception extends Zend_Exception {
                     }
                 }
                 $line [] = $trace ['function'] . ($inline ? ' ' : '(');
-                $args = array ();
+                $args = array();
                 if (! empty ($trace ['args'])) {
                     foreach ($trace ['args'] as $arg) {
                         if (is_string ($arg) and file_exists ($arg)) {
@@ -227,7 +227,7 @@ class App_Exception extends Zend_Exception {
     {
         static $objects;
         if ($recursion === false) {
-            $objects = array ();
+            $objects = array();
         }
         switch (gettype ($var)) {
             case 'object' :
@@ -235,17 +235,17 @@ class App_Exception extends Zend_Exception {
                 $hash = spl_object_hash ($var);
                 $object = new ReflectionObject ($var);
                 $more = false;
-                $out = 'object ' . $object->getName () . ' { ';
+                $out = 'object ' . $object->getName() . ' { ';
                 if ($recursion === true and in_array ($hash, $objects)) {
                     $out .= '*RECURSION*';
                 } else {
                     // Add the hash to the objects, to detect later recursion
                     $objects [] = $hash;
-                    foreach ($object->getProperties () as $property) {
-                        $out .= ($more === true ? ', ' : '') . $property->getName () . ' => ';
-                        if ($property->isPublic ()) {
+                    foreach ($object->getProperties() as $property) {
+                        $out .= ($more === true ? ', ' : '') . $property->getName() . ' => ';
+                        if ($property->isPublic()) {
                             $out .= self::debug_var ($property->getValue ($var), true);
-                        } elseif ($property->isPrivate ()) {
+                        } elseif ($property->isPrivate()) {
                             $out .= '*PRIVATE*';
                         } else {
                             $out .= '*PROTECTED*';

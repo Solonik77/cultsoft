@@ -29,17 +29,17 @@ class V_Helper_Upload {
         $file = is_array ($file) ? $file : $_FILES [$file];
         if ($filename === null) {
             // Use the default filename, with a timestamp pre-pended
-            $filename = time () . $file ['name'];
+            $filename = time() . $file ['name'];
         }
         // Remove spaces from the filename
         $filename = preg_replace ('/\s+/', '_', $filename);
         if ($directory === null) {
             // Use the pre-configured upload directory
-            $directory = App::config ()->upload->directory;
+            $directory = App::config()->upload->directory;
         }
         // Make sure the directory ends with a slash
         $directory = rtrim ($directory, '/') . '/';
-        if (! is_dir ($directory) and App::config ()->upload->create_directories == true) {
+        if (! is_dir ($directory) and App::config()->upload->create_directories == true) {
             // Create the upload directory
             mkdir ($directory, 0777, true);
         }
@@ -95,7 +95,7 @@ class V_Helper_Upload {
         // Get the default extension of the file
         $extension = strtolower (substr (strrchr ($file ['name'], '.'), 1));
         // Get the mime types for the extension
-        $mime_types = App::config ()->mimes->toArray ();
+        $mime_types = App::config()->mimes->toArray();
         $mime_types = $mime_types [$extension];
         //  @TODO Make sure there is an extension, that the extension is allowed, and that mime types exist
         // return (! empty($extension) and in_array($extension, $allowed_types) and is_array($mime_types));

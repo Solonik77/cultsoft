@@ -26,7 +26,7 @@ final class App_Exception_PHP extends App_Exception {
     */
     public static function disable()
     {
-        restore_error_handler ();
+        restore_error_handler();
     }
 
     /**
@@ -51,7 +51,7 @@ final class App_Exception_PHP extends App_Exception {
     */
     public static function handle($code, $error = 0, $file = '', $line = 0, $context = null)
     {
-        if ((error_reporting () &$code) === 0) {
+        if ((error_reporting() &$code) === 0) {
             // Respect error_reporting settings
             return;
         }
@@ -59,6 +59,6 @@ final class App_Exception_PHP extends App_Exception {
         $exception = new App_Exception_PHP ($code, $error, $file, $line, $context);
         echo $exception;
         // Execution must halt
-        exit ();
+        exit();
     }
 }

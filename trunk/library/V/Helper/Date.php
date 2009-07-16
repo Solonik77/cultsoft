@@ -21,7 +21,7 @@ class V_Helper_Date {
     */
     public static function unix2dos($timestamp = false)
     {
-        $timestamp = ($timestamp === false) ? getdate () : getdate ($timestamp);
+        $timestamp = ($timestamp === false) ? getdate() : getdate ($timestamp);
         if ($timestamp ['year'] < 1980) {
             return (1 << 21 | 1 << 16);
         }
@@ -61,7 +61,7 @@ class V_Helper_Date {
         static $offsets;
         // Default values
         $remote = (string) $remote;
-        $local = ($local === true) ? date_default_timezone_get () : (string) $local;
+        $local = ($local === true) ? date_default_timezone_get() : (string) $local;
         // Cache key name
         $cache = $remote . $local;
         if (empty ($offsets [$cache])) {
@@ -89,7 +89,7 @@ class V_Helper_Date {
     {
         // Always integer
         $step = (int) $step;
-        $seconds = array ();
+        $seconds = array();
         for($i = $start; $i < $end; $i += $step) {
             $seconds [$i] = ($i < 10) ? '0' . $i : $i;
         }
@@ -124,12 +124,12 @@ class V_Helper_Date {
         // Default values
         $step = (int) $step;
         $long = (bool) $long;
-        $hours = array ();
+        $hours = array();
         // Set the default start if none was specified.
         if ($start === null) {
             $start = ($long === false) ? 1 : 0;
         }
-        $hours = array ();
+        $hours = array();
         // 24-hour time has 24 hours, instead of 12
         $size = ($long === true) ? 23 : 12;
         for($i = $start; $i <= $size; $i += $step) {
@@ -192,7 +192,7 @@ class V_Helper_Date {
         $year = ($year == false) ? date ('Y') : $year;
         // We use caching for months, because time functions are used
         if (empty ($months [$year] [$month])) {
-            $months [$year] [$month] = array ();
+            $months [$year] [$month] = array();
             // Use date to find the number of days in the given month
             $total = date ('t', mktime (1, 0, 0, $month, 1, $year)) + 1;
             for($i = 1; $i < $total; $i ++) {
@@ -209,7 +209,7 @@ class V_Helper_Date {
     */
     public static function months()
     {
-        return V_Helper_Date::hours ();
+        return V_Helper_Date::hours();
     }
 
     /**
@@ -225,7 +225,7 @@ class V_Helper_Date {
         // Default values
         $start = ($start === false) ? date ('Y') - 5 : (int) $start;
         $end = ($end === false) ? date ('Y') + 5 : (int) $end;
-        $years = array ();
+        $years = array();
         // Add one, so that "less than" works
         $end += 1;
         for($i = $start; $i < $end; $i ++) {
@@ -253,7 +253,7 @@ class V_Helper_Date {
         extract (array_flip ($output), EXTR_SKIP);
         // Default values
         $time1 = max (0, (int) $time1);
-        $time2 = empty ($time2) ? time () : max (0, (int) $time2);
+        $time2 = empty ($time2) ? time() : max (0, (int) $time2);
         // Calculate timespan (seconds)
         $timespan = abs ($time1 - $time2);
         // All values found using Google Calculator.
@@ -277,7 +277,7 @@ class V_Helper_Date {
         // Deny access to these variables
         $deny = array_flip (array ('deny', 'key', 'difference', 'output'));
         // Return the difference
-        $difference = array ();
+        $difference = array();
         foreach ($output as $key) {
             if (isset ($$key) and ! isset ($deny [$key])) {
                 // Add requested key to the output
@@ -309,7 +309,7 @@ class V_Helper_Date {
             // Determine the key of the last item in the array
             $last = end ($difference);
             $last = key ($difference);
-            $span = array ();
+            $span = array();
             foreach ($difference as $name => $amount) {
                 if ($amount === 0) {
                     // Skip empty amounts

@@ -64,7 +64,7 @@ class V_Helper_Download {
             // Send normal headers
             header ('Pragma: no-cache');
         }
-        ob_end_clean ();
+        ob_end_clean();
         if (isset ($filepath)) {
             // Open the file
             $handle = fopen ($filepath, 'rb');

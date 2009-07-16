@@ -14,7 +14,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
         if (! function_exists ('gd_info'))
             throw new App_Exception ('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
         // Get the GD information
-        $info = gd_info ();
+        $info = gd_info();
         // Make sure that the GD2 is installed
         if (strpos ($info ['GD Version'], '2.') === false)
             throw new App_Exception ('The Image library requires GD2. Please see http://php.net/gd_info for more information.');

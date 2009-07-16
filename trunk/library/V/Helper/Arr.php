@@ -49,7 +49,7 @@ class V_Helper_arr {
     */
     public static function rotate($source_array, $keep_keys = true)
     {
-        $new_array = array ();
+        $new_array = array();
         foreach ($source_array as $key => $value) {
             $value = ($keep_keys === true) ? $value : array_values ($value);
             foreach ($value as $k => $v) {
@@ -87,8 +87,8 @@ class V_Helper_arr {
     public static function extract(array $search, $keys)
     {
         // Get the keys, removing the $search array
-        $keys = array_slice (func_get_args (), 1);
-        $found = array ();
+        $keys = array_slice (func_get_args(), 1);
+        $found = array();
         foreach ($keys as $key) {
             if (isset ($search [$key])) {
                 $found [$key] = $search [$key];
@@ -168,8 +168,8 @@ class V_Helper_arr {
     */
     public static function merge()
     {
-        $total = func_num_args ();
-        $result = array ();
+        $total = func_num_args();
+        $result = array();
         for($i = 0; $i < $total; $i ++) {
             foreach (func_get_arg ($i) as $key => $val) {
                 if (isset ($result [$key])) {
@@ -205,8 +205,8 @@ class V_Helper_arr {
         foreach (array_intersect_key ($array2, $array1) as $key => $value) {
             $array1 [$key] = $value;
         }
-        if (func_num_args () > 2) {
-            foreach (array_slice (func_get_args (), 2) as $array2) {
+        if (func_num_args() > 2) {
+            foreach (array_slice (func_get_args(), 2) as $array2) {
                 foreach (array_intersect_key ($array2, $array1) as $key => $value) {
                     $array1 [$key] = $value;
                 }
@@ -225,8 +225,8 @@ class V_Helper_arr {
     public static function range($step = 10, $max = 100)
     {
         if ($step < 1)
-            return array ();
-        $array = array ();
+            return array();
+        $array = array();
         for($i = $step; $i <= $max; $i += $step) {
             $array [$i] = $i;
         }
@@ -241,7 +241,7 @@ class V_Helper_arr {
     */
     public static function to_object(array $array, $class = 'stdClass')
     {
-        $object = new $class ();
+        $object = new $class();
         foreach ($array as $key => $value) {
             if (is_array ($value)) {
                 // Convert the array to an object

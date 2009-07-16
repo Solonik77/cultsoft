@@ -83,7 +83,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     */
     public function getTab()
     {
-        return count ($this->_getIncludedFiles ()) . ' Files';
+        return count ($this->_getIncludedFiles()) . ' Files';
     }
 
     /**
@@ -93,7 +93,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     */
     public function getPanel()
     {
-        $included = $this->_getIncludedFiles ();
+        $included = $this->_getIncludedFiles();
         $html = '<h4>File Information</h4>';
         $html .= count ($included) . ' Files Included<br />';
         $size = 0;
@@ -102,7 +102,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         }
         $html .= 'Total Size: ' . round ($size / 1024, 1) . 'K<br />';
         $html .= 'Basepath: ' . $this->_basePath . '<br />';
-        $libraryFiles = array ();
+        $libraryFiles = array();
         foreach ($this->_library as $key => $value) {
             if ('' != $value) {
                 $libraryFiles [$key] = '<h4>' . $value . ' Library Files</h4>';
@@ -136,7 +136,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         if (null !== $this->_includedFiles) {
             return $this->_includedFiles;
         }
-        $this->_includedFiles = get_included_files ();
+        $this->_includedFiles = get_included_files();
         sort ($this->_includedFiles);
         return $this->_includedFiles;
     }

@@ -31,7 +31,7 @@ class App_Input {
     {
         if (App_Input::$instance === null) {
             // Create a new instance
-            return new App_Input ();
+            return new App_Input();
         }
         return App_Input::$instance;
     }
@@ -48,12 +48,12 @@ class App_Input {
         $this->use_xss_clean = (bool) true;
         if (App_Input::$instance === null) {
             // magic_quotes_runtime is enabled
-            if ((function_exists('get_magic_quotes_runtime')) AND (get_magic_quotes_runtime ())) {
+            if ((function_exists('get_magic_quotes_runtime')) AND (get_magic_quotes_runtime())) {
                 set_magic_quotes_runtime (0);
                 App::log ('Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
             // magic_quotes_gpc is enabled
-            if ((function_exists('get_magic_quotes_gpc')) AND (get_magic_quotes_gpc ())) {
+            if ((function_exists('get_magic_quotes_gpc')) AND (get_magic_quotes_gpc())) {
                 $this->magic_quotes_gpc = true;
                 App::log ('Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes', Zend_Log::DEBUG);
             }
@@ -64,7 +64,7 @@ class App_Input {
                     exit ('Global variable overload attack.');
                 }
                 // Destroy the REQUEST global
-                $_REQUEST = array ();
+                $_REQUEST = array();
                 // These globals are standard and should not be removed
                 $preserve = array ('GLOBALS', '_REQUEST', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER', '_ENV', '_SESSION');
                 // This loop has the same effect as disabling register_globals
@@ -92,7 +92,7 @@ class App_Input {
                     $_GET [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);
                 }
             } else {
-                $_GET = array ();
+                $_GET = array();
             }
             if (is_array ($_POST)) {
                 foreach ($_POST as $key => $val) {
@@ -100,7 +100,7 @@ class App_Input {
                     $_POST [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);
                 }
             } else {
-                $_POST = array ();
+                $_POST = array();
             }
             if (is_array ($_COOKIE)) {
                 foreach ($_COOKIE as $key => $val) {
@@ -111,7 +111,7 @@ class App_Input {
                     $_COOKIE [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);
                 }
             } else {
-                $_COOKIE = array ();
+                $_COOKIE = array();
             }
             // Create a singleton
             App_Input::$instance = $this;
@@ -182,7 +182,7 @@ class App_Input {
     */
     protected function search_array($array, $key, $default = null, $xss_clean = false)
     {
-        if ($key === array ())
+        if ($key === array())
             return $array;
         if (! isset ($array [$key]))
             return $default;
@@ -350,7 +350,7 @@ class App_Input {
             require 'HTMLPurifier.func.php';
         }
         // Set configuration
-        $config = HTMLPurifier_Config::createDefault ();
+        $config = HTMLPurifier_Config::createDefault();
         $config->set ('HTML', 'TidyLevel', 'none'); // Only XSS cleaning now
         // Run HTMLPurifier
         $data = HTMLPurifier ($data, $config);
@@ -383,7 +383,7 @@ class App_Input {
     public function clean_input_data($str)
     {
         if (is_array ($str)) {
-            $new_array = array ();
+            $new_array = array();
             foreach ($str as $key => $val) {
                 // Recursion!
                 $new_array [$this->clean_input_keys ($key)] = $this->clean_input_data ($val);

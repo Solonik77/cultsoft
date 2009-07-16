@@ -8,7 +8,7 @@ abstract class App_Image_Adapter {
     // Reference to the temporary processing image
     protected $tmp_image;
     // Processing errors
-    protected $errors = array ();
+    protected $errors = array();
 
     /**
     * Executes a set of actions, defined in pairs.
@@ -35,7 +35,7 @@ abstract class App_Image_Adapter {
     */
     protected function sanitize_geometry(&$geometry)
     {
-        list ($width, $height) = $this->properties ();
+        list ($width, $height) = $this->properties();
         // Turn off error reporting
         $reporting = error_reporting (0);
         // Width and height cannot exceed current image size

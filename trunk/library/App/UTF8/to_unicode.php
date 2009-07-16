@@ -14,7 +14,7 @@ function _to_unicode($str)
     $mState = 0; // cached expected number of octets after the current octet until the beginning of the next UTF8 character sequence
     $mUcs4 = 0; // cached Unicode character
     $mBytes = 1; // cached expected number of octets in the current sequence
-    $out = array ();
+    $out = array();
     $len = strlen ($str);
     for($i = 0; $i < $len; $i ++) {
         $in = ord ($str [$i]);

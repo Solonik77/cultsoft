@@ -21,7 +21,7 @@ class App_Mail {
     public static function send($to, $subject, $message, $html = false, $from = null)
     {
         // Connect to Zend_Mail
-        (self::$mail === null) and App_Mail::connect ();
+        (self::$mail === null) and App_Mail::connect();
         try {
             if (is_string ($to)) {
                 App_Mail::$mail->addTo ($to);
@@ -30,8 +30,8 @@ class App_Mail {
                 $to = $to [0];
             }
             if ($from === null) {
-                $requestLang = App::Front ()->getParam ('requestLang');
-                $from = array (App::config ()->project->email, App::config ()->project->title->$requestLang);
+                $requestLang = App::Front()->getParam ('requestLang');
+                $from = array (App::config()->project->email, App::config()->project->title->$requestLang);
             }
             if (is_string ($from)) {
                 App_Mail::$mail->setFrom ($from);
@@ -41,11 +41,11 @@ class App_Mail {
             }
             App_Mail::$mail->setSubject ($subject);
             ($html) ? App_Mail::$mail->setBodyHtml ($message) : App_Mail::$mail->setBodyText ($message);
-            App_Mail::$mail->send ();
+            App_Mail::$mail->send();
             return true;
         }
         catch (Exception $e) {
-            App::log (__CLASS__ . ' error: Sending email from ' . $from . ' to ' . $to . ' failure. Mail body is: ' . $message . ' Reason: ' . $e->getMessage (), Zend_Log::ERR);
+            App::log (__CLASS__ . ' error: Sending email from ' . $from . ' to ' . $to . ' failure. Mail body is: ' . $message . ' Reason: ' . $e->getMessage(), Zend_Log::ERR);
             return true;
         }
     }
@@ -59,7 +59,7 @@ class App_Mail {
             App_Mail::$mail = new Zend_Mail ('UTF-8');
         }
         catch (Exception $e) {
-            throw new App_Exception ($e->getMessage ());
+            throw new App_Exception ($e->getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ class App_Mail {
     */
     protected static function disconnect()
     {
-        App_Mail::$transport->getConnection ()->disconnect ();
+        App_Mail::$transport->getConnection()->disconnect();
         unset (App_Mail::$mail);
         App_Mail::$mail = null;
     }

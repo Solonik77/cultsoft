@@ -14,7 +14,7 @@
 */
 class V_Helper_Inflector {
     // Cached inflections
-    protected static $cache = array ();
+    protected static $cache = array();
     // Uncountable and irregular words
     protected static $uncountable;
     protected static $irregular;

@@ -69,11 +69,11 @@ class V_Helper_Text {
     public static function alternate()
     {
         static $i;
-        if (func_num_args () === 0) {
+        if (func_num_args() === 0) {
             $i = 0;
             return '';
         }
-        $args = func_get_args ();
+        $args = func_get_args();
         return $args [($i ++ % count ($args))];
     }
 

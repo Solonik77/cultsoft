@@ -125,7 +125,7 @@ class V_Helper_Html {
     */
     public static function anchor_array(array $array)
     {
-        $anchors = array ();
+        $anchors = array();
         foreach ($array as $link => $title) {
             // Create list of anchors
             $anchors [] = V_Helper_Html::anchor ($link, $title);
@@ -201,7 +201,7 @@ class V_Helper_Html {
     public static function breadcrumb($segments = null)
     {
         empty ($segments) and $segments = Router::$segments;
-        $array = array ();
+        $array = array();
         while ($segment = array_pop ($segments)) {
             $array [] = V_Helper_Html::anchor (// Complete URI for the URL
                 implode ('/', $segments) . '/' . $segment, // Title for the current segment
@@ -221,7 +221,7 @@ class V_Helper_Html {
     public static function meta($tag, $value = null)
     {
         if (is_array ($tag)) {
-            $tags = array ();
+            $tags = array();
             foreach ($tag as $t => $v) {
                 // Build each tag and add it to the array
                 $tags [] = V_Helper_Html::meta ($t, $v);

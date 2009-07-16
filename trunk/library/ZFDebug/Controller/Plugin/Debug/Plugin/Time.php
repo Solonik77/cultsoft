@@ -38,7 +38,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     *
     * @var array
     */
-    protected $_timer = array ();
+    protected $_timer = array();
 
     /**
     * Creating time plugin
@@ -47,7 +47,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     */
     public function __construct()
     {
-        Zend_Controller_Front::getInstance ()->registerPlugin ($this);
+        Zend_Controller_Front::getInstance()->registerPlugin ($this);
     }
 
     /**
@@ -84,13 +84,13 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
                 $html .= '' . $name . ': ' . round ($time, 2) . ' ms<br>';
             }
         }
-        if (! Zend_Session::isStarted ()) {
-            Zend_Session::start ();
+        if (! Zend_Session::isStarted()) {
+            Zend_Session::start();
         }
-        $request = Zend_Controller_Front::getInstance ()->getRequest ();
-        $this_module = $request->getModuleName ();
-        $this_controller = $request->getControllerName ();
-        $this_action = $request->getActionName ();
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+        $this_module = $request->getModuleName();
+        $this_controller = $request->getControllerName();
+        $this_action = $request->getActionName();
         $timerNamespace = new Zend_Session_Namespace ('ZFDebug_Time', false);
         $timerNamespace->data [$this_module] [$this_controller] [$this_action] [] = $this->_timer ['postDispatch'];
         $html .= '<h4>Overall Timers</h4>';
@@ -151,10 +151,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        $reset = Zend_Controller_Front::getInstance ()->getRequest ()->getParam ('ZFDEBUG_RESET');
+        $reset = Zend_Controller_Front::getInstance()->getRequest()->getParam ('ZFDEBUG_RESET');
         if (isset ($reset)) {
             $timerNamespace = new Zend_Session_Namespace ('ZFDebug_Time', false);
-            $timerNamespace->unsetAll ();
+            $timerNamespace->unsetAll();
         }
         $this->_timer ['preDispatch'] = (microtime (true) - $_SERVER ['REQUEST_TIME']) * 1000;
     }
