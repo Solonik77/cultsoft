@@ -21,8 +21,8 @@ class V_Helper_Expires {
     */
     public static function set($seconds = 60)
     {
-        if (V_Helper_Expires::check_headers ()) {
-            $now = $expires = time ();
+        if (V_Helper_Expires::check_headers()) {
+            $now = $expires = time();
             // Set the expiration timestamp
             $expires += $seconds;
             // Send headers
@@ -42,7 +42,7 @@ class V_Helper_Expires {
     */
     public static function check($seconds = 60)
     {
-        if (! empty ($_SERVER ['HTTP_IF_MODIFIED_SINCE']) and V_Helper_Expires::check_headers ()) {
+        if (! empty ($_SERVER ['HTTP_IF_MODIFIED_SINCE']) and V_Helper_Expires::check_headers()) {
             if (($strpos = strpos ($_SERVER ['HTTP_IF_MODIFIED_SINCE'], ';')) !== false) {
                 // IE6 and perhaps other IE versions send length too, compensate here
                 $mod_time = substr ($_SERVER ['HTTP_IF_MODIFIED_SINCE'], 0, $strpos);
@@ -50,15 +50,15 @@ class V_Helper_Expires {
                 $mod_time = $_SERVER ['HTTP_IF_MODIFIED_SINCE'];
             }
             $mod_time = strtotime ($mod_time);
-            $mod_time_diff = $mod_time + $seconds - time ();
+            $mod_time_diff = $mod_time + $seconds - time();
             if ($mod_time_diff > 0) {
                 // Re-send headers
                 header ('Last-Modified: ' . gmdate ('D, d M Y H:i:s T', $mod_time));
-                header ('Expires: ' . gmdate ('D, d M Y H:i:s T', time () + $mod_time_diff));
+                header ('Expires: ' . gmdate ('D, d M Y H:i:s T', time() + $mod_time_diff));
                 header ('Cache-Control: max-age=' . $mod_time_diff);
                 header ('Status: 304 Not Modified', true, 304);
                 // Exit to prevent other output
-                exit ();
+                exit();
             }
         }
         return false;
@@ -71,8 +71,8 @@ class V_Helper_Expires {
     */
     public static function check_headers()
     {
-        foreach (headers_list () as $header) {
-            if ((session_cache_limiter () == '' and stripos ($header, 'Last-Modified:') === 0) or stripos ($header, 'Expires:') === 0) {
+        foreach (headers_list() as $header) {
+            if ((session_cache_limiter() == '' and stripos ($header, 'Last-Modified:') === 0) or stripos ($header, 'Expires:') === 0) {
                 return false;
             }
         }

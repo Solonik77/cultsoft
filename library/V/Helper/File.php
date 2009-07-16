@@ -52,7 +52,7 @@ class V_Helper_File {
             // Return the mime type using mime_content_type
             return mime_content_type ($filename);
         }
-        if (! app::is_win ()) {
+        if (! app::isWin ()) {
             // Attempt to locate use the file command, checking the return value
             if ($command = trim (exec ('which file', $output, $return)) and $return === 0) {
                 return trim (exec ($command . ' -bi ' . escapeshellarg ($filename)));

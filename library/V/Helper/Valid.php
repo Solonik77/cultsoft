@@ -181,7 +181,7 @@ class V_Helper_Valid {
     public static function numeric($str)
     {
         // Use localeconv to set the decimal_point value: Usually a comma or period.
-        $locale = localeconv ();
+        $locale = localeconv();
         return (bool) preg_match ('/^-?[0-9' . $locale ['decimal_point'] . ']++$/D', (string) $str);
     }
 

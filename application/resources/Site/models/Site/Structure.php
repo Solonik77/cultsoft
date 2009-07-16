@@ -19,7 +19,7 @@ class Site_Model_Site_Structure {
     */
     public function getNavigationTree()
     {
-        return App_Cache::getInstance ()->getSiteNavigationTree ();
+        return App_Cache::getInstance()->getSiteNavigationTree();
     }
 
     /**
@@ -29,8 +29,8 @@ class Site_Model_Site_Structure {
     */
     public function getTopMenu()
     {
-        $tree = $this->getNavigationTree ();
-        $menu_data = array ();
+        $tree = $this->getNavigationTree();
+        $menu_data = array();
         foreach ($tree as $leaf) {
             if ($leaf ["depth"] == 1) {
                 $menu_data [] = $leaf;

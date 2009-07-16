@@ -27,4 +27,4 @@ define ('LIBRARY_PATH', DOC_ROOT . 'library' . DIRECTORY_SEPARATOR);
 require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
 $application = new Zend_Application (APPLICATION_ENV, array ('bootstrap' => array ('path' => LIBRARY_PATH . 'bootstrap.php')));
-$application->bootstrap ()->run ();
+$application->bootstrap()->run();

@@ -19,7 +19,7 @@ class App_Member {
     {
         if (App_Member::$instance == null) {
             // Create a new instance
-            new App_Member ();
+            new App_Member();
         }
         return App_Member::$instance;
     }
@@ -30,11 +30,11 @@ class App_Member {
     public function __construct()
     {
         if (App_Member::$instance === null) {
-            $this->_model = new Site_Model_DbTable_Members ();
-            if (App_Member::getAuth ()->hasIdentity ()) {
-                $this->loadMember (App_Member::getAuth ()->getIdentity ()->id);
+            $this->_model = new Site_Model_DbTable_Members();
+            if (App_Member::getAuth()->hasIdentity()) {
+                $this->loadMember (App_Member::getAuth()->getIdentity()->id);
             } else {
-                $this->loadGuest ();
+                $this->loadGuest();
             }
             App_Member::$instance = $this;
         }
@@ -45,7 +45,7 @@ class App_Member {
     */
     private function loadGuest()
     {
-        $this->_data = (object) array ('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now (), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array ());
+        $this->_data = (object) array ('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now(), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array());
         return $this->_data;
     }
 
@@ -55,13 +55,13 @@ class App_Member {
     private function loadMember($id)
     {
         $data = $this->_model->getDataByID ($id);
-        $data = (object) $data->toArray ();
-        $roles = App_Cache::getInstance ()->getAclRoles ();
+        $data = (object) $data->toArray();
+        $roles = App_Cache::getInstance()->getAclRoles();
         foreach ($roles as $role) {
             if ($role ['id'] === $data->role_id) {
                 $data->role = $role ['role'];
                 $data->role_description = $role ['description'];
-                $data->acl_resource = array ();
+                $data->acl_resource = array();
                 foreach ($role as $id => $resource) {
                     if ((strlen ($id) > 4) and (substr ($id, 0, 4) == 'res_')) {
                         // Administrator always have all privileges
@@ -106,7 +106,7 @@ class App_Member {
     */
     public static function isAuth()
     {
-        return App_Member::getAuth ()->hasIdentity ();
+        return App_Member::getAuth()->hasIdentity();
     }
 
     /**
@@ -114,6 +114,6 @@ class App_Member {
     */
     public static function getAuth()
     {
-        return Zend_Auth::getInstance ();
+        return Zend_Auth::getInstance();
     }
 }

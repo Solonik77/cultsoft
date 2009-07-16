@@ -27,7 +27,7 @@ class V_Helper_Cookie {
     */
     public static function set($name, $value = null, $expire = null, $path = null, $domain = null, $secure = null, $httponly = null)
     {
-        if (headers_sent ())
+        if (headers_sent())
             return false;
         // If the name param is an array, we import it
         is_array ($name) and extract ($name, EXTR_OVERWRITE);
@@ -39,7 +39,7 @@ class V_Helper_Cookie {
             }
         }
         // Expiration timestamp
-        $expire = ($expire == 0) ? 0 : time () + (int) $expire;
+        $expire = ($expire == 0) ? 0 : time() + (int) $expire;
         return setcookie ($name, $value, $expire, $path, $domain, $secure, $httponly);
     }
 
@@ -53,7 +53,7 @@ class V_Helper_Cookie {
     */
     public static function get($name, $default = null, $xss_clean = false)
     {
-        return Input::instance ()->cookie ($name, $default, $xss_clean);
+        return Input::instance()->cookie ($name, $default, $xss_clean);
     }
 
     /**

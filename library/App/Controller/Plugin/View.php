@@ -23,28 +23,28 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         try {
-            $this->_initTemplatePath ();
-            $this->_initView ();
-            $this->_initViewRenderer ();
+            $this->_initTemplatePath();
+            $this->_initView();
+            $this->_initViewRenderer();
             $this->_initZendLayout ($request);
-            $this->_loadDefaultTemplateResources ();
+            $this->_loadDefaultTemplateResources();
             if ($this->_isBackofficeController) {
-                $this->_loadAdminTemplateResources ();
+                $this->_loadAdminTemplateResources();
             } else {
-                $this->_loadSiteTemplateResources ();
+                $this->_loadSiteTemplateResources();
             }
 
-            $this->_declareDefaultVars ();
+            $this->_declareDefaultVars();
         }
         catch (Exception $e) {
-            throw new App_Exception ($e->getMessage ());
+            throw new App_Exception ($e->getMessage());
         }
     }
 
     private function _initTemplatePath()
     {
         $this->_isBackofficeController = false;
-        $this->_templatePath = APPLICATION_PATH . 'resources/views/' . App::config ()->project->template . '/';
+        $this->_templatePath = APPLICATION_PATH . 'resources/views/' . App::config()->project->template . '/';
         if (Zend_Registry::get ('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get ('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
             $this->_templatePath = STATIC_PATH . 'system/admin/';
@@ -70,10 +70,10 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     {
         $layout = Zend_Layout::startMvc (array ('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
         if (! $this->_isBackofficeController) {
-            if ($request->getModuleName () == 'default' and $request->getControllerName () == 'index' and $request->getActionName () == 'index' and file_exists ($this->_templatePath . 'layouts/homepage.phtml')) {
+            if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists ($this->_templatePath . 'layouts/homepage.phtml')) {
                 $layout->setLayout ('homepage');
-            } else if (file_exists ($this->_templatePath . 'layouts/' . $request->getModuleName () . '.phtml')) {
-                $layout->setLayout ($request->getModuleName ());
+            } else if (file_exists ($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
+                $layout->setLayout ($request->getModuleName());
             }
         }
     }
@@ -83,33 +83,33 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         // Set global content type to html with UTF-8 charset
         $this->_view->getHelper ('HeadMeta')->appendHttpEquiv ('Content-Type', 'text/html; charset=UTF-8');
         // Set default reset.css file. Clear all CSS rules.
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri () . 'static/system/css/reset.css');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/minmax.js');
+        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/css/reset.css');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/minmax.js');
         // Add latest Jquery library to html header.
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/jquery.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/swfobject.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/jquery/pngfix.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/init_global.js');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery.js');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/swfobject.js');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/init_global.js');
     }
 
     private function _loadSiteTemplateResources()
     {
         // Add default template styles to html header.
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri () . 'static/view_resources/' . App::config ()->project->template . '/css/styles.css');
+        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/view_resources/' . App::config()->project->template . '/css/styles.css');
     }
 
     private function _loadAdminTemplateResources()
     {
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri () . 'static/system/admin/css/styles.css');
+        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/admin/css/styles.css');
         $this->_view->getHelper ('HeadMeta')->appendHttpEquiv ('Designer', 'ne-design (www.ragard-jp.com) KuroAdmin Theme');
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri () . 'static/system/admin/css/elements.css');
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri () . 'static/system/css/smoothness/jquery.ui.css');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri () . 'static/system/clientscripts/jquery/ui.js');
+        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/admin/css/elements.css');
+        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
+        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
     }
 
     private function _declareDefaultVars()
     {
-        $requestLang = App::Front ()->getParam ('requestLang');
-        $this->_view->getHelper ('DeclareVars')->declareVars (array ('uploadedIMG' => App::baseUri () . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config ()->project->title->$requestLang, 'baseUrl' => App::baseUri (), 'tplJS' => App::baseUri () . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config ()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri () . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config ()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri () . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config ()->project->template . '/images/' : 'static/system/admin/images/')));
+        $requestLang = App::Front()->getParam ('requestLang');
+        $this->_view->getHelper ('DeclareVars')->declareVars (array ('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
     }
 }

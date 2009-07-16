@@ -40,16 +40,16 @@ class App_Encrypt {
         if (is_string ($config)) {
             $name = $config;
             // Test the config group name
-            if (($config = App::config ()->encryption->$config) === null)
+            if (($config = App::config()->encryption->$config) === null)
                 throw new App_Exception ('The ' . $name . ' group is not defined in your configuration.');
         }
 
         if (is_array ($config)) {
             // Append the default configuration options
-            $config += App::config ()->encryption->default->toArray ();
+            $config += App::config()->encryption->default->toArray();
             } else {
                 // Load the default group
-                $config = App::config ()->encryption->default->toArray ();
+                $config = App::config()->encryption->default->toArray();
                 }
 
                 if (empty ($config ['key']))
@@ -79,7 +79,7 @@ class App_Encrypt {
             {
                 // Set the rand type if it has not already been set
                 if (App_Encrypt::$rand === null) {
-                    if (App::isWin ()) {
+                    if (App::isWin()) {
                         // Windows only supports the system random number generator
                         App_Encrypt::$rand = MCRYPT_RAND;
                     } else {
@@ -99,7 +99,7 @@ class App_Encrypt {
                 if (App_Encrypt::$rand === MCRYPT_RAND) {
                     // The system random number generator must always be seeded each
                     // time it is used, or it will not produce true random results
-                    mt_srand ();
+                    mt_srand();
                 }
                 // Create a random initialization vector of the proper size for the current cipher
                 $iv = mcrypt_create_iv ($this->config ['iv_size'], App_Encrypt::$rand);

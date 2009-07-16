@@ -49,7 +49,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     *
     * @var Array
     */
-    private $_insertData = array ();
+    private $_insertData = array();
 
     /**
     * constructor
@@ -94,7 +94,7 @@ class App_Db_Nestedsets extends App_Db_Table {
             GROUP BY node.{$this->_primary[0]}
             ORDER BY node.{$this->_left}
         ");
-        return $ret->fetchAll ();
+        return $ret->fetchAll();
     }
 
     /**
@@ -207,7 +207,7 @@ class App_Db_Nestedsets extends App_Db_Table {
         $res = $this->_db->query ("DELETE FROM {$this->_name} WHERE {$this->_left} BETWEEN {$left} AND {$right}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} - {$width} WHERE {$this->_right} > {$right}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} - {$width} WHERE {$this->_left} > {$right}");
-        return $res->rowCount ();
+        return $res->rowCount();
     }
 
     /**
@@ -232,7 +232,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     private function retrieveData($id)
     {
-        $select = $this->select ()->where ($this->_primary [0] . ' = ?', $id);
+        $select = $this->select()->where ($this->_primary [0] . ' = ?', $id);
         return $this->fetchRow ($select);
     }
 }

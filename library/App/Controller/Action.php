@@ -15,22 +15,22 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
     {
         parent::__construct ($request, $response, $invokeArgs);
         // Make urls absolute
-        $request->setBaseUrl (App::baseUri ());
+        $request->setBaseUrl (App::baseUri());
         // Init ACL in controller
-        $this->_acl = App_Acl::getInstance ();
-        $doctypeHelper = new Zend_View_Helper_Doctype ();
+        $this->_acl = App_Acl::getInstance();
+        $doctypeHelper = new Zend_View_Helper_Doctype();
         // Set global HTML doctype
         $doctypeHelper->doctype ('XHTML1_STRICT');
-        $requestLang = App::Front ()->getParam ('requestLang');
+        $requestLang = App::Front()->getParam ('requestLang');
         // Set localized project name in page title first
-        $this->view->headTitle (App::config ()->project->title->$requestLang);
+        $this->view->headTitle (App::config()->project->title->$requestLang);
         $site_pages = new Site_Model_Site_Structure();
         // Create container from array
-        $container = new Zend_Navigation ($site_pages->getTopMenu ());
+        $container = new Zend_Navigation ($site_pages->getTopMenu());
         $this->view->navigation ($container);
-        if ($this->getRequest ()->isXmlHttpRequest ()) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
-            Zend_Layout::disableLayout ();
+            Zend_Layout::disableLayout();
             Zend_Controller_Action_HelperBroker::removeHelper ('viewRenderer');
         }
     }

@@ -10,7 +10,7 @@
 class App_Cache {
     protected static $instance;
     protected $cache;
-    protected $_instances = array ();
+    protected $_instances = array();
     protected $_defaultInstance = 'File';
     protected $_defaultFrontendOptions;
     protected $_defaultBackendOptions;
@@ -21,13 +21,13 @@ class App_Cache {
     public static function getInstance($instanceId = null)
     {
         if (App_Cache::$instance == null) {
-            new App_Cache ();
+            new App_Cache();
         }
         if ($instanceId == null) {
             return App_Cache::$instance;
         } else if (is_string ($instanceId)) {
             $instanceId = 'getInstance' . ucfirst (strtolower ($instanceId));
-            return App_Cache::$instance->$instanceId ();
+            return App_Cache::$instance->$instanceId();
         }
     }
 
@@ -37,8 +37,8 @@ class App_Cache {
     public function __construct()
     {
         if (App_Cache::$instance === null) {
-            $this->_defaultFrontendOptions = array ('lifetime' => App::config ()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
-            $this->_defaultBackendOptions = array ('cache_dir' => App::config ()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
+            $this->_defaultFrontendOptions = array ('lifetime' => App::config()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
+            $this->_defaultBackendOptions = array ('cache_dir' => App::config()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
             $systemCacheFrontend = $this->_defaultFrontendOptions;
             // Permanent storage
             $systemCacheFrontend ['lifetime'] = null;
@@ -71,10 +71,10 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->System->load ('AclRoles'))) {
-            $model = new Site_Model_DbTable_Acl_Roles ();
-            $model = $model->fetchAll ();
-            $model = $model->toArray ();
-            $data = array ();
+            $model = new Site_Model_DbTable_Acl_Roles();
+            $model = $model->fetchAll();
+            $model = $model->toArray();
+            $data = array();
             foreach ($model as $item) {
                 $data [$item ['id']] = $item;
             }
@@ -90,8 +90,8 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->System->load ('SiteNavigationTree'))) {
-            $model = new Site_Model_DbTable_Site_Structure ();
-            $data = $model->getTree ();
+            $model = new Site_Model_DbTable_Site_Structure();
+            $data = $model->getTree();
             $this->cache->System->save ($data);
         }
         return $data;

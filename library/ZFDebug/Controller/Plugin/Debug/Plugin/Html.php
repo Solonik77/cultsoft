@@ -63,7 +63,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html implements ZFDebug_Controller_
     */
     public function getPanel()
     {
-        $body = Zend_Controller_Front::getInstance ()->getResponse ()->getBody ();
+        $body = Zend_Controller_Front::getInstance()->getResponse()->getBody();
         $panel = '<h4>HTML Information</h4>';
         $panel .= '
         <script type="text/javascript" charset="utf-8">

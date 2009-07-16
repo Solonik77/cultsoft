@@ -17,9 +17,9 @@ class App_Acl extends Zend_Acl {
     public function __construct()
     {
         if (App_Acl::$instance === null) {
-            $acl = App_Cache::getInstance ()->getAclRoles ();
+            $acl = App_Cache::getInstance()->getAclRoles();
             $res = current ($acl);
-            $resources = array ();
+            $resources = array();
             if ($res) {
                 foreach ($res as $key => $value) {
                     if ((strlen ($key) > 4) and (substr ($key, 0, 4) == 'res_')) {
@@ -52,7 +52,7 @@ class App_Acl extends Zend_Acl {
     {
         if (App_Acl::$instance == null) {
             // Create a new instance
-            new App_Acl ();
+            new App_Acl();
         }
         return App_Acl::$instance;
     }
