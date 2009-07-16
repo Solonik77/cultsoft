@@ -53,7 +53,7 @@ class V_Helper_Cookie {
     */
     public static function get($name, $default = null, $xss_clean = false)
     {
-        return Input::instance()->cookie($name, $default, $xss_clean);
+        return App_Input::instance()->cookie($name, $default, $xss_clean);
     }
 
     /**
