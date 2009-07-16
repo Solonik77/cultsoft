@@ -5,7 +5,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
@@ -26,9 +26,9 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             $this->_initTemplatePath();
             $this->_initView();
             $this->_initViewRenderer();
-            $this->_initZendLayout ($request);
+            $this->_initZendLayout($request);
             $this->_loadDefaultTemplateResources();
-            if ($this->_isBackofficeController) {
+            if($this->_isBackofficeController) {
                 $this->_loadAdminTemplateResources();
             } else {
                 $this->_loadSiteTemplateResources();
@@ -36,8 +36,8 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
             $this->_declareDefaultVars();
         }
-        catch (Exception $e) {
-            throw new App_Exception ($e->getMessage());
+        catch(Exception $e) {
+            throw new App_Exception($e->getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     {
         $this->_isBackofficeController = false;
         $this->_templatePath = APPLICATION_PATH . 'resources/views/' . App::config()->project->template . '/';
-        if (Zend_Registry::get ('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get ('member_access') == 'ALLOWED') {
+        if(Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
             $this->_templatePath = STATIC_PATH . 'system/admin/';
         }
@@ -53,27 +53,27 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
     private function _initView()
     {
-        $this->_view = new Zend_View (array('encoding' => 'UTF-8'));
-        $this->_view->strictVars (true);
-        $this->_view->setScriptPath ($this->_templatePath);
-        $this->_view->addScriptPath ($this->_templatePath . 'partial/');
-        $this->_view->addHelperPath (LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
+        $this->_view = new Zend_View(array('encoding' => 'UTF-8'));
+        $this->_view->strictVars(true);
+        $this->_view->setScriptPath($this->_templatePath);
+        $this->_view->addScriptPath($this->_templatePath . 'partial/');
+        $this->_view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
     }
 
     private function _initViewRenderer()
     {
-        $this->_viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper ('viewRenderer');
-        $this->_viewRenderer->setView ($this->_view)->setViewBasePathSpec ($this->_templatePath)->setViewScriptPathSpec ((($this->_isBackofficeController !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec ((($this->_isBackofficeController !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix ('phtml');
+        $this->_viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+        $this->_viewRenderer->setView($this->_view)->setViewBasePathSpec($this->_templatePath)->setViewScriptPathSpec((($this->_isBackofficeController !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec((($this->_isBackofficeController !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
     }
 
     private function _initZendLayout(Zend_Controller_Request_Abstract $request)
     {
-        $layout = Zend_Layout::startMvc (array('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
-        if (! $this->_isBackofficeController) {
-            if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists ($this->_templatePath . 'layouts/homepage.phtml')) {
-                $layout->setLayout ('homepage');
-            } else if (file_exists ($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
-                $layout->setLayout ($request->getModuleName());
+        $layout = Zend_Layout::startMvc(array('layoutPath' => $this->_templatePath . 'layouts/', 'layout' => 'default', 'mvcSuccessfulActionOnly' =>('development' === APPLICATION_ENV)));
+        if(! $this->_isBackofficeController) {
+            if($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($this->_templatePath . 'layouts/homepage.phtml')) {
+                $layout->setLayout('homepage');
+            } else if(file_exists($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
+                $layout->setLayout($request->getModuleName());
             }
         }
     }
@@ -81,35 +81,35 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private function _loadDefaultTemplateResources()
     {
         // Set global content type to html with UTF-8 charset
-        $this->_view->getHelper ('HeadMeta')->appendHttpEquiv ('Content-Type', 'text/html; charset=UTF-8');
+        $this->_view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
         // Set default reset.css file. Clear all CSS rules.
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/css/reset.css');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/minmax.js');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/reset.css');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/minmax.js');
         // Add latest Jquery library to html header.
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/swfobject.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/init_global.js');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/swfobject.js');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
     }
 
     private function _loadSiteTemplateResources()
     {
         // Add default template styles to html header.
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/view_resources/' . App::config()->project->template . '/css/styles.css');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/view_resources/' . App::config()->project->template . '/css/styles.css');
     }
 
     private function _loadAdminTemplateResources()
     {
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/admin/css/styles.css');
-        $this->_view->getHelper ('HeadMeta')->appendHttpEquiv ('Designer', 'ne-design (www.ragard-jp.com) KuroAdmin Theme');
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/admin/css/elements.css');
-        $this->_view->getHelper ('HeadLink')->appendStylesheet (App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
-        $this->_view->getHelper ('HeadScript')->appendFile (App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/admin/css/styles.css');
+        $this->_view->getHelper('HeadMeta')->appendHttpEquiv('Designer', 'ne-design(www.ragard-jp.com) KuroAdmin Theme');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/admin/css/elements.css');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
+        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
     }
 
     private function _declareDefaultVars()
     {
-        $requestLang = App::Front()->getParam ('requestLang');
-        $this->_view->getHelper ('DeclareVars')->declareVars (array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
+        $requestLang = App::Front()->getParam('requestLang');
+        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => App::config()->project->title->$requestLang, 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() .((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
     }
 }

@@ -18,8 +18,8 @@ abstract class App_Image_Adapter {
     */
     public function execute($actions)
     {
-        foreach ($actions as $func => $args) {
-            if (! $this->$func ($args))
+        foreach($actions as $func => $args) {
+            if(! $this->$func($args))
                 return false;
         }
 
@@ -35,30 +35,30 @@ abstract class App_Image_Adapter {
     */
     protected function sanitize_geometry(&$geometry)
     {
-        list ($width, $height) = $this->properties();
+        list($width, $height) = $this->properties();
         // Turn off error reporting
-        $reporting = error_reporting (0);
+        $reporting = error_reporting(0);
         // Width and height cannot exceed current image size
-        $geometry ['width'] = min ($geometry ['width'], $width);
-        $geometry ['height'] = min ($geometry ['height'], $height);
+        $geometry ['width'] = min($geometry ['width'], $width);
+        $geometry ['height'] = min($geometry ['height'], $height);
         // Set standard coordinates if given, otherwise use pixel values
-        if ($geometry ['top'] === 'center') {
-            $geometry ['top'] = floor (($height / 2) - ($geometry ['height'] / 2));
-        } elseif ($geometry ['top'] === 'top') {
+        if($geometry ['top'] === 'center') {
+            $geometry ['top'] = floor(($height / 2) -($geometry ['height'] / 2));
+        } elseif($geometry ['top'] === 'top') {
             $geometry ['top'] = 0;
-        } elseif ($geometry ['top'] === 'bottom') {
+        } elseif($geometry ['top'] === 'bottom') {
             $geometry ['top'] = $height - $geometry ['height'];
         }
         // Set standard coordinates if given, otherwise use pixel values
-        if ($geometry ['left'] === 'center') {
-            $geometry ['left'] = floor (($width / 2) - ($geometry ['width'] / 2));
-        } elseif ($geometry ['left'] === 'left') {
+        if($geometry ['left'] === 'center') {
+            $geometry ['left'] = floor(($width / 2) -($geometry ['width'] / 2));
+        } elseif($geometry ['left'] === 'left') {
             $geometry ['left'] = 0;
-        } elseif ($geometry ['left'] === 'right') {
+        } elseif($geometry ['left'] === 'right') {
             $geometry ['left'] = $width - $geometry ['height'];
         }
         // Restore error reporting
-        error_reporting ($reporting);
+        error_reporting($reporting);
     }
 
     /**

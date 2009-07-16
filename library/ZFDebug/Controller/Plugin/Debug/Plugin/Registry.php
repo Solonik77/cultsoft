@@ -5,7 +5,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 * @version $Id: $
 */
@@ -14,7 +14,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
@@ -58,7 +58,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     */
     public function getTab()
     {
-        return ' Registry (' . $this->_registry->count() . ')';
+        return ' Registry(' . $this->_registry->count() . ')';
     }
 
     /**
@@ -70,7 +70,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     {
         $html = '<h4>Registered Instances</h4>';
         $this->_registry->ksort();
-        $html .= $this->_cleanData ($this->_registry);
+        $html .= $this->_cleanData($this->_registry);
         return $html;
     }
 }

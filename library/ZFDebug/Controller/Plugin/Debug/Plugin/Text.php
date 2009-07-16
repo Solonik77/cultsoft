@@ -5,7 +5,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 * @version $Id: Text.php 62 2009-05-14 09:44:38Z gugakfugl $
 */
@@ -14,7 +14,7 @@
 * @category ZFDebug
 * @package ZFDebug_Controller
 * @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+* @copyright Copyright(c) 2008-2009 ZF Debug Bar Team(http://code.google.com/p/zfdebug)
 * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
 */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
@@ -44,11 +44,11 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Text implements ZFDebug_Controller_
     */
     public function __construct(array $options = array())
     {
-        if (isset ($options ['tab'])) {
-            $this->setTab ($tab);
+        if(isset($options ['tab'])) {
+            $this->setTab($tab);
         }
-        if (isset ($options ['panel'])) {
-            $this->setPanel ($panel);
+        if(isset($options ['panel'])) {
+            $this->setPanel($panel);
         }
     }
 

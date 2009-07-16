@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 * @category Zend
 * @package Zend_Db
@@ -19,7 +19,7 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract {
 
     public function __construct($config = array())
     {
-        parent::__construct ($config);
+        parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
     }
 
@@ -29,17 +29,17 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract {
     * If the table name is not set in the class definition,
     * use the class name itself as the table name.
     *
-    * A schema name provided with the table name (e.g., "schema.table") overrides
+    * A schema name provided with the table name(e.g., "schema.table") overrides
     * any existing value for $this->_schema.
     *
     * @return void
     */
     protected function _setupTableName()
     {
-        if (! $this->_name) {
-            $this->_name = App::config()->database->table_prefix . strtolower (str_replace (array('Site_Model_DbTable_', 'Admin_Model_DbTable_'), '', get_class ($this)));
-        } else if (strpos ($this->_name, '.')) {
-            list ($this->_schema, $this->_name) = explode ('.', $this->_name);
+        if(! $this->_name) {
+            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Site_Model_DbTable_', 'Admin_Model_DbTable_'), '', get_class($this)));
+        } else if(strpos($this->_name, '.')) {
+            list($this->_schema, $this->_name) = explode('.', $this->_name);
             $this->_name = App::config()->database->table_prefix . $this->_name;
         }
         parent::_setupTableName();

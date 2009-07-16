@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
+* @copyright(c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
+* @copyright(c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_arr {
@@ -23,12 +23,12 @@ class V_Helper_arr {
     public static function callback_string($str)
     {
         // command[param,param]
-        if (preg_match ('/([^\[]*+)\[(.+)\]/', (string) $str, $match)) {
+        if(preg_match('/([^\[]*+)\[(.+)\]/',(string) $str, $match)) {
             // command
             $command = $match [1];
             // param,param
-            $params = preg_split ('/(?<!\\\\),/', $match [2]);
-            $params = str_replace ('\,', ',', $params);
+            $params = preg_split('/(?<!\\\\),/', $match [2]);
+            $params = str_replace('\,', ',', $params);
         } else {
             // command
             $command = $str;
@@ -50,9 +50,9 @@ class V_Helper_arr {
     public static function rotate($source_array, $keep_keys = true)
     {
         $new_array = array();
-        foreach ($source_array as $key => $value) {
-            $value = ($keep_keys === true) ? $value : array_values ($value);
-            foreach ($value as $k => $v) {
+        foreach($source_array as $key => $value) {
+            $value =($keep_keys === true) ? $value : array_values($value);
+            foreach($value as $k => $v) {
                 $new_array [$k] [$key] = $v;
             }
         }
@@ -68,16 +68,16 @@ class V_Helper_arr {
     */
     public static function remove($key, &$array)
     {
-        if (! array_key_exists ($key, $array))
+        if(! array_key_exists($key, $array))
             return null;
         $val = $array [$key];
-        unset ($array [$key]);
+        unset($array [$key]);
         return $val;
     }
 
     /**
     * Extract one or more keys from an array. Each key given after the first
-    * argument (the array) will be extracted. Keys that do not exist in the
+    * argument(the array) will be extracted. Keys that do not exist in the
     * search array will be NULL in the extracted data.
     *
     * @param array $ array to search
@@ -87,10 +87,10 @@ class V_Helper_arr {
     public static function extract(array $search, $keys)
     {
         // Get the keys, removing the $search array
-        $keys = array_slice (func_get_args(), 1);
+        $keys = array_slice(func_get_args(), 1);
         $found = array();
-        foreach ($keys as $key) {
-            if (isset ($search [$key])) {
+        foreach($keys as $key) {
+            if(isset($search [$key])) {
                 $found [$key] = $search [$key];
             } else {
                 $found [$key] = null;
@@ -109,9 +109,9 @@ class V_Helper_arr {
     */
     public static function unshift_assoc(array &$array, $key, $val)
     {
-        $array = array_reverse ($array, true);
+        $array = array_reverse($array, true);
         $array [$key] = $val;
-        $array = array_reverse ($array, true);
+        $array = array_reverse($array, true);
         return $array;
     }
 
@@ -125,9 +125,9 @@ class V_Helper_arr {
     */
     public static function map_recursive($callback, array $array)
     {
-        foreach ($array as $key => $val) {
+        foreach($array as $key => $val) {
             // Map the callback to the key
-            $array [$key] = is_array($val) ? V_Helper_arr::map_recursive ($callback, $val) : call_user_func ($callback, $val);
+            $array [$key] = is_array($val) ? V_Helper_arr::map_recursive($callback, $val) : call_user_func($callback, $val);
         }
         return $array;
     }
@@ -141,16 +141,16 @@ class V_Helper_arr {
     */
     public static function binary_search($needle, $haystack, $sort = false)
     {
-        if ($sort) {
-            sort ($haystack);
+        if($sort) {
+            sort($haystack);
         }
-        $high = count ($haystack) - 1;
+        $high = count($haystack) - 1;
         $low = 0;
-        while ($low <= $high) {
-            $mid = ($low + $high) >> 1;
-            if ($haystack [$mid] < $needle) {
+        while($low <= $high) {
+            $mid =($low + $high) >> 1;
+            if($haystack [$mid] < $needle) {
                 $low = $mid + 1;
-            } elseif ($haystack [$mid] > $needle) {
+            } elseif($haystack [$mid] > $needle) {
                 $high = $mid - 1;
             } else {
                 return $mid;
@@ -171,14 +171,14 @@ class V_Helper_arr {
         $total = func_num_args();
         $result = array();
         for($i = 0; $i < $total; $i ++) {
-            foreach (func_get_arg ($i) as $key => $val) {
-                if (isset ($result [$key])) {
-                    if (is_array($val)) {
+            foreach(func_get_arg($i) as $key => $val) {
+                if(isset($result [$key])) {
+                    if(is_array($val)) {
                         // Arrays are merged recursively
-                        $result [$key] = V_Helper_arr::merge ($result [$key], $val);
-                    } elseif (is_int ($key)) {
+                        $result [$key] = V_Helper_arr::merge($result [$key], $val);
+                    } elseif(is_int($key)) {
                         // Indexed arrays are appended
-                        array_push ($result, $val);
+                        array_push($result, $val);
                     } else {
                         // Associative arrays are replaced
                         $result [$key] = $val;
@@ -202,12 +202,12 @@ class V_Helper_arr {
     */
     public static function overwrite($array1, $array2)
     {
-        foreach (array_intersect_key ($array2, $array1) as $key => $value) {
+        foreach(array_intersect_key($array2, $array1) as $key => $value) {
             $array1 [$key] = $value;
         }
-        if (func_num_args() > 2) {
-            foreach (array_slice (func_get_args(), 2) as $array2) {
-                foreach (array_intersect_key ($array2, $array1) as $key => $value) {
+        if(func_num_args() > 2) {
+            foreach(array_slice(func_get_args(), 2) as $array2) {
+                foreach(array_intersect_key($array2, $array1) as $key => $value) {
                     $array1 [$key] = $value;
                 }
             }
@@ -224,7 +224,7 @@ class V_Helper_arr {
     */
     public static function range($step = 10, $max = 100)
     {
-        if ($step < 1)
+        if($step < 1)
             return array();
         $array = array();
         for($i = $step; $i <= $max; $i += $step) {
@@ -242,10 +242,10 @@ class V_Helper_arr {
     public static function to_object(array $array, $class = 'stdClass')
     {
         $object = new $class();
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
                 // Convert the array to an object
-                $value = V_Helper_arr::to_object ($value, $class);
+                $value = V_Helper_arr::to_object($value, $class);
             }
             // Add the value to the object
             $object-> {
