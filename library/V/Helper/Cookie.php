@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Cookie {
@@ -27,19 +27,19 @@ class V_Helper_Cookie {
     */
     public static function set($name, $value = null, $expire = null, $path = null, $domain = null, $secure = null, $httponly = null)
     {
-        if(headers_sent())
+        if (headers_sent())
             return false;
         // If the name param is an array, we import it
         is_array($name) and extract($name, EXTR_OVERWRITE);
         // Fetch default options
         $config = Kohana::config('cookie');
         foreach(array('value', 'expire', 'domain', 'path', 'secure', 'httponly') as $item) {
-            if($$item === null and isset($config [$item])) {
+            if ($$item === null and isset($config [$item])) {
                 $$item = $config [$item];
             }
         }
         // Expiration timestamp
-        $expire =($expire == 0) ? 0 : time() +(int) $expire;
+        $expire = ($expire == 0) ? 0 : time() + (int) $expire;
         return setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
     }
 
@@ -66,7 +66,7 @@ class V_Helper_Cookie {
     */
     public static function delete($name, $path = null, $domain = null)
     {
-        if(! isset($_COOKIE [$name]))
+        if (! isset($_COOKIE [$name]))
             return false;
         // Delete the cookie from globals
         unset($_COOKIE [$name]);

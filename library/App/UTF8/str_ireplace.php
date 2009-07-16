@@ -5,25 +5,25 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007 Kohana Team
-* @copyright(c) 2005 Harry Fuecks
+* @copyright (c) 2007 Kohana Team
+* @copyright (c) 2005 Harry Fuecks
 * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
 */
 function _str_ireplace($search, $replace, $str, &$count = null)
 {
-    if(App_Utf8::is_ascii($search) and App_Utf8::is_ascii($replace) and App_Utf8::is_ascii($str))
+    if (App_Utf8::is_ascii($search) and App_Utf8::is_ascii($replace) and App_Utf8::is_ascii($str))
         return str_ireplace($search, $replace, $str, $count);
-    if(is_array($str)) {
+    if (is_array($str)) {
         foreach($str as $key => $val) {
             $str [$key] = App_Utf8::str_ireplace($search, $replace, $val, $count);
         }
         return $str;
     }
-    if(is_array($search)) {
+    if (is_array($search)) {
         $keys = array_keys($search);
         foreach($keys as $k) {
-            if(is_array($replace)) {
-                if(array_key_exists($k, $replace)) {
+            if (is_array($replace)) {
+                if (array_key_exists($k, $replace)) {
                     $str = App_Utf8::str_ireplace($search [$k], $replace [$k], $str, $count);
                 } else {
                     $str = App_Utf8::str_ireplace($search [$k], '', $str, $count);
@@ -38,10 +38,10 @@ function _str_ireplace($search, $replace, $str, &$count = null)
     $str_lower = App_Utf8::strtolower($str);
     $total_matched_strlen = 0;
     $i = 0;
-    while(preg_match('/(.*?)' . preg_quote($search, '/') . '/s', $str_lower, $matches)) {
+    while (preg_match('/(.*?)' . preg_quote($search, '/') . '/s', $str_lower, $matches)) {
         $matched_strlen = strlen($matches [0]);
         $str_lower = substr($str_lower, $matched_strlen);
-        $offset = $total_matched_strlen + strlen($matches [1]) +($i *(strlen($replace) - 1));
+        $offset = $total_matched_strlen + strlen($matches [1]) + ($i * (strlen($replace) - 1));
         $str = substr_replace($str, $replace, $offset, strlen($search));
         $total_matched_strlen += $matched_strlen;
         $i ++;

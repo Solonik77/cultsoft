@@ -7,10 +7,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Upload {
@@ -27,26 +27,26 @@ class V_Helper_Upload {
     {
         // Load file data from FILES if not passed as array
         $file = is_array($file) ? $file : $_FILES [$file];
-        if($filename === null) {
+        if ($filename === null) {
             // Use the default filename, with a timestamp pre-pended
             $filename = time() . $file ['name'];
         }
         // Remove spaces from the filename
         $filename = preg_replace('/\s+/', '_', $filename);
-        if($directory === null) {
+        if ($directory === null) {
             // Use the pre-configured upload directory
             $directory = App::config()->upload->directory;
         }
         // Make sure the directory ends with a slash
         $directory = rtrim($directory, '/') . '/';
-        if(! is_dir($directory) and App::config()->upload->create_directories == true) {
+        if (! is_dir($directory) and App::config()->upload->create_directories == true) {
             // Create the upload directory
             mkdir($directory, 0777, true);
         }
-        if(! is_writable($directory))
+        if (! is_writable($directory))
             throw new App_Exception('The upload destination folder, ' . $directory . ', does not appear to be writable.');
-        if(is_uploaded_file($file ['tmp_name']) and move_uploaded_file($file ['tmp_name'], $filename = $directory . $filename)) {
-            if($chmod !== false) {
+        if (is_uploaded_file($file ['tmp_name']) and move_uploaded_file($file ['tmp_name'], $filename = $directory . $filename)) {
+            if ($chmod !== false) {
                 // Set permissions on filename
                 chmod($filename, $chmod);
             }
@@ -90,7 +90,7 @@ class V_Helper_Upload {
     */
     public static function type(array $file, array $allowed_types)
     {
-        if((int) $file ['error'] !== UPLOAD_ERR_OK)
+        if ((int) $file ['error'] !== UPLOAD_ERR_OK)
             return true;
         // Get the default extension of the file
         $extension = strtolower(substr(strrchr($file ['name'], '.'), 1));
@@ -114,14 +114,14 @@ class V_Helper_Upload {
     */
     public static function size(array $file, array $size)
     {
-        if((int) $file ['error'] !== UPLOAD_ERR_OK)
+        if ((int) $file ['error'] !== UPLOAD_ERR_OK)
             return true;
         // Only one size is allowed
         $size = strtoupper($size [0]);
-        if(! preg_match('/[0-9]++[BKMG]/', $size))
+        if (! preg_match('/[0-9]++[BKMG]/', $size))
             return false;
         // Make the size into a power of 1024
-        switch(substr($size, - 1)) {
+        switch (substr($size, - 1)) {
             case 'G' :
                 $size = intval($size) * pow(1024, 3);
                 break;

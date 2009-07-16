@@ -34,17 +34,17 @@ class App_Encrypt {
     */
     public function __construct($config = false)
     {
-        if(! defined('MCRYPT_ENCRYPT'))
+        if (! defined('MCRYPT_ENCRYPT'))
             throw new App_Exception('To use the Encrypt library, mcrypt must be enabled in your PHP installation');
 
-        if(is_string($config)) {
+        if (is_string($config)) {
             $name = $config;
             // Test the config group name
-            if(($config = App::config()->encryption->$config) === null)
+            if (($config = App::config()->encryption->$config) === null)
                 throw new App_Exception('The ' . $name . ' group is not defined in your configuration.');
         }
 
-        if(is_array($config)) {
+        if (is_array($config)) {
             // Append the default configuration options
             $config += App::config()->encryption->default->toArray();
             } else {
@@ -52,12 +52,12 @@ class App_Encrypt {
                 $config = App::config()->encryption->default->toArray();
                 }
 
-                if(empty($config ['key']))
+                if (empty($config ['key']))
                     throw new App_Exception('To use the Encrypt library, you must set an encryption key in your config file');
                 // Find the max length of the key, based on cipher and mode
                 $size = mcrypt_get_key_size($config ['cipher'], $config ['mode']);
 
-                if(strlen($config ['key']) > $size) {
+                if (strlen($config ['key']) > $size) {
                     // Shorten the key to the maximum size
                     $config ['key'] = substr($config ['key'], 0, $size);
                 }
@@ -78,15 +78,15 @@ class App_Encrypt {
             public function encode($data)
             {
                 // Set the rand type if it has not already been set
-                if(App_Encrypt::$rand === null) {
-                    if(App::isWin()) {
+                if (App_Encrypt::$rand === null) {
+                    if (App::isWin()) {
                         // Windows only supports the system random number generator
                         App_Encrypt::$rand = MCRYPT_RAND;
                     } else {
-                        if(defined('MCRYPT_DEV_URANDOM')) {
+                        if (defined('MCRYPT_DEV_URANDOM')) {
                             // Use /dev/urandom
                             App_Encrypt::$rand = MCRYPT_DEV_URANDOM;
-                        } elseif(defined('MCRYPT_DEV_RANDOM')) {
+                        } elseif (defined('MCRYPT_DEV_RANDOM')) {
                             // Use /dev/random
                             App_Encrypt::$rand = MCRYPT_DEV_RANDOM;
                         } else {
@@ -96,7 +96,7 @@ class App_Encrypt {
                     }
                 }
 
-                if(App_Encrypt::$rand === MCRYPT_RAND) {
+                if (App_Encrypt::$rand === MCRYPT_RAND) {
                     // The system random number generator must always be seeded each
                     // time it is used, or it will not produce true random results
                     mt_srand();

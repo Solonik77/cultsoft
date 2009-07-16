@@ -4,7 +4,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Cache {
@@ -20,12 +20,12 @@ class App_Cache {
     */
     public static function getInstance($instanceId = null)
     {
-        if(App_Cache::$instance == null) {
+        if (App_Cache::$instance == null) {
             new App_Cache();
         }
-        if($instanceId == null) {
+        if ($instanceId == null) {
             return App_Cache::$instance;
-        } else if(is_string($instanceId)) {
+        } else if (is_string($instanceId)) {
             $instanceId = 'getInstance' . ucfirst(strtolower($instanceId));
             return App_Cache::$instance->$instanceId();
         }
@@ -36,7 +36,7 @@ class App_Cache {
     */
     public function __construct()
     {
-        if(App_Cache::$instance === null) {
+        if (App_Cache::$instance === null) {
             $this->_defaultFrontendOptions = array('lifetime' => App::config()->cache_lifetime, 'cache_id_prefix' => 'content_', 'write_control' => true, 'automatic_serialization' => true, 'ignore_user_abort' => true);
             $this->_defaultBackendOptions = array('cache_dir' => App::config()->syspath->cache . '/', 'read_control' => true, 'hashed_directory_level' => 1, 'file_name_prefix' => 'app_file_cache');
             $systemCacheFrontend = $this->_defaultFrontendOptions;
@@ -53,9 +53,9 @@ class App_Cache {
     public function __call($method, $args)
     {
         $return = null;
-        if((strlen($method) > 11) and(substr($method, 0, 11) == 'getInstance')) {
+        if ((strlen($method) > 11) and(substr($method, 0, 11) == 'getInstance')) {
             $id = ucfirst(strtolower(substr($method, 11)));
-            if(! isset($this->cache->$id)) {
+            if (! isset($this->cache->$id)) {
                 $return = $this->initInstance(array('id' => $id));
             } else {
                 $return = $this->cache->$id;
@@ -70,7 +70,7 @@ class App_Cache {
     public function getAclRoles()
     {
         $data = null;
-        if(!($data = $this->cache->System->load('AclRoles'))) {
+        if (!($data = $this->cache->System->load('AclRoles'))) {
             $model = new Site_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
@@ -89,7 +89,7 @@ class App_Cache {
     public function getSiteNavigationTree()
     {
         $data = null;
-        if(!($data = $this->cache->System->load('SiteNavigationTree'))) {
+        if (!($data = $this->cache->System->load('SiteNavigationTree'))) {
             $model = new Site_Model_DbTable_Site_Structure();
             $data = $model->getTree();
             $this->cache->System->save($data);
@@ -102,13 +102,13 @@ class App_Cache {
     */
     public function initInstance(array $instanceId, $frontendOptions = null, $backendOptions = null)
     {
-        $frontendOptions =(! is_null($frontendOptions) and is_array($frontendOptions) and ! empty($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;
-        $backendOptions =(! is_null($backendOptions) and is_array($backendOptions) and ! empty($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
-        if(is_array($instanceId) and isset($instanceId ['id'])) {
+        $frontendOptions = (! is_null($frontendOptions) and is_array($frontendOptions) and ! empty($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;
+        $backendOptions = (! is_null($backendOptions) and is_array($backendOptions) and ! empty($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
+        if (is_array($instanceId) and isset($instanceId ['id'])) {
             $instanceId ['id'] = ucfirst(strtolower($instanceId ['id']));
             // Create instance only once
-            if(! in_array($instanceId ['id'], $this->_instances)) {
-                $backend =(isset($instanceId ['backend'])) ? ucfirst(strtolower($instanceId ['backend'])) : 'File';
+            if (! in_array($instanceId ['id'], $this->_instances)) {
+                $backend = (isset($instanceId ['backend'])) ? ucfirst(strtolower($instanceId ['backend'])) : 'File';
                 $this->cache->$instanceId ['id'] = Zend_Cache::factory('Core', $backend, $frontendOptions, $backendOptions);
                 $this->_instances [] = $instanceId ['id'];
             }

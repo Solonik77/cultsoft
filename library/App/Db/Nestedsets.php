@@ -56,11 +56,11 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function __construct($config = array())
     {
-        if(! isset($config ['primary'])) {
+        if (! isset($config ['primary'])) {
             $config ['primary'] = array('id');
         }
         parent::__construct($config);
-        if(! $this->_toString) {
+        if (! $this->_toString) {
             $this->_toString = $this->_primary [0];
         }
     }
@@ -107,9 +107,9 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function insertAsFirstChildOf($id)
     {
         $row = $this->retrieveData($id);
-        $right =(int) $row-> {
+        $right = (int) $row-> {
             $this->_right} ;
-        $left =(int) $row-> {
+        $left = (int) $row-> {
             $this->_left} ;
         $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
         $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$left}");
@@ -128,9 +128,9 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function insertAsLastChildOf($id)
     {
         $row = $this->retrieveData($id);
-        $right =(int) $row-> {
+        $right = (int) $row-> {
             $this->_right} ;
-        $left =(int) $row-> {
+        $left = (int) $row-> {
             $this->_left} ;
         $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} >= {$right}");
         $this->_db->query("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
@@ -150,11 +150,11 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function insertAsNextSiblingOf($id)
     {
         $row = $this->retrieveData($id);
-        $right =(int) $row-> {
+        $right = (int) $row-> {
             $this->_right} ;
-        $left =(int) $row-> {
+        $left = (int) $row-> {
             $this->_left} ;
-        if($left === 1) {
+        if ($left === 1) {
             throw new Exception("Root node can't have siblings");
         }
         $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$right}");
@@ -175,11 +175,11 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function insertAsPrevSiblingOf($id)
     {
         $row = $this->retrieveData($id);
-        $right =(int) $row-> {
+        $right = (int) $row-> {
             $this->_right} ;
-        $left =(int) $row-> {
+        $left = (int) $row-> {
             $this->_left} ;
-        if($left === 1) {
+        if ($left === 1) {
             throw new Exception("Root node can't have siblings");
         }
         $this->_db->query("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
@@ -199,9 +199,9 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function deleteNode($id)
     {
         $row = $this->retrieveData($id);
-        $right =(int) $row-> {
+        $right = (int) $row-> {
             $this->_right} ;
-        $left =(int) $row-> {
+        $left = (int) $row-> {
             $this->_left} ;
         $width = $right - $left + 1;
         $res = $this->_db->query("DELETE FROM {$this->_name} WHERE {$this->_left} BETWEEN {$left} AND {$right}");

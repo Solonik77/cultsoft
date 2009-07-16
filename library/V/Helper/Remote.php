@@ -6,26 +6,26 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Remote {
     public static function status($url)
     {
-        if(! V_Helper_Valid::url($url, 'http'))
+        if (! V_Helper_Valid::url($url, 'http'))
             return false;
         // Get the hostname and path
         $url = parse_url($url);
-        if(empty($url ['path'])) {
+        if (empty($url ['path'])) {
             // Request the root document
             $url ['path'] = '/';
         }
         // Open a remote connection
         $remote = fsockopen($url ['host'], 80, $errno, $errstr, 5);
-        if(! is_resource($remote))
+        if (! is_resource($remote))
             return false;
         // Set CRLF
         $CRLF = "\r\n";
@@ -36,12 +36,12 @@ class V_Helper_Remote {
         fwrite($remote, 'User-Agent: Zend Framework' . $CRLF);
         // Send one more CRLF to terminate the headers
         fwrite($remote, $CRLF);
-        while(! feof($remote)) {
+        while (! feof($remote)) {
             // Get the line
             $line = trim(fgets($remote, 512));
-            if($line !== '' and preg_match('#^HTTP/1\.[01](\d{3})#', $line, $matches)) {
+            if ($line !== '' and preg_match('#^HTTP/1\.[01](\d{3})#', $line, $matches)) {
                 // Response code found
-                $response =(int) $matches [1];
+                $response = (int) $matches [1];
                 break;
             }
         }

@@ -6,7 +6,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
-        if(extension_loaded('mbstring')) {
+        if (extension_loaded('mbstring')) {
             mb_internal_encoding('UTF-8');
             define('SERVER_UTF8', true);
         } else {
@@ -32,13 +32,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('App_');
         $autoloader->registerNamespace('V_');
-        if(APPLICATION_ENV == 'development') {
+        if (APPLICATION_ENV == 'development') {
             $autoloader->registerNamespace('ZFDebug_');
         }
         $autoloader->setFallbackAutoloader(false);
         $this->_initConfiguration();
         $classFileIncCache = App::config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
-        if(file_exists($classFileIncCache)) {
+        if (file_exists($classFileIncCache)) {
             include_once $classFileIncCache;
         }
         Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
@@ -73,7 +73,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Set locale information
         $this->_setLanguage();
         ini_set('log_errors', true);
-        if(APPLICATION_ENV == 'development') {
+        if (APPLICATION_ENV == 'development') {
             ini_set('display_errors', true);
             error_reporting(E_ALL &~ E_STRICT);
         } else {
@@ -89,10 +89,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initConfiguration()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-        if(APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
+        if (APPLICATION_ENV == 'development' and file_exists(VAR_PATH . 'configuration_development.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
         }
-        if(file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
+        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
         }
         $options->setReadOnly();
@@ -114,7 +114,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $front->throwExceptions(false);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'default', 'controller' => 'error', 'action' => 'error')));
         $logger = new Zend_Log();
-        if(APPLICATION_ENV == 'development') {
+        if (APPLICATION_ENV == 'development') {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
         $logger->addWriter(new Zend_Log_Writer_Stream(App::config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
@@ -135,7 +135,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             Zend_Locale::setDefault($default_lang_key);
             break;
         }
-        if(function_exists('date_default_timezone_set')) {
+        if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->locale->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
@@ -147,7 +147,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         catch(Zend_Locale_Exception $e) {
             App::setLocale(new Zend_Locale($default_lang_value));
         }
-        $system_lang =(array_key_exists(App::locale()->getLanguage(), $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
+        $system_lang = (array_key_exists(App::locale()->getLanguage(), $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
         // change default router
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang)));
         // add multilingual route
@@ -191,7 +191,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initSession()
     {
         Zend_Session::setOptions(App::config()->session->toArray());
-        if(App::config()->session_save_handler === 'db') {
+        if (App::config()->session_save_handler === 'db') {
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session', 'primary' => 'id', 'modifiedColumn' => 'modified', 'dataColumn' => 'data', 'lifetimeColumn' => 'lifetime')));
         }
@@ -246,7 +246,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _initDebug()
     {
-        if(APPLICATION_ENV == 'development') {
+        if (APPLICATION_ENV == 'development') {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables', 'Html', 'Database' => array('adapter' => array('standard' => App::db())), 'File' => array('basePath' => APPLICATION_PATH), 'Memory', 'Time', 'Registry', 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()), 'Exception'))));
         }
     }
@@ -270,27 +270,27 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $front->setModuleControllerDirectoryName('');
             $front->addModuleDirectory(APPLICATION_PATH . 'controllers' . DIRECTORY_SEPARATOR);
             $default = $front->getDefaultModule();
-            if(null === $front->getControllerDirectory($default)) {
+            if (null === $front->getControllerDirectory($default)) {
                 throw new App_Exception('No default controller directory registered with front controller');
             }
             $front->setParam('bootstrap', $this)->setParam('prefixDefaultModule', true);
             $front->returnResponse(true);
             $response = App::front()->dispatch();
             $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=' . App::config()->locale->charset);
-            if($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and(int) ini_get('zlib.output_compression') === 0) {
-                if($level < 1 or $level > 9) {
+            if ($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and(int) ini_get('zlib.output_compression') === 0) {
+                if ($level < 1 or $level > 9) {
                     // Normalize the level to be an integer between 1 and 9. This
                     // step must be done to prevent gzencode from triggering an error
                     $level = max(1, min($level, 9));
                 }
-                if(stripos(@$_SERVER ['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) {
+                if (stripos(@$_SERVER ['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) {
                     $compress = 'gzip';
-                } elseif(stripos(@$_SERVER ['HTTP_ACCEPT_ENCODING'], 'deflate') !== false) {
+                } elseif (stripos(@$_SERVER ['HTTP_ACCEPT_ENCODING'], 'deflate') !== false) {
                     $compress = 'deflate';
                 }
             }
-            if(isset($compress) and $level > 0) {
-                switch($compress) {
+            if (isset($compress) and $level > 0) {
+                switch ($compress) {
                     case 'gzip' :
                         // Compress output using gzip
                         $response->setBody(gzencode($response->getBody(), $level));
@@ -306,7 +306,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 // Send the content encoding header
                 $response->setHeader('Content-Encoding', $compress);
                 // Sending Content-Length in CGI can result in unexpected behavior
-                if(stripos(PHP_SAPI, 'cgi') === false) {
+                if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }

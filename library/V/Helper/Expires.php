@@ -6,10 +6,10 @@
 *
 * @package Core
 * @author Kohana Team
-* @copyright(c) 2007-2008 Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class V_Helper_Expires {
@@ -21,7 +21,7 @@ class V_Helper_Expires {
     */
     public static function set($seconds = 60)
     {
-        if(V_Helper_Expires::check_headers()) {
+        if (V_Helper_Expires::check_headers()) {
             $now = $expires = time();
             // Set the expiration timestamp
             $expires += $seconds;
@@ -42,8 +42,8 @@ class V_Helper_Expires {
     */
     public static function check($seconds = 60)
     {
-        if(! empty($_SERVER ['HTTP_IF_MODIFIED_SINCE']) and V_Helper_Expires::check_headers()) {
-            if(($strpos = strpos($_SERVER ['HTTP_IF_MODIFIED_SINCE'], ';')) !== false) {
+        if (! empty($_SERVER ['HTTP_IF_MODIFIED_SINCE']) and V_Helper_Expires::check_headers()) {
+            if (($strpos = strpos($_SERVER ['HTTP_IF_MODIFIED_SINCE'], ';')) !== false) {
                 // IE6 and perhaps other IE versions send length too, compensate here
                 $mod_time = substr($_SERVER ['HTTP_IF_MODIFIED_SINCE'], 0, $strpos);
             } else {
@@ -51,7 +51,7 @@ class V_Helper_Expires {
             }
             $mod_time = strtotime($mod_time);
             $mod_time_diff = $mod_time + $seconds - time();
-            if($mod_time_diff > 0) {
+            if ($mod_time_diff > 0) {
                 // Re-send headers
                 header('Last-Modified: ' . gmdate('D, d M Y H:i:s T', $mod_time));
                 header('Expires: ' . gmdate('D, d M Y H:i:s T', time() + $mod_time_diff));
@@ -72,7 +72,7 @@ class V_Helper_Expires {
     public static function check_headers()
     {
         foreach(headers_list() as $header) {
-            if((session_cache_limiter() == '' and stripos($header, 'Last-Modified:') === 0) or stripos($header, 'Expires:') === 0) {
+            if ((session_cache_limiter() == '' and stripos($header, 'Last-Modified:') === 0) or stripos($header, 'Expires:') === 0) {
                 return false;
             }
         }

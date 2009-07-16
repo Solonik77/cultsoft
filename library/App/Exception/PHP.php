@@ -5,7 +5,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 final class App_Exception_PHP extends App_Exception {
@@ -51,7 +51,7 @@ final class App_Exception_PHP extends App_Exception {
     */
     public static function handle($code, $error = 0, $file = '', $line = 0, $context = null)
     {
-        if((error_reporting() &$code) === 0) {
+        if ((error_reporting() &$code) === 0) {
             // Respect error_reporting settings
             return;
         }

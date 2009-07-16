@@ -6,7 +6,7 @@
 *
 * @package Core
 * @author Denysenko Dmytro
-* @copyright(c) 2009 CultSoft
+* @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
 class App_Member {
@@ -17,7 +17,7 @@ class App_Member {
 
     public static function getInstance()
     {
-        if(App_Member::$instance == null) {
+        if (App_Member::$instance == null) {
             // Create a new instance
             new App_Member();
         }
@@ -29,9 +29,9 @@ class App_Member {
     */
     public function __construct()
     {
-        if(App_Member::$instance === null) {
+        if (App_Member::$instance === null) {
             $this->_model = new Site_Model_DbTable_Members();
-            if(App_Member::getAuth()->hasIdentity()) {
+            if (App_Member::getAuth()->hasIdentity()) {
                 $this->loadMember(App_Member::getAuth()->getIdentity()->id);
             } else {
                 $this->loadGuest();
@@ -45,7 +45,7 @@ class App_Member {
     */
     private function loadGuest()
     {
-        $this->_data =(object) array('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now(), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array());
+        $this->_data = (object) array('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now(), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array());
         return $this->_data;
     }
 
@@ -55,17 +55,17 @@ class App_Member {
     private function loadMember($id)
     {
         $data = $this->_model->getDataByID($id);
-        $data =(object) $data->toArray();
+        $data = (object) $data->toArray();
         $roles = App_Cache::getInstance()->getAclRoles();
         foreach($roles as $role) {
-            if($role ['id'] === $data->role_id) {
+            if ($role ['id'] === $data->role_id) {
                 $data->role = $role ['role'];
                 $data->role_description = $role ['description'];
                 $data->acl_resource = array();
                 foreach($role as $id => $resource) {
-                    if((strlen($id) > 4) and(substr($id, 0, 4) == 'res_')) {
+                    if ((strlen($id) > 4) and(substr($id, 0, 4) == 'res_')) {
                         // Administrator always have all privileges
-                        if($role ['id'] == 1) {
+                        if ($role ['id'] == 1) {
                             $resource = 1;
                         }
                         $data->acl_resource [substr($id, 4)] = intval($resource);
