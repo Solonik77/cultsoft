@@ -57,7 +57,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     public function __construct($config = array())
     {
         if (! isset ($config ['primary'])) {
-            $config ['primary'] = array ('id');
+            $config ['primary'] = array('id');
         }
         parent::__construct ($config);
         if (! $this->_toString) {
@@ -113,7 +113,7 @@ class App_Db_Nestedsets extends App_Db_Table {
             $this->_left} ;
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$left}");
-        $data = array ($this->_left => $left + 1, $this->_right => $left + 2);
+        $data = array($this->_left => $left + 1, $this->_right => $left + 2);
         $this->_insertData = array_merge ($this->_insertData, $data);
         return $this->insert ($this->_insertData);
     }
@@ -134,7 +134,7 @@ class App_Db_Nestedsets extends App_Db_Table {
             $this->_left} ;
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} >= {$right}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
-        $data = array ($this->_left => $right, $this->_right => $right + 1);
+        $data = array($this->_left => $right, $this->_right => $right + 1);
         $this->_insertData = array_merge ($this->_insertData, $data);
         return $this->insert ($this->_insertData);
     }
@@ -159,7 +159,7 @@ class App_Db_Nestedsets extends App_Db_Table {
         }
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$right}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} > {$right}");
-        $data = array ($this->_left => $right + 1, $this->_right => $right + 2);
+        $data = array($this->_left => $right + 1, $this->_right => $right + 2);
         $this->_insertData = array_merge ($this->_insertData, $data);
         return $this->insert ($this->_insertData);
     }
@@ -184,7 +184,7 @@ class App_Db_Nestedsets extends App_Db_Table {
         }
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_right} = {$this->_right} + 2 WHERE {$this->_right} > {$left}");
         $this->_db->query ("UPDATE {$this->_name} SET {$this->_left} = {$this->_left} + 2 WHERE {$this->_left} >= {$left}");
-        $data = array ($this->_left => $left, $this->_right => $left + 1);
+        $data = array($this->_left => $left, $this->_right => $left + 1);
         $this->_insertData = array_merge ($this->_insertData, $data);
         return $this->insert ($this->_insertData);
     }
@@ -218,7 +218,7 @@ class App_Db_Nestedsets extends App_Db_Table {
     */
     public function createRoot()
     {
-        $data = array ($this->_left => 1, $this->_right => 2);
+        $data = array($this->_left => 1, $this->_right => 2);
         $this->_insertData = array_merge ($this->_insertData, $data);
         return $this->insert ($this->_insertData);
     }

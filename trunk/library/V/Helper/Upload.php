@@ -26,7 +26,7 @@ class V_Helper_Upload {
     public static function save($file, $filename = null, $directory = null, $chmod = 0644)
     {
         // Load file data from FILES if not passed as array
-        $file = is_array ($file) ? $file : $_FILES [$file];
+        $file = is_array($file) ? $file : $_FILES [$file];
         if ($filename === null) {
             // Use the default filename, with a timestamp pre-pended
             $filename = time() . $file ['name'];
@@ -67,7 +67,7 @@ class V_Helper_Upload {
     */
     public static function valid($file)
     {
-        return (is_array ($file) and isset ($file ['error']) and isset ($file ['name']) and isset ($file ['type']) and isset ($file ['tmp_name']) and isset ($file ['size']));
+        return (is_array($file) and isset ($file ['error']) and isset ($file ['name']) and isset ($file ['type']) and isset ($file ['tmp_name']) and isset ($file ['size']));
     }
 
     /**
@@ -99,7 +99,7 @@ class V_Helper_Upload {
         $mime_types = $mime_types [$extension];
         //  @TODO Make sure there is an extension, that the extension is allowed, and that mime types exist
         // return (! empty($extension) and in_array($extension, $allowed_types) and is_array($mime_types));
-        return (! empty ($extension) and in_array ($extension, $allowed_types));
+        return (! empty ($extension) and in_array($extension, $allowed_types));
     }
 
     /**

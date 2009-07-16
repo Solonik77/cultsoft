@@ -43,6 +43,6 @@ class V_Helper_Security {
     */
     public static function encode_php_tags($str)
     {
-        return str_replace (array ('<?', '?>'), array ('&lt;?', '?&gt;'), $str);
+        return str_replace (array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
     }
 } // End security

@@ -20,13 +20,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     public function __construct($application)
     {
-        define ('TIME_NOW', time());
+        define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if (extension_loaded ('mbstring')) {
             mb_internal_encoding ('UTF-8');
-            define ('SERVER_UTF8', true);
+            define('SERVER_UTF8', true);
         } else {
-            define ('SERVER_UTF8', false);
+            define('SERVER_UTF8', false);
         }
         parent::__construct ($application);
         $autoloader = Zend_Loader_Autoloader::getInstance();
@@ -43,10 +43,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         Zend_Loader_PluginLoader::setIncludeFileCache ($classFileIncCache);
         // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource (array ('basePath' => APPLICATION_PATH . 'resources/Site', 'namespace' => 'Site'));
-        $resourceLoader->addResourceTypes (array ('model' => array ('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array ('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array ('namespace' => 'Form', 'path' => 'forms'), 'model' => array ('namespace' => 'Model', 'path' => 'models'), 'plugin' => array ('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array ('namespace' => 'Service', 'path' => 'services'), 'helper' => array ('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array ('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array ('namespace' => 'View_Filter', 'path' => 'views/filters')));
-        $resourceLoader = new Zend_Loader_Autoloader_Resource (array ('basePath' => APPLICATION_PATH . 'resources/Admin', 'namespace' => 'Admin'));
-        $resourceLoader->addResourceTypes (array ('model' => array ('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array ('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array ('namespace' => 'Form', 'path' => 'forms'), 'model' => array ('namespace' => 'Model', 'path' => 'models'), 'plugin' => array ('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array ('namespace' => 'Service', 'path' => 'services'), 'helper' => array ('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array ('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array ('namespace' => 'View_Filter', 'path' => 'views/filters')));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource (array('basePath' => APPLICATION_PATH . 'resources/Site', 'namespace' => 'Site'));
+        $resourceLoader->addResourceTypes (array('model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource (array('basePath' => APPLICATION_PATH . 'resources/Admin', 'namespace' => 'Admin'));
+        $resourceLoader->addResourceTypes (array('model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
         $this->_initErrorHandler();
         try {
             $this->_initEnvironment();
@@ -90,10 +90,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         $options = new Zend_Config_Ini (VAR_PATH . 'configuration.ini', null, true);
         if (APPLICATION_ENV == 'development' and file_exists (VAR_PATH . 'configuration_development.ini')) {
-            $options->merge (new Zend_Config_Ini (VAR_PATH . 'configuration_development.ini', null));
+            $options->merge(new Zend_Config_Ini (VAR_PATH . 'configuration_development.ini', null));
         }
         if (file_exists (VAR_PATH . 'cache/configs/settings.ini')) {
-            $options->merge (new Zend_Config_Ini (VAR_PATH . 'cache/configs/settings.ini', null));
+            $options->merge(new Zend_Config_Ini (VAR_PATH . 'cache/configs/settings.ini', null));
         }
         $options->setReadOnly();
         App::setConfig ($options);
@@ -112,12 +112,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         App_Exception_PHP::enable();
         $front = App::front();
         $front->throwExceptions (false);
-        $front->registerPlugin (new Zend_Controller_Plugin_ErrorHandler (array ('module' => 'default', 'controller' => 'error', 'action' => 'error')));
+        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler (array('module' => 'default', 'controller' => 'error', 'action' => 'error')));
         $logger = new Zend_Log();
         if (APPLICATION_ENV == 'development') {
-            $logger->addWriter (new Zend_Log_Writer_Firebug());
+            $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
-        $logger->addWriter (new Zend_Log_Writer_Stream (App::config()->syspath->log . "/system_log_" . date ('Y-m-d') . '.log'));
+        $logger->addWriter(new Zend_Log_Writer_Stream (App::config()->syspath->log . "/system_log_" . date ('Y-m-d') . '.log'));
         App::setLog ($logger);
     }
 
@@ -142,17 +142,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             date_default_timezone_set (empty ($timezone) ? date_default_timezone_get() : $timezone);
         }
         try {
-            App::setLocale (new Zend_Locale ('auto'));
+            App::setLocale(new Zend_Locale ('auto'));
         }
         catch (Zend_Locale_Exception $e) {
-            App::setLocale (new Zend_Locale ($default_lang_value));
+            App::setLocale(new Zend_Locale ($default_lang_value));
         }
         $system_lang = (array_key_exists (App::locale()->getLanguage(), $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
         // change default router
-        App::front()->getRouter()->addRoute ('default', new Zend_Controller_Router_Route (':module/:controller/:action/*', array ('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang)));
+        App::front()->getRouter()->addRoute ('default', new Zend_Controller_Router_Route (':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang)));
         // add multilingual route
-        App::front()->getRouter()->addRoute ('default_multilingual', new Zend_Controller_Router_Route (':requestLang/:module/:controller/:action/*', array ('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang), array ('requestLang' => '\w{2}')));
-        App::front()->registerPlugin (new App_Controller_Plugin_Language());
+        App::front()->getRouter()->addRoute ('default_multilingual', new Zend_Controller_Router_Route (':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang), array('requestLang' => '\w{2}')));
+        App::front()->registerPlugin(new App_Controller_Plugin_Language());
     }
 
     /**
@@ -176,7 +176,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             Zend_Db_Table_Abstract::setDefaultAdapter (App::db());
             App::db()->getConnection();
             App::db()->query ("SET NAMES 'utf8'");
-            define ('DB_TABLE_PREFIX', App::config()->database->table_prefix);
+            define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
         }
         catch (Zend_Db_Adapter_Exception $e) {
             throw new App_Exception ($e->getMessage());
@@ -190,9 +190,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _initSession()
     {
-        Zend_Session::setOptions (App::config()->session->toArray());
-        Zend_Db_Table_Abstract::setDefaultAdapter (App::db());
-        Zend_Session::setSaveHandler (new App_Session_SaveHandler_DbTable (array ('name' => DB_TABLE_PREFIX . 'session', 'primary' => 'id', 'modifiedColumn' => 'modified', 'dataColumn' => 'data', 'lifetimeColumn' => 'lifetime')));
+        Zend_Session::setOptions(App::config()->session->toArray());
+        if (App::config()->session_save_handler === 'db') {
+            Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
+            Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session', 'primary' => 'id', 'modifiedColumn' => 'modified', 'dataColumn' => 'data', 'lifetimeColumn' => 'lifetime')));
+        }
         Zend_Session::start();
     }
 
@@ -201,7 +203,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _initView()
     {
-        App::front()->registerPlugin (new App_Controller_Plugin_View());
+        App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
 
     /**
@@ -224,7 +226,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initAccess()
     {
         App_Member::getInstance();
-        App::front()->registerPlugin (new App_Controller_Plugin_Access());
+        App::front()->registerPlugin(new App_Controller_Plugin_Access());
     }
 
     /**
@@ -245,7 +247,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     private function _initDebug()
     {
         if (APPLICATION_ENV == 'development') {
-            App::front()->registerPlugin (new ZFDebug_Controller_Plugin_Debug (array ('plugins' => array ('Variables', 'Html', 'Database' => array ('adapter' => array ('standard' => App::db())), 'File' => array ('basePath' => APPLICATION_PATH), 'Memory', 'Time', 'Registry', 'Cache' => array ('backend' => App_Cache::getInstance ('File')->getBackend()), 'Exception'))));
+            App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug (array('plugins' => array('Variables', 'Html', 'Database' => array('adapter' => array('standard' => App::db())), 'File' => array('basePath' => APPLICATION_PATH), 'Memory', 'Time', 'Registry', 'Cache' => array('backend' => App_Cache::getInstance ('File')->getBackend()), 'Exception'))));
         }
     }
 

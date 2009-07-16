@@ -45,7 +45,7 @@ class App_Member {
     */
     private function loadGuest()
     {
-        $this->_data = (object) array ('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now(), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array());
+        $this->_data = (object) array('id' => 0, 'login' => 'Guest', 'email' => 'guest@example.com', 'created' => V_Helper_Date::now(), 'is_active' => 1, 'role' => 'guest', 'acl_resource' => array());
         return $this->_data;
     }
 

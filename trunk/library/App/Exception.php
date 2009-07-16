@@ -32,7 +32,7 @@ class App_Exception extends Zend_Exception {
     */
     public static function enable()
     {
-        set_exception_handler (array (__CLASS__, 'handle'));
+        set_exception_handler (array(__CLASS__, 'handle'));
     }
 
     /**
@@ -73,7 +73,7 @@ class App_Exception extends Zend_Exception {
             }
             // Load the error message information
             if (is_numeric ($this->code)) {
-                $errors = array (E_RECOVERABLE_ERROR => array (1, 'Recoverable Error', 'An error was detected which prevented the loading of this page. If this problem persists, please contact the website administrator.'), E_ERROR => array (1, 'Fatal Error', ''), E_USER_ERROR => array (1, 'Fatal Error', ''), E_PARSE => array (1, 'Syntax Error', ''), E_WARNING => array (1, 'Warning Message', ''), E_USER_WARNING => array (1, 'Warning Message', ''), E_STRICT => array (2, 'Strict Mode Error', ''), E_NOTICE => array (2, 'Runtime Message', ''));
+                $errors = array(E_RECOVERABLE_ERROR => array(1, 'Recoverable Error', 'An error was detected which prevented the loading of this page. If this problem persists, please contact the website administrator.'), E_ERROR => array(1, 'Fatal Error', ''), E_USER_ERROR => array(1, 'Fatal Error', ''), E_PARSE => array(1, 'Syntax Error', ''), E_WARNING => array(1, 'Warning Message', ''), E_USER_WARNING => array(1, 'Warning Message', ''), E_STRICT => array(2, 'Strict Mode Error', ''), E_NOTICE => array(2, 'Runtime Message', ''));
                 if (! empty ($errors [$this->code])) {
                     list ($level, $type, $description) = $errors [$this->code];
                 } else {
@@ -170,7 +170,7 @@ class App_Exception extends Zend_Exception {
             }
             if (isset ($trace ['function'])) {
                 // Is this an inline function?
-                $inline = in_array ($trace ['function'], array ('require', 'require_once', 'include', 'include_once', 'echo', 'print'));
+                $inline = in_array($trace ['function'], array('require', 'require_once', 'include', 'include_once', 'echo', 'print'));
                 $line = array();
                 if (isset ($trace ['class'])) {
                     $line [] = $trace ['class'];
@@ -236,7 +236,7 @@ class App_Exception extends Zend_Exception {
                 $object = new ReflectionObject ($var);
                 $more = false;
                 $out = 'object ' . $object->getName() . ' { ';
-                if ($recursion === true and in_array ($hash, $objects)) {
+                if ($recursion === true and in_array($hash, $objects)) {
                     $out .= '*RECURSION*';
                 } else {
                     // Add the hash to the objects, to detect later recursion
@@ -256,7 +256,7 @@ class App_Exception extends Zend_Exception {
                 return $out . ' }';
             case 'array' :
                 $more = false;
-                $out = 'array (';
+                $out = 'array(';
                 foreach ((array) $var as $key => $val) {
                     if (! is_int ($key)) {
                         $key = self::debug_var ($key, true) . ' => ';

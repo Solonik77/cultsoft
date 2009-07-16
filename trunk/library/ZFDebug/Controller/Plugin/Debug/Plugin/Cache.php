@@ -41,7 +41,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache implements ZFDebug_Controller
         if (! isset ($options ['backend'])) {
             throw new Zend_Exception ("ZFDebug: Cache plugin needs 'backend' parameter");
         }
-        is_array ($options ['backend']) || $options ['backend'] = array ($options ['backend']);
+        is_array($options ['backend']) || $options ['backend'] = array($options ['backend']);
         foreach ($options ['backend'] as $name => $backend) {
             if ($backend instanceof Zend_Cache_Backend_ExtendedInterface) {
                 $this->_cacheBackends [$name] = $backend;

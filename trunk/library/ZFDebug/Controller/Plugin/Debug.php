@@ -42,13 +42,13 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
     /**
     * Contains options to change Debug Bar behavior
     */
-    protected $_options = array ('plugins' => array ('Variables' => null, 'Time' => null, 'Memory' => null), 'z-index' => 10000, 'jquery_path' => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', 'image_path' => null);
+    protected $_options = array('plugins' => array('Variables' => null, 'Time' => null, 'Memory' => null), 'z-index' => 10000, 'jquery_path' => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', 'image_path' => null);
     /**
     * Standard plugins
     *
     * @var array
     */
-    public static $standardPlugins = array ('Cache', 'Html', 'Database', 'Exception', 'File', 'Memory', 'Registry', 'Time', 'Variables');
+    public static $standardPlugins = array('Cache', 'Html', 'Database', 'Exception', 'File', 'Memory', 'Registry', 'Time', 'Variables');
     /**
     * Debug Bar Version Number
     * for internal use only
@@ -73,7 +73,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
             /**
             * Verify that adapter parameters are in an array.
             */
-            if (! is_array ($options)) {
+            if (! is_array($options)) {
                 throw new Zend_Exception ('Debug parameters must be in an array or a Zend_Config object');
             }
             $this->setOptions ($options);
@@ -221,7 +221,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
                 $options = array();
             }
             $plugin = (string) $plugin;
-            if (in_array ($plugin, ZFDebug_Controller_Plugin_Debug::$standardPlugins)) {
+            if (in_array($plugin, ZFDebug_Controller_Plugin_Debug::$standardPlugins)) {
                 // standard plugin
                 $pluginClass = 'ZFDebug_Controller_Plugin_Debug_Plugin_' . $plugin;
             } else {

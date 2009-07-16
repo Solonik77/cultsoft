@@ -47,7 +47,7 @@ class V_Helper_Download {
         $mime = Kohana::config ('mimes.' . $extension);
         if (empty ($mime)) {
             // Set a default mime if none was found
-            $mime = array ('application/octet-stream');
+            $mime = array('application/octet-stream');
         }
         // Generate the server headers
         header ('Content-Type: ' . $mime [0]);

@@ -14,7 +14,7 @@
 */
 class V_Helper_Request {
     // Possible HTTP methods
-    protected static $http_methods = array ('get', 'head', 'options', 'post', 'put', 'delete');
+    protected static $http_methods = array('get', 'head', 'options', 'post', 'put', 'delete');
     // Content types from client's HTTP Accept request header (array)
     protected static $accept_types;
 
@@ -74,7 +74,7 @@ class V_Helper_Request {
     public static function method()
     {
         $method = strtolower ($_SERVER ['REQUEST_METHOD']);
-        if (! in_array ($method, V_Helper_Request::$http_methods))
+        if (! in_array($method, V_Helper_Request::$http_methods))
             throw new App_Exception ('Unknown request method: ' . $method);
         return $method;
     }
@@ -180,7 +180,7 @@ class V_Helper_Request {
             return;
         }
         // Remove linebreaks and parse the HTTP Accept header
-        foreach (explode (',', str_replace (array ("\r", "\n"), '', $_SERVER ['HTTP_ACCEPT'])) as $accept_entry) {
+        foreach (explode (',', str_replace (array("\r", "\n"), '', $_SERVER ['HTTP_ACCEPT'])) as $accept_entry) {
             // Explode each entry in content type and possible quality factor
             $accept_entry = explode (';', trim ($accept_entry), 2);
             // Explode each content type (e.g. "text/html")

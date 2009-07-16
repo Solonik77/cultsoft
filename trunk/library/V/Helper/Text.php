@@ -268,7 +268,7 @@ class V_Helper_Text {
         if (($str = trim ($str)) === '')
             return '';
         // Standardize newlines
-        $str = str_replace (array ("\r\n", "\r"), "\n", $str);
+        $str = str_replace (array("\r\n", "\r"), "\n", $str);
         // Trim whitespace on each line
         $str = preg_replace ('~^[ \t]+~m', '', $str);
         $str = preg_replace ('~[ \t]+$~m', '', $str);
@@ -314,11 +314,11 @@ class V_Helper_Text {
         $format = ($format === null) ? '%01.2f %s' : (string) $format;
         // IEC prefixes (binary)
         if ($si == false or strpos ($force_unit, 'i') !== false) {
-            $units = array ('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
+            $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
             $mod = 1024;
         } // SI prefixes (decimal)
         else {
-            $units = array ('B', 'kB', 'MB', 'GB', 'TB', 'PB');
+            $units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB');
             $mod = 1000;
         }
         // Determine unit to use

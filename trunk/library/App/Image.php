@@ -13,7 +13,7 @@ class App_Image {
     const HORIZONTAL = 5;
     const VERTICAL = 6;
     // Allowed image types
-    public static $allowed_types = array (IMAGETYPE_GIF => 'gif', IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_TIFF_II => 'tiff', IMAGETYPE_TIFF_MM => 'tiff');
+    public static $allowed_types = array(IMAGETYPE_GIF => 'gif', IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_TIFF_II => 'tiff', IMAGETYPE_TIFF_MM => 'tiff');
     // Adapter instance
     protected $adapter;
     // Adapter actions
@@ -59,13 +59,13 @@ class App_Image {
         // Turn on error reporting again
         error_reporting ($ER);
         // Make sure that the image is readable and valid
-        if (! is_array ($image_info) or count ($image_info) < 3)
+        if (! is_array($image_info) or count ($image_info) < 3)
             throw new App_Exception ('The specified image, ' . $image . ', is unreadable.');
         // Check to make sure the image type is allowed
         if (! isset (Image::$allowed_types [$image_info [2]]))
             throw new App_Exception ('The specified image, ' . $image . ', is not an allowed image type.');
         // Image has been validated, load it
-        $this->image = array ('file' => str_replace ('\\', '/', realpath ($image)), 'width' => $image_info [0], 'height' => $image_info [1], 'type' => $image_info [2], 'ext' => App_Image::$allowed_types [$image_info [2]], 'mime' => $image_info ['mime']);
+        $this->image = array('file' => str_replace ('\\', '/', realpath ($image)), 'width' => $image_info [0], 'height' => $image_info [1], 'type' => $image_info [2], 'ext' => App_Image::$allowed_types [$image_info [2]], 'mime' => $image_info ['mime']);
         // Load configuration
         $this->config = (array) $config + App::config()->image->toArray();
         // Set adapter class name
@@ -124,7 +124,7 @@ class App_Image {
         } elseif (! $this->valid_size ('master', $master))
             throw new App_Exception ('The master dimension specified is not valid.');
 
-        $this->actions ['resize'] = array ('width' => $width, 'height' => $height, 'master' => $master);
+        $this->actions ['resize'] = array('width' => $width, 'height' => $height, 'master' => $master);
 
         return $this;
     }
@@ -158,7 +158,7 @@ class App_Image {
         if (empty ($width) and empty ($height))
             throw new App_Exception ('The dimensions specified for ' . __FUNCTION__ . ' are not valid.');
 
-        $this->actions ['crop'] = array ('width' => $width, 'height' => $height, 'top' => $top, 'left' => $left);
+        $this->actions ['crop'] = array('width' => $width, 'height' => $height, 'top' => $top, 'left' => $left);
 
         return $this;
     }
@@ -321,7 +321,7 @@ class App_Image {
                 break;
             case 'top' :
                 if (is_string ($value) and ! ctype_digit ($value)) {
-                    if (! in_array ($value, array ('top', 'bottom', 'center')))
+                    if (! in_array($value, array('top', 'bottom', 'center')))
                         return false;
                 } else {
                     $value = (int) $value;
@@ -329,7 +329,7 @@ class App_Image {
                 break;
             case 'left' :
                 if (is_string ($value) and ! ctype_digit ($value)) {
-                    if (! in_array ($value, array ('left', 'right', 'center')))
+                    if (! in_array($value, array('left', 'right', 'center')))
                         return false;
                 } else {
                     $value = (int) $value;

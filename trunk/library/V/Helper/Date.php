@@ -275,7 +275,7 @@ class V_Helper_Date {
         // Remove the variables that cannot be accessed
         unset ($timespan, $time1, $time2);
         // Deny access to these variables
-        $deny = array_flip (array ('deny', 'key', 'difference', 'output'));
+        $deny = array_flip (array('deny', 'key', 'difference', 'output'));
         // Return the difference
         $difference = array();
         foreach ($output as $key) {
@@ -305,7 +305,7 @@ class V_Helper_Date {
     */
     public static function timespan_string($time1, $time2 = null, $output = 'years,months,weeks,days,hours,minutes,seconds')
     {
-        if ($difference = V_Helper_Date::timespan ($time1, $time2, $output) and is_array ($difference)) {
+        if ($difference = V_Helper_Date::timespan ($time1, $time2, $output) and is_array($difference)) {
             // Determine the key of the last item in the array
             $last = end ($difference);
             $last = key ($difference);

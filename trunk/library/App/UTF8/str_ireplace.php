@@ -13,16 +13,16 @@ function _str_ireplace($search, $replace, $str, &$count = null)
 {
     if (App_Utf8::is_ascii ($search) and App_Utf8::is_ascii ($replace) and App_Utf8::is_ascii ($str))
         return str_ireplace ($search, $replace, $str, $count);
-    if (is_array ($str)) {
+    if (is_array($str)) {
         foreach ($str as $key => $val) {
             $str [$key] = App_Utf8::str_ireplace ($search, $replace, $val, $count);
         }
         return $str;
     }
-    if (is_array ($search)) {
+    if (is_array($search)) {
         $keys = array_keys ($search);
         foreach ($keys as $k) {
-            if (is_array ($replace)) {
+            if (is_array($replace)) {
                 if (array_key_exists ($k, $replace)) {
                     $str = App_Utf8::str_ireplace ($search [$k], $replace [$k], $str, $count);
                 } else {

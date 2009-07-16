@@ -24,12 +24,12 @@ class App_Acl extends Zend_Acl {
                 foreach ($res as $key => $value) {
                     if ((strlen ($key) > 4) and (substr ($key, 0, 4) == 'res_')) {
                         $resources [substr ($key, 4)] = (bool) $value;
-                        $this->add (new Zend_Acl_Resource (substr ($key, 4)));
+                        $this->add(new Zend_Acl_Resource (substr ($key, 4)));
                     }
                 }
             }
             foreach ($acl as $role) {
-                $this->addRole (new Zend_Acl_Role ($role ['role']));
+                $this->addRole(new Zend_Acl_Role ($role ['role']));
                 foreach ($resources as $key => $value) {
                     if ($role ['role'] == 'guest') {
                         $value = false;

@@ -179,7 +179,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     */
     protected function _calcAvg(array $array, $precision = 2)
     {
-        if (! is_array ($array)) {
+        if (! is_array($array)) {
             return 'ERROR in method _calcAvg(): this is a not array';
         }
         foreach ($array as $value)
