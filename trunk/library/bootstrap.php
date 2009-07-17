@@ -37,7 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         $autoloader->setFallbackAutoloader(false);
         $this->_initConfiguration();
-        $classFileIncCache = App::config()->syspath->cache . '/zend_framework_plugin_loader_cache.php';
+        $classFileIncCache = App::config()->syspath->cache . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : 'Zend Framework')) . '.php';
         if (file_exists($classFileIncCache)) {
             include_once $classFileIncCache;
         }
