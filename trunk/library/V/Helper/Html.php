@@ -5,11 +5,10 @@ require_once LIBRARY_PATH . 'App/UTF8.php';
 *
 * $Id: html.php 4318 2009-05-04 01:20:50Z kiall $
 *
-* @package Core
+
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

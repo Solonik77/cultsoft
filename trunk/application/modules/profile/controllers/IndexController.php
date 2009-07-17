@@ -2,7 +2,6 @@
 /**
 * Profile controller. This controller used for authorization and user profile information pages.
 *
-* @package Core
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html

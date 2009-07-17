@@ -4,7 +4,6 @@
 * This controller used for view system error
 *        information pages in development environment and simple warnings in production.
 *
-* @package Core
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html

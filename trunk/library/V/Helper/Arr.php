@@ -4,11 +4,10 @@
 *
 * $Id: arr.php 4346 2009-05-11 17:08:15Z zombor $
 *
-* @package Core
+
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

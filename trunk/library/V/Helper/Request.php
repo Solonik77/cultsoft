@@ -4,11 +4,10 @@
 *
 * $Id: request.php 4355 2009-05-15 17:18:28Z kiall $
 *
-* @package Core
+
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

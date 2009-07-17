@@ -3,7 +3,6 @@
 * Setting Zend View and Layout to load views
 * from STATIC_PATH folders
 *
-* @package Core
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
