@@ -7,7 +7,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
-class Site_Form_Signin extends Zend_Form {
+class App_Form_Signin extends Zend_Form {
     /**
     * Contructor
     *
