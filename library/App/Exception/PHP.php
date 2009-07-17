@@ -3,7 +3,6 @@
 * PHP Errors Class
 * $Id$
 *
-* @package Core
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html

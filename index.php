@@ -1,8 +1,7 @@
 <?php
 /**
 * APPLICATION FRONT CONTROLLER FILE
-*
-* @author Denysenko Dmytro
+** @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

@@ -3,7 +3,7 @@
 /**
 * App_Utf8::str_split
 *
-* @package Core
+
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks

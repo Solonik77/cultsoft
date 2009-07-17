@@ -4,11 +4,10 @@
 *
 * $Id: format.php 4070 2009-03-11 20:37:38Z Geert $
 *
-* @package Core
+
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

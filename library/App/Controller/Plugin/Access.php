@@ -3,7 +3,6 @@
 * Member access Zend Controller plugin
 * Provide access to controller by ACL rules check
 *
-* @package Core
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
