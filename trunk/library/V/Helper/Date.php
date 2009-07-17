@@ -340,24 +340,23 @@ class V_Helper_Date {
     {
         return gmdate($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s', TIME_NOW);
     }
-    
-    
+
     /**
     * Format date (user offset)
+    *
     * @return string
     */
     public static function now($dayOnly = false)
     {
         $timezone_offset = (float) App_Member::getInstance()->getField('timezone_offset');
-        if($timezone_offset != 0)
-        {         
-         $timezone_offset = TIME_NOW + ($timezone_offset * 3600 + ((date("I")) ? 3600 : 0 ));       
-         $return = gmdate($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s', $timezone_offset);
+        if ($timezone_offset != 0) {
+            $timezone_offset = TIME_NOW + ($timezone_offset * 3600 + ((date("I")) ? 3600 : 0));
+            $return = gmdate($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s', $timezone_offset);
         } else {
-         $return = date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s', TIME_NOW);        
+            $return = date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s', TIME_NOW);
         }
 
-       return $return;
+        return $return;
     }
 
     /**

@@ -128,30 +128,27 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _setLanguage()
     {
-        $system_locales = App::config()->locales->toArray();
-        foreach($system_locales as $key => $value) {
-            $default_lang_key = $key;
-            $default_lang_value = $value;
-            Zend_Locale::setDefault($default_lang_key);
-            break;
-        }
         if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->project->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
             date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
         }
+
+        $languages = App::config()->languages->toArray();
+        $default_site_language_id = $languages['default_id'];
+        $default_site_locale = $languages['locale'][$default_site_language_id];
+        $default_language_identificator = $languages['identificator'][$default_site_language_id];
+        Zend_Locale::setDefault($default_language_identificator);
         try {
             App::setLocale(new Zend_Locale('auto'));
         }
         catch(Zend_Locale_Exception $e) {
-            App::setLocale(new Zend_Locale($default_lang_value));
+            App::setLocale(new Zend_Locale($default_language_identificator));
         }
-        $system_lang = (array_key_exists(App::locale()->getLanguage(), $system_locales)) ? App::locale()->getLanguage() : $default_lang_key;
-        // change default router
-        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang)));
-        // add multilingual route
-        App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $system_lang), array('requestLang' => '\w{2}')));
+
+        $default_language_identificator = (in_array(App::locale()->getLanguage(), $languages['identificator'])) ? App::locale()->getLanguage() : $default_language_identificator;
+        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
     }
 

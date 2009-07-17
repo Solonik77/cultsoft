@@ -17,22 +17,33 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
-        $system_locales = App::config()->locales->toArray();
-        foreach($system_locales as $key => $value) {
-            $default_lang_key = $key;
-            Zend_Locale::setDefault($default_lang_key);
-            break;
-        }
-        
-        $language_id = intval(App_Member::getInstance()->getField('language_id'));        
-        
+        $languages = App::config()->languages->toArray();
+        $default_site_language_id = $languages['default_id'];
+        $default_site_locale = $languages['locale'][$default_site_language_id];
+        $default_language_identificator = $languages['identificator'][$default_site_language_id];
+
+        $member_language_id = intval(App_Member::getInstance()->getField('language_id'));
         $request_lang = $request->getParam('requestLang');
-        $system_lang = (array_key_exists($request_lang, $system_locales)) ? $request_lang : $default_lang_key;
+
+        if (in_array($request_lang, $languages['identificator'])) {
+            $system_lang = $request_lang;
+            foreach($languages['identificator'] as $key => $value) {
+                if ($value == $system_lang) {
+                    $site_language_id = $key;
+                }
+            }
+        } else {
+            $system_lang = $default_language_identificator;
+            $site_language_id = $default_site_language_id;
+        }
         Zend_Translate::setCache(App_Cache::getInstance('File'));
         $translate = new Zend_Translate('csv', APPLICATION_PATH . 'i18n/', $system_lang, array('scan' => Zend_Translate::LOCALE_FILENAME, 'disableNotices' => true));
         App::setTranslate($translate);
-        setlocale(LC_ALL, $system_locales [$system_lang] . '.UTF-8');
+        Zend_Locale::setDefault($system_lang);
+        Zend_Controller_Router_Route::setDefaultLocale($system_lang);
         Zend_Form::setDefaultTranslator($translate);
-        App::Front()->setParam('requestLang', $system_lang);
+        Zend_Controller_Router_Route::setDefaultTranslator($translate);
+        App::front()->setParam('requestLang', $system_lang);
+        App::front()->setParam('requestLangId', $site_language_id);
     }
 }
