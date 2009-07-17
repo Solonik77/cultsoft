@@ -24,7 +24,7 @@ class Profile_IndexController extends App_Controller_Action {
         if (App_Member::isAuth()) {
             $this->view->form = __('You are already logged.');
         } else {
-            $form = new App_Form_Signin();
+            $form = new System_Form_Signin();
             if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
                 $form->populate($formData);
