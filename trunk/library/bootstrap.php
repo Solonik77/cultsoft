@@ -136,7 +136,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             break;
         }
         if (function_exists('date_default_timezone_set')) {
-            $timezone = App::config()->locale->timezone;
+            $timezone = App::config()->project->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
             date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
@@ -276,7 +276,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $front->setParam('bootstrap', $this)->setParam('prefixDefaultModule', true);
             $front->returnResponse(true);
             $response = App::front()->dispatch();
-            $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=' . App::config()->locale->charset);
+            $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=UTF-8');
             if ($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and(int) ini_get('zlib.output_compression') === 0) {
                 if ($level < 1 or $level > 9) {
                     // Normalize the level to be an integer between 1 and 9. This
