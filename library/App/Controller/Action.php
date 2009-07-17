@@ -27,7 +27,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
         $this->view->headTitle($languages['project_title'][$requestLangId]);
-        $site_pages = new App_Model_Site_Structure();
+        $site_pages = new System_Model_Site_Structure();
         // Create container from array
         $container = new Zend_Navigation($site_pages->getTopMenu());
         $this->view->navigation($container);

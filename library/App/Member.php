@@ -30,7 +30,7 @@ class App_Member {
     public function __construct()
     {
         if (App_Member::$instance === null) {
-            $this->_model = new App_Model_DbTable_Members();
+            $this->_model = new System_Model_DbTable_Members();
             if (App_Member::getAuth()->hasIdentity()) {
                 $this->loadMember(App_Member::getAuth()->getIdentity()->id);
             } else {

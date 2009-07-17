@@ -71,7 +71,7 @@ class App_Cache {
     {
         $data = null;
         if (!($data = $this->cache->System->load('AclRoles'))) {
-            $model = new App_Model_DbTable_Acl_Roles();
+            $model = new System_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
             $data = array();
@@ -90,7 +90,7 @@ class App_Cache {
     {
         $data = null;
         if (!($data = $this->cache->System->load('SiteNavigationTree'))) {
-            $model = new App_Model_DbTable_Site_Structure();
+            $model = new System_Model_DbTable_Site_Structure();
             $data = $model->getTree();
             $this->cache->System->save($data);
         }

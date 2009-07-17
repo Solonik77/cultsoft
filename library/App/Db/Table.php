@@ -37,7 +37,7 @@ abstract class App_Db_Table extends Zend_Db_Table_Abstract {
     protected function _setupTableName()
     {
         if (! $this->_name) {
-            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('App_Model_DbTable_', 'Admin_Model_DbTable_'), '', get_class($this)));
+            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('System_Model_DbTable_'), '', get_class($this)));
         } else if (strpos($this->_name, '.')) {
             list($this->_schema, $this->_name) = explode('.', $this->_name);
             $this->_name = App::config()->database->table_prefix . $this->_name;
