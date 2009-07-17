@@ -44,7 +44,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private function _initTemplatePath()
     {
         $this->_isBackofficeController = false;
-        $this->_templatePath = APPLICATION_PATH . 'resources/views/' . App::config()->project->template . '/';
+        $this->_templatePath = APPLICATION_PATH . 'views/' . App::config()->project->template . '/';
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
             $this->_templatePath = STATIC_PATH . 'system/admin/';
