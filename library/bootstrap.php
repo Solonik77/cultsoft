@@ -148,7 +148,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
 
         $default_language_identificator = (in_array(App::locale()->getLanguage(), $languages['identificator'])) ? App::locale()->getLanguage() : $default_language_identificator;
-        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator), array('requestLang' => '\w{2}')));
+        // change default router
+        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator)));
+        // add multilingual route
+        App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
     }
 
