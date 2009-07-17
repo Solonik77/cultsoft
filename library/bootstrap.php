@@ -43,10 +43,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
         // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'resources/Site', 'namespace' => 'Site'));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/core', 'namespace' => 'App'));
         $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'resources/Admin', 'namespace' => 'Admin'));
-        $resourceLoader->addResourceTypes(array('model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
+
         $this->_initErrorHandler();
         try {
             $this->_initEnvironment();
@@ -172,7 +171,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $profiler->setEnabled(true);
             App::db()->setProfiler($profiler);
             Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance('File'));
-            Zend_Db_Table::setDefaultAdapter(App::db());
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
             App::db()->query("SET NAMES 'utf8'");
@@ -192,7 +190,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         Zend_Session::setOptions(App::config()->session->toArray());
         if (App::config()->session_save_handler === 'db') {
-            Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session', 'primary' => 'id', 'modifiedColumn' => 'modified', 'dataColumn' => 'data', 'lifetimeColumn' => 'lifetime')));
         }
         Zend_Session::start();
