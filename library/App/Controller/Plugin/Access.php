@@ -24,10 +24,10 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     {
         Zend_Registry::set('member_access', 'ALLOWED');
         Zend_Registry::set('BACKOFFICE_CONTROLLER', false);
-        $className = App::Front()->getDispatcher()->getControllerClass($request);
+        $className = App::front()->getDispatcher()->getControllerClass($request);
         if (($className) and ! class_exists($className, false)) {
-            $fileSpec = App::Front()->getDispatcher()->classToFilename($className);
-            $dispatchDir = App::Front()->getDispatcher()->getDispatchDirectory();
+            $fileSpec = App::front()->getDispatcher()->classToFilename($className);
+            $dispatchDir = App::front()->getDispatcher()->getDispatchDirectory();
             $test = $dispatchDir . DIRECTORY_SEPARATOR . $fileSpec;
             if (Zend_Loader::isReadable($test)) {
                 include_once $test;

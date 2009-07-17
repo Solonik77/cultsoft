@@ -30,7 +30,7 @@ class App_Mail {
                 $to = $to [0];
             }
             if ($from === null) {
-                $requestLang = App::Front()->getParam('requestLang');
+                $requestLang = App::front()->getParam('requestLang');
                 $from = array(App::config()->project->email, App::config()->project->title->$requestLang);
             }
             if (is_string($from)) {

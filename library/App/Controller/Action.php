@@ -21,9 +21,12 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $doctypeHelper = new Zend_View_Helper_Doctype();
         // Set global HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');
-        $requestLang = App::Front()->getParam('requestLang');
+
+        $languages = App::config()->languages->toArray();
+        $requestLang = App::front()->getParam('requestLang');
+        $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
-        $this->view->headTitle(App::config()->project->title->$requestLang);
+        $this->view->headTitle($languages['project_title'][$requestLangId]);
         $site_pages = new Site_Model_Site_Structure();
         // Create container from array
         $container = new Zend_Navigation($site_pages->getTopMenu());
