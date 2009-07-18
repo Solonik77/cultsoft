@@ -263,7 +263,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         try {
             $front = $this->getResource('FrontController');
-            $front->setdefaultModule('system');
+            $front->setdefaultModule('main');
             $front->setModuleControllerDirectoryName('controllers');
             $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
             $default = $front->getDefaultModule();
