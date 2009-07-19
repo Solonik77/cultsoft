@@ -113,7 +113,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         App_Exception_PHP::enable();
         $front = App::front();
         $front->throwExceptions(false);
-        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'main', 'controller' => 'error', 'action' => 'error')));
+        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'system', 'controller' => 'error', 'action' => 'error')));
         $logger = new Zend_Log();
         if ( 'development'  === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());

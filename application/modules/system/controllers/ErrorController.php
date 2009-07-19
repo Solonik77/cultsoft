@@ -8,7 +8,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
-class Main_ErrorController extends App_Controller_Action {
+class System_ErrorController extends App_Controller_Action {
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
