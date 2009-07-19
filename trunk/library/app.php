@@ -164,7 +164,7 @@ final class App {
 /**
 * Translator function
 */
-function __($text = '', $print = true)
+function __($text = '', $print = FALSE)
 {
     if ($print === true) {
         echo App::$i18n->_($text);
