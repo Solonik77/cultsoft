@@ -11,6 +11,9 @@
 require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
 require_once(LIBRARY_PATH . 'app.php');
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+    
+    private $_language_identificator;
+    
     /**
     * Constructor
     *
@@ -145,12 +148,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             App::setLocale(new Zend_Locale($default_language_identificator));
         }
 
-        $default_language_identificator = (in_array(App::locale()->getLanguage(), $languages['identificator'])) ? App::locale()->getLanguage() : $default_language_identificator;
-        // change default router
-        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator)));
-        // add multilingual route
-        App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $default_language_identificator), array('requestLang' => '\w{2}')));
-        App::front()->registerPlugin(new App_Controller_Plugin_Language());
+        $this->_language_identificator = (in_array(App::locale()->getLanguage(), $languages['identificator'])) ? App::locale()->getLanguage() : $default_language_identificator;
     }
 
     /**
@@ -209,6 +207,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _initRoutes()
     {
+        // change default router
+        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $this->_language_identificator)));
+        // add multilingual route
+        App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'default', 'controller' => 'index', 'action' => 'index', 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
+        App::front()->registerPlugin(new App_Controller_Plugin_Language());
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
