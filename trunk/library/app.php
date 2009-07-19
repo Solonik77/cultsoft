@@ -166,7 +166,7 @@ final class App {
 */
 function __($text = '', $print = FALSE)
 {
-    if ($print === true) {
+    if ($print == true) {
         echo App::$i18n->_($text);
     } else {
         return App::$i18n->_($text);
