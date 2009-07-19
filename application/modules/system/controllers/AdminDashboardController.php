@@ -12,6 +12,9 @@ class System_AdminDashboardController extends App_Controller_Action {
 
     public function init()
     {
+        $this->view->pageTitle = __('Dashboard');
+        $this->view->pageDescription = __('Fast access links, statistics, system information');
+        $this->view->headTitle($this->view->pageTitle);
     }
 
     /**
@@ -19,5 +22,6 @@ class System_AdminDashboardController extends App_Controller_Action {
     */
     public function indexAction()
     {
+
     }
 }

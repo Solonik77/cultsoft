@@ -79,6 +79,14 @@ class App_Member {
     /**
     * Get current member role
     */
+    public function getId()
+    {
+        return $this->getField('id');
+    }
+    
+    /**
+    * Get current member role
+    */
     public function getRole()
     {
         return $this->getField('role');

@@ -111,6 +111,10 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $languages = App::config()->languages->toArray();
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
-        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => $languages['project_title'][$requestLangId] , 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/backoffice/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/backoffice/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/backoffice/images/')));
+        $this->_view->getHelper('DeclareVars')->declareVars(array('member'=>         
+        App_Member::getInstance(), 'uploadedIMG' => App::baseUri() . 'static/upload/images/',
+        'requestLang' => $requestLang, 'projectTitle' => $languages['project_title'][$requestLangId] ,
+        'baseUrl' => App::baseUri(),
+        'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/backoffice/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/backoffice/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/backoffice/images/')));
     }
 }
