@@ -28,7 +28,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             $this->_initZendLayout($request);
             $this->_loadDefaultTemplateResources();
             if ($this->_isBackofficeController) {
-                $this->_loadAdminTemplateResources();
+                $this->_loadBackofficeTemplateResources();
             } else {
                 $this->_loadSiteTemplateResources();
             }
@@ -46,7 +46,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $this->_templatePath = APPLICATION_PATH . 'views/' . App::config()->project->template . '/';
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
-            $this->_templatePath = STATIC_PATH . 'system/admin/';
+            $this->_templatePath = STATIC_PATH . 'system/backoffice/';
         }
     }
 
@@ -97,11 +97,11 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/view_resources/' . App::config()->project->template . '/css/styles.css');
     }
 
-    private function _loadAdminTemplateResources()
+    private function _loadBackofficeTemplateResources()
     {
-        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/admin/css/styles.css');
-        $this->_view->getHelper('HeadMeta')->appendHttpEquiv('Designer', 'ne-design(www.ragard-jp.com) KuroAdmin Theme');
-        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/admin/css/elements.css');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/backoffice/css/styles.css');
+        $this->_view->getHelper('HeadMeta')->appendHttpEquiv('Designer', 'ne-design(www.ragard-jp.com) KuroBackoffice Theme');
+        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/backoffice/css/elements.css');
         $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
         $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
     }
@@ -111,6 +111,6 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $languages = App::config()->languages->toArray();
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
-        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => $languages['project_title'][$requestLangId] , 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/admin/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/admin/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/admin/images/')));
+        $this->_view->getHelper('DeclareVars')->declareVars(array('uploadedIMG' => App::baseUri() . 'static/upload/images/', 'requestLang' => $requestLang, 'projectTitle' => $languages['project_title'][$requestLangId] , 'baseUrl' => App::baseUri(), 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/backoffice/clientscripts/'), 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/backoffice/css/'), 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/backoffice/images/')));
     }
 }
