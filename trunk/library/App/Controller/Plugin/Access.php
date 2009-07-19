@@ -45,11 +45,11 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
         if (! $role) {
             $role = 'guest';
         }
-        $resource = 'module_' . $request->getModuleName();
+        $resource = 'module_' . $request->getModuleName() . '_controller_' . $request->getControllerName();
         if ($this->_acl->has($resource)) {
             if (! $this->_acl->isAllowed($role, $resource)) {
                 Zend_Registry::set('member_access', 'ACCESS_DENY');
-                $request->setModuleName('default')->setControllerName('error')->setActionName('deny');
+                $request->setModuleName('main')->setControllerName('error')->setActionName('deny');
             } else {
                 Zend_Registry::set('member_access', 'ALLOWED');
             }

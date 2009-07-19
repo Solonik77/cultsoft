@@ -7,7 +7,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
-class Admin_IndexController extends App_Controller_Action {
+class System_AdminDashboardController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;
 
     public function init()
