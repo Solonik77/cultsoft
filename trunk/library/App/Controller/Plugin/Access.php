@@ -37,7 +37,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
             }
         }
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER') and ! App_Member::getAuth()->hasIdentity()) {
-            $request->setModuleName('profile')->setControllerName('index')->setActionName('signin');
+            $request->setModuleName('system')->setControllerName('profile')->setActionName('signin');
             Zend_Registry::set('member_access', 'NOT_AUTHORIZED');
             return;
         }
