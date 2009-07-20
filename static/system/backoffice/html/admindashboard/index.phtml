@@ -1,4 +1,14 @@
-<h1><?php
-__ ( 'Welcome to Dashboard!' )?></h1>
-<p>Var: <?php
-echo $this->baseUrl?></p>
+
+<p>PHP Version: <?php echo $this->php_version?> </p>
+<p>PHP Server API: <?php echo $this->php_sapi?> </p>
+<p>Zend Framework version: <?php echo $this->zf_version?> </p>
+<p>Database adapter: <?php echo $this->sql_adapter?> </p>
+<p>Database server version: <?php echo $this->sql_version?> </p>
+<p>Image adapter component: <?= $this->image_adapter ?></p>
+<p><?= $this->image_adapter ?> Version: <?= $this->image_adapter_version ?>
+<p>Apache rewrite module: <?= ($this->apache_rewrite) ? __('available') : __('unvailable') ?></p>
+<p>Free disk space: <?= $this->free_disk_space ?></p>
+<p>Safe mode: <?= ($this->safe_mode) ? __('on') :  __('off') ?></p>
+<p>Memory limit: <?= ($this->memory_limit) ? $this->memory_limit :  __('unvailable') ?></p>
+<p>Disable functions: <?= ($this->disable_functions) ? $this->disable_functions :  __('unvailable') ?></p>
+<p>Max upload filesize: <?= ($this->max_upload) ? $this->max_upload :  __('unvailable') ?></p>

@@ -55,4 +55,17 @@ class V_Helper_Format {
         // Return the original URL
         return $str;
     }
+    
+    public static function size($file_size)
+    {
+    $file_size = intval($file_size);
+    if($file_size >= 1073741824)
+        {$file_size = round($file_size / 1073741824 * 100) / 100 . " Gb";}
+    elseif($file_size >= 1048576)
+        {$file_size = round($file_size / 1048576 * 100) / 100 . " Mb";}
+    elseif($file_size >= 1024)
+        {$file_size = round($file_size / 1024 * 100) / 100 . " Kb";}
+    else{$file_size = $file_size . " b";}
+    return $file_size;
+    }
 } // End format
