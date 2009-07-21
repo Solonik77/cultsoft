@@ -160,6 +160,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         try {
             $config = App::config()->database->toArray();
+            $config['persistent'] = FALSE;
             $config['driver_options'] = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
