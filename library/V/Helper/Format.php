@@ -58,7 +58,7 @@ class V_Helper_Format {
     
     public static function size($file_size)
     {
-    $file_size = intval($file_size);
+
     if($file_size >= 1073741824)
         {$file_size = round($file_size / 1073741824 * 100) / 100 . " Gb";}
     elseif($file_size >= 1048576)

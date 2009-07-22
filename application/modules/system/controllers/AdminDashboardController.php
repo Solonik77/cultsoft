@@ -34,5 +34,11 @@ class System_AdminDashboardController extends App_Controller_Action
         $this->view->memory_limit = $sys_info->getMemoryLimit();
         $this->view->disable_functions = $sys_info->getPHPDisabledFunctions();
         $this->view->max_upload = V_Helper_Format::size($sys_info->getMaxUploadFilezie());
+        $this->view->output_buffering = $sys_info->isOutputBufferingOn();
+        $this->view->file_uploads = $sys_info->isFileUploadsOn();
+        $this->view->xml_ext = $sys_info->isPHPExtensionLoded('xml');
+        $this->view->zlib_ext = $sys_info->isPHPExtensionLoded('zlib');
+        $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
+        $this->view->os_version = $sys_info->getOsVersion();
     }
 }

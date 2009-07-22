@@ -81,7 +81,6 @@ class System_Model_DashboardInfo
     public function getFreeDiskSpace()
     {
         $dfs = @disk_free_space(".");
-        $dfs = intval($dfs);
         return $dfs;
     }
 
@@ -105,4 +104,30 @@ class System_Model_DashboardInfo
         $maxupload = str_replace(array('M' , 'm'), '', @ini_get('upload_max_filesize'));
         return $maxupload * 1024 * 1024;
     }
+    
+    public function isOutputBufferingOn()
+    {
+        return (@ini_get('output_buffering')) ? TRUE : FALSE;
+    }
+    
+    public function isFileUploadsOn()
+    {
+        return (@ini_get('file_uploads')) ? TRUE : FALSE;
+    }
+    
+     public function isPHPFunctionExist($function)
+    {
+        return (@function_exists($function)) ? TRUE : FALSE;
+    }
+    
+    public function isPHPExtensionLoded($extension)
+    {
+        return (@extension_loaded($extension)) ? TRUE : FALSE;
+    }
+    
+    public function getOsVersion()
+    {
+        return @php_uname('s') . ' ' . @php_uname('r');
+    }
+
 }
