@@ -1,6 +1,6 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype ();
+echo $this->doctype();
 ?>
 <html>
 <head>
@@ -16,6 +16,7 @@ echo $this->headStyle()?>
 echo $this->headScript()?>
 <?php
 echo $this->inlineScript()?>
+
 </head>
 <body>
 <div id="header">
@@ -30,9 +31,7 @@ echo $this->tplIMG?>logo.png"
     </ul>
   </div>
 </div>
-<ul id="navigation">
-  <li class="current"><a href="#">Dashboard</a></li>
-</ul>
+<div id='navTopMenu'><?php echo $this->navigation()->menu($this->topMenu)?></div>
 <div id="main">
   <div
 	style="border-top: 0px none; border-bottom: 0px none; padding: 0pt; overflow: visible; position: relative; background-position: 0px -6px;"
@@ -386,9 +385,8 @@ echo $this->tplIMG?>logo.png"
   </div>
 </div>
 <div id="footer">
-  <p class="left">&copy; Copyright KuroAdmin 2009</p>
-  <p class="right"><a href="#">Dashboard</a> | <a href="#">Clients</a> | <a
-	href="#">Reports</a> | <a href="#">System</a></p>
+  <p class="left">&copy; Copyright <?php echo $this->projectTitle?> 2009</p>
+  <p class="right"><?php echo $this->navigation()->menu($this->footerMenu)?></p>
 </div>
 </body>
 </html>

@@ -120,7 +120,7 @@ input.max {
 }
 
 /* Navigation */
-#navigation {
+#navTopMenu .navigation {
 	min-width: 760px;
 	height: 30px;
 	display: block;
@@ -134,7 +134,7 @@ input.max {
 	background-color: #E3E3E3;
 }
 
-#navigation li {
+#navTopMenu .navigation li {
 	display: block;
 	list-style: none;
 	margin: 0;
@@ -145,12 +145,12 @@ input.max {
 	background: url('../images/navigation-line.gif') right no-repeat;
 }
 
-#navigation a {
+#navTopMenu .navigation a {
 	display: block;
 	padding: 0 15px;
 }
 
-#navigation ul {
+#navTopMenu .navigation ul {
 	display: none;
 	position: absolute;
 	left: 0;
@@ -158,72 +158,92 @@ input.max {
 	padding: 0;
 }
 
-* html #navigation ul {
+* html #navTopMenu .navigation ul {
 	line-height: 0;
 }  /* IE6 "fix" */
-#navigation ul a {
+#navTopMenu .navigation ul a {
 	zoom: 1;
 }  /* IE6/7 fix */
-#navigation ul li {
+#navTopMenu .navigation ul li {
 	float: none;
 }
 
-#navigation ul ul {
+#navTopMenu .navigation ul ul {
 	top: 0;
 }
 
 /* Subnavigation Width */
-#navigation ul {
+#navTopMenu .navigation ul {
 	width: 140px;
 }
 
-#navigation ul ul {
+#navTopMenu .navigation ul ul {
 	left: 141px;
 }
 
 /* Colors and Fonts */
-#navigation a {
+#navTopMenu .navigation a {
 	font-size: 12px;
 	font-weight: bold;
 	color: #000;
 	text-decoration: none;
 }
 
-#navigation li.current {
+#navTopMenu .navigation li.active {
 	background: #000;
 }
 
-#navigation li.current a {
+#navTopMenu .navigation li.active a {
 	color: #fff;
 }
 
-#navigation li:hover a {
+#navTopMenu .navigation li:hover a {
 	background-color: #000;
 	color: #fff;
 }
 
-#navigation ul {
+#navTopMenu .navigation ul {
 	top: 30px;
 }
 
-#navigation ul li a {
+#navTopMenu .navigation ul li a {
 	background-color: #000;
 	color: #fff;
 	font-size: 11px;
 }
 
-#navigation ul a:hover {
+#navTopMenu .navigation ul a:hover {
 	background-color: #4a4a4a;
 }
 
-#navigation ul a {
+#navTopMenu .navigation ul a {
 	border-bottom: 1px solid white;
 	border-right: none;
 }
 
-/* #navigation ul a { border-bottom: none; } - I also needed this for IE6/7 */
-	/* Table Style */
-table {
+/* #navTopMenu .navigation ul a { border-bottom: none; } - I also needed this for IE6/7 */
+
+#content table
+{
+	width: 100%;
+	margin: 0 0 15px;
+	text-align: left;
+	border-collapse: collapse;
+}
+#content table th,
+#content table td
+{
+	padding: 8px;
+	color: #000;
+}
+#content table th
+{
+	font-weight: bold;
+	color: #9D9D9D;
+}
+
+	/* table.grid Style */   
+table.grid {
 	width: 100%;
 	margin: 0 0 15px;
 	text-align: left;
@@ -231,40 +251,51 @@ table {
 	border: 1px solid #c4c4c4;
 }
 
-table thead {
+table.grid thead {
 	color: #666;
 }
 
-table th {
+table.grid th {
 	font-weight: normal;
 	padding: 5px 8px;
 	color: #666;
 	background: #e5e5e5;
 }
 
-table td {
+table.grid td {
 	padding: 8px;
 	color: #000;
 	border-top: 1px solid #c4c4c4;
 }
 
-table td span.active {
+table.grid td span.active {
 	color: #55a34a;
 }
 
-table td span.pending {
+table.grid td span.pending {
 	color: #c5a059;
 }
 
-table td span.closed {
+table.grid td span.closed {
 	color: #a02b2b;
 }
 
-table tr {
+table.grid tr {
 	border-top: none;
 	background: #f9f9f9;
 }
 
-table .odd {
+table.grid .odd {
 	background: #fff;
+}
+#footer .navigation li
+{
+	float:right;
+	padding: 5px;
+	display: inline;
+}
+
+#footer .navigation a
+{
+ color: #fff;
 }
