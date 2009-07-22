@@ -26,16 +26,18 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
         if(Zend_Registry::get('BACKOFFICE_CONTROLLER')){
-          $this->view->headTitle(__('Control panel') . ' - ' . $languages['project_title'][$requestLangId]);   
+          $this->view->headTitle(__('Control panel') . ' - ' . $languages['project_title'][$requestLangId]);
+          $site_pages = new System_Component_BackofficeStructure();
+          $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
+          $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
         } else {
           $this->view->headTitle($languages['project_title'][$requestLangId]);
+          $site_pages = new System_Component_SiteStructure();
+          $container = new Zend_Navigation($site_pages->getTopMenu());
+          $this->view->navigation($container);
         }
         $this->view->headTitle()->setSeparator(' / ');
-        
-        $site_pages = new System_Component_SiteStructure();
-        // Create container from array
-        $container = new Zend_Navigation($site_pages->getTopMenu());
-        $this->view->navigation($container);
+       
         // Resource autoload
         $module = ucfirst(strtolower($request->getParam('module')));
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module, 'namespace' => $module));
