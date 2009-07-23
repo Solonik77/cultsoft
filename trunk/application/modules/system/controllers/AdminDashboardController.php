@@ -49,6 +49,6 @@ class System_AdminDashboardController extends App_Controller_Action {
     {
         $this->view->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(TRUE);
-       echo $this->view->navigation()->sitemap();
+        echo $this->view->navigation()->sitemap($this->view->topMenu);
     }
 }
