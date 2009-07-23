@@ -1,53 +1,48 @@
 <?php
 /**
-* FlashMessages view helper
+* Messages view helper
 *
 * This helper creates an easy method to return groupings of
 * flash messages by status.
 */
-class App_View_Helper_FlashMessage {
+class App_View_Helper_Messages {
     /**
-    * flashMessages function.
+     * $_messages - Messages 
+     *
+     * @var array
+     */
+    static protected $_messages = array();
+
+
+    /**
+    * Messages function.
     *
     * Takes a specially formatted array of flash messages and prepares them
     * for output.
-    *
-    * SAMPLE INPUT (in, say, a controller):
-    *     $this->_flashMessenger->addMessage(array('message' => 'Success message #1', 'status' => 'success'));
-    *     $this->_flashMessenger->addMessage(array('message' => 'Error message #1', 'status' => 'error'));
-    *     $this->_flashMessenger->addMessage(array('message' => 'Warning message #1', 'status' => 'warning'));
-    *     $this->_flashMessenger->addMessage(array('message' => 'Success message #2', 'status' => 'success'));
-    *
-    * SAMPLE OUTPUT (in a view):
-    *     <div class="success">
-    *         <ul>
-    *             <li>Success message #1</li>
-    *             <li>Success message #2</li>
-    *         </ul>
-    *     </div>
-    *     <div class="error">Error message #1</div>
-    *     <div class="warning">Warning message #2</div>
-    *
-    * @access public
-    * @param  $translator An optional instance of Zend_Translate
-    * @return string HTML of output messages
+
     */
-    public function flashMessage($message = null, $status = 'success')
+    public function messages($message = null, $status, $flash = FALSE)
     {
         if ($message === null) {
             return $this;
         }
 
         if (is_string($message) AND is_string($status) AND !empty($message) AND !empty($status)) {
-            $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
-            $flashMessenger->addMessage(array('message' => $message, 'status' => $status));
+            
+            if($flash == TRUE) {
+                $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+                $flashMessenger->addMessage(array('message' => $message, 'status' => $status));
+            } else {
+                self::$_messages[] = array('message' => $message, 'status' => $status);
+            }
         }
     }
 
     public function __toString()
     {
-        // Set up some variables, including the retrieval of all flash messages.
         $messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+        $messages = (count($messages) > 0) ? $messages : self::$_messages;
+
         $statMessages = array();
         $output = '';
         // If there are no messages, don't bother with this whole process.
