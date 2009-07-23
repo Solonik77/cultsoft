@@ -77,30 +77,42 @@ input.max {
 	font-weight: normal;
 }
 
-/* Notice */
+/*
+* Messages
+*/
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../images/message_icons/info.png');
+}
 .success {
-	font-size: 11px;
-	margin: 0 0 25px;
-	padding: 10px 15px;
-	background: #d3f2bf;
-	border: 1px solid #a7c394;
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('../images/message_icons/success.png');
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../images/message_icons/warning.png');
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../images/message_icons/error.png');
+}
+.validation {
+    color: #D63301;
+    background-color: #FFCCBA;
+    background-image: url('../images/message_icons/validation.png');
 }
 
-.message {
-	font-size: 11px;
-	margin: 0 0 25px;
-	padding: 10px 15px;
-	background: #ffffe0;
-	border: 1px solid #e6db55;
-}
-
-.error_message {
-	font-size: 11px;
-	margin: 0 0 25px;
-	padding: 10px 15px;
-	background: #ffebe8;
-	border: 1px solid #cc0000;
-}
 
 /* Button */
 .button {
