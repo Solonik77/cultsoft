@@ -211,6 +211,12 @@ input.max {
 	font-weight: bold;
 }
 
+#navTopMenu li.active ul li.active a
+{
+	background-color: #EEE;
+	font-weight: bold;
+}
+
 /* style the sub level links */
 #navTopMenu ul ul a,
 #navTopMenu ul ul a:visited 
