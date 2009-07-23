@@ -21,7 +21,7 @@ class App_View_Helper_Messages {
     * for output.
 
     */
-    public function messages($message = null, $status, $flash = FALSE)
+    public function messages($message = null, $status = NULL, $flash = FALSE)
     {
         if ($message === null) {
             return $this;
