@@ -25,7 +25,7 @@ class System_Model_DashboardInfo
 
     public function getSqlAdapter()
     {
-        return App::config()->database->adapter;
+        return App_UTF8::strtoupper(App::config()->database->adapter);
     }
 
     public function getSqlVersion()
