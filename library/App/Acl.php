@@ -39,7 +39,7 @@ class App_Acl extends Zend_Acl {
                     if ($value) {
                         $this->allow($role ['role'], $key);
                     } else {
-                        $acl->deny($role ['role'], $key);
+                        $this->deny($role ['role'], $key);
                     }
                 }
             }
