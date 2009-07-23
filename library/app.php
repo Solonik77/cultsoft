@@ -22,7 +22,7 @@ final class App {
     // Logger
     protected static $log = null;
     // Zend_Translate object
-    public static $i18n = null;
+    protected static $i18n = null;
     // Base URI
     protected static $base_uri = '';
 
@@ -121,6 +121,14 @@ final class App {
         }
     }
 
+    /*
+    * Translator object
+    */
+    public function translate()
+    {
+        return App::$i18n;
+    }
+
     /**
     * Base URL, with or without the index page.
     *
@@ -164,11 +172,11 @@ final class App {
 /**
 * Translator function
 */
-function __($text = '', $print = FALSE)
+function __($text = '', $print = false)
 {
     if ($print == true) {
-        echo App::$i18n->_($text);
+        echo App::translate()->_($text);
     } else {
-        return App::$i18n->_($text);
+        return App::translate()->_($text);
     }
 }

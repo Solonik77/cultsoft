@@ -3,7 +3,6 @@
 /**
 * App_Utf8::strspn
 *
-
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks

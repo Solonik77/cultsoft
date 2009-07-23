@@ -3,7 +3,6 @@
 /**
 * App_Utf8::strtolower
 *
-
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks

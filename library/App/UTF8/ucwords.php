@@ -3,7 +3,6 @@
 /**
 * App_Utf8::ucwords
 *
-
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks

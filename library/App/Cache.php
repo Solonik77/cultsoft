@@ -73,14 +73,12 @@ class App_Cache {
             $model = new System_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
-            $data = array( 
-            0 => array( 
-            'id' => 0,
-            'parent' => 0,
-            'role' => 'guest',
-            'description' => 'Guest Account',
-            'res_module_system_controller_admindashboard' => 0            
-            ));
+            $data = array(0 => array('id' => 0,
+                    'parent' => 0,
+                    'role' => 'guest',
+                    'description' => 'Guest Account',
+                    'res_module_system_controller_admindashboard' => 0
+                    ));
             foreach($model as $item) {
                 $data[$item['id']] = $item;
             }
