@@ -83,7 +83,7 @@ class App_Member {
     {
         return $this->getField('id');
     }
-    
+
     /**
     * Get current member role
     */

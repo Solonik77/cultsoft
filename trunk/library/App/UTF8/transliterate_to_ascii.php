@@ -3,7 +3,6 @@
 /**
 * App_Utf8::transliterate_to_ascii
 *
-
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks

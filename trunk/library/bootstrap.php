@@ -11,9 +11,8 @@
 require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
 require_once(LIBRARY_PATH . 'app.php');
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-    
     private $_language_identificator;
-    
+
     /**
     * Constructor
     *
@@ -34,7 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('App_');
         $autoloader->registerNamespace('V_');
-        if ( 'development'  === APPLICATION_ENV) {
+        if ('development' === APPLICATION_ENV) {
             $autoloader->registerNamespace('ZFDebug_');
         }
         $autoloader->setFallbackAutoloader(false);
@@ -74,7 +73,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Set locale information
         $this->_setLanguage();
         ini_set('log_errors', true);
-        if ( 'development'  === APPLICATION_ENV) {
+        if ('development' === APPLICATION_ENV) {
             ini_set('display_errors', true);
             error_reporting(E_ALL &~ E_STRICT);
         } else {
@@ -90,7 +89,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initConfiguration()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-        if ( 'development'  === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')) {
+        if ('development' === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
         }
         if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
@@ -115,7 +114,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $front->throwExceptions(false);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'system', 'controller' => 'error', 'action' => 'error')));
         $logger = new Zend_Log();
-        if ( 'development'  === APPLICATION_ENV) {
+        if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
         $logger->addWriter(new Zend_Log_Writer_Stream(App::config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
@@ -160,7 +159,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         try {
             $config = App::config()->database->toArray();
-            $config['persistent'] = FALSE;
+            $config['persistent'] = false;
             $config['charset'] = 'utf8';
             $config['driver_options'] = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -216,7 +215,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         App::front()->getRouter()->addRoute('backoffice', new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*', array('module' => 'system', 'controller' => 'admindashboard', 'action' => 'index', 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
         $router = App::front()->getRouter();
-        $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', NULL);
+        $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
         define('BACKOFFICE_PATH', App::config()->backoffice_path);
     }
@@ -249,7 +248,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     private function _initDebug()
     {
-        if ( 'development'  === APPLICATION_ENV) {
+        if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Variables', 'Html', 'Database' => array('adapter' => array('standard' => App::db())), 'File' => array('basePath' => APPLICATION_PATH), 'Memory', 'Time', 'Registry', 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()), 'Exception'))));
         }
     }

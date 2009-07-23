@@ -330,13 +330,11 @@ echo $this->tplIMG?>logo.png"
 	style="margin: 0pt; padding: 15px; overflow: visible;">
           <div
 	style="position: relative; float: left; width: 100%; margin-top: -4px; margin-bottom: -4px;">
-
-            <?php echo $this->layout ()->content?>
-
             
-          
-
-          </div>
+            <?php echo $this->flashMessage(); ?>
+            <?php echo $this->layout ()->content?>
+            
+            </div>
           <div style="clear: both;"></div>
         </div>
       </div>

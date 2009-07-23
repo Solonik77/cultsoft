@@ -25,24 +25,23 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
-        if(Zend_Registry::get('BACKOFFICE_CONTROLLER')){
-          $this->view->headTitle(__('Control panel') . ' — ' . $languages['project_title'][$requestLangId]);
-          $site_pages = new System_Component_BackofficeStructure();
-          $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
-          $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
+        if (Zend_Registry::get('BACKOFFICE_CONTROLLER')) {
+            $this->view->headTitle(__('Control panel') . ' — ' . $languages['project_title'][$requestLangId]);
+            $site_pages = new System_Component_BackofficeStructure();
+            $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
+            $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
         } else {
-          $this->view->headTitle($languages['project_title'][$requestLangId]);
-          $site_pages = new System_Component_SiteStructure();
-          $container = new Zend_Navigation($site_pages->getTopMenu());
-          $this->view->navigation($container);
+            $this->view->headTitle($languages['project_title'][$requestLangId]);
+            $site_pages = new System_Component_SiteStructure();
+            $container = new Zend_Navigation($site_pages->getTopMenu());
+            $this->view->navigation($container);
         }
         $this->view->headTitle()->setSeparator(' ‹ ');
-       
         // Resource autoload
         $module = ucfirst(strtolower($request->getParam('module')));
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module, 'namespace' => $module));
-        $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component', 'path' => 'components'),'model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
-        
+        $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component', 'path' => 'components'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'dbtable' => array('namespace' => 'Model_DbTable', 'path' => 'models/DbTable'), 'form' => array('namespace' => 'Form', 'path' => 'forms'), 'model' => array('namespace' => 'Model', 'path' => 'models'), 'plugin' => array('namespace' => 'Plugin', 'path' => 'plugins'), 'service' => array('namespace' => 'Service', 'path' => 'services'), 'helper' => array('namespace' => 'Helper', 'path' => 'helpers'), 'viewhelper' => array('namespace' => 'View_Helper', 'path' => 'views/helpers'), 'viewfilter' => array('namespace' => 'View_Filter', 'path' => 'views/filters')));
+
         if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
             Zend_Layout::disableLayout();

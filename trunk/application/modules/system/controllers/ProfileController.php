@@ -14,13 +14,12 @@ class System_ProfileController extends App_Controller_Action {
     public function indexAction()
     {
     }
-    
+
     /**
     * View member profile
     */
     public function viewAction()
     {
-
     }
 
     /**

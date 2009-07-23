@@ -1,6 +1,5 @@
 <?php
-class System_Model_DashboardInfo
-{
+class System_Model_DashboardInfo {
     private $db;
 
     public function __construct()
@@ -30,8 +29,7 @@ class System_Model_DashboardInfo
 
     public function getSqlVersion()
     {
-        switch ($this->getSqlAdapter())
-        {
+        switch ($this->getSqlAdapter()) {
             default:
                 return $this->db->fetchOne('SELECT VERSION()');
                 break;
@@ -45,19 +43,15 @@ class System_Model_DashboardInfo
 
     public function getImageAdapterVersion()
     {
-        switch ($this->getImageAdapter())
-        {
+        switch ($this->getImageAdapter()) {
             default:
                 ob_start();
                 phpinfo(8);
                 $module_info = ob_get_contents();
                 ob_end_clean();
-                if(preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches))
-                {
+                if (preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches)) {
                     $gdversion = $matches[1];
-                }
-                else
-                {
+                } else {
                     $gdversion = 0;
                 }
                 return $gdversion;
@@ -68,10 +62,8 @@ class System_Model_DashboardInfo
     public function isServerModuleAvailable($module)
     {
         $return = false;
-        if(function_exists('apache_get_modules'))
-        {
-            if(in_array($module, apache_get_modules()))
-            {
+        if (function_exists('apache_get_modules')) {
+            if (in_array($module, apache_get_modules())) {
                 $return = true;
             }
         }
@@ -96,7 +88,7 @@ class System_Model_DashboardInfo
 
     public function getPHPDisabledFunctions()
     {
-        return (strlen(ini_get('disable_functions')) > 1) ? str_replace(',', ', ', @ini_get('disable_functions')) : FALSE;
+        return (strlen(ini_get('disable_functions')) > 1) ? str_replace(',', ', ', @ini_get('disable_functions')) : false;
     }
 
     public function getMaxUploadFilezie()
@@ -104,30 +96,29 @@ class System_Model_DashboardInfo
         $maxupload = str_replace(array('M' , 'm'), '', @ini_get('upload_max_filesize'));
         return $maxupload * 1024 * 1024;
     }
-    
+
     public function isOutputBufferingOn()
     {
-        return (@ini_get('output_buffering')) ? TRUE : FALSE;
+        return (@ini_get('output_buffering')) ? true : false;
     }
-    
+
     public function isFileUploadsOn()
     {
-        return (@ini_get('file_uploads')) ? TRUE : FALSE;
+        return (@ini_get('file_uploads')) ? true : false;
     }
-    
-     public function isPHPFunctionExist($function)
+
+    public function isPHPFunctionExist($function)
     {
-        return (@function_exists($function)) ? TRUE : FALSE;
+        return (@function_exists($function)) ? true : false;
     }
-    
+
     public function isPHPExtensionLoded($extension)
     {
-        return (@extension_loaded($extension)) ? TRUE : FALSE;
+        return (@extension_loaded($extension)) ? true : false;
     }
-    
+
     public function getOsVersion()
     {
         return @php_uname('s') . ' ' . @php_uname('r');
     }
-
 }

@@ -3,7 +3,6 @@
 /**
 * App_Utf8::substr_replace
 *
-
 * @author Kohana Team
 * @copyright (c) 2007 Kohana Team
 * @copyright (c) 2005 Harry Fuecks
