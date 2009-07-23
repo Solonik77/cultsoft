@@ -40,4 +40,9 @@ class System_AdminDashboardController extends App_Controller_Action {
         $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
         $this->view->os_version = $sys_info->getOsVersion();
     }
+    
+    public function testAction()
+    {
+
+    }
 }
