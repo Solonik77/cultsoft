@@ -119,109 +119,254 @@ input.max {
 	background: #4a4a4a;
 }
 
-/* Navigation */
-#navTopMenu .navigation {
+
+#navTopMenu
+{
 	min-width: 760px;
 	height: 30px;
 	display: block;
-	margin: 0 20px 25px 20px;
+	margin: 0 0px 25px 0px;
 	padding: 0;
 	position: relative;
 	z-index: 2;
-	background-image: url(../images/navigation-bg.gif);
 	background-repeat: repeat-x;
 	background-position: left;
 	background-color: #E3E3E3;
+	border-bottom-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-bottom-color: #C4C4C4;
+	background-image: url(../images/navigation-bg.gif);
 }
 
-#navTopMenu .navigation li {
-	display: block;
-	list-style: none;
-	margin: 0;
+/* remove all the bullets, borders and padding from the default list styling */
+#navTopMenu ul
+{
 	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	height: 28px;
+}
+
+/* style the sub-level lists */
+#navTopMenu ul ul
+{
+	width: auto;
+}
+
+/* float the top list items to make it horizontal and a relative positon so that you can control the dropdown menu positon */
+#navTopMenu ul li 
+{
 	float: left;
-	position: relative;
-	line-height: 30px;
-	background: url('../images/navigation-line.gif') right no-repeat;
+	height: 30px;
+	line-height: 28px;
 }
 
-#navTopMenu .navigation a {
+/* style the sub level list items */
+#navTopMenu ul ul li 
+{
 	display: block;
-	padding: 0 15px;
+	width: auto;
+	height: auto;
+	position: relative;
+	line-height: 1em;
 }
 
-#navTopMenu .navigation ul {
-	display: none;
+/* style the links for the top level */
+#navTopMenu a,
+#navTopMenu a:visited 
+{
+	display: block;
+	float: left;
+	height: 100%;
+	font-size: 11px;
+	text-decoration: none;
+	color: #333;
+	background-image: url(../images/navigation-line.gif);
+	background-repeat: no-repeat;
+	background-position: 100%;
+	padding-top: 0px;
+	padding-right: 21px;
+	padding-bottom: 0px;
+	padding-left: 17px;
+}
+
+#navTopMenu li.active a 
+{
+	background-color: #FFFFFF;
+	font-weight: bold;
+}
+
+/* style the sub level links */
+#navTopMenu ul ul a,
+#navTopMenu ul ul a:visited 
+{
+	display: block;
+	color: #333;
+	width: 100%;
+	height: 100%;
+	line-height: 1em;
+	padding: 0.5em 1em;
+	background-image:none;
+}
+
+#navTopMenu ul table ul a,#navTopMenu ul table ul a:visited {
+	width: 14em;
+	width: 12em;
+}
+
+/* style the table so that it takes no part in the layout - required for IE to work */
+#navTopMenu table 
+{
 	position: absolute;
 	left: 0;
-	margin: 0;
-	padding: 0;
-}
-
-* html #navTopMenu .navigation ul {
-	line-height: 0;
-}  /* IE6 "fix" */
-#navTopMenu .navigation ul a {
-	zoom: 1;
-}  /* IE6/7 fix */
-#navTopMenu .navigation ul li {
-	float: none;
-}
-
-#navTopMenu .navigation ul ul {
 	top: 0;
+	font-size: 1em;
+	z-index: -1;
 }
 
-/* Subnavigation Width */
-#navTopMenu .navigation ul {
-	width: 140px;
+#navTopMenu ul ul table {
+	left: -1px;
 }
 
-#navTopMenu .navigation ul ul {
-	left: 141px;
+#navTopMenu ul ul table ul.left {
+	margin-left: 2px;
 }
 
-/* Colors and Fonts */
-#navTopMenu .navigation a {
-	font-size: 12px;
-	font-weight: bold;
-	color: #000;
-	text-decoration: none;
+#navTopMenu li:hover {
+	position: relative;
 }
 
-#navTopMenu .navigation li.active {
-	background: #000;
+* html #navTopMenu a:hover {
+	position: relative;
 }
 
-#navTopMenu .navigation li.active a {
-	color: #fff;
+/* style the third level background */
+#navTopMenu ul ul ul a,#navTopMenu ul ul ul a:visited {
+	background: #F5F5F5;
 }
 
-#navTopMenu .navigation li:hover a {
-	background-color: #000;
-	color: #fff;
+/* style the fourth level background */
+#navTopMenu ul ul ul ul a,#navTopMenu ul ul ul ul a:visited {
+	background: #F5F5F5;
 }
 
-#navTopMenu .navigation ul {
-	top: 30px;
+/* style the sub level 1 background */
+#navTopMenu ul :hover a.sub1 {
+	background: #F5F5F5;
 }
 
-#navTopMenu .navigation ul li a {
-	background-color: #000;
-	color: #fff;
-	font-size: 11px;
+/* style the sub level 2 background */
+#navTopMenu ul ul :hover a.sub2 {
+	background: #F5F5F5;
 }
 
-#navTopMenu .navigation ul a:hover {
-	background-color: #4a4a4a;
+/* style the level hovers */ /* first */
+#navTopMenu a:hover {
+	color: #333;
+	text-decoration:underline;
 }
 
-#navTopMenu .navigation ul a {
-	border-bottom: 1px solid white;
-	border-right: none;
+#navTopMenu :hover>a {
+	color: #333;
+	text-decoration:none;
 }
 
-/* #navTopMenu .navigation ul a { border-bottom: none; } - I also needed this for IE6/7 */
+#navTopMenu ul ul
+{
+	height:auto;
+}
+/* second */
+#navTopMenu ul ul a {
+	color: #333;
+	background-color: #D4D0C8;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #F4F4F4;
+	border-right-color: #808080;
+	border-left-color: #F4F4F4;
+	border-bottom-color: #808080;
+}
+#navTopMenu ul ul a:hover {
+	color: #333;
+	background-color: #E4E1DC;
+}
+
+#navTopMenu ul ul :hover>a {
+	color: #333;
+	background: #E4E1DC;
+}
+
+/* third */
+#navTopMenu ul ul ul a:hover {
+	background: #F5F5F5;
+}
+
+#navTopMenu ul ul ul :hover>a {
+	background: #3da1e0;
+}
+
+/* fourth */
+#navTopMenu ul ul ul ul a:hover {
+	background: #eee;
+}
+
+/* hide the sub levels and give them a positon absolute so that they take up no room */
+#navTopMenu ul ul {
+	visibility: hidden;
+	position: absolute;
+	height: 0;
+	top: 28px;
+	left: 0;
+	width: 14em;
+}
+
+/* position the third level flyout menu */
+#navTopMenu ul ul ul {
+	left: 14em;
+	top: 0;
+	width: 14em;
+}
+
+/* position the third level flyout menu for a left flyout */
+#navTopMenu ul ul ul.left {
+	left: -14em;
+}
+
+/* make the second level visible when hover on first level list OR link */
+#navTopMenu ul li:hover ul,#navTopMenu ul a:hover ul {
+	visibility: visible;
+	height: auto;
+	padding-bottom: 3em;
+}
+
+/* keep the third level hidden when you hover on first level list OR link */
+#navTopMenu ul :hover ul ul {
+	visibility: hidden;
+}
+
+/* keep the fourth level hidden when you hover on second level list OR link */
+#navTopMenu ul :hover ul :hover ul ul {
+	visibility: hidden;
+}
+
+/* make the third level visible when you hover over second level list OR link */
+#navTopMenu ul :hover ul :hover ul {
+	visibility: visible;
+}
+
+/* make the fourth level visible when you hover over third level list OR link */
+#navTopMenu ul :hover ul :hover ul :hover ul {
+	visibility: visible;
+}
 
 #content table
 {

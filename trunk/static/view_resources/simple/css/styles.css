@@ -177,7 +177,7 @@ way to fit your requirements.
 
 .menu ul table ul a,.menu ul table ul a:visited {
 	width: 14em;
-	w\idth: 12em;
+	width: 12em;
 }
 
 /* style the table so that it takes no part in the layout - required for IE to work */
@@ -190,11 +190,11 @@ way to fit your requirements.
 }
 
 .menu ul ul table {
-	lef\t: -1px;
+	left: -1px;
 }
 
 .menu ul ul table ul.left {
-	margin-lef\t: 2px;
+	margin-left: 2px;
 }
 
 .menu li:hover {
