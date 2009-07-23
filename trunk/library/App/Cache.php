@@ -73,9 +73,16 @@ class App_Cache {
             $model = new System_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
-            $data = array();
+            $data = array( 
+            0 => array( 
+            'id' => 1,
+            'parent' => 0,
+            'role' => 'guest',
+            'description' => 'Guest Account',
+            'res_module_system_controller_admindashboard' => 0            
+            ));
             foreach($model as $item) {
-                $data [$item ['id']] = $item;
+                $data[$item['id']] = $item;
             }
             $this->cache->System->save($data);
         }
@@ -109,7 +116,7 @@ class App_Cache {
             if (! in_array($instanceId ['id'], $this->_instances)) {
                 $backend = (isset($instanceId ['backend'])) ? ucfirst(strtolower($instanceId ['backend'])) : 'File';
                 $this->cache->$instanceId ['id'] = Zend_Cache::factory('Core', $backend, $frontendOptions, $backendOptions);
-                $this->_instances [] = $instanceId ['id'];
+                $this->_instances[] = $instanceId ['id'];
             }
         } else {
             throw new App_Exception('Cache instance ID must be valids array');
