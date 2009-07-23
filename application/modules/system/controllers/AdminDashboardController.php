@@ -45,4 +45,10 @@ class System_AdminDashboardController extends App_Controller_Action {
     {
 
     }
+        public function testSubmenuAction()
+    {
+        $this->view->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(TRUE);
+       echo $this->view->navigation()->sitemap();
+    }
 }

@@ -44,7 +44,7 @@ class System_Component_BackofficeStructure {
                                             array (
                         'module' => 'system',
                         'controller' => 'admindashboard',
-                        'action' => 'test_submenu',
+                        'action' => 'test-submenu',
                         'label' => __('Пункт подменю 2'),
                         ),
                     )
