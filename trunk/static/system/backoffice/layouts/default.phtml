@@ -23,7 +23,7 @@ echo $this->inlineScript()?>
   <h1><a href="#"><img src="<?php echo $this->tplIMG?>logo.png"	width="400" height="100" alt="KuroAdmin"></a></h1>
   <div id="global_nav">
     <ul>
-      <li><?php __('Welcome', 1)?> <a href="<?php  echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php echo $this->member->getField('first_name') . ' ' . $this->member->getField('last_name') ?></a></li>
+      <li><?php echo __('Welcome')?> <a href="<?php  echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php echo $this->member->getField('first_name') . ' ' . $this->member->getField('last_name') ?></a></li>
       <li><a href="#">Settings</a></li>
       <li class="last"><a href="#">Log Out</a></li>
     </ul>
@@ -329,9 +329,10 @@ echo $this->inlineScript()?>
           <div
 	style="position: relative; float: left; width: 100%; margin-top: -4px; margin-bottom: -4px;">
             
+            <p class=''><?php echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
             <?php echo $this->messages(); ?>
             <?php echo $this->layout()->content?>
-            
+
             </div>
           <div style="clear: both;"></div>
         </div>

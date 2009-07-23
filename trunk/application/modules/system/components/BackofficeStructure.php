@@ -31,19 +31,28 @@ class System_Component_BackofficeStructure {
         return array(
             array('module' => 'system',
                 'controller' => 'admindashboard',
-                'method' => 'index',
+                'action' => 'index',
                 'label' => __('Главная страница'),
+                'pages' => array (
+                    array (
+                        'module' => 'system',
+                        'controller' => 'admindashboard',
+                        'action' => 'test',
+                        'label' => __('Пункт подменю 1'),
+                        ),
+                        
+                                            array (
+                        'module' => 'system',
+                        'controller' => 'admindashboard',
+                        'action' => 'test_submenu',
+                        'label' => __('Пункт подменю 2'),
+                        ),
+                    )
                 ),
             array('controller' => 'users',
                 'action' => 'index',
-
                 'label' => __('Пользователи'),
-                'pages' => array (
-                    array ('controller' => 'users',
-                        'action' => 'new',
-                        'label' => __('Добавить пользователя'),
-                        ),
-                    )
+                
                 ),
 
             );
