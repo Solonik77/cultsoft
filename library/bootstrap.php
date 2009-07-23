@@ -87,7 +87,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     * Load system configuration
     */
     protected function _initConfiguration()
-    {
+    { 
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
         if ('development' === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')) {
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
