@@ -75,7 +75,7 @@ class App_Cache {
             $model = $model->toArray();
             $data = array( 
             0 => array( 
-            'id' => 1,
+            'id' => 0,
             'parent' => 0,
             'role' => 'guest',
             'description' => 'Guest Account',
