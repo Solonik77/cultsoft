@@ -1,9 +1,9 @@
 /* Form Style */
 
 fieldset {
-	border: 1px solid #c4c4c4;
 	padding: 14px;
-    background-color: #EEE;
+	background-color: #FFFDFB;
+	border: 1px solid #FFF4E6;
 }
 fieldset legend {
 	font-weight: bold;
@@ -19,9 +19,8 @@ textarea {
 input {
 	color: #000000;
 }
-input[type=text], input[type=password], input[type=file]
-{
-width:70%;
+input[type=text], input[type=password], input[type=file] {
+	width:70%;
 }
 input[type=text], input[type=password], input[type=file], div.input_field input, textarea, select {
 	background-color: #fff;
@@ -46,10 +45,7 @@ input[type=text], input[type=password], input[type=file], div.input_field input,
 	padding: 5px 8px;
 	webkit-border-radius: 3px;
 }
-input[type=submit], input[type=reset],
-input.button,
-input.submit
-{
+input[type=submit], input[type=reset], input.button, input.submit {
 	background-color: #D4D0C8;
 	border-bottom-color: #333333;
 	border-bottom-style: double;
@@ -86,10 +82,9 @@ input.button:hover, input[type=text]:hover, input[type=password]:hover, input[ty
 	border-top-style: solid;
 	border-top-width: 1px;
 }
-label:hover
-{
- cursor: hand;
- cursor: pointer;
+label:hover {
+	cursor: hand;
+	cursor: pointer;
 }
 input.big_field {
 	width: 400px;
@@ -100,65 +95,57 @@ input.medium_field {
 input.small_field {
 	width: 100px;
 }
-
 input.short {
 	width: 20%;
 }
-
 input.medium {
 	width: 45%;
 }
-
 input.long {
 	width: 75%;
 }
-
 input.max {
 	width: 96%;
 }
-
 .req {
 	color: #d8122d;
 	font-weight: normal;
 }
-
 /*
 * Messages
 */
 .info, .success, .warning, .error, .validation {
-    border: 1px solid;
-    margin: 10px 0px;
-    padding:15px 10px 15px 50px;
-    background-repeat: no-repeat;
-    background-position: 10px center;
+	border: 1px solid;
+	margin: 10px 0px;
+	padding:15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
 }
 .info {
-    color: #00529B;
-    background-color: #BDE5F8;
-    background-image: url('../images/message_icons/info.png');
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('../images/message_icons/info.png');
 }
 .success {
-    color: #4F8A10;
-    background-color: #DFF2BF;
-    background-image:url('../images/message_icons/success.png');
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image:url('../images/message_icons/success.png');
 }
 .warning {
-    color: #9F6000;
-    background-color: #FEEFB3;
-    background-image: url('../images/message_icons/warning.png');
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('../images/message_icons/warning.png');
 }
 .error {
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image: url('../images/message_icons/error.png');
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('../images/message_icons/error.png');
 }
 .validation {
-    color: #D63301;
-    background-color: #FFCCBA;
-    background-image: url('../images/message_icons/validation.png');
+	color: #D63301;
+	background-color: #FFCCBA;
+	background-image: url('../images/message_icons/validation.png');
 }
-
-
 /* Button */
 .button {
 	font-family: Helvetica, Arial, sans-serif;
@@ -171,14 +158,10 @@ input.max {
 	padding: 0.25em 6px;
 	cursor: pointer;
 }
-
 .button:hover {
 	background: #4a4a4a;
 }
-
-
-#navTopMenu
-{
+#navTopMenu {
 	min-width: 760px;
 	height: 30px;
 	display: block;
@@ -197,44 +180,33 @@ input.max {
 	border-bottom-color: #C4C4C4;
 	background-image: url(../images/navigation-bg.gif);
 }
-
 /* remove all the bullets, borders and padding from the default list styling */
-#navTopMenu ul
-{
+#navTopMenu ul {
 	padding: 0;
 	margin: 0;
 	list-style-type: none;
 	height: 28px;
 }
-
 /* style the sub-level lists */
-#navTopMenu ul ul
-{
+#navTopMenu ul ul {
 	width: auto;
 }
-
 /* float the top list items to make it horizontal and a relative positon so that you can control the dropdown menu positon */
-#navTopMenu ul li 
-{
+#navTopMenu ul li {
 	float: left;
 	height: 30px;
 	line-height: 28px;
 }
-
 /* style the sub level list items */
-#navTopMenu ul ul li 
-{
+#navTopMenu ul ul li {
 	display: block;
 	width: auto;
 	height: auto;
 	position: relative;
 	line-height: 1em;
 }
-
 /* style the links for the top level */
-#navTopMenu a,
-#navTopMenu a:visited 
-{
+#navTopMenu a, #navTopMenu a:visited {
 	display: block;
 	float: left;
 	height: 100%;
@@ -249,23 +221,16 @@ input.max {
 	padding-bottom: 0px;
 	padding-left: 17px;
 }
-
-#navTopMenu li.active a 
-{
+#navTopMenu li.active a {
 	background-color: #FFFFFF;
 	font-weight: bold;
 }
-
-#navTopMenu li.active ul li.active a
-{
+#navTopMenu li.active ul li.active a {
 	background-color: #EEE;
 	font-weight: bold;
 }
-
 /* style the sub level links */
-#navTopMenu ul ul a,
-#navTopMenu ul ul a:visited 
-{
+#navTopMenu ul ul a, #navTopMenu ul ul a:visited {
 	display: block;
 	color: #333;
 	width: 100%;
@@ -274,71 +239,56 @@ input.max {
 	padding: 0.5em 1em;
 	background-image:none;
 }
-
-#navTopMenu ul table ul a,#navTopMenu ul table ul a:visited {
+#navTopMenu ul table ul a, #navTopMenu ul table ul a:visited {
 	width: 14em;
 	width: 12em;
 }
-
 /* style the table so that it takes no part in the layout - required for IE to work */
-#navTopMenu table 
-{
+#navTopMenu table {
 	position: absolute;
 	left: 0;
 	top: 0;
 	font-size: 1em;
 	z-index: -1;
 }
-
 #navTopMenu ul ul table {
 	left: -1px;
 }
-
 #navTopMenu ul ul table ul.left {
 	margin-left: 2px;
 }
-
 #navTopMenu li:hover {
 	position: relative;
 }
-
 * html #navTopMenu a:hover {
 	position: relative;
 }
-
 /* style the third level background */
-#navTopMenu ul ul ul a,#navTopMenu ul ul ul a:visited {
+#navTopMenu ul ul ul a, #navTopMenu ul ul ul a:visited {
 	background: #F5F5F5;
 }
-
 /* style the fourth level background */
-#navTopMenu ul ul ul ul a,#navTopMenu ul ul ul ul a:visited {
+#navTopMenu ul ul ul ul a, #navTopMenu ul ul ul ul a:visited {
 	background: #F5F5F5;
 }
-
 /* style the sub level 1 background */
 #navTopMenu ul :hover a.sub1 {
 	background: #F5F5F5;
 }
-
 /* style the sub level 2 background */
 #navTopMenu ul ul :hover a.sub2 {
 	background: #F5F5F5;
 }
-
 /* style the level hovers */ /* first */
 #navTopMenu a:hover {
 	color: #333;
 	text-decoration:underline;
 }
-
 #navTopMenu :hover>a {
 	color: #333;
 	text-decoration:none;
 }
-
-#navTopMenu ul ul
-{
+#navTopMenu ul ul {
 	height:auto;
 }
 /* second */
@@ -362,26 +312,21 @@ input.max {
 	color: #333;
 	background-color: #E4E1DC;
 }
-
 #navTopMenu ul ul :hover>a {
 	color: #333;
 	background: #E4E1DC;
 }
-
 /* third */
 #navTopMenu ul ul ul a:hover {
 	background: #F5F5F5;
 }
-
 #navTopMenu ul ul ul :hover>a {
 	background: #3da1e0;
 }
-
 /* fourth */
 #navTopMenu ul ul ul ul a:hover {
 	background: #eee;
 }
-
 /* hide the sub levels and give them a positon absolute so that they take up no room */
 #navTopMenu ul ul {
 	visibility: hidden;
@@ -391,128 +336,131 @@ input.max {
 	left: 0;
 	width: 14em;
 }
-
 /* position the third level flyout menu */
 #navTopMenu ul ul ul {
 	left: 14em;
 	top: 0;
 	width: 14em;
 }
-
 /* position the third level flyout menu for a left flyout */
 #navTopMenu ul ul ul.left {
 	left: -14em;
 }
-
 /* make the second level visible when hover on first level list OR link */
-#navTopMenu ul li:hover ul,#navTopMenu ul a:hover ul {
+#navTopMenu ul li:hover ul, #navTopMenu ul a:hover ul {
 	visibility: visible;
 	height: auto;
 	padding-bottom: 3em;
 }
-
 /* keep the third level hidden when you hover on first level list OR link */
 #navTopMenu ul :hover ul ul {
 	visibility: hidden;
 }
-
 /* keep the fourth level hidden when you hover on second level list OR link */
 #navTopMenu ul :hover ul :hover ul ul {
 	visibility: hidden;
 }
-
 /* make the third level visible when you hover over second level list OR link */
 #navTopMenu ul :hover ul :hover ul {
 	visibility: visible;
 }
-
 /* make the fourth level visible when you hover over third level list OR link */
 #navTopMenu ul :hover ul :hover ul :hover ul {
 	visibility: visible;
 }
-
-#content table
-{
-	width: 100%;
+#content table {
 	margin: 0 0 15px;
 	text-align: left;
-	border-collapse: collapse;
 }
-#content table th,
-#content table td
-{
+#content table th, #content table td {
 	padding: 8px;
 	color: #000;
 }
-#content table th
-{
+#content table th {
 	font-weight: bold;
 	color: #9D9D9D;
 }
-
-	/* table.grid Style */   
+/* table.grid Style */  
 table.grid {
-	width: 100%;
-	margin: 0 0 15px;
+	margin-bottom:20px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: solid;
+	border-top-color: #D0D0D0;
+	border-right-color: #D0D0D0;
+	border-bottom-color: #D0D0D0;
+	border-left-color: #D0D0D0;
+}
+table.grid caption {
+	background-color: #C8DAF2;
+	background-image: url(../images/table-caption-bg.gif);
+	background-repeat: repeat-x;
+	border: 1px solid #99BBE8;
+	color: #15428B;
+	font-size: 11px;
+	font-weight: bold;
+	padding-bottom: 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 2px;
 	text-align: left;
-	border-collapse: collapse;
-	border: 1px solid #c4c4c4;
 }
-
-table.grid thead {
-	color: #666;
+table.grid thead th {
+	background-color: #EBECEE;
+	background-image: url(../images/table-head-bg.gif);
+	background-repeat: repeat-x;
+	font-size: 12px;
+	padding: 3px;
+	text-align: center;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #D0D0D0;
+	border-right-color: #D0D0D0;
+	border-bottom-color: #D0D0D0;
+	border-left-color: #D0D0D0;
 }
-
-table.grid th {
-	font-weight: normal;
-	padding: 5px 8px;
-	color: #666;
-	background: #e5e5e5;
-}
-
-table.grid td {
-	padding: 8px;
-	color: #000;
-	border-top: 1px solid #c4c4c4;
-}
-
-table.grid td span.active {
-	color: #55a34a;
-}
-
-table.grid td span.pending {
-	color: #c5a059;
-}
-
-table.grid td span.closed {
-	color: #a02b2b;
-}
-
-table.grid tr {
-	border-top: none;
-	background: #f9f9f9;
-}
-
-table.grid .odd {
-	background: #fff;
-}
-
-
-#footer .navigation
-{
- display:block;
- padding-left: 100px;
- padding-top: 9px;
-}
-
-#footer .navigation li
-{
+table.grid tbody td {
+	background-color: #FFF;
+	color: #333;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
 	padding: 5px;
-    margin-top: 20px;
-	display: inline;
+	text-align: center;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #D0D0D0;
+	border-right-color: #D0D0D0;
+	border-bottom-color: #D0D0D0;
+	border-left-color: #D0D0D0;
 }
-
-#footer .navigation a
-{
- color: #fff;
+table.grid tbody  td.left {
+	color: #000;
+	font-size: 16px;
+	text-align: left;
+	vertical-align:top;
+	font-family: Arial, Helvetica, sans-serif;
+}
+table.grid tbody tr:hover td,
+table.grid tbody tr.odd:hover td {
+	background-color: #FFFFF2;
+}
+table.grid tbody tr.odd td {
+	background-color: #F5F5F5;
 }
