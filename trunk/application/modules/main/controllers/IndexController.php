@@ -9,7 +9,7 @@
  */
 class Main_IndexController extends App_Controller_Action
 {
-
+ CONST BACKOFFICE_CONTROLLER = TRUE;
     public function init()
     {}
 
