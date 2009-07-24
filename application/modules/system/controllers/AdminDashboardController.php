@@ -1,13 +1,14 @@
 <?php
 /**
-* Admin Index controller.
-* This is dashboard controller.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
-*/
-class System_AdminDashboardController extends App_Controller_Action {
+ * Admin Index controller.
+ * This is dashboard controller.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/platform/license.html
+ */
+class System_AdminDashboardController extends App_Controller_Action
+{
     CONST BACKOFFICE_CONTROLLER = true;
 
     public function init()
@@ -40,12 +41,11 @@ class System_AdminDashboardController extends App_Controller_Action {
         $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
         $this->view->os_version = $sys_info->getOsVersion();
     }
-    
-    public function testAction()
-    {
 
-    }
-        public function testSubmenuAction()
+    public function testAction()
+    {}
+
+    public function testSubmenuAction()
     {
         $this->view->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(TRUE);

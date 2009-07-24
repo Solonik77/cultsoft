@@ -1,14 +1,14 @@
 <?php
 /**
-* IndexControllerTest - Test the default index controller
-*
-* @author
-* @version
-*/
+ * IndexControllerTest - Test the default index controller
+ *
+ * @author
+ * @version
+ */
 require_once 'Zend/Test/PHPUnit/ControllerTestCase.php';
 /**
-* IndexController Test Case
-*/
+ * IndexController Test Case
+ */
 class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
     /**
     * Prepares the environment before running a test.

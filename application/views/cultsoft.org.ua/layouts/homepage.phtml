@@ -1,28 +1,28 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype ();
+echo $this->doctype();
 ?>
 <html>
 <head>
 <?php
-echo $this->headTitle ()?>
+echo $this->headTitle()?>
 <?php
 
-echo $this->headMeta ()?>
+echo $this->headMeta()?>
 <?php
 
-echo $this->headLink ()?>
+echo $this->headLink()?>
 <?php
 
-echo $this->headStyle ()?>
+echo $this->headStyle()?>
 <?php
 
-echo $this->headScript ()?>
+echo $this->headScript()?>
 <?php
 
-echo $this->inlineScript ()?>
+echo $this->inlineScript()?>
 <base href="<?php
-echo App::baseUri ()?>" />
+echo App::baseUri()?>" />
 </head>
 <body>
 <div class="top_bg">
@@ -35,38 +35,38 @@ echo $this->tplIMG?>logo.png"
 
 <div class="grid_11 menu"><!-- Top menu Start -->    
 <?php
-echo $this->partial ( 'top_menu.phtml', array ('navigation' => $this->navigation ()->menu () ) )?>
+echo $this->partial('top_menu.phtml', array('navigation' => $this->navigation()->menu()))?>
       <!-- Top menu End --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
 <?php
-echo $this->partial ( 'homepage_mainheader.phtml' )?>
+echo $this->partial('homepage_mainheader.phtml')?>
 <div class="clear">&nbsp;</div>
 <div class="container_16"><!-- 4 Blocks -->
 <div class="grid_4 fbox"><img
 	src="<?php
-	echo $this->tplIMG?>new_icon.png" alt="" class="leftalign" />
+echo $this->tplIMG?>new_icon.png" alt="" class="leftalign" />
 <h6><a href="@page_id=18">Web Designing</a></h6>
 <p><small>Vestibulum blandit Sedeuism od enimeleifend inter.</small></p>
 </div>
 <div class="grid_4 fbox"><img
 	src="<?php
-	echo $this->tplIMG?>menu_icon.png" alt=""
+echo $this->tplIMG?>menu_icon.png" alt=""
 	class="leftalign" />
 <h6><a href="#">Print & Graphics</a></h6>
 <p><small>aoreetet congueeu osuere sit ametelit Sondimentum.</small></p>
 </div>
 <div class="grid_4 fbox"><img
 	src="<?php
-	echo $this->tplIMG?>download_icon.png" alt=""
+echo $this->tplIMG?>download_icon.png" alt=""
 	class="leftalign" />
 <h6><a href="#">Multimedia</a></h6>
 <p><small>Loremipsum dolor sit amet, consectetur adipiscing elit.</small></p>
 </div>
 <div class="grid_4 fbox"><img
 	src="<?php
-	echo $this->tplIMG?>copy_icon.png" alt=""
+echo $this->tplIMG?>copy_icon.png" alt=""
 	class="leftalign" />
 <h6><a href="#">SEO Marketing</a></h6>
 <p><small>Nulla Fusce etlibero. Mauri smattis Duis vulpu acilisi cods.</small></p>
@@ -76,17 +76,17 @@ echo $this->partial ( 'homepage_mainheader.phtml' )?>
 <div class="content cbg">
 <div class="container_16 linebg"><!--Left part of text follows here-->
     <?php
-				echo $this->partial ( 'homepage_left_part_content.phtml', array ('content' => $this->layout ()->content ) )?>
+    echo $this->partial('homepage_left_part_content.phtml', array('content' => $this->layout()->content))?>
      <!--End of the Left part text  --> <!--Right part of text follows here-->
 	  <?php
-			echo $this->partial ( 'homepage_right_part.phtml', array ('view' => $this ) )?>
+echo $this->partial('homepage_right_part.phtml', array('view' => $this))?>
       <!--End of the Right part text  --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
 <!-- Footer Block Start -->
  <?php
-	echo $this->partial ( 'page_footer.phtml' )?>
+echo $this->partial('page_footer.phtml')?>
 <!-- Footer Block End -->
 </body>
 </html>
