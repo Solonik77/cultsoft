@@ -1,45 +1,40 @@
 <?php
 /**
- * Setting Zend View and Layout to load views
- * from STATIC_PATH folders
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
-{
+* Setting Zend View and Layout to load views
+* from STATIC_PATH folders
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private $_isBackofficeController = false;
     private $_templatePath;
     private $_view;
 
     /**
-     * Constructor
-     */
+    * Constructor
+    */
     public function __construct()
-    {}
+    {
+    }
 
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        try
-        {
+        try {
             $this->_initTemplatePath();
             $this->_initView();
             $this->_initViewRenderer();
             $this->_initZendLayout($request);
             $this->_loadDefaultTemplateResources();
-            if($this->_isBackofficeController)
-            {
+            if ($this->_isBackofficeController) {
                 $this->_loadBackofficeTemplateResources();
-            }
-            else
-            {
+            } else {
                 $this->_loadSiteTemplateResources();
             }
             $this->_declareDefaultVars();
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
@@ -48,8 +43,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
     {
         $this->_isBackofficeController = false;
         $this->_templatePath = APPLICATION_PATH . 'views/' . App::config()->project->template . '/';
-        if(Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED')
-        {
+        if (Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED') {
             $this->_isBackofficeController = true;
             $this->_templatePath = APPLICATION_PATH . 'modules/system/views/backoffice/';
         }
@@ -61,11 +55,10 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $this->_view->strictVars(true);
         $this->_view->setScriptPath($this->_templatePath);
         $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/');
-        if($this->_isBackofficeController AND App::front()->getRequest()->getModuleName() != 'system')
-        {
+        if ($this->_isBackofficeController AND App::front()->getRequest()->getModuleName() != 'system') {
             $this->_view->addScriptPath(APPLICATION_PATH . 'modules/system/views/');
-            if(App::front()->getRequest()->getModuleName() != 'system'){
-               $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/backoffice/');
+            if (App::front()->getRequest()->getModuleName() != 'system') {
+                $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/backoffice/');
             }
         }
         $this->_view->addScriptPath($this->_templatePath . 'partial/');
@@ -81,17 +74,13 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
     private function _initZendLayout(Zend_Controller_Request_Abstract $request)
     {
         $layout = Zend_Layout::startMvc(array('layoutPath' => $this->_templatePath . 'layouts/' , 'layout' => 'default' , 'mvcSuccessfulActionOnly' => ('development' === APPLICATION_ENV)));
-        if(! $this->_isBackofficeController)
-        {
-            if($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($this->_templatePath . 'layouts/homepage.phtml'))
-            {
+        if (! $this->_isBackofficeController) {
+            if ($request->getModuleName() == 'default' and $request->getControllerName() == 'index' and $request->getActionName() == 'index' and file_exists($this->_templatePath . 'layouts/homepage.phtml')) {
                 $layout->setLayout('homepage');
+            } else
+            if (file_exists($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml')) {
+                $layout->setLayout($request->getModuleName());
             }
-            else 
-                if(file_exists($this->_templatePath . 'layouts/' . $request->getModuleName() . '.phtml'))
-                {
-                    $layout->setLayout($request->getModuleName());
-                }
         }
     }
 

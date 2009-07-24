@@ -464,3 +464,16 @@ table.grid tbody tr.odd:hover td {
 table.grid tbody tr.odd td {
 	background-color: #F5F5F5;
 }
+#footer .navigation
+{
+    padding-top: 13px;
+}
+#footer .navigation li
+{
+	padding: 5px;
+	display: inline;
+}
+#footer .navigation a
+{
+ color: #fff;
+}

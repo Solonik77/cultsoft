@@ -4,10 +4,10 @@
 *
 * $Id: format.php 4070 2009-03-11 20:37:38Z Geert $
 *
-
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
@@ -55,17 +55,18 @@ class V_Helper_Format {
         // Return the original URL
         return $str;
     }
-    
+
     public static function size($file_size)
     {
-
-    if($file_size >= 1073741824)
-        {$file_size = round($file_size / 1073741824 * 100) / 100 . " Gb";}
-    elseif($file_size >= 1048576)
-        {$file_size = round($file_size / 1048576 * 100) / 100 . " Mb";}
-    elseif($file_size >= 1024)
-        {$file_size = round($file_size / 1024 * 100) / 100 . " Kb";}
-    else{$file_size = $file_size . " b";}
-    return $file_size;
+        if ($file_size >= 1073741824) {
+            $file_size = round($file_size / 1073741824 * 100) / 100 . " Gb";
+        } elseif ($file_size >= 1048576) {
+            $file_size = round($file_size / 1048576 * 100) / 100 . " Mb";
+        } elseif ($file_size >= 1024) {
+            $file_size = round($file_size / 1024 * 100) / 100 . " Kb";
+        } else {
+            $file_size = $file_size . " b";
+        }
+        return $file_size;
     }
 } // End format

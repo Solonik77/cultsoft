@@ -1,6 +1,7 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 echo $this->doctype();
+
 ?>
 <html>
 <head>
@@ -27,25 +28,25 @@ echo $this->inlineScript()?>
 
 				// Accordion
 				jQuery("#accordion").accordion({ header: "h3" });
-	
+
 				// Tabs
 				jQuery('#tabs').tabs();
-	
 
-				// Dialog			
+
+				// Dialog
 				jQuery('#dialog').dialog({
 					autoOpen: false,
 					width: 600,
 					buttons: {
-						"Ok": function() { 
-							jQuery(this).dialog("close"); 
-						}, 
-						"Cancel": function() { 
-							jQuery(this).dialog("close"); 
-						} 
+						"Ok": function() {
+							jQuery(this).dialog("close");
+						},
+						"Cancel": function() {
+							jQuery(this).dialog("close");
+						}
 					}
 				});
-				
+
 				// Dialog Link
 				jQuery('#dialog_link').click(function(){
 					jQuery('#dialog').dialog('open');
@@ -56,24 +57,24 @@ echo $this->inlineScript()?>
 				jQuery('#datepicker').datepicker({
 					inline: true
 				});
-				
+
 				// Slider
 				jQuery('#slider').slider({
 					range: true,
 					values: [17, 67]
 				});
-				
+
 				// Progressbar
 				jQuery("#progressbar").progressbar({
-					value: 20 
+					value: 20
 				});
-				
+
 				//hover states on the static widgets
 				jQuery('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); }, 
+					function() { $(this).addClass('ui-state-hover'); },
 					function() { $(this).removeClass('ui-state-hover'); }
 				);
-				
+
 			});
 		</script>
 <style type="text/css">
@@ -437,7 +438,7 @@ echo $this->tplIMG?>logo.png"
 <h3>Subtitle Sample</h3>
 <h4>Layout Content</h4>
             <?php
-            echo $this->layout()->content?>
+echo $this->layout()->content?>
             <h4>JQuery UI Demo</h4>
 <!-- Accordion -->
 <h2 class="demoHeaders">Accordion</h2>

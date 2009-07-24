@@ -5,10 +5,10 @@ require_once LIBRARY_PATH . 'App/UTF8.php';
 *
 * $Id: text.php 4329 2009-05-06 15:53:27Z Geert $
 *
-
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

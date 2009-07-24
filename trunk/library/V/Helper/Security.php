@@ -4,10 +4,10 @@
 *
 * $Id: security.php 3769 2008-12-15 00:48:56Z zombor $
 *
-
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

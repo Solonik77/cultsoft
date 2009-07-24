@@ -7,29 +7,26 @@
 */
 class App_View_Helper_Messages {
     /**
-     * $_messages - Messages 
-     *
-     * @var array
-     */
+    * $_messages - Messages
+    *
+    * @var array
+    */
     static protected $_messages = array();
-
 
     /**
     * Messages function.
     *
     * Takes a specially formatted array of flash messages and prepares them
     * for output.
-
     */
-    public function messages($message = null, $status = NULL, $flash = FALSE)
+    public function messages($message = null, $status = null, $flash = false)
     {
         if ($message === null) {
             return $this;
         }
 
         if (is_string($message) AND is_string($status) AND !empty($message) AND !empty($status)) {
-            
-            if($flash == TRUE) {
+            if ($flash == true) {
                 $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
                 $flashMessenger->addMessage(array('message' => $message, 'status' => $status));
             } else {

@@ -1,6 +1,7 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 echo $this->doctype();
+
 ?>
 <html>
 <head>
@@ -33,7 +34,7 @@ echo App::baseUri()?>" />
 echo $this->tplIMG?>logo.png"
 	class="logo" alt="Memix" /></a></div>
 
-<div class="grid_11 menu"><!-- Top menu Start -->    
+<div class="grid_11 menu"><!-- Top menu Start -->
 <?php
 echo $this->partial('top_menu.phtml', array('navigation' => $this->navigation()->menu()))?>
       <!-- Top menu End --></div>
@@ -76,7 +77,7 @@ echo $this->tplIMG?>copy_icon.png" alt=""
 <div class="content cbg">
 <div class="container_16 linebg"><!--Left part of text follows here-->
     <?php
-    echo $this->partial('homepage_left_part_content.phtml', array('content' => $this->layout()->content))?>
+echo $this->partial('homepage_left_part_content.phtml', array('content' => $this->layout()->content))?>
      <!--End of the Left part text  --> <!--Right part of text follows here-->
 	  <?php
 echo $this->partial('homepage_right_part.phtml', array('view' => $this))?>
