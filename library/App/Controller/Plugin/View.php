@@ -51,7 +51,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         if(Zend_Registry::get('BACKOFFICE_CONTROLLER') == true and Zend_Registry::get('member_access') == 'ALLOWED')
         {
             $this->_isBackofficeController = true;
-            $this->_templatePath = APPLICATION_PATH . 'views/system/backoffice/';
+            $this->_templatePath = APPLICATION_PATH . 'modules/system/views/backoffice/';
         }
     }
 
@@ -61,7 +61,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $this->_view->strictVars(true);
         $this->_view->setScriptPath($this->_templatePath);
         $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/');
-        if($this->_isBackofficeController and App::front()->getRequest()->getModuleName() != 'system')
+        if($this->_isBackofficeController AND App::front()->getRequest()->getModuleName() != 'system')
         {
             $this->_view->addScriptPath(APPLICATION_PATH . 'modules/system/views/');
         }
