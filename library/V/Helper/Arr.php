@@ -4,10 +4,10 @@
 *
 * $Id: arr.php 4346 2009-05-11 17:08:15Z zombor $
 *
-
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */
@@ -43,7 +43,7 @@ class V_Helper_arr {
     *
     * @param array $ array to rotate
     * @param boolean $ keep the keys in the final rotated array. the sub arrays of the source array need to have the same key values.
-    *                         if your subkeys might not match, you need to pass FALSE here!
+    *                          if your subkeys might not match, you need to pass FALSE here!
     * @return array
     */
     public static function rotate($source_array, $keep_keys = true)

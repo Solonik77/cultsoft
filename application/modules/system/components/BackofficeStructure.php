@@ -1,16 +1,15 @@
 <?php
 /**
- * Backoffice navigation
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class System_Component_BackofficeStructure
-{
-
+* Backoffice navigation
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class System_Component_BackofficeStructure {
     public function __construct()
-    {}
+    {
+    }
 
     public function getFooterMenu()
     {

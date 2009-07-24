@@ -4,10 +4,10 @@
 *
 * $Id: date.php 4316 2009-05-04 01:03:54Z kiall $
 *
-
 * @author Kohana Team
 * @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html* @author Denysenko Dmytro
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/platform/license.html
 */

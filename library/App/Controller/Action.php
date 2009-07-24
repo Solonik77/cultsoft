@@ -1,13 +1,12 @@
 <?php
 /**
- * Base Application action controller
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-abstract class App_Controller_Action extends Zend_Controller_Action
-{
+* Base Application action controller
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+abstract class App_Controller_Action extends Zend_Controller_Action {
     // Zend_ACL Instance
     private $_acl;
 
@@ -25,8 +24,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
-        if(Zend_Registry::get('BACKOFFICE_CONTROLLER'))
-        {
+        if (Zend_Registry::get('BACKOFFICE_CONTROLLER')) {
             $this->view->headTitle(__('Control panel') . ' — ' . $languages['project_title'][$requestLangId]);
             $site_pages = new System_Component_BackofficeStructure();
             $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
@@ -34,17 +32,15 @@ abstract class App_Controller_Action extends Zend_Controller_Action
             $inflector = new Zend_Filter_Inflector('sidebar/:sidebarblock.:suffix');
             $inflector->setRules(array(':sidebarblock' => array('Word_CamelCaseToDash' , 'StringToLower') , 'suffix' => 'phtml'));
             $filtered = $inflector->filter(array('sidebarblock' => $this->getRequest()->getControllerName()));
-            $sidebarBlockFile = APPLICATION_PATH . 'modules/' . $this->getRequest()->getModuleName() . '/views/' . $filtered;
+            $sidebarBlockFile = APPLICATION_PATH . 'modules/' . $this->getRequest()->getModuleName() . '/views/backoffice/' . $filtered;
+
             $sidebarBlock = $filtered;
-            if(!file_exists($sidebarBlockFile))
-            {
+            if (!file_exists($sidebarBlockFile)) {
                 $sidebarBlock = 'sidebar/default.phtml';
             }
-            
+
             $this->view->sidebarBlocks = $sidebarBlock;
-        }
-        else
-        {
+        } else {
             $this->view->headTitle($languages['project_title'][$requestLangId]);
             $site_pages = new System_Component_SiteStructure();
             $container = new Zend_Navigation($site_pages->getTopMenu());
@@ -55,12 +51,11 @@ abstract class App_Controller_Action extends Zend_Controller_Action
         $module = ucfirst(strtolower($request->getParam('module')));
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module , 'namespace' => $module));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-        if($this->getRequest()->isXmlHttpRequest())
-        {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             // AJAX request
             Zend_Layout::disableLayout();
             Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');
         }
-        //Zend_debug::dump($this->view->getScriptPaths());die;
+        // Zend_debug::dump($this->view->getScriptPaths());die;
     }
 }

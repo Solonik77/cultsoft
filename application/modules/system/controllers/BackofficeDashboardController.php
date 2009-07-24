@@ -1,14 +1,13 @@
 <?php
 /**
- * Admin Index controller.
- * This is dashboard controller.
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/platform/license.html
- */
-class System_BackofficeDashboardController extends App_Controller_Action
-{
+* Admin Index controller.
+* This is dashboard controller.
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/platform/license.html
+*/
+class System_BackofficeDashboardController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;
 
     public function init()
@@ -19,7 +18,7 @@ class System_BackofficeDashboardController extends App_Controller_Action
     }
 
     public function indexAction()
-    {       
+    {
         $this->view->form = new System_Form_Signin();
         $sys_info = new System_Model_DashboardInfo();
         $this->view->php_version = $sys_info->getPhpVersion();
@@ -44,12 +43,13 @@ class System_BackofficeDashboardController extends App_Controller_Action
     }
 
     public function testAction()
-    {}
+    {
+    }
 
     public function testSubmenuAction()
     {
         $this->view->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
         print($this->view->navigation()->sitemap($this->view->topMenu));
     }
 }

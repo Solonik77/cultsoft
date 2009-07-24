@@ -1,6 +1,7 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 echo $this->doctype();
+
 ?>
 <html>
 <head>
@@ -346,10 +347,11 @@ echo $this->pageDescription?></span></div>
 <p class=''><?php
 echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
             <?php
-            echo $this->messages();
-            ?>
+echo $this->messages();
+
+?>
             <?php
-            echo $this->layout()->content?>
+echo $this->layout()->content?>
 
             </div>
 <div style="clear: both;"></div>
