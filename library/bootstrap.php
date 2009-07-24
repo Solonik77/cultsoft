@@ -213,7 +213,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Add multilingual route
         App::front()->getRouter()->addRoute('default_multilingual', new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'main', 'controller' => 'index', 'action' => 'index', 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         // Admin panel route
-        App::front()->getRouter()->addRoute('backoffice', new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*', array('module' => 'system', 'controller' => 'admindashboard', 'action' => 'index', 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
+        App::front()->getRouter()->addRoute('backoffice', new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*', array('module' => 'system', 'controller' => 'backofficeDashboard', 'action' => 'index', 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
