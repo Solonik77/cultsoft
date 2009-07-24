@@ -14,11 +14,11 @@ class System_Component_BackofficeStructure
 
     public function getFooterMenu()
     {
-        return array(array('module' => 'system' , 'controller' => 'admindashboard' , 'method' => 'index' , 'label' => __('Главная страница')) , array('controller' => 'users' , 'action' => 'registration' , 'label' => __('Регистрация')));
+        return array(array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'method' => 'index' , 'label' => __('Главная страница')) , array('controller' => 'users' , 'action' => 'registration' , 'label' => __('Регистрация')));
     }
 
     public function getTopMenu()
     {
-        return array(array('module' => 'system' , 'controller' => 'admindashboard' , 'action' => 'index' , 'label' => __('Главная страница') , 'pages' => array(array('module' => 'system' , 'controller' => 'admindashboard' , 'action' => 'test' , 'label' => __('Пункт подменю 1')) , array('module' => 'system' , 'controller' => 'admindashboard' , 'action' => 'test-submenu' , 'label' => __('Пункт подменю 2')))) , array('controller' => 'users' , 'action' => 'index' , 'label' => __('Пользователи')));
+        return array(array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Главная страница') , 'pages' => array(array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'test' , 'label' => __('Пункт подменю 1')) , array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'test-submenu' , 'label' => __('Пункт подменю 2')))) , array('controller' => 'users' , 'action' => 'index' , 'label' => __('Пользователи')));
     }
 }

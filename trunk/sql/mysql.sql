@@ -21,13 +21,13 @@ CREATE TABLE `prefix_acl_roles` (
   `parent` bigint(20) NOT NULL DEFAULT '0',
   `role` varchar(64) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `res_module_system_controller_admindashboard` tinyint(1) NOT NULL DEFAULT '0',
+  `res_module_system_controller_backofficeDashboard` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_acl_roles` */
 
-insert  into `prefix_acl_roles`(`id`,`parent`,`role`,`description`,`res_module_system_controller_admindashboard`) values (1,0,'administrator','Administrator Account',0);
+insert  into `prefix_acl_roles`(`id`,`parent`,`role`,`description`,`res_module_system_controller_backofficeDashboard`) values (1,0,'administrator','Administrator Account',0);
 
 /*Table structure for table `prefix_blog` */
 
