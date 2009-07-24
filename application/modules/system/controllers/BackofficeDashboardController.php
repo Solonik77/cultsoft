@@ -20,6 +20,7 @@ class System_BackofficeDashboardController extends App_Controller_Action
 
     public function indexAction()
     {       
+        $this->view->form = new System_Form_Signin();
         $sys_info = new System_Model_DashboardInfo();
         $this->view->php_version = $sys_info->getPhpVersion();
         $this->view->php_sapi = $sys_info->getPhpServerAPI();
