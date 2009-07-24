@@ -7,9 +7,14 @@ require_once 'Zend/Controller/Action/Helper/Abstract.php';
 
 class App_Controller_Action_Helper_Redirector extends Zend_Controller_Action_Helper_Redirector
 {
-    public function testMethod()
+    public function selfRedirect()
     {
-        return 'Test';
+        $curPath = App::front()->getRequest()->getPathInfo();
+        $this->getUseAbsoluteUri(TRUE);
+        $this->setExit(FALSE);
+        $this->setCloseSessionOnExit(TRUE);
+        $this->setGotoUrl($curPath);
+        return;
     }
 
 }
