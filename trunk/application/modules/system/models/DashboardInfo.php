@@ -1,5 +1,6 @@
 <?php
-class System_Model_DashboardInfo {
+class System_Model_DashboardInfo
+{
     private $db;
 
     public function __construct()
@@ -29,7 +30,8 @@ class System_Model_DashboardInfo {
 
     public function getSqlVersion()
     {
-        switch ($this->getSqlAdapter()) {
+        switch ($this->getSqlAdapter())
+        {
             default:
                 return $this->db->fetchOne('SELECT VERSION()');
                 break;
@@ -43,15 +45,19 @@ class System_Model_DashboardInfo {
 
     public function getImageAdapterVersion()
     {
-        switch ($this->getImageAdapter()) {
+        switch ($this->getImageAdapter())
+        {
             default:
                 ob_start();
                 phpinfo(8);
                 $module_info = ob_get_contents();
                 ob_end_clean();
-                if (preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches)) {
+                if(preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches))
+                {
                     $gdversion = $matches[1];
-                } else {
+                }
+                else
+                {
                     $gdversion = 0;
                 }
                 return $gdversion;
@@ -62,8 +68,10 @@ class System_Model_DashboardInfo {
     public function isServerModuleAvailable($module)
     {
         $return = false;
-        if (function_exists('apache_get_modules')) {
-            if (in_array($module, apache_get_modules())) {
+        if(function_exists('apache_get_modules'))
+        {
+            if(in_array($module, apache_get_modules()))
+            {
                 $return = true;
             }
         }

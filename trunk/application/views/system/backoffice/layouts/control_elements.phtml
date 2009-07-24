@@ -1,26 +1,26 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype ();
+echo $this->doctype();
 ?>
 <html>
 <head>
 <?php
-echo $this->headTitle ()?>
+echo $this->headTitle()?>
 
 <?php
-echo $this->headMeta ()?>
+echo $this->headMeta()?>
 
 <?php
-echo $this->headLink ()?>
+echo $this->headLink()?>
 
 <?php
-echo $this->headStyle ()?>
+echo $this->headStyle()?>
 
 <?php
-echo $this->headScript ()?>
+echo $this->headScript()?>
 
 <?php
-echo $this->inlineScript ()?>
+echo $this->inlineScript()?>
 
 <script type="text/javascript">
 			$(function(){
@@ -437,7 +437,7 @@ echo $this->tplIMG?>logo.png"
 <h3>Subtitle Sample</h3>
 <h4>Layout Content</h4>
             <?php
-												echo $this->layout ()->content?>
+            echo $this->layout()->content?>
             <h4>JQuery UI Demo</h4>
 <!-- Accordion -->
 <h2 class="demoHeaders">Accordion</h2>
@@ -2015,7 +2015,7 @@ All fields need to be filled.</div>
 <form id="search" method="post" action="#"><input id="search-text"
 	name="keywords" value="" type="text"> <input id="search-btn"
 	value="submit" src="<?php
-	echo $this->tplIMG?>search-button.gif"
+echo $this->tplIMG?>search-button.gif"
 	alt="Go" type="image"></form>
 </div>
 <div class="side-box">

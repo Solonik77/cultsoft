@@ -1,28 +1,28 @@
 <?php
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-echo $this->doctype ();
+echo $this->doctype();
 ?>
 <html>
 <head>
 <?php
-echo $this->headTitle ()?>
+echo $this->headTitle()?>
 <?php
 
-echo $this->headMeta ()?>
+echo $this->headMeta()?>
 <?php
 
-echo $this->headLink ()?>
+echo $this->headLink()?>
 <?php
 
-echo $this->headStyle ()?>
+echo $this->headStyle()?>
 <?php
 
-echo $this->headScript ()?>
+echo $this->headScript()?>
 <?php
 
-echo $this->inlineScript ()?>
+echo $this->inlineScript()?>
 <base href="<?php
-echo App::baseUri ()?>" />
+echo App::baseUri()?>" />
 </head>
 <body>
 <div class="top_bg">
@@ -35,29 +35,29 @@ echo $this->tplIMG?>logo.png"
 
 <div class="grid_11 menu"><!-- Top menu Start -->    
 <?php
-echo $this->partial ( 'top_menu.phtml', array ('navigation' => $this->navigation ()->menu () ) )?>
+echo $this->partial('top_menu.phtml', array('navigation' => $this->navigation()->menu()))?>
       <!-- Top menu End --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
 <?php
-echo $this->partial ( 'subpageheader.phtml' )?>
+echo $this->partial('subpageheader.phtml')?>
 <div class="clear">&nbsp;</div>
 <div class="clear">&nbsp;</div>
 <div class="content cbg">
 <div class="container_16 linebg"><!--Left part of text follows here-->
     <?php
-				echo $this->partial ( 'left_part_content.phtml', array ('content' => $this->layout ()->content ) )?>
+    echo $this->partial('left_part_content.phtml', array('content' => $this->layout()->content))?>
     <!--End of the Left part text  --> <!--Right part of text follows here-->
 	  <?php
-			echo $this->partial ( 'right_part.phtml' )?>
+echo $this->partial('right_part.phtml')?>
       <!--End of the Right part text  --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
 <!-- Footer Block Start -->
  <?php
-	echo $this->partial ( 'page_footer.phtml' )?>
+echo $this->partial('page_footer.phtml')?>
 <!-- Footer Block End -->
 </body>
 </html>
