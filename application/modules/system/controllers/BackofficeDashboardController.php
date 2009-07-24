@@ -19,8 +19,7 @@ class System_BackofficeDashboardController extends App_Controller_Action
     }
 
     public function indexAction()
-    {
-       
+    {       
         $sys_info = new System_Model_DashboardInfo();
         $this->view->php_version = $sys_info->getPhpVersion();
         $this->view->php_sapi = $sys_info->getPhpServerAPI();
@@ -50,6 +49,6 @@ class System_BackofficeDashboardController extends App_Controller_Action
     {
         $this->view->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(TRUE);
-        echo $this->view->navigation()->sitemap($this->view->topMenu);
+        print($this->view->navigation()->sitemap($this->view->topMenu));
     }
 }
