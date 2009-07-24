@@ -64,6 +64,9 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         if($this->_isBackofficeController AND App::front()->getRequest()->getModuleName() != 'system')
         {
             $this->_view->addScriptPath(APPLICATION_PATH . 'modules/system/views/');
+            if(App::front()->getRequest()->getModuleName() != 'system'){
+               $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/backoffice/');
+            }
         }
         $this->_view->addScriptPath($this->_templatePath . 'partial/');
         $this->_view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');

@@ -31,14 +31,14 @@ abstract class App_Controller_Action extends Zend_Controller_Action
             $site_pages = new System_Component_BackofficeStructure();
             $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
-            $inflector = new Zend_Filter_Inflector('backoffice/sidebar/:sidebarblock.:suffix');
+            $inflector = new Zend_Filter_Inflector('sidebar/:sidebarblock.:suffix');
             $inflector->setRules(array(':sidebarblock' => array('Word_CamelCaseToDash' , 'StringToLower') , 'suffix' => 'phtml'));
             $filtered = $inflector->filter(array('sidebarblock' => $this->getRequest()->getControllerName()));
             $sidebarBlockFile = APPLICATION_PATH . 'modules/' . $this->getRequest()->getModuleName() . '/views/' . $filtered;
             $sidebarBlock = $filtered;
             if(!file_exists($sidebarBlockFile))
             {
-                $sidebarBlock = 'backoffice/sidebar/default.phtml';
+                $sidebarBlock = 'sidebar/default.phtml';
             }
             
             $this->view->sidebarBlocks = $sidebarBlock;
@@ -61,5 +61,6 @@ abstract class App_Controller_Action extends Zend_Controller_Action
             Zend_Layout::disableLayout();
             Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');
         }
+        //Zend_debug::dump($this->view->getScriptPaths());die;
     }
 }
