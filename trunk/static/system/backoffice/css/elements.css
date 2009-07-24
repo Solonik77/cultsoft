@@ -451,10 +451,19 @@ table.grid tr {
 table.grid .odd {
 	background: #fff;
 }
+
+
+#footer .navigation
+{
+ display:block;
+ padding-left: 100px;
+ padding-top: 9px;
+}
+
 #footer .navigation li
 {
-	float:right;
 	padding: 5px;
+    margin-top: 20px;
 	display: inline;
 }
 
