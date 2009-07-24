@@ -37,6 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $autoloader->registerNamespace('ZFDebug_');
         }
         $autoloader->setFallbackAutoloader(false);
+        Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
         $this->_initConfiguration();
         $classFileIncCache = App::config()->syspath->cache . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : 'Zend Framework')) . '.php';
         if (file_exists($classFileIncCache)) {
