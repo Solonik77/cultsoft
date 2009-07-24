@@ -77,7 +77,7 @@ class App_Cache {
                     'parent' => 0,
                     'role' => 'guest',
                     'description' => 'Guest Account',
-                    'res_module_system_controller_admindashboard' => 0
+                    'res_module_system_controller_backofficeDashboard' => 0
                     ));
             foreach($model as $item) {
                 $data[$item['id']] = $item;
