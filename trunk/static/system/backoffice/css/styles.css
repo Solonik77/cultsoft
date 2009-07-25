@@ -44,15 +44,24 @@ ol {
 	padding: 0;
 }
 
-p.left {
+div.left, 
+span.left, 
+p.left 
+{
 	float: left;
 }
 
-p.right {
+div.right,
+span.right,
+p.right
+{
 	float: right;
 }
 
-p.center {
+div.center,
+span.center,
+p.center
+{
 	text-align: center;
 }
 
