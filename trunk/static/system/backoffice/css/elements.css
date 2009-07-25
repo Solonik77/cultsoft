@@ -369,7 +369,8 @@ input.max {
 	visibility: visible;
 }
 #content table {
-	margin: 0 0 15px;
+	width: 100%;
+    margin: 0 0 15px;
 	text-align: left;
 }
 #content table th, #content table td {
