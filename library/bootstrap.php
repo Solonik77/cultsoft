@@ -6,7 +6,7 @@
 *
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
+* @license http://cultsoft.org.ua/engine/license.html
 */
 require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
 require_once(LIBRARY_PATH . 'app.php');

@@ -6,7 +6,7 @@
 *
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/platform/license.html
+* @license http://cultsoft.org.ua/engine/license.html
 */
 class App_Mail {
     // Zend_Mail instance
