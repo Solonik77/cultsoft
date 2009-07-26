@@ -16,6 +16,9 @@ class App_Acl extends Zend_Acl {
     public function __construct()
     {
         if (App_Acl::$instance === null) {
+            /*
+            * Getting member roles from system cache
+            */
             $acl = App_Cache::getInstance()->getAclRoles();
             $res = current($acl);
             $resources = array();
