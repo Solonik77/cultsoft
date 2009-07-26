@@ -41,7 +41,7 @@ class App_Cache {
             $systemCacheFrontend = $this->_defaultFrontendOptions;
             // Permanent storage
             $systemCacheFrontend ['lifetime'] = null;
-            $this->initInstance(array('id' => 'System', $systemCacheFrontend));
+            $this->initInstance(array('id' => 'permCache', $systemCacheFrontend));
             App_Cache::$instance = $this;
         }
     }
@@ -69,7 +69,7 @@ class App_Cache {
     public function getAclRoles()
     {
         $data = null;
-        if (!($data = $this->cache->System->load('AclRoles'))) {
+        if (!($data = $this->cache->permCache->load('AclRoles'))) {
             $model = new System_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
@@ -82,7 +82,7 @@ class App_Cache {
             foreach($model as $item) {
                 $data[$item['id']] = $item;
             }
-            $this->cache->System->save($data);
+            $this->cache->permCache->save($data);
         }
         return $data;
     }
@@ -93,10 +93,10 @@ class App_Cache {
     public function getSiteNavigationTree()
     {
         $data = null;
-        if (!($data = $this->cache->System->load('SiteNavigationTree'))) {
+        if (!($data = $this->cache->permCache->load('SiteNavigationTree'))) {
             $model = new System_Model_DbTable_Site_Structure();
             $data = $model->getTree();
-            $this->cache->System->save($data);
+            $this->cache->permCache->save($data);
         }
         return $data;
     }
@@ -109,7 +109,6 @@ class App_Cache {
         $frontendOptions = (! is_null($frontendOptions) and is_array($frontendOptions) and ! empty($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;
         $backendOptions = (! is_null($backendOptions) and is_array($backendOptions) and ! empty($backendOptions)) ? $backendOptions : $this->_defaultBackendOptions;
         if (is_array($instanceId) and isset($instanceId ['id'])) {
-            $instanceId ['id'] = ucfirst(strtolower($instanceId ['id']));
             // Create instance only once
             if (! in_array($instanceId ['id'], $this->_instances)) {
                 $backend = (isset($instanceId ['backend'])) ? ucfirst(strtolower($instanceId ['backend'])) : 'File';
