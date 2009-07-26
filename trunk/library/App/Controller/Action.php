@@ -46,7 +46,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $container = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->navigation($container);
         }
-        $this->view->headTitle()->setSeparator(' ‹ ');
+
         // Resource autoload
         $module = ucfirst(strtolower($request->getParam('module')));
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module , 'namespace' => $module));
@@ -56,6 +56,5 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             Zend_Layout::disableLayout();
             Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');
         }
-        // Zend_debug::dump($this->view->getScriptPaths());die;
     }
 }
