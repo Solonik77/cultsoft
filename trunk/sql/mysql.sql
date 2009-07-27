@@ -134,12 +134,13 @@ CREATE TABLE `prefix_site_languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `language_identificator` varchar(3) DEFAULT NULL,
   `locale` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_site_languages` */
 
-insert  into `prefix_site_languages`(`id`,`language_identificator`,`locale`) values (1,'ru','ru_RU'),(2,'en','en_US');
+insert  into `prefix_site_languages`(`id`,`language_identificator`,`locale`,`is_active`) values (1,'ru','ru_RU',1),(2,'en','en_US',1);
 
 /*Table structure for table `prefix_site_structure` */
 
