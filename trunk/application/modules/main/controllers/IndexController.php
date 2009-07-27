@@ -25,6 +25,7 @@ class Main_IndexController extends App_Controller_Action {
         */
         public function testAction()
         {
+                   
         }
     }
 
