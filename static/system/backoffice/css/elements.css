@@ -69,16 +69,16 @@ input[type=submit], input[type=reset], input.button, input.submit {
 	webkit-border-radius: 3px;
 }
 input.button:hover, input[type=text]:hover, input[type=password]:hover, input[type=file]:hover, div.input_field input:hover, input.button:focus, input[type=text]:focus, input[type=password]:focus, input[type=file]:focus, div.input_field input:focus, texarea:hover, texarea:focus, select:hover, select:focus {
-	border-bottom-color: #6FA1D9;
+	border-bottom-color: #EDC67C;
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
-	border-left-color: #2D68AA;
+	border-left-color: #DB991E;
 	border-left-style: solid;
 	border-left-width: 1px;
-	border-right-color: #6FA1D9;
+	border-right-color: #EDC67C;
 	border-right-style: solid;
 	border-right-width: 1px;
-	border-top-color: #2D68AA;
+	border-top-color: #DB991E;
 	border-top-style: solid;
 	border-top-width: 1px;
 }
