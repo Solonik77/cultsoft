@@ -3,7 +3,8 @@ SQLyog Community Edition- MySQL GUI v5.27
 Host - 5.1.31-community : Database - zfapp
 *********************************************************************
 Server version : 5.1.31-community
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -35,13 +36,24 @@ DROP TABLE IF EXISTS `prefix_blog`;
 
 CREATE TABLE `prefix_blog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
+  `slug` varchar(100) DEFAULT NULL,
   `type` smallint(1) NOT NULL DEFAULT '1',
   `member_owner_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `member_owner_id` (`member_owner_id`),
   CONSTRAINT `prefix_blog_fk` FOREIGN KEY (`member_owner_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `prefix_i18n_blog`;
+CREATE TABLE `prefix_i18n_blog` (
+  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `lang_id` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`i18n_id`),
+    KEY `lang_id` (`lang_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 /*Data for the table `prefix_blog` */
 
@@ -77,14 +89,27 @@ CREATE TABLE `prefix_blog_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `title` varchar(200) DEFAULT NULL,
-  `content` longtext,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `blog_id` (`blog_id`),
   KEY `member_id` (`member_id`),
   CONSTRAINT `prefix_blog_posts_fk` FOREIGN KEY (`blog_id`) REFERENCES `prefix_blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `prefix_blog_posts_fk1` FOREIGN KEY (`member_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
+
+CREATE TABLE `prefix_i18n_blog_posts` (
+  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) DEFAULT NULL,
+  `content` longtext,
+    `lang_id` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`i18n_id`),
+  
+      KEY `lang_id` (`lang_id`),
+  KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_blog_posts` */
