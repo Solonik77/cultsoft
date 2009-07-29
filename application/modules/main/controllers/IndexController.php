@@ -19,13 +19,4 @@ class Main_IndexController extends App_Controller_Action {
     public function indexAction()
     {
     }
-
-        /**
-        * Test Zend_Navigation helpers
-        */
-        public function testAction()
-        {
-                   
-        }
-    }
-
+}
