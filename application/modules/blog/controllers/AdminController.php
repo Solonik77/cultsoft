@@ -36,7 +36,24 @@ class Blog_AdminController extends App_Controller_Action
     public function newBlogAction()
     {
         $this->view->pageDescription = __('Create new blog.');
-        $this->view->form = new Blog_Form_EditBlog;
+        $form = new Blog_Form_EditBlog();
+        if($this->_request->isPost())
+        {
+            $formData = $this->_request->getPost();
+            $form->populate($formData);
+            if(! $form->isValid($formData))
+            {
+                // Errors in input data
+            	$this->view->form = $form;
+                return $this->render();
+            }
+            else
+            {    
+            	// Saving new blog
+            	
+            }
+        }
+        $this->view->form = $form;
     }
 
     /**
