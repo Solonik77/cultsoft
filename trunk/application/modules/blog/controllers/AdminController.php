@@ -9,6 +9,7 @@
 class Blog_AdminController extends App_Controller_Action
 {
     CONST BACKOFFICE_CONTROLLER = TRUE;
+    protected $blogModel;
 
     public function init()
     {
@@ -16,12 +17,32 @@ class Blog_AdminController extends App_Controller_Action
         $this->view->pageDescription = __('Create, edit, delete posts for individual.');
     }
 
+    public function preDispatch()
+    {
+        $this->blogModel = new Blog_Model_DbTable_Blog();
+    }
+
     /**
-     * Default system action
+     * Basic information about blogs
      */
     public function indexAction()
     {
-     $blogs = new Blog_Model_DbTable_Blog();
-     $this->view->listBlogs = $blogs->fetchAll();
+        $this->view->listBlogs = $this->blogModel->fetchAll()->toArray();
+    }
+
+    /**
+     * Create new blog
+     */
+    public function newBlogAction()
+    {
+        $this->view->pageDescription = __('Create new blog.');
+    }
+
+    /**
+     * Manage blogs
+     */
+    public function manageBlogsAction()
+    {
+        $this->view->pageDescription = __('Manage blogs.');
     }
 }

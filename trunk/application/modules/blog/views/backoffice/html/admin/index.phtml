@@ -1,1 +1,23 @@
-<h3>Admin blogs</h3>
+<h3><?php
+echo __('Admin blogs')?></h3>
+<?php
+if(count($this->listBlogs) > 0)
+:
+    foreach($this->listBlogs as $listBlogs)
+    :
+        ?>
+
+<?php
+    endforeach;
+
+else
+:
+    ?>
+  <?php
+    echo __('No blogs')?>
+
+<a href="<?php
+    echo $this->url(array('action' => 'new-blog'))?>"><?php
+    echo __('Create new blog')?></a>
+
+<?php endif; ?>
