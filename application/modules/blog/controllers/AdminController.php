@@ -44,5 +44,6 @@ class Blog_AdminController extends App_Controller_Action
     public function manageBlogsAction()
     {
         $this->view->pageDescription = __('Manage blogs.');
+        $this->view->listBlogs = $this->blogModel->fetchAll()->toArray();
     }
 }
