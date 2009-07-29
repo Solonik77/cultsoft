@@ -51,7 +51,8 @@ class Blog_AdminController extends App_Controller_Action
 			else
 			{
 				// Saving new blog
-					
+				$this->_redirect('admin');
+				$this->view->messages('Add new blog','success', TRUE);
 			}
 		}
 		$this->view->form = $form;
