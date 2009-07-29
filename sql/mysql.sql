@@ -19,16 +19,16 @@ DROP TABLE IF EXISTS `prefix_acl_roles`;
 
 CREATE TABLE `prefix_acl_roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent` bigint(20) NOT NULL DEFAULT '0',
+  `parent_id` bigint(20) DEFAULT NULL,
   `role` varchar(64) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `res_module_system_controller_backofficeDashboard` tinyint(1) NOT NULL DEFAULT '0',
+  `res_module_system_controller_backofficeDashboard` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_acl_roles` */
 
-insert  into `prefix_acl_roles`(`id`,`parent`,`role`,`description`,`res_module_system_controller_backofficeDashboard`) values (1,0,'administrator','Administrator Account',0);
+insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`,`res_module_system_controller_backofficeDashboard`) values (1,0,'administrator','Administrator Account',0);
 
 /*Table structure for table `prefix_blog` */
 
@@ -37,8 +37,8 @@ DROP TABLE IF EXISTS `prefix_blog`;
 CREATE TABLE `prefix_blog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) DEFAULT NULL,
-  `type` smallint(1) NOT NULL DEFAULT '1',
-  `member_owner_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `type` smallint(1) DEFAULT NULL,
+  `member_owner_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `member_owner_id` (`member_owner_id`),
   CONSTRAINT `prefix_blog_fk` FOREIGN KEY (`member_owner_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -49,7 +49,7 @@ CREATE TABLE `prefix_i18n_blog` (
   `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
-  `lang_id` int(1) NOT NULL DEFAULT '1',
+  `lang_id` int(1) DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
     KEY `lang_id` (`lang_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -63,15 +63,15 @@ DROP TABLE IF EXISTS `prefix_blog_comments`;
 
 CREATE TABLE `prefix_blog_comments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `post_id` bigint(20) unsigned DEFAULT NULL,
   `author` tinytext,
   `author_email` varchar(100) DEFAULT NULL,
   `author_url` varchar(200) DEFAULT NULL,
   `author_ip` varchar(100) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `content` text,
-  `approved` varchar(20) NOT NULL DEFAULT '1',
-  `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `approved` varchar(20) DEFAULT NULL,
+  `member_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
   KEY `member_id` (`member_id`),
@@ -87,8 +87,8 @@ DROP TABLE IF EXISTS `prefix_blog_posts`;
 
 CREATE TABLE `prefix_blog_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `blog_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `member_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `blog_id` bigint(20) unsigned DEFAULT NULL,
+  `member_id` bigint(20) unsigned DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `blog_id` (`blog_id`),
@@ -102,10 +102,10 @@ DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
 
 CREATE TABLE `prefix_i18n_blog_posts` (
   `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `post_id` bigint(20) unsigned DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` longtext,
-    `lang_id` int(1) NOT NULL DEFAULT '1',
+    `lang_id` int(1) DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
   
       KEY `lang_id` (`lang_id`),
@@ -122,11 +122,11 @@ CREATE TABLE `prefix_members` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(64) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `role_id` smallint(1) NOT NULL DEFAULT '0',
+  `role_id` smallint(1) DEFAULT NULL,
   `timezone_offset` double(12,2) DEFAULT '0.00',
   `registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `language_id` smallint(1) NOT NULL DEFAULT '1',
-  `is_active` smallint(1) NOT NULL DEFAULT '1',
+  `language_id` smallint(1) DEFAULT NULL,
+  `is_active` smallint(1) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -141,9 +141,9 @@ insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`timezone_offset
 DROP TABLE IF EXISTS `prefix_session`;
 
 CREATE TABLE `prefix_session` (
-  `id` char(32) NOT NULL DEFAULT '',
-  `modified` int(11) NOT NULL DEFAULT '0',
-  `lifetime` int(11) NOT NULL DEFAULT '0',
+  `id` char(32) DEFAULT NULL,
+  `modified` int(11) DEFAULT NULL,
+  `lifetime` int(11) DEFAULT NULL,
   `user_agent` varchar(255) DEFAULT NULL,
   `data` text,
   PRIMARY KEY (`id`)
@@ -159,7 +159,7 @@ CREATE TABLE `prefix_site_languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `language_identificator` varchar(3) DEFAULT NULL,
   `locale` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -173,14 +173,14 @@ DROP TABLE IF EXISTS `prefix_site_structure`;
 
 CREATE TABLE `prefix_site_structure` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `label` varchar(100) NOT NULL DEFAULT '',
+  `label` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
-  `module` varchar(100) NOT NULL DEFAULT 'default',
+  `module` varchar(100) NOT NULL DEFAULT 'main',
   `controller` varchar(100) NOT NULL DEFAULT 'index',
   `action` varchar(100) NOT NULL DEFAULT 'index',
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `left_column_id` int(11) NOT NULL DEFAULT '0',
-  `right_column_id` int(11) NOT NULL DEFAULT '0',
+  `visible` tinyint(1) DEFAULT NULL,
+  `left_column_id` int(11) DEFAULT NULL,
+  `right_column_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
