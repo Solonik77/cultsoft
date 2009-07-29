@@ -52,6 +52,7 @@ class Blog_AdminController extends App_Controller_Action
 			{
 				// Saving new blog
 				Zend_Debug::dump($_POST);
+				Zend_Debug::dump($this->_request->getI18N());
 				$this->view->messages('Add new blog','success');
 			}
 		}
