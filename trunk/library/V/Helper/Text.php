@@ -343,4 +343,46 @@ class V_Helper_Text {
 		}
 		return $str;
 	}
+
+	/**
+	 * Create slug from string.
+	 *
+	 * @param string $ string to remove widows from
+	 * @return string
+	 */
+	public static function slug($var, $lower = true, $punkt = true)
+	{
+    $var = iconv("UTF-8", "ISO-8859-1", $var);
+	$NpjLettersFrom = "àáâãäåçèêëìíîïğñòóôöû³";
+	$NpjLettersTo = "abvgdeziklmnoprstufcyi";
+	$NpjBiLetters = array ("é" => "j", "¸" => "yo", "æ" => "zh", "õ" => "x", "÷" => "ch", "ø" => "sh", "ù" => "shh", "ı" => "ye", "ş" => "yu", "ÿ" => "ya", "ú" => "", "ü" => "", "¿" => "yi", "º" => "ye" );
+	
+	$NpjCaps = "ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÜÚÛİŞß¯ª²";
+	$NpjSmall = "àáâãäå¸æçèéêëìíîïğñòóôõö÷øùüúûışÿ¿º³";
+	
+	$var = str_replace( ".php", "", $var );
+	$var = trim( strip_tags( $var ) );
+	$var = preg_replace( "/\s+/ms", "-", $var );
+	$var = strtr( $var, $NpjCaps, $NpjSmall );
+	$var = strtr( $var, $NpjLettersFrom, $NpjLettersTo );
+	$var = strtr( $var, $NpjBiLetters );
+	
+	if ( $punkt ) $var = preg_replace( "/[^a-z0-9\_\-.]+/mi", "", $var );
+	else $var = preg_replace( "/[^a-z0-9\_\-]+/mi", "", $var );
+
+	$var = preg_replace( '#[\-]+#i', '-', $var );
+
+	if ( $lower ) $var = strtolower( $var );
+	
+	if( strlen( $var ) > 50 ) {
+		
+		$var = substr( $var, 0, 50 );
+		
+		if( ($temp_max = strrpos( $var, '-' )) ) $var = substr( $var, 0, $temp_max );
+	
+	}
+	
+	return $var;
+	}
+
 } // End text
