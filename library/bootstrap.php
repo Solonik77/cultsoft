@@ -273,6 +273,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			$front->setdefaultModule('main');
 			$front->setModuleControllerDirectoryName('controllers');
 			$front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
+			$front->setRequest(new App_Controller_Request_Http());
 			$default = $front->getDefaultModule();
 			if (null === $front->getControllerDirectory($default)) {
 				throw new App_Exception('No default controller directory registered with front controller');

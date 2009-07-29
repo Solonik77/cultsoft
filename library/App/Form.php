@@ -50,7 +50,6 @@ class App_Form extends Zend_Form {
 			require_once 'Zend/Form/Exception.php';
 			throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
 		}
-
 		return $this->setAttrib('name', $name);
 	}
 }

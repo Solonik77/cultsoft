@@ -15,9 +15,9 @@ class Blog_Form_EditBlog extends App_Form
 		$siteLang = App::siteLanguages();
 		foreach($siteLang as $lang)
 		{
-			$title = $this->createElement('text', 'title[' . $lang['id'] . ']')->setLabel('Title');
+			$title = $this->createElement('text','langid_'. $lang['id'].'_title')->setLabel('Title');
 			$title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim');
-			$description = $this->createElement('textarea', 'description[' . $lang['id'] . ']', array('label' => 'Description' , 'rows' => '5'));
+			$description = $this->createElement('textarea', 'langid_'. $lang['id'].'_description', array('label' => 'Description' , 'rows' => '5'));
 			$description->addValidator('StringLength', false, array(3))->setRequired(true)->addFilter('stringTrim');
 			$this->addElement($title)->addElement($description);
 		}
