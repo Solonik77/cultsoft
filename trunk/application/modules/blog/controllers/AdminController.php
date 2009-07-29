@@ -52,9 +52,8 @@ class Blog_AdminController extends App_Controller_Action
             {
                 // Saving new blog
                 $defualt = $this->_request->getI18N(App::config()->languages->default_id);
-                $data = array('slug' => V_Helper_Text::slug($defualt['title']));
-                $this->blogModel->insert();
-                Zend_Debug::dump();
+                $data = array('type' => $formData['type'] , 'slug' => V_Helper_Text::slug($defualt['title']));
+                $this->blogModel->insert($data);
                 $this->view->messages('Add new blog', 'success');
             }
         }

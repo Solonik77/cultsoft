@@ -352,7 +352,7 @@ class V_Helper_Text {
 	 */
 	public static function slug($var, $lower = true, $punkt = true)
 	{
-    $var = iconv("UTF-8", "ISO-8859-1", $var);
+    $var = iconv("UTF-8", "WINDOWS-1251", $var);
 	$NpjLettersFrom = "àáâãäåçèêëìíîïğñòóôöû³";
 	$NpjLettersTo = "abvgdeziklmnoprstufcyi";
 	$NpjBiLetters = array ("é" => "j", "¸" => "yo", "æ" => "zh", "õ" => "x", "÷" => "ch", "ø" => "sh", "ù" => "shh", "ı" => "ye", "ş" => "yu", "ÿ" => "ya", "ú" => "", "ü" => "", "¿" => "yi", "º" => "ye" );
