@@ -34,10 +34,8 @@ echo App::baseUri()?>" />
 echo $this->tplIMG?>logo.png"
 	class="logo" alt="Memix" /></a></div>
 
-<div class="grid_11 menu"><!-- Top menu Start -->
-<?php
-echo $this->partial('top_menu.phtml')?>
-      <!-- Top menu End --></div>
+<div class="grid_11 menu"><!-- Top menu Start --> <?php
+echo $this->partial('top_menu.phtml')?> <!-- Top menu End --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
@@ -46,18 +44,15 @@ echo $this->partial('subpageheader.phtml')?>
 <div class="clear">&nbsp;</div>
 <div class="clear">&nbsp;</div>
 <div class="content cbg">
-<div class="container_16 linebg"><!--Left part of text follows here-->
-    <?php
-echo $this->partial('left_part_content.phtml')?>
-    <!--End of the Left part text  --> <!--Right part of text follows here-->
-	  <?php
-echo $this->partial('right_part.phtml')?>
-      <!--End of the Right part text  --></div>
+<div class="container_16 linebg"><!--Left part of text follows here--> <?php
+echo $this->partial('left_part_content.phtml')?> <!--End of the Left part text  -->
+<!--Right part of text follows here--> <?php
+echo $this->partial('right_part.phtml')?> <!--End of the Right part text  --></div>
 </div>
 </div>
 <div class="clear">&nbsp;</div>
 <!-- Footer Block Start -->
- <?php
+<?php
 echo $this->partial('page_footer.phtml')?>
 <!-- Footer Block End -->
 </body>
