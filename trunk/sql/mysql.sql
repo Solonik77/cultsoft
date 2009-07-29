@@ -3,8 +3,7 @@ SQLyog Community Edition- MySQL GUI v5.27
 Host - 5.1.31-community : Database - zfapp
 *********************************************************************
 Server version : 5.1.31-community
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -38,22 +37,8 @@ CREATE TABLE `prefix_blog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) DEFAULT NULL,
   `type` smallint(1) DEFAULT NULL,
-  `member_owner_id` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `member_owner_id` (`member_owner_id`),
-  CONSTRAINT `prefix_blog_fk` FOREIGN KEY (`member_owner_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `prefix_i18n_blog`;
-CREATE TABLE `prefix_i18n_blog` (
-  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
-  `lang_id` int(1) DEFAULT NULL,
-  PRIMARY KEY (`i18n_id`),
-    KEY `lang_id` (`lang_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 /*Data for the table `prefix_blog` */
 
@@ -81,6 +66,22 @@ CREATE TABLE `prefix_blog_comments` (
 
 /*Data for the table `prefix_blog_comments` */
 
+/*Table structure for table `prefix_blog_member` */
+
+DROP TABLE IF EXISTS `prefix_blog_member`;
+
+CREATE TABLE `prefix_blog_member` (
+  `blog_id` int(11) unsigned DEFAULT NULL,
+  `member_id` int(11) unsigned DEFAULT NULL,
+  `is_moderator` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_administrator` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `blog_id_user_id_uniq` (`blog_id`,`member_id`),
+  KEY `blog_id` (`blog_id`),
+  KEY `member_id` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_blog_member` */
+
 /*Table structure for table `prefix_blog_posts` */
 
 DROP TABLE IF EXISTS `prefix_blog_posts`;
@@ -97,6 +98,24 @@ CREATE TABLE `prefix_blog_posts` (
   CONSTRAINT `prefix_blog_posts_fk1` FOREIGN KEY (`member_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `prefix_blog_posts` */
+
+/*Table structure for table `prefix_i18n_blog` */
+
+DROP TABLE IF EXISTS `prefix_i18n_blog`;
+
+CREATE TABLE `prefix_i18n_blog` (
+  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `lang_id` int(1) DEFAULT NULL,
+  PRIMARY KEY (`i18n_id`),
+  KEY `lang_id` (`lang_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `prefix_i18n_blog` */
+
+/*Table structure for table `prefix_i18n_blog_posts` */
 
 DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
 
@@ -105,14 +124,13 @@ CREATE TABLE `prefix_i18n_blog_posts` (
   `post_id` bigint(20) unsigned DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` longtext,
-    `lang_id` int(1) DEFAULT NULL,
+  `lang_id` int(1) DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
-  
-      KEY `lang_id` (`lang_id`),
+  KEY `lang_id` (`lang_id`),
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_posts` */
+/*Data for the table `prefix_i18n_blog_posts` */
 
 /*Table structure for table `prefix_members` */
 
@@ -141,7 +159,7 @@ insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`timezone_offset
 DROP TABLE IF EXISTS `prefix_session`;
 
 CREATE TABLE `prefix_session` (
-  `id` char(32) DEFAULT NULL,
+  `id` char(32) NOT NULL DEFAULT '',
   `modified` int(11) DEFAULT NULL,
   `lifetime` int(11) DEFAULT NULL,
   `user_agent` varchar(255) DEFAULT NULL,
