@@ -132,13 +132,13 @@ p.center
 	margin-right: -200px;
 }
 
-#title {
+div#title {
 	margin: 0 0 30px;
 	padding: 15px;
 	background: #1e1e1e;
 }
 
-#title h1 {
+div#title h1 {
 	float: left;
 	margin: 0;
 	padding: 0;
@@ -147,7 +147,7 @@ p.center
 	color: #fff;
 }
 
-#title span {
+div#title span {
 	line-height: 22px;
 	color: #999;
 }
