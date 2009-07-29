@@ -35,7 +35,7 @@ class Blog_AdminController extends App_Controller_Action
 	 */
 	public function newBlogAction()
 	{
-		$this->view->pageDescription = __('Create new blog.');
+		$this->view->pageDescription = __('Create new blog');
 		$form = new Blog_Form_EditBlog();
 		$form->compose();
 		if($this->_request->isPost())
@@ -51,7 +51,7 @@ class Blog_AdminController extends App_Controller_Action
 			else
 			{
 				// Saving new blog
-				 
+					
 			}
 		}
 		$this->view->form = $form;
