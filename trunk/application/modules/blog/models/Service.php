@@ -1,10 +1,10 @@
 <?php
 /**
- * Blog
+ * Blog service
  *
  * @author Dmytro Denysenko
  */
-class Blog_Model_Blog
+class Blog_Model_Service
 {
 
 }
