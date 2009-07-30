@@ -464,7 +464,7 @@ table.grid tbody  td.left {
 	font-family: Arial, Helvetica, sans-serif;
 }
 table.grid tbody tr:hover td,
-table.grid tbody tr.odd:hover td {
+table.grid tbody tr.even:hover td {
 	background-color: #FFFFF2;
 }
 table.grid tbody tr.even td {
@@ -492,8 +492,8 @@ dl.zend_form dd ul.errors {
 		margin: 0;
 }
 dl.zend_form dd ul.errors li {
-		float: left;
 		margin: 0 0.15em;
+        display: block;
 		font-size: 12px;
 		color: red;
 }

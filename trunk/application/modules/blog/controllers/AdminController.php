@@ -14,7 +14,8 @@ class Blog_AdminController extends App_Controller_Action
     public function init()
     {
         $this->view->pageTitle = __('Blogs');
-        $this->view->pageDescription = __('Create, edit, delete posts for individual.');
+        $this->view->pageDescription = __('Create, edit, delete posts. Manage communities.');
+        $this->view->headTitle($this->view->pageTitle);
     }
 
     public function preDispatch()
@@ -36,6 +37,8 @@ class Blog_AdminController extends App_Controller_Action
     public function newBlogAction()
     {
         $this->view->pageDescription = __('Create new blog');
+        $this->view->headTitle($this->view->pageDescription);
+        
         $form = new Blog_Form_EditBlog();
         $form->compose();
         if($this->_request->isPost())
