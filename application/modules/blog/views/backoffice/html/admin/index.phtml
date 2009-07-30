@@ -1,23 +1,27 @@
-<h3><?php
-echo __('Admin blogs')?></h3>
+<h3><?php echo __('Admin blogs')?></h3>
+<p><a href="<?php echo $this->url(array('action' => 'new-blog'))?>"><?php echo __('Create new blog')?></a></p>
+<table class="grid">
+	<thead>
+		<th><?=__('ID')?></th>
+		<th><?=__('Title')?></th>
+		<th><?=__('Created')?></th>
+		<th><?=__('Type')?></th>
+	</thead>
+	<tbody>
 <?php
-if(count($this->listBlogs) > 0)
-:
-foreach($this->listBlogs as $listBlogs)
-:
+$types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
+foreach($this->listBlogs as $i18n)
+{
+ $blog = $i18n->findParentRow('Blog_Model_DbTable_Blog');
 ?>
-
+	<tr class="<?php echo $this->cycle(array("odd","even"))->next()?>">
+			<td><?php echo $blog->id?></td>
+			<td><?php echo $i18n->title?></td>
+			<td><?php echo date("Y-t-d", strtotime($blog->created))?></td>
+			<td><?php echo $types[$blog->type] ?></td>
+		</tr>
 <?php
-endforeach;
-
-else
-:
+}
 ?>
-<?php
-echo __('No blogs')?>
-
-<a href="<?php
-echo $this->url(array('action' => 'new-blog'))?>"><?php
-echo __('Create new blog')?></a>
-
-<?php endif; ?>
+  </tbody>
+</table>
