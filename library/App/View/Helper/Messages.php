@@ -8,11 +8,11 @@
 class App_View_Helper_Messages {
 	public function messages()
 	{
-		return $this;		
+		return $this;
 	}
 
-	
-    public function __toString()
+
+	public function __toString()
 	{
 		$messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
 		$messages = (count($messages) > 0) ? $messages : App_Controller_Action_Helper_Messages::getMessages();
