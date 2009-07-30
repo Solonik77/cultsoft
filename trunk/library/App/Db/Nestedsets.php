@@ -24,7 +24,7 @@ require_once 'App/Db/Table.php';
  * @subpackage Nestedset
  * @copyright Copyright(c) 2008 Ivan Iordanov(http://dev.iordanov.net)
  */
-class App_Db_Nestedsets extends App_Db_Table {
+class App_Db_Nestedsets extends App_Db_Table_Abstract {
 	/**
 	 * left column in nested table
 	 *

@@ -9,7 +9,7 @@
 class Blog_AdminController extends App_Controller_Action
 {
 	CONST BACKOFFICE_CONTROLLER = TRUE;
-	protected $blogModel;
+	protected $blogService;
 
 	public function init()
 	{
@@ -19,7 +19,7 @@ class Blog_AdminController extends App_Controller_Action
 
 	public function preDispatch()
 	{
-		$this->blogModel = new Blog_Model_Service();
+		$this->blogService = new Blog_Model_Service();
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Blog_AdminController extends App_Controller_Action
 	 */
 	public function indexAction()
 	{
-		$this->view->listBlogs = $this->blogModel->fetchAll()->toArray();
+		$this->view->listBlogs = $this->blogService->getAllBlogs()->toArray();
 	}
 
 	/**
@@ -51,9 +51,11 @@ class Blog_AdminController extends App_Controller_Action
 			else
 			{
 				// Saving new blog
-				//$this->blogModel->save();
-				$this->_helper->messages('Add new blog', 'success');
-				//$this->_redirect('admin/blog/');
+				$this->blogService->save();
+				// Set message to view
+				$this->_helper->messages('Add new blog', 'success', TRUE);
+				// Clear post
+				$this->_redirect('admin/blog');
 			}
 		}
 		$this->view->form = $form;
