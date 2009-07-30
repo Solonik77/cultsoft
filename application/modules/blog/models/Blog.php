@@ -4,7 +4,7 @@
  *
  * @author Dmytro Denysenko
  */
-class Blog_Model_Blogs
+class Blog_Model_Blog
 {
 
 }
