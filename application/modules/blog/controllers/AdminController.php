@@ -19,7 +19,7 @@ class Blog_AdminController extends App_Controller_Action
 
     public function preDispatch()
     {
-        $this->blogModel = new Blog_Model_DbTable_Blog();
+        $this->blogModel = new Blog_Model_Blogs();
     }
 
     /**
