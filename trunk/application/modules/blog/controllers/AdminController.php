@@ -27,7 +27,7 @@ class Blog_AdminController extends App_Controller_Action
 	 */
 	public function indexAction()
 	{
-		$this->view->listBlogs = $this->blogService->getAllBlogs()->toArray();
+		$this->view->listBlogs = $this->blogService->getBlogsList();
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Blog_AdminController extends App_Controller_Action
 	public function newBlogAction()
 	{
 		$this->view->pageDescription = __('Create new blog');
-		$form = new Blog_Form_EditBlog();
+		$form = new Blog_Form_EditBlog;
 		$form->compose();
 		if($this->_request->isPost())
 		{

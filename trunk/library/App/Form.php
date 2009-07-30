@@ -30,7 +30,7 @@ class App_Form extends Zend_Form {
 		$request = App::front()->getRequest();
 		if(empty($action))
 		{
-			$action = $request->getRequestUri();
+			$action = App::baseUri() . trim($request->getRequestUri(), '/') . '/';
 		}
 		if(Zend_Registry::get('BACKOFFICE_CONTROLLER'))
 		{}

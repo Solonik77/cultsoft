@@ -22,7 +22,7 @@ class Blog_Form_EditBlog extends App_Form
 			$this->addElement($title)->addElement($description);
 		}
 		$type = $this->createElement('select', 'blog_type');
-		$type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(__('Personal blog') , __('Collaborative blog (community)')))->setValue($this->_type);
+		$type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)')))->setValue($this->_type);
 		$this->addElement($type)->addElement('submit', 'enter', array('label' => 'Save'));
 		$this->addElement('hash', 'csrf_hash', array('salt' => 'unique'));
 		return $this;
