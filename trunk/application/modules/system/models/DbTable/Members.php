@@ -8,6 +8,7 @@
  */
 class System_Model_DbTable_Members extends App_Db_Table_Abstract
 {
+	protected $_primary = 'id';
 	public function __construct()
 	{
 		parent::__construct();

@@ -1,5 +1,6 @@
 <h3><?php echo __('Admin blogs')?></h3>
 <p><a href="<?php echo $this->url(array('action' => 'new-blog'))?>"><?php echo __('Create new blog')?></a></p>
+<?php if(count($this->listBlogs->toArray()) > 0) : ?>
 <table class="grid">
 	<thead>
 		<th><?=__('ID')?></th>
@@ -25,3 +26,6 @@ foreach($this->listBlogs as $i18n)
 ?>
   </tbody>
 </table>
+<?php else:?>
+<p><?= __('No blogs here') ?></p>
+<?php endif;?>
