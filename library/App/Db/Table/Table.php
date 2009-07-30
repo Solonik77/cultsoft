@@ -13,7 +13,7 @@
  * Zend_Db_Table
  */
 require_once 'Zend/Db/Table.php';
-abstract class App_Db_Table extends Zend_Db_Table_Abstract {
+abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
 	private $_cache;
 
 	public function __construct($config = array())
