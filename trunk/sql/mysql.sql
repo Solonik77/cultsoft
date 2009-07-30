@@ -37,6 +37,7 @@ CREATE TABLE `prefix_blog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) DEFAULT NULL,
   `type` smallint(1) DEFAULT NULL,
+  `created` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -71,13 +72,16 @@ CREATE TABLE `prefix_blog_comments` (
 DROP TABLE IF EXISTS `prefix_blog_member`;
 
 CREATE TABLE `prefix_blog_member` (
-  `blog_id` int(11) unsigned DEFAULT NULL,
-  `member_id` int(11) unsigned DEFAULT NULL,
+  `blog_id` bigint(20) unsigned NOT NULL,
+  `member_id` bigint(20) unsigned DEFAULT NULL,
   `is_moderator` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `is_administrator` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`blog_id`),
   UNIQUE KEY `blog_id_user_id_uniq` (`blog_id`,`member_id`),
   KEY `blog_id` (`blog_id`),
-  KEY `member_id` (`member_id`)
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `prefix_blog_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `prefix_members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `prefix_blog_member_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `prefix_blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_blog_member` */
@@ -109,8 +113,11 @@ CREATE TABLE `prefix_i18n_blog` (
   `title` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `lang_id` int(1) DEFAULT NULL,
+  `blog_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
-  KEY `lang_id` (`lang_id`)
+  KEY `lang_id` (`lang_id`),
+  KEY `blog_id` (`blog_id`),
+  CONSTRAINT `prefix_i18n_blog_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `prefix_blog` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_i18n_blog` */
@@ -178,12 +185,13 @@ CREATE TABLE `prefix_site_languages` (
   `language_identificator` varchar(3) DEFAULT NULL,
   `locale` varchar(255) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_site_languages` */
 
-insert  into `prefix_site_languages`(`id`,`language_identificator`,`locale`,`is_active`) values (1,'ru','ru_RU',1),(2,'en','en_US',1);
+insert  into `prefix_site_languages`(`id`,`language_identificator`,`locale`,`is_active`,`name`) values (1,'ru','ru_RU',1,'Russian'),(2,'en','en_US',1,'English');
 
 /*Table structure for table `prefix_site_structure` */
 

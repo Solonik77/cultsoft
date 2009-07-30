@@ -2,6 +2,7 @@
 
 fieldset {
 	padding: 14px;
+    margin-bottom: 12px;
 	background-color: #FFFDFB;
 	border: 1px solid #FFF4E6;
 }
@@ -484,7 +485,7 @@ table.grid tbody tr.even td {
 }
 
 /* Zend Form Styling */
-dl.zend_form dt label.required { font-weight: 600; }
+dl.zend_form dt label.required { font-weight: 600; color: #877D69; }
 dl.zend_form dd ul.errors {
 		list-style: none;
 		padding: 0;
