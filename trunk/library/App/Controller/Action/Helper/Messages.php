@@ -35,14 +35,14 @@ class App_Controller_Action_Helper_Messages extends Zend_Controller_Action_Helpe
 			}
 		}
 	}
-    
-    public function direct($message = null, $status = null, $flash = false)
-    {
-      $this->messages($message, $status, $flash);  
-    }
-    
-    public static function getMessages()
-    {
-        return App_Controller_Action_Helper_Messages::$_messages;
-    }
+
+	public function direct($message = null, $status = null, $flash = false)
+	{
+		$this->messages($message, $status, $flash);
+	}
+
+	public static function getMessages()
+	{
+		return App_Controller_Action_Helper_Messages::$_messages;
+	}
 }
