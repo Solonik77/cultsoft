@@ -1,0 +1,35 @@
+<h3><?php echo __('Manage blogs')?></h3>
+<?php if(count($this->listBlogs->toArray()) > 0) : ?>
+<table class="grid">
+	<thead>
+		<th><?=__('ID')?></th>
+		<th><?=__('Title')?></th>
+		<th><?=__('Created')?></th>
+		<th><?=__('Type')?></th>
+		<th><?=__('Actions')?></th>
+	</thead>
+	<tbody>
+<?php
+$types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
+foreach($this->listBlogs as $i18n)
+{
+ $blog = $i18n->findParentRow('Blog_Model_DbTable_Blog');
+?>
+	<tr class="<?php echo $this->cycle(array("odd","even"))->next()?>">
+			<td><?php echo $blog->id?></td>
+			<td><?php echo $i18n->title?></td>
+			<td><?php echo date("Y-t-d", strtotime($blog->created))?></td>
+			<td><?php echo $types[$blog->type] ?></td>
+			<td>
+            <a href="<?= $this->url(array('action' => 'edit-blog', 'id' => $blog->id )) ?>"><?=__('Edit')?></a>
+            <a href="<?= $this->url(array('action' => 'delete-blog', 'id' => $blog->id )) ?>"><?=__('Delete')?></a>
+            </td>
+		</tr>
+<?php
+}
+?>
+  </tbody>
+</table>
+<?php else:?>
+<p><?= __('No blogs here') ?></p>
+<?php endif;?>

@@ -345,6 +345,7 @@ echo $this->pageDescription?></span></div>
 	style="position: relative; float: left; width: 100%; margin-top: -4px; margin-bottom: -4px;">
 
 <p class=''><?php
+$this->navigation()->breadcrumbs()->setSeparator(' » ');
 echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
 <?php
 echo $this->messages();
