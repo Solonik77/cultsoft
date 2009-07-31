@@ -3,7 +3,7 @@
 echo $this->url(array('action' => 'new-blog'))?>"><?php
 echo __('Create new blog')?></a></p>
 
-<?php if(count($this->blogsList->toArray()) > 0): ?>
+<?php if(count($this->blogsList) > 0): ?>
 <table class="grid">
 	<thead>
 		<th><?=__('ID')?></th>
@@ -15,16 +15,15 @@ echo __('Create new blog')?></a></p>
 	<tbody>
 <?php
     $types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-    foreach($this->blogsList as $i18n)
-    {
-        $blog = $i18n->findParentRow('Blog_Model_DbTable_Blog');
-        ?>
+    foreach($this->blogsList as $blog)
+    {      
+   ?>
 	<tr class="<?php
         echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php
         echo $blog->id?></td>
 			<td><?php
-        echo $i18n->title?></td>
+        echo $blog->title?></td>
 			<td><?php
         echo date("Y-t-d", strtotime($blog->created))?></td>
 			<td><?php
@@ -41,10 +40,12 @@ echo __('Create new blog')?></a></p>
   </tbody>
 </table>
 
+<p><?php echo $this->paginationControl($this->blogsList)?></p>
+
 <?php
 else
 :
     ?>
-<p><?=__('No blogs here')?></p>
+<p><?php echo __('No blogs here')?></p>
 
 <?php endif;

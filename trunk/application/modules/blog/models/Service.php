@@ -68,7 +68,7 @@ class Blog_Model_Service
 
     public function deleteBlog($id = 0)
     {
-        $id = ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
+        $id = (int) ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
         try
         {
             $where = $this->_blog->getAdapter()->quoteInto('id = ?', $id);
@@ -83,7 +83,8 @@ class Blog_Model_Service
 
     public function findBlog($id = 0, $langId = NULL)
     {
-        $select = $this->_i18n_blog->select()->where('blog_id = ?', (int) $id)->order('blog_id DESC');
+        $select = $this->_i18n_blog->select();
+        $select->where('blog_id = ?', (int) $id)->order('blog_id DESC');
         if($langId)
         {
             $select->where('lang_id = ?', (int) $langId)->limit(1, 0);
@@ -103,8 +104,14 @@ class Blog_Model_Service
         return ($blog->current()) ? array_merge($return, $blog->current()->toArray()) : array();
     }
 
-    public function fetchBlogs()
+    public function fetchBlogsList()
     {
-        return $this->_i18n_blog->fetchAll($this->_i18n_blog->select()->where("blog_id != ''")->where('lang_id = ?', App::front()->getParam('requestLangId'))->order('blog_id ASC')->limit(10, 0));
+        $select = $this->_blog->select()->setIntegrityCheck(FALSE)->from(DB_TABLE_PREFIX . 'blog', '*');
+        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id'  )
+        ->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order(DB_TABLE_PREFIX . 'blog.id DESC');
+        $paginator = Zend_Paginator::factory($select);
+        $paginator->setItemCountPerPage(10);
+        $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
+        return $paginator;
     }
 }
