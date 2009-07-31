@@ -52,6 +52,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		try {
 			$this->_initEnvironment();
 			$this->_initDatabase();
+			$this->_initDate();
 			$this->_initSession();
 			$this->_initRoutes();
 			$this->_initAccess();
@@ -177,6 +178,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		catch(Zend_Db_Adapter_Exception $e) {
 			throw new App_Exception($e->getMessage());
 		}
+	}
+
+	/**
+	 * Zend Date setup
+	 *
+	 * @return void
+	 */
+	private function _initDate()
+	{
+        Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache'), 'format_type' => 'php'));
 	}
 
 	/**
