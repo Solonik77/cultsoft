@@ -72,6 +72,8 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract
         $this->_view->addScriptPath($this->_templatePath . 'partial/');
         $this->_view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
         $this->_view->headTitle()->setSeparator(' « ');
+        // Configure Zend Pagiantor 
+        Zend_Paginator::setDefaultScrollingStyle('Elastic');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination_control.phtml');
         // Enable JQuery support
         $this->_view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
