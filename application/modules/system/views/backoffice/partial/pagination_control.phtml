@@ -1,4 +1,4 @@
-<?php if (count($this->pageCount) > 1): ?>
+<?php if ($this->pageCount): ?>
 <p class="pagination">
 <?php if (isset($this->previous)): ?>
   <a href="<?php echo  $this->url(array('page' => $this->previous)); ?>">&laquo; Prev </a> &middot;
