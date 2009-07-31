@@ -68,15 +68,17 @@ class Blog_Model_Service
 
     public function deleteBlog($id = 0)
     {
-    	$id = ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
-        try {
-    	$where = $this->_blog->getAdapter()->quoteInto('id = ?', $id);
-        $this->_blog->delete($where);
-         return true;
-        } catch (Exception $e){
-        	return false;
+        $id = ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
+        try
+        {
+            $where = $this->_blog->getAdapter()->quoteInto('id = ?', $id);
+            $this->_blog->delete($where);
+            return true;
         }
-       
+        catch(Exception $e)
+        {
+            return false;
+        }
     }
 
     public function findBlog($id = 0, $langId = NULL)
