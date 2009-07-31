@@ -1,9 +1,9 @@
-<h3><?php
-echo __('Manage blogs')?></h3>
-<?php
-if(count($this->listBlogs->toArray()) > 0)
-:
-    ?>
+<h3><?php echo __('Manage blogs')?></h3>
+<p><a href="<?php
+echo $this->url(array('action' => 'new-blog'))?>"><?php
+echo __('Create new blog')?></a></p>
+
+<?php if(count($this->blogsList->toArray()) > 0): ?>
 <table class="grid">
 	<thead>
 		<th><?=__('ID')?></th>
@@ -15,7 +15,7 @@ if(count($this->listBlogs->toArray()) > 0)
 	<tbody>
 <?php
     $types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-    foreach($this->listBlogs as $i18n)
+    foreach($this->blogsList as $i18n)
     {
         $blog = $i18n->findParentRow('Blog_Model_DbTable_Blog');
         ?>
@@ -47,5 +47,4 @@ else
     ?>
 <p><?=__('No blogs here')?></p>
 
-<?phpendif;
-?>
+<?php endif;

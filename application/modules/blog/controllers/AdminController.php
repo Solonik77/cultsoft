@@ -30,6 +30,15 @@ class Blog_AdminController extends App_Controller_Action
     {}
 
     /**
+     * Manage blogs
+     */
+    public function manageBlogsAction()
+    {
+        $this->view->pageDescription = __('Manage blogs.');
+        $this->view->blogsList = $this->blogService->fetchBlogs();
+    }
+
+    /**
      * Create new blog
      */
     public function newBlogAction()
@@ -51,12 +60,12 @@ class Blog_AdminController extends App_Controller_Action
             else
             {
                 // Saving new blog
-                if($this->blogService->createBlog())
+                if($this->blogService->saveBlog())
                 {
                     // Set message to view
                     $this->_helper->messages('Add new blog', 'success', TRUE);
                     // Clear post
-                    $this->_redirect('blog/admin');
+                    $this->_redirect('blog/admin/manage-blogs');
                 }
                 else
                 {
@@ -71,11 +80,57 @@ class Blog_AdminController extends App_Controller_Action
     }
 
     /**
-     * Manage blogs
+     * Edit blog
      */
-    public function manageBlogsAction()
+    public function editBlogAction()
     {
-        $this->view->pageDescription = __('Manage blogs.');
-        $this->view->listBlogs = $this->blogService->getBlogsList();
+        if(! $blogId = $this->_request->getParam('id'))
+        {
+            return $this->render('error-no-id');
+        }
+        $this->view->pageDescription = __('Edit blog');
+        $this->view->headTitle($this->view->pageDescription);
+        $form = new Blog_Form_EditBlog();
+        $form->compose();
+        // Get blog content
+        $formData = (! $this->_request->isPost()) ? $this->blogService->findBlog($blogId) : $this->_request->getPost();
+        $form->populate($formData);
+        if($this->_request->isPost())
+        {
+            if($this->_request->getParam('delete_blog'))
+            {
+                // Delete blog
+                if($this->blogService->deleteBlog())
+                {
+                    $this->_helper->messages('Blog deleted successfully', 'success', TRUE);
+                    $this->_redirect('blog/admin/manage-blogs');
+                }
+            }
+            if(! $form->isValid($formData))
+            {
+                // Errors in input data
+                $this->view->form = $form;
+                return $this->render();
+            }
+            else
+            {
+                // Saving new blog
+                if($this->blogService->saveBlog())
+                {
+                    // Set message to view
+                    $this->_helper->messages('Changes for blog successfully saved', 'success', TRUE);
+                    // Clear post
+                    $this->_redirect('blog/admin/manage-blogs');
+                }
+                else
+                {
+                    // Set message to view
+                    $this->_helper->messages('Error editing blog', 'error', TRUE);
+                    // Clear post
+                    $this->_helper->redirector()->selfRedirect();
+                }
+            }
+        }
+        $this->view->form = $form;
     }
 }
