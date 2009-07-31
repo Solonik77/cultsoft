@@ -17,8 +17,8 @@ Server version : 5.1.31-community
 DROP TABLE IF EXISTS `prefix_acl_roles`;
 
 CREATE TABLE `prefix_acl_roles` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `role` varchar(64) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
   `res_module_system_controller_backofficeDashboard` tinyint(1) DEFAULT NULL,
@@ -34,7 +34,7 @@ insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`,`res_modul
 DROP TABLE IF EXISTS `prefix_blog`;
 
 CREATE TABLE `prefix_blog` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) DEFAULT NULL,
   `type` smallint(1) DEFAULT NULL,
   `created` datetime DEFAULT '0000-00-00 00:00:00',
@@ -48,8 +48,8 @@ CREATE TABLE `prefix_blog` (
 DROP TABLE IF EXISTS `prefix_blog_comments`;
 
 CREATE TABLE `prefix_blog_comments` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned DEFAULT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) unsigned DEFAULT NULL,
   `author` tinytext,
   `author_email` varchar(100) DEFAULT NULL,
   `author_url` varchar(200) DEFAULT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `prefix_blog_comments` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `content` text,
   `approved` varchar(20) DEFAULT NULL,
-  `member_id` bigint(20) unsigned DEFAULT NULL,
+  `member_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
   KEY `member_id` (`member_id`),
@@ -72,8 +72,8 @@ CREATE TABLE `prefix_blog_comments` (
 DROP TABLE IF EXISTS `prefix_blog_member`;
 
 CREATE TABLE `prefix_blog_member` (
-  `blog_id` bigint(20) unsigned NOT NULL,
-  `member_id` bigint(20) unsigned DEFAULT NULL,
+  `blog_id` int(11) unsigned NOT NULL,
+  `member_id` int(11) unsigned DEFAULT NULL,
   `is_moderator` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `is_administrator` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`blog_id`),
@@ -91,9 +91,9 @@ CREATE TABLE `prefix_blog_member` (
 DROP TABLE IF EXISTS `prefix_blog_posts`;
 
 CREATE TABLE `prefix_blog_posts` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `blog_id` bigint(20) unsigned DEFAULT NULL,
-  `member_id` bigint(20) unsigned DEFAULT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `blog_id` int(11) unsigned DEFAULT NULL,
+  `member_id` int(11) unsigned DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `blog_id` (`blog_id`),
@@ -109,11 +109,11 @@ CREATE TABLE `prefix_blog_posts` (
 DROP TABLE IF EXISTS `prefix_i18n_blog`;
 
 CREATE TABLE `prefix_i18n_blog` (
-  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `i18n_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `lang_id` int(1) DEFAULT NULL,
-  `blog_id` bigint(20) unsigned DEFAULT NULL,
+  `blog_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
   KEY `lang_id` (`lang_id`),
   KEY `blog_id` (`blog_id`),
@@ -127,8 +127,8 @@ CREATE TABLE `prefix_i18n_blog` (
 DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
 
 CREATE TABLE `prefix_i18n_blog_posts` (
-  `i18n_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned DEFAULT NULL,
+  `i18n_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) unsigned DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` longtext,
   `lang_id` int(1) DEFAULT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE `prefix_i18n_blog_posts` (
 DROP TABLE IF EXISTS `prefix_members`;
 
 CREATE TABLE `prefix_members` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(64) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `role_id` smallint(1) DEFAULT NULL,
