@@ -38,6 +38,7 @@ CREATE TABLE `prefix_blog` (
   `slug` varchar(100) DEFAULT NULL,
   `type` smallint(1) DEFAULT NULL,
   `created` datetime DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -175,6 +176,8 @@ CREATE TABLE `prefix_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_session` */
+
+insert  into `prefix_session`(`id`,`modified`,`lifetime`,`user_agent`,`data`) values ('4g5paqu7pmur4pdr6h22h0pk23',1249059309,1440,'','ZFDebug_Time|a:1:{s:4:\"data\";a:1:{s:4:\"main\";a:1:{s:5:\"index\";a:1:{s:5:\"index\";a:1:{i:0;d:793.6699390411376953125;}}}}}');
 
 /*Table structure for table `prefix_site_languages` */
 
