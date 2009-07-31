@@ -10,14 +10,14 @@
  */
 function _stristr($str, $search)
 {
-	if (App_Utf8::is_ascii($str) and App_Utf8::is_ascii($search))
-	return stristr($str, $search);
-	if ($search == '')
-	return $str;
-	$str_lower = App_Utf8::strtolower($str);
-	$search_lower = App_Utf8::strtolower($search);
-	preg_match('/^(.*?)' . preg_quote($search, '/') . '/s', $str_lower, $matches);
-	if (isset($matches [1]))
-	return substr($str, strlen($matches [1]));
-	return false;
+    if(App_Utf8::is_ascii($str) and App_Utf8::is_ascii($search))
+        return stristr($str, $search);
+    if($search == '')
+        return $str;
+    $str_lower = App_Utf8::strtolower($str);
+    $search_lower = App_Utf8::strtolower($search);
+    preg_match('/^(.*?)' . preg_quote($search, '/') . '/s', $str_lower, $matches);
+    if(isset($matches[1]))
+        return substr($str, strlen($matches[1]));
+    return false;
 }

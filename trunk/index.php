@@ -7,8 +7,8 @@
  */
 $pathinfo = pathinfo(__FILE__);
 // Define the front controller name and docroot
-define('DOC_ROOT', $pathinfo ['dirname'] . DIRECTORY_SEPARATOR);
-define('FRONT_CONTROLLER_FILE', $pathinfo ['basename']);
+define('DOC_ROOT', $pathinfo['dirname'] . DIRECTORY_SEPARATOR);
+define('FRONT_CONTROLLER_FILE', $pathinfo['basename']);
 // If the front controller is a symlink, change to the real docroot
 is_link(FRONT_CONTROLLER_FILE) and chdir(dirname(realpath(__FILE__)));
 define('STATIC_PATH', realpath(DOC_ROOT . 'static') . DIRECTORY_SEPARATOR);

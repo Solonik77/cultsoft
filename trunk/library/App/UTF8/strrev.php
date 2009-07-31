@@ -10,8 +10,8 @@
  */
 function _strrev($str)
 {
-	if (App_Utf8::is_ascii($str))
-	return strrev($str);
-	preg_match_all('/./us', $str, $matches);
-	return implode('', array_reverse($matches [0]));
+    if(App_Utf8::is_ascii($str))
+        return strrev($str);
+    preg_match_all('/./us', $str, $matches);
+    return implode('', array_reverse($matches[0]));
 }

@@ -11,16 +11,18 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class V_Helper_Num {
-	/**
-	 * Round a number to the nearest nth
-	 *
-	 * @param integer $ number to round
-	 * @param integer $ number to round to
-	 * @return integer
-	 */
-	public static function round($number, $nearest = 5)
-	{
-		return round($number / $nearest) * $nearest;
-	}
+class V_Helper_Num
+{
+
+    /**
+     * Round a number to the nearest nth
+     *
+     * @param integer $ number to round
+     * @param integer $ number to round to
+     * @return integer
+     */
+    public static function round($number, $nearest = 5)
+    {
+        return round($number / $nearest) * $nearest;
+    }
 } // End num

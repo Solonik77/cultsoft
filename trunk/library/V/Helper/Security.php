@@ -11,37 +11,39 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class V_Helper_Security {
-	/**
-	 * Sanitize a string with the xss_clean method.
-	 *
-	 * @param string $ string to sanitize
-	 * @return string
-	 */
-	public static function xss_clean($str)
-	{
-		return App_Input::instance()->xss_clean($str);
-	}
+class V_Helper_Security
+{
 
-	/**
-	 * Remove image tags from a string.
-	 *
-	 * @param string $ string to sanitize
-	 * @return string
-	 */
-	public static function strip_image_tags($str)
-	{
-		return preg_replace('#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is', '$1', $str);
-	}
+    /**
+     * Sanitize a string with the xss_clean method.
+     *
+     * @param string $ string to sanitize
+     * @return string
+     */
+    public static function xss_clean($str)
+    {
+        return App_Input::instance()->xss_clean($str);
+    }
 
-	/**
-	 * Remove PHP tags from a string.
-	 *
-	 * @param string $ string to sanitize
-	 * @return string
-	 */
-	public static function encode_php_tags($str)
-	{
-		return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
-	}
+    /**
+     * Remove image tags from a string.
+     *
+     * @param string $ string to sanitize
+     * @return string
+     */
+    public static function strip_image_tags($str)
+    {
+        return preg_replace('#<img\s.*?(?:src\s*=\s*["\']?([^"\'<>\s]*)["\']?[^>]*)?>#is', '$1', $str);
+    }
+
+    /**
+     * Remove PHP tags from a string.
+     *
+     * @param string $ string to sanitize
+     * @return string
+     */
+    public static function encode_php_tags($str)
+    {
+        return str_replace(array('<?' , '?>'), array('&lt;?' , '?&gt;'), $str);
+    }
 } // End security

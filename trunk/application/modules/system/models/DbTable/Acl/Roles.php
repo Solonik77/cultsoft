@@ -8,8 +8,9 @@
  */
 class System_Model_DbTable_Acl_Roles extends App_Db_Table_Abstract
 {
-	public function __construct()
-	{
-		parent::__construct();
-	}
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

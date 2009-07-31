@@ -10,10 +10,10 @@
  */
 function _ltrim($str, $charlist = null)
 {
-	if ($charlist === null)
-	return ltrim($str);
-	if (App_Utf8::is_ascii($charlist))
-	return ltrim($str, $charlist);
-	$charlist = preg_replace('#[-\[\]:\\\\^/]#', '\\\\$0', $charlist);
-	return preg_replace('/^[' . $charlist . ']+/u', '', $str);
+    if($charlist === null)
+        return ltrim($str);
+    if(App_Utf8::is_ascii($charlist))
+        return ltrim($str, $charlist);
+    $charlist = preg_replace('#[-\[\]:\\\\^/]#', '\\\\$0', $charlist);
+    return preg_replace('/^[' . $charlist . ']+/u', '', $str);
 }
