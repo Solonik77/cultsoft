@@ -112,7 +112,7 @@ DROP TABLE IF EXISTS `prefix_i18n_blog`;
 CREATE TABLE `prefix_i18n_blog` (
   `i18n_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `lang_id` int(1) DEFAULT NULL,
   `blog_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`i18n_id`),
