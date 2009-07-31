@@ -7,16 +7,16 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Main_IndexController extends App_Controller_Action {
-	//CONST BACKOFFICE_CONTROLLER = TRUE;
-	public function init()
-	{
-	}
+class Main_IndexController extends App_Controller_Action
+{
 
-	/**
-	 * Default system action
-	 */
-	public function indexAction()
-	{
-	}
+    //CONST BACKOFFICE_CONTROLLER = TRUE;
+    public function init()
+    {}
+
+    /**
+     * Default system action
+     */
+    public function indexAction()
+    {}
 }

@@ -10,7 +10,7 @@
  */
 function _trim($str, $charlist = null)
 {
-	if ($charlist === null)
-	return trim($str);
-	return App_Utf8::ltrim(App_Utf8::rtrim($str, $charlist), $charlist);
+    if($charlist === null)
+        return trim($str);
+    return App_Utf8::ltrim(App_Utf8::rtrim($str, $charlist), $charlist);
 }

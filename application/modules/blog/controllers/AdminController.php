@@ -27,9 +27,7 @@ class Blog_AdminController extends App_Controller_Action
      * Basic information about blogs
      */
     public function indexAction()
-    {
-      
-    }
+    {}
 
     /**
      * Create new blog
@@ -38,7 +36,6 @@ class Blog_AdminController extends App_Controller_Action
     {
         $this->view->pageDescription = __('Create new blog');
         $this->view->headTitle($this->view->pageDescription);
-        
         $form = new Blog_Form_EditBlog();
         $form->compose();
         if($this->_request->isPost())

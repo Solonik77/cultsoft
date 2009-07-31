@@ -11,22 +11,24 @@ require_once 'test/application/default/controllers/IndexControllerTest.php';
 /**
  * AllTests class - aggregates all tests of this project
  */
-class AllTests extends PHPUnit_Framework_TestSuite {
-	/**
-	 * Constructs the test suite handler.
-	 */
-	public function __construct()
-	{
-		$this->setName('AllTests');
-		$this->addTestSuite('IndexControllerTest');
-	}
+class AllTests extends PHPUnit_Framework_TestSuite
+{
 
-	/**
-	 * Creates the suite.
-	 */
-	public static function suite()
-	{
-		return new self();
-	}
+    /**
+     * Constructs the test suite handler.
+     */
+    public function __construct()
+    {
+        $this->setName('AllTests');
+        $this->addTestSuite('IndexControllerTest');
+    }
+
+    /**
+     * Creates the suite.
+     */
+    public static function suite()
+    {
+        return new self();
+    }
 }
 

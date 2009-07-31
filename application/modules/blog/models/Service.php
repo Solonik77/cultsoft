@@ -22,11 +22,10 @@ class Blog_Model_Service
         $post = App::front()->getRequest()->getPost();
         $default_i18n = App::front()->getRequest()->getI18n(App::config()->languages->default_id);
         $i18n = App::front()->getRequest()->getI18n();
-        
         try
         {
             App::db()->beginTransaction();
-        	// Save common data for blog
+            // Save common data for blog
             $blogId = $this->_blog->insert(array('created' => V_Helper_Date::now() , 'slug' => V_Helper_Text::slug($default_i18n['title']) , 'type' => $post['type']));
             // Save blog member
             $this->_blog_member->insert(array('member_id' => App_Member::getInstance()->getId() , 'blog_id' => $blogId , 'is_moderator' => 1 , 'is_administrator' => 1));

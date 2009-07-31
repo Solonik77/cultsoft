@@ -1,7 +1,6 @@
 <?php
 echo '<?xml version="1.0" encoding="UTF-8" ?>';
 echo $this->doctype();
-
 ?>
 <html>
 <head>
@@ -11,46 +10,44 @@ echo $this->headTitle();
 echo $this->headLink();
 echo $this->headScript();
 echo $this->headStyle();
-
 ?>
 </head>
 <body>
 <?php
-if (APPLICATION_ENV == 'development') {
-
-	?>
+if(APPLICATION_ENV == 'development')
+{
+    ?>
 <div class="kohana_error"><?php
-echo $this->layout()->type?> [ <strong><?php
-echo $this->layout()->file?></strong>, line <strong><?php
-echo $this->layout()->line?></strong> ]
+    echo $this->layout()->type?> [ <strong><?php
+    echo $this->layout()->file?></strong>, line <strong><?php
+    echo $this->layout()->line?></strong> ]
 <div class="message">
 <p><?php
-echo $this->layout()->description?></p>
+    echo $this->layout()->description?></p>
 <pre><?php
-echo $this->layout()->message?></pre></div>
+    echo $this->layout()->message?></pre></div>
 </div>
 <div class="kohana_trace"><?php
-if (! empty($this->layout()->source)) {
-
-	?>
+    if(! empty($this->layout()->source))
+    {
+        ?>
 <div class="source"><pre id="kohana_error_source"><?php
-echo $this->layout()->source?></pre></div>
+        echo $this->layout()->source?></pre></div>
+<?php
+    }
+    ?> <?php
+    if(! empty($this->layout()->trace))
+    {
+        ?> <pre class="trace"><?php
+        echo implode("\n", $this->layout()->trace)?></pre> <?php
+    }
+    ?></div>
+
 <?php
 }
-
-?> <?php
-if (! empty($this->layout()->trace)) {
-
-	?> <pre class="trace"><?php
-	echo implode("\n", $this->layout()->trace)?></pre> <?php
-}
-
-?></div>
-
-<?php
-} else {
-
-	?>
+else
+{
+    ?>
 <div id="framework_error" style="width: 24em; margin: 50px auto;">
 <h1>Unable to Complete Request</h1>
 <p style="text-align: center">You can go to the <a href="/">home page</a>
@@ -58,7 +55,6 @@ or <a href="">try again</a>.</p>
 </div>
 	<?php
 }
-
 ?>
 </body>
 </html>

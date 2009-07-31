@@ -10,8 +10,8 @@
  */
 function _ucfirst($str)
 {
-	if (App_Utf8::is_ascii($str))
-	return ucfirst($str);
-	preg_match('/^(.?)(.*)$/us', $str, $matches);
-	return App_Utf8::strtoupper($matches [1]) . $matches [2];
+    if(App_Utf8::is_ascii($str))
+        return ucfirst($str);
+    preg_match('/^(.?)(.*)$/us', $str, $matches);
+    return App_Utf8::strtoupper($matches[1]) . $matches[2];
 }

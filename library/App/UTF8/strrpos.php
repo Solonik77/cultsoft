@@ -10,16 +10,17 @@
  */
 function _strrpos($str, $search, $offset = 0)
 {
-	$offset = (int) $offset;
-	if (SERVER_UTF8)
-	return mb_strrpos($str, $search, $offset);
-	if (App_Utf8::is_ascii($str) and App_Utf8::is_ascii($search))
-	return strrpos($str, $search, $offset);
-	if ($offset == 0) {
-		$array = explode($search, $str, - 1);
-		return isset($array [0]) ? App_Utf8::strlen(implode($search, $array)) : false;
-	}
-	$str = App_Utf8::substr($str, $offset);
-	$pos = App_Utf8::strrpos($str, $search);
-	return($pos === false) ? false : $pos + $offset;
+    $offset = (int) $offset;
+    if(SERVER_UTF8)
+        return mb_strrpos($str, $search, $offset);
+    if(App_Utf8::is_ascii($str) and App_Utf8::is_ascii($search))
+        return strrpos($str, $search, $offset);
+    if($offset == 0)
+    {
+        $array = explode($search, $str, - 1);
+        return isset($array[0]) ? App_Utf8::strlen(implode($search, $array)) : false;
+    }
+    $str = App_Utf8::substr($str, $offset);
+    $pos = App_Utf8::strrpos($str, $search);
+    return ($pos === false) ? false : $pos + $offset;
 }
