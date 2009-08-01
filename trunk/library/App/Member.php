@@ -1,15 +1,14 @@
 <?php
 /**
- * Member Information
- *
- * $Id$
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-class App_Member
-{
+* Member Information
+*
+* $Id$
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
+class App_Member {
     // Member singleton
     protected static $instance = null;
     protected $_data = null;
@@ -17,8 +16,7 @@ class App_Member
 
     public static function getInstance()
     {
-        if(App_Member::$instance == null)
-        {
+        if (App_Member::$instance == null) {
             // Create a new instance
             new App_Member();
         }
@@ -26,19 +24,15 @@ class App_Member
     }
 
     /**
-     * Constructor
-     */
+    * Constructor
+    */
     public function __construct()
     {
-        if(App_Member::$instance === null)
-        {
+        if (App_Member::$instance === null) {
             $this->_model = new System_Model_DbTable_Members();
-            if(App_Member::getAuth()->hasIdentity())
-            {
+            if (App_Member::getAuth()->hasIdentity()) {
                 $this->loadMember(App_Member::getAuth()->getIdentity()->id);
-            }
-            else
-            {
+            } else {
                 $this->loadGuest();
             }
             App_Member::$instance = $this;
@@ -46,8 +40,8 @@ class App_Member
     }
 
     /**
-     * Load default user information for guest
-     */
+    * Load default user information for guest
+    */
     private function loadGuest()
     {
         $this->_data = (object) array('id' => 0 , 'login' => 'Guest' , 'email' => 'guest@example.com' , 'created' => V_Helper_Date::utc_now() , 'is_active' => 1 , 'language_id' => 1 , 'role' => 'guest' , 'acl_resource' => array());
@@ -55,27 +49,22 @@ class App_Member
     }
 
     /**
-     * Load logged member information
-     */
+    * Load logged member information
+    */
     private function loadMember($id)
     {
         $data = $this->_model->getDataByID($id);
         $data = (object) $data->toArray();
         $roles = App_Cache::getInstance()->getAclRoles();
-        foreach($roles as $role)
-        {
-            if($role['id'] === $data->role_id)
-            {
+        foreach($roles as $role) {
+            if ($role['id'] === $data->role_id) {
                 $data->role = $role['role'];
                 $data->role_description = $role['description'];
                 $data->acl_resource = array();
-                foreach($role as $id => $resource)
-                {
-                    if((strlen($id) > 4) and (substr($id, 0, 4) == 'res_'))
-                    {
+                foreach($role as $id => $resource) {
+                    if ((strlen($id) > 4) and (substr($id, 0, 4) == 'res_')) {
                         // Administrator always have all privileges
-                        if($role['id'] == 1)
-                        {
+                        if ($role['id'] == 1) {
                             $resource = 1;
                         }
                         $data->acl_resource[substr($id, 4)] = intval($resource);
@@ -88,48 +77,48 @@ class App_Member
     }
 
     /**
-     * Get current member role
-     */
+    * Get current member role
+    */
     public function getId()
     {
         return $this->getField('id');
     }
 
     /**
-     * Get current member role
-     */
+    * Get current member role
+    */
     public function getRole()
     {
         return $this->getField('role');
     }
 
     /**
-     * Get member field
-     */
+    * Get member field
+    */
     public function getField($field)
     {
         return ((isset($this->_data->$field)) ? $this->_data->$field : null);
     }
 
     /**
-     * Get member all data
-     */
+    * Get member all data
+    */
     public function getData()
     {
         return $this->_data;
     }
 
     /**
-     * Auth check
-     */
+    * Auth check
+    */
     public static function isAuth()
     {
         return App_Member::getAuth()->hasIdentity();
     }
 
     /**
-     * Auth instance
-     */
+    * Auth instance
+    */
     public static function getAuth()
     {
         return Zend_Auth::getInstance();

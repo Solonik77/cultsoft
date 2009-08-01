@@ -3,7 +3,7 @@
 echo $this->url(array('action' => 'new-blog'))?>"><?php
 echo __('Create new blog')?></a></p>
 
-<?php if(count($this->blogsList) > 0): ?>
+<?php if (count($this->blogsList) > 0): ?>
 <table class="grid">
 	<thead>
 		<th><?=__('ID')?></th>
@@ -15,19 +15,19 @@ echo __('Create new blog')?></a></p>
 	<tbody>
 <?php
     $types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-    foreach($this->blogsList as $blog)
-    {      
-   ?>
+foreach($this->blogsList as $blog) {
+
+    ?>
 	<tr class="<?php
-        echo $this->cycle(array("odd" , "even"))->next()?>">
+    echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php
-        echo $blog->id?></td>
+    echo $blog->id?></td>
 			<td><?php
-        echo $blog->title?></td>
+    echo $blog->title?></td>
 			<td><?php
-        echo date("Y-t-d", strtotime($blog->created))?></td>
+    echo date("Y-t-d", strtotime($blog->created))?></td>
 			<td><?php
-        echo $types[$blog->type]?></td>
+    echo $types[$blog->type]?></td>
 			<td><a
 				href="<?=$this->url(array('action' => 'edit-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
 			<a
@@ -35,8 +35,9 @@ echo __('Create new blog')?></a></p>
 			</td>
 		</tr>
 <?php
-    }
-    ?>
+}
+
+?>
   </tbody>
 </table>
 
@@ -44,7 +45,7 @@ echo __('Create new blog')?></a></p>
 
 <?php
 else
-:
+    :
     ?>
 <p><?php echo __('No blogs here')?></p>
 

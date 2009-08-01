@@ -1,40 +1,34 @@
 <?php
 /**
- * Messages helper, translated into view
- *
- * This helper creates an easy method to return groupings of
- * flash messages by status.
- */
-class App_Controller_Action_Helper_Messages extends Zend_Controller_Action_Helper_Abstract
-{
+* Messages helper, translated into view
+*
+* This helper creates an easy method to return groupings of
+* flash messages by status.
+*/
+class App_Controller_Action_Helper_Messages extends Zend_Controller_Action_Helper_Abstract {
     /**
-     * $_messages - Messages
-     *
-     * @var array
-     */
+    * $_messages - Messages
+    *
+    * @var array
+    */
     private static $_messages = array();
 
     /**
-     * Messages function.
-     *
-     * Takes a specially formatted array of flash messages and prepares them
-     * for output.
-     */
+    * Messages function.
+    *
+    * Takes a specially formatted array of flash messages and prepares them
+    * for output.
+    */
     public function messages($message = null, $status = null, $flash = false)
     {
-        if($message === null)
-        {
+        if ($message === null) {
             return $this;
         }
-        if(is_string($message) and is_string($status) and ! empty($message) and ! empty($status))
-        {
-            if($flash == true)
-            {
+        if (is_string($message) and is_string($status) and ! empty($message) and ! empty($status)) {
+            if ($flash == true) {
                 $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
                 $flashMessenger->addMessage(array('message' => $message , 'status' => $status));
-            }
-            else
-            {
+            } else {
                 self::$_messages[] = array('message' => $message , 'status' => $status);
             }
         }

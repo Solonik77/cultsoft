@@ -1,11 +1,13 @@
 <?php
-/** Zend_Controller_Request_Abstract */
+/**
+* * Zend_Controller_Request_Abstract
+*/
 require_once 'Zend/Controller/Request/Abstract.php';
-/** Zend_Uri */
+/**
+* * Zend_Uri
+*/
 require_once 'Zend/Uri.php';
-class App_Controller_Request_Http extends Zend_Controller_Request_Http
-{
-
+class App_Controller_Request_Http extends Zend_Controller_Request_Http {
     public function __construct($uri = null)
     {
         parent::__construct($uri);
@@ -16,23 +18,18 @@ class App_Controller_Request_Http extends Zend_Controller_Request_Http
         $post = $this->getPost();
         $siteLanguages = App::siteLanguages();
         $i18n = array();
-        foreach($post as $key => $value)
-        {
-            if(substr($key, 0, 7) == 'langid_')
-            {
+        foreach($post as $key => $value) {
+            if (substr($key, 0, 7) == 'langid_') {
                 $i18n[substr($key, 7, 1)][substr($key, 9)] = $value;
                 $i18n[substr($key, 7, 1)]['lang_id'] = (int) substr($key, 7, 1);
                 $i18n[substr($key, 7, 1)]['lang_identificator'] = (string) $siteLanguages[substr($key, 7, 1)]['language_identificator'];
             }
         }
-        if(null === $langId)
-        {
+        if (null === $langId) {
             return $i18n;
-        }
-        else
-        {
+        } else {
             $langId = intval($langId);
-            return (isset($i18n[$langId]) ? $i18n[$langId] : NULL);
+            return (isset($i18n[$langId]) ? $i18n[$langId] : null);
         }
     }
 }

@@ -1,18 +1,15 @@
 <?php
-class App_Form_Element_Textarea extends Zend_Form_Element_Textarea
-{
-
+class App_Form_Element_Textarea extends Zend_Form_Element_Textarea {
     /**
-     * Set element name
-     *
-     * @param  string $name
-     * @return Zend_Form_Element
-     */
+    * Set element name
+    *
+    * @param string $name
+    * @return Zend_Form_Element
+    */
     public function setName($name)
     {
-        $name = $this->filterName($name, TRUE);
-        if('' === $name)
-        {
+        $name = $this->filterName($name, true);
+        if ('' === $name) {
             require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
         }

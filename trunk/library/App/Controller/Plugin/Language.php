@@ -1,19 +1,18 @@
 <?php
 /**
- * Setting website language and locale settings for request
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
-{
-
+* Setting website language and locale settings for request
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
+class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
     /**
-     * Constructor
-     */
+    * Constructor
+    */
     public function __construct()
-    {}
+    {
+    }
 
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
@@ -23,19 +22,14 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
         $default_language_identificator = $languages['identificator'][$default_site_language_id];
         $member_language_id = intval(App_Member::getInstance()->getField('language_id'));
         $request_lang = $request->getParam('requestLang');
-        if(in_array($request_lang, $languages['identificator']))
-        {
+        if (in_array($request_lang, $languages['identificator'])) {
             $system_lang = $request_lang;
-            foreach($languages['identificator'] as $key => $value)
-            {
-                if($value == $system_lang)
-                {
+            foreach($languages['identificator'] as $key => $value) {
+                if ($value == $system_lang) {
                     $site_language_id = $key;
                 }
             }
-        }
-        else
-        {
+        } else {
             $system_lang = $default_language_identificator;
             $site_language_id = $default_site_language_id;
         }
