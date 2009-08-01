@@ -1,16 +1,15 @@
 <?php
 /**
- * BASE APPLICATION
- * Provides Zend application-specific helper functions.
- *
- * $Id$
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-final class App
-{
+* BASE APPLICATION
+* Provides Zend application-specific helper functions.
+*
+* $Id$
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
+final class App {
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
@@ -30,39 +29,36 @@ final class App
     protected static $site_languages = array();
 
     /**
-     * Return application configuration
-     */
+    * Return application configuration
+    */
     public static function config()
     {
-        if(App::$config instanceof Zend_Config)
-        {
+        if (App::$config instanceof Zend_Config) {
             return App::$config;
-        }
-        else
-        {
+        } else {
             throw new Zend_Exception('Config object is not set');
         }
     }
 
     /**
-     * Front controller instance
-     */
+    * Front controller instance
+    */
     public static function front()
     {
         return Zend_Controller_Front::getInstance();
     }
 
     /**
-     * Return Database object
-     */
+    * Return Database object
+    */
     public static function db()
     {
         return App::$db;
     }
 
     /**
-     * Zend logger
-     */
+    * Zend logger
+    */
     public static function log($message, $type = 1)
     {
         app::$log->log($message, $type);
@@ -70,38 +66,36 @@ final class App
     }
 
     /**
-     * Get system locale information
-     */
+    * Get system locale information
+    */
     public static function locale()
     {
         return App::$locale;
     }
 
     /**
-     * Set configuration
-     */
+    * Set configuration
+    */
     public static function setConfig(Zend_Config $object)
     {
-        if(App::$config === null)
-        {
+        if (App::$config === null) {
             App::$config = $object;
         }
     }
 
     /**
-     * Set logger
-     */
+    * Set logger
+    */
     public static function setLog(Zend_Log $object)
     {
-        if(App::$log === null)
-        {
+        if (App::$log === null) {
             App::$log = $object;
         }
     }
 
     /**
-     * Set translator object
-     */
+    * Set translator object
+    */
     public static function setTranslate(Zend_Translate $object)
     {
         App::$i18n = $object;
@@ -110,63 +104,56 @@ final class App
     }
 
     /**
-     * Set database object
-     */
+    * Set database object
+    */
     public static function setDb($object)
     {
-        if(App::$db === null)
-        {
+        if (App::$db === null) {
             App::$db = $object;
         }
     }
 
     /**
-     * Set locale object
-     */
+    * Set locale object
+    */
     public static function setLocale($object)
     {
-        if(App::$locale === null)
-        {
+        if (App::$locale === null) {
             App::$locale = $object;
         }
     }
 
-    /*
-	 * Translator object
-	 */
+    /**
+    * Translator object
+    */
     public function translate()
     {
         return App::$i18n;
     }
 
     /**
-     * Base URL, with or without the index page.
-     *
-     * If protocol(and core.site_protocol) and core.site_domain are both empty,
-     * then
-     *
-     * @param boolean $ include the index page
-     * @param boolean $ non-default protocol
-     * @return string
-     */
+    * Base URL, with or without the index page.
+    *
+    * If protocol(and core.site_protocol) and core.site_domain are both empty,
+    * then
+    *
+    * @param boolean $ include the index page
+    * @param boolean $ non-default protocol
+    * @return string
+    */
     public static function baseUri($index = false, $protocol = false)
     {
-        if(! empty(app::$base_uri))
-        {
+        if (! empty(app::$base_uri)) {
             return app::$base_uri;
         }
-        if($protocol == false)
-        {
+        if ($protocol == false) {
             // Guess the protocol to provide full http://domain/path URL
             $base_url = ((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] === 'off') ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'];
-        }
-        else
-        {
+        } else {
             // Guess the server name if the domain starts with slash
             $base_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
         }
-        if($index === true)
-        {
+        if ($index === true) {
             // Append the index page
             $base_url = $base_url . FRONT_CONTROLLER_FILE;
         }
@@ -176,36 +163,32 @@ final class App
     }
 
     /**
-     * Is Platform running on Windows?
-     */
+    * Is Platform running on Windows?
+    */
     public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }
 
-    /*
-	 * Website languages
-	 */
+    /**
+    * Website languages
+    */
     public static function siteLanguages()
     {
         $site_languages = self::$site_languages;
-        if(count($site_languages) > 0)
-        {
+        if (count($site_languages) > 0) {
             return $site_languages;
         }
         $cache = App_Cache::getInstance('permCache');
-        if(! $site_languages = $cache->load('website_languages'))
-        {
+        if (! $site_languages = $cache->load('website_languages')) {
             $site_languages = new System_Model_DbTable_Site_Languages();
             $site_languages = $site_languages->fetchAll()->toArray();
-            if(count($site_languages) > 0)
-            {
+            if (count($site_languages) > 0) {
                 $cache->save($site_languages);
             }
         }
         $data = array();
-        foreach($site_languages as $key => $value)
-        {
+        foreach($site_languages as $key => $value) {
             $data[$value['id']] = $value;
         }
         self::$site_languages = $data;
@@ -214,16 +197,13 @@ final class App
 }
 
 /**
- * Translator function
- */
+* Translator function
+*/
 function __($text = '', $print = false)
 {
-    if($print == true)
-    {
+    if ($print == true) {
         echo App::translate()->_($text);
-    }
-    else
-    {
+    } else {
         return App::translate()->_($text);
     }
 }

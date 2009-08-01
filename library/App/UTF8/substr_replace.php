@@ -1,16 +1,16 @@
 <?php
 
 /**
- * App_Utf8::substr_replace
- *
- * @author Kohana Team
- * @copyright (c) 2007 Kohana Team
- * @copyright (c) 2005 Harry Fuecks
- * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
- */
+* App_Utf8::substr_replace
+*
+* @author Kohana Team
+* @copyright (c) 2007 Kohana Team
+* @copyright (c) 2005 Harry Fuecks
+* @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+*/
 function _substr_replace($str, $replacement, $offset, $length = null)
 {
-    if(App_Utf8::is_ascii($str))
+    if (App_Utf8::is_ascii($str))
         return ($length === null) ? substr_replace($str, $replacement, $offset) : substr_replace($str, $replacement, $offset, $length);
     $length = ($length === null) ? App_Utf8::strlen($str) : (int) $length;
     preg_match_all('/./us', $str, $str_array);

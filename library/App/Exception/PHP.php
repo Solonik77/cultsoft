@@ -1,40 +1,38 @@
 <?php
 /**
- * PHP Errors Class
- * $Id$
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-final class App_Exception_PHP extends App_Exception
-{
-
+* PHP Errors Class
+* $Id$
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
+final class App_Exception_PHP extends App_Exception {
     /**
-     * Enable application PHP error handling.
-     *
-     * @return void
-     */
+    * Enable application PHP error handling.
+    *
+    * @return void
+    */
     public static function enable()
     {
         set_error_handler(array(__CLASS__ , 'handle'));
     }
 
     /**
-     * Disable application PHP error handling.
-     *
-     * @return void
-     */
+    * Disable application PHP error handling.
+    *
+    * @return void
+    */
     public static function disable()
     {
         restore_error_handler();
     }
 
     /**
-     * Create a new PHP error exception.
-     *
-     * @return void
-     */
+    * Create a new PHP error exception.
+    *
+    * @return void
+    */
     public function __construct($code, $error, $file, $line, $context = null)
     {
         parent::__construct($error);
@@ -45,15 +43,14 @@ final class App_Exception_PHP extends App_Exception
     }
 
     /**
-     * PHP error handler.
-     *
-     * @throws App_Exception_PHP
-     * @return void
-     */
+    * PHP error handler.
+    *
+    * @throws App_Exception_PHP
+    * @return void
+    */
     public static function handle($code, $error = 0, $file = '', $line = 0, $context = null)
     {
-        if((error_reporting() & $code) === 0)
-        {
+        if ((error_reporting() &$code) === 0) {
             // Respect error_reporting settings
             return;
         }

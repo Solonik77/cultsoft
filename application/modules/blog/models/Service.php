@@ -1,11 +1,10 @@
 <?php
 /**
- * Blog service
- *
- * @author Dmytro Denysenko
- */
-class Blog_Model_Service
-{
+* Blog service
+*
+* @author Dmytro Denysenko
+*/
+class Blog_Model_Service {
     private $_blog;
     private $_i18n_blog;
     private $_blog_member;
@@ -24,42 +23,33 @@ class Blog_Model_Service
         $i18n = App::front()->getRequest()->getI18n();
         $blogId = $requestId = App::front()->getRequest()->getParam('id');
         App::db()->beginTransaction();
-        try
-        {
+        try {
             $commonData = array('slug' => V_Helper_Text::slug((! empty($post['slug'])) ? $post['slug'] : $default_i18n['title']) , 'type' => $post['type']);
-            if($blogId)
-            {
+            if ($blogId) {
                 // Update common data for blog
                 $commonData['updated'] = V_Helper_Date::now();
                 $this->_blog->update($commonData, 'id = ' . intval($blogId));
-            }
-            else
-            {
+            } else {
                 // Save common data for blog
                 $commonData['created'] = $commonData['updated'] = V_Helper_Date::now();
                 $blogId = $this->_blog->insert($commonData);
                 // Save blog member
                 $this->_blog_member->insert(
-                array('member_id' => App_Member::getInstance()->getId() , 'blog_id' => $blogId , 'is_moderator' => 1 , 'is_administrator' => 1));
+                    array('member_id' => App_Member::getInstance()->getId() , 'blog_id' => $blogId , 'is_moderator' => 1 , 'is_administrator' => 1));
             }
-            //Save i18n content for blog
-            foreach($i18n as $value)
-            {
-                if($requestId)
-                {
-                    $this->_i18n_blog->update(array('title' => $value['title'] , 'description' => $value['description']), 
-                    array('blog_id = ' . intval($requestId) , 'lang_id = ' . intval($value['lang_id'])));
-                }
-                else
-                {
+            // Save i18n content for blog
+            foreach($i18n as $value) {
+                if ($requestId) {
+                    $this->_i18n_blog->update(array('title' => $value['title'] , 'description' => $value['description']),
+                        array('blog_id = ' . intval($requestId) , 'lang_id = ' . intval($value['lang_id'])));
+                } else {
                     $this->_i18n_blog->insert(array('blog_id' => $blogId , 'lang_id' => $value['lang_id'] , 'title' => $value['title'] , 'description' => $value['description']));
                 }
             }
             App::db()->commit();
             return true;
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {
             App::db()->rollBack();
             App::log($e->getMessage(), 3);
             return false;
@@ -69,34 +59,28 @@ class Blog_Model_Service
     public function deleteBlog($id = 0)
     {
         $id = (int) ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
-        try
-        {
+        try {
             $where = $this->_blog->getAdapter()->quoteInto('id = ?', $id);
             $this->_blog->delete($where);
             return true;
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {
             return false;
         }
     }
 
-    public function findBlog($id = 0, $langId = NULL)
+    public function findBlog($id = 0, $langId = null)
     {
         $select = $this->_i18n_blog->select();
         $select->where('blog_id = ?', (int) $id)->order('blog_id DESC');
-        if($langId)
-        {
+        if ($langId) {
             $select->where('lang_id = ?', (int) $langId)->limit(1, 0);
-        }
-        else
-        {
+        } else {
             $select->limit(2, 0);
         }
         $i18n = $this->_i18n_blog->fetchAll($select)->toArray();
         $return = array();
-        foreach($i18n as $content)
-        {
+        foreach($i18n as $content) {
             $return['langid_' . $content['lang_id'] . '_title'] = $content['title'];
             $return['langid_' . $content['lang_id'] . '_description'] = $content['description'];
         }
@@ -106,9 +90,9 @@ class Blog_Model_Service
 
     public function fetchBlogsList()
     {
-        $select = $this->_blog->select()->setIntegrityCheck(FALSE)->from(DB_TABLE_PREFIX . 'blog', '*');
+        $select = $this->_blog->select()->setIntegrityCheck(false)->from(DB_TABLE_PREFIX . 'blog', '*');
         $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id')->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order(
-        DB_TABLE_PREFIX . 'blog.id DESC');
+            DB_TABLE_PREFIX . 'blog.id DESC');
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(10);
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));

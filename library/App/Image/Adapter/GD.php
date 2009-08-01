@@ -1,9 +1,8 @@
 <?php
 /**
- * GD Image Adapter.
- */
-class App_Image_Adapter_GD extends App_Image_Adapter
-{
+* GD Image Adapter.
+*/
+class App_Image_Adapter_GD extends App_Image_Adapter {
     // A transparent PNG as a string
     protected static $blank_png;
     protected static $blank_png_width;
@@ -12,20 +11,19 @@ class App_Image_Adapter_GD extends App_Image_Adapter
     public function __construct()
     {
         // Make sure that GD2 is available
-        if(! function_exists('gd_info'))
+        if (! function_exists('gd_info'))
             throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
-            // Get the GD information
+        // Get the GD information
         $info = gd_info();
         // Make sure that the GD2 is installed
-        if(strpos($info['GD Version'], '2.') === false)
+        if (strpos($info['GD Version'], '2.') === false)
             throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
     }
 
     public function process($image, $actions, $dir, $file, $render = false)
     {
         // Set the "create" function
-        switch ($image['type'])
-        {
+        switch ($image['type']) {
             case IMAGETYPE_JPEG:
                 $create = 'imagecreatefromjpeg';
                 break;
@@ -37,8 +35,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter
                 break;
         }
         // Set the "save" function
-        switch (strtolower(substr(strrchr($file, '.'), 1)))
-        {
+        switch (strtolower(substr(strrchr($file, '.'), 1))) {
             case 'jpg':
             case 'jpeg':
                 $save = 'imagejpeg';
@@ -51,24 +48,22 @@ class App_Image_Adapter_GD extends App_Image_Adapter
                 break;
         }
         // Make sure the image type is supported for import
-        if(empty($create) or ! function_exists($create))
+        if (empty($create) or ! function_exists($create))
             throw new App_Exception('The specified image, ' . $image['file'] . ', is not an allowed image type.');
-            // Make sure the image type is supported for saving
-        if(empty($save) or ! function_exists($save))
+        // Make sure the image type is supported for saving
+        if (empty($save) or ! function_exists($save))
             throw new App_Exception('The specified image, ' . $dir . $file . ', is not an allowed image type.');
-            // Load the image
+        // Load the image
         $this->image = $image;
         // Create the GD image resource
         $this->tmp_image = $create($image['file']);
         // Get the quality setting from the actions
         $quality = V_helper_Arr::remove('quality', $actions);
-        if($status = $this->execute($actions))
-        {
+        if ($status = $this->execute($actions)) {
             // Prevent the alpha from being lost
             imagealphablending($this->tmp_image, true);
             imagesavealpha($this->tmp_image, true);
-            switch ($save)
-            {
+            switch ($save) {
                 case 'imagejpeg':
                     // Default the quality to 95
                     ($quality === null) and $quality = 95;
@@ -83,16 +78,12 @@ class App_Image_Adapter_GD extends App_Image_Adapter
                     $quality = 9;
                     break;
             }
-            if($render === false)
-            {
+            if ($render === false) {
                 // Set the status to the save return value, saving with the quality requested
                 $status = isset($quality) ? $save($this->tmp_image, $dir . $file, $quality) : $save($this->tmp_image, $dir . $file);
-            }
-            else
-            {
+            } else {
                 // Output the image directly to the browser
-                switch ($save)
-                {
+                switch ($save) {
                     case 'imagejpeg':
                         header('Content-Type: image/jpeg');
                         break;
@@ -118,27 +109,19 @@ class App_Image_Adapter_GD extends App_Image_Adapter
         $height = imagesy($this->tmp_image);
         // Create the flipped image
         $flipped = $this->imagecreatetransparent($width, $height);
-        if($direction === App_Image::HORIZONTAL)
-        {
-            for($x = 0; $x < $width; $x ++)
-            {
+        if ($direction === App_Image::HORIZONTAL) {
+            for($x = 0; $x < $width; $x ++) {
                 $status = imagecopy($flipped, $this->tmp_image, $x, 0, $width - $x - 1, 0, 1, $height);
             }
-        }
-        elseif($direction === App_Image::VERTICAL)
-        {
-            for($y = 0; $y < $height; $y ++)
-            {
+        } elseif ($direction === App_Image::VERTICAL) {
+            for($y = 0; $y < $height; $y ++) {
                 $status = imagecopy($flipped, $this->tmp_image, 0, $y, 0, $height - $y - 1, $width, 1);
             }
-        }
-        else
-        {
+        } else {
             // Do nothing
             return true;
         }
-        if($status === true)
-        {
+        if ($status === true) {
             // Swap the new image for the old one
             imagedestroy($this->tmp_image);
             $this->tmp_image = $flipped;
@@ -156,8 +139,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter
         // Create the temporary image to copy to
         $img = $this->imagecreatetransparent($properties['width'], $properties['height']);
         // Execute the crop
-        if($status = imagecopyresampled($img, $this->tmp_image, 0, 0, $properties['left'], $properties['top'], $width, $height, $width, $height))
-        {
+        if ($status = imagecopyresampled($img, $this->tmp_image, 0, 0, $properties['left'], $properties['top'], $width, $height, $width, $height)) {
             // Swap the new image for the old one
             imagedestroy($this->tmp_image);
             $this->tmp_image = $img;
@@ -170,37 +152,31 @@ class App_Image_Adapter_GD extends App_Image_Adapter
         // Get the current width and height
         $width = imagesx($this->tmp_image);
         $height = imagesy($this->tmp_image);
-        if(substr($properties['width'], - 1) === '%')
-        {
+        if (substr($properties['width'], - 1) === '%') {
             // Recalculate the percentage to a pixel size
             $properties['width'] = round($width * (substr($properties['width'], 0, - 1) / 100));
         }
-        if(substr($properties['height'], - 1) === '%')
-        {
+        if (substr($properties['height'], - 1) === '%') {
             // Recalculate the percentage to a pixel size
             $properties['height'] = round($height * (substr($properties['height'], 0, - 1) / 100));
         }
         // Recalculate the width and height, if they are missing
         empty($properties['width']) and $properties['width'] = round($width * $properties['height'] / $height);
         empty($properties['height']) and $properties['height'] = round($height * $properties['width'] / $width);
-        if($properties['master'] === App_Image::AUTO)
-        {
+        if ($properties['master'] === App_Image::AUTO) {
             // Change an automatic master dim to the correct type
             $properties['master'] = (($width / $properties['width']) > ($height / $properties['height'])) ? App_Image::WIDTH : App_Image::HEIGHT;
         }
-        if(empty($properties['height']) or $properties['master'] === App_Image::WIDTH)
-        {
+        if (empty($properties['height']) or $properties['master'] === App_Image::WIDTH) {
             // Recalculate the height based on the width
             $properties['height'] = round($height * $properties['width'] / $width);
         }
-        if(empty($properties['width']) or $properties['master'] === App_Image::HEIGHT)
-        {
+        if (empty($properties['width']) or $properties['master'] === App_Image::HEIGHT) {
             // Recalculate the width based on the height
             $properties['width'] = round($width * $properties['height'] / $height);
         }
         // Test if we can do a resize without resampling to speed up the final resize
-        if($properties['width'] > $width / 2 and $properties['height'] > $height / 2)
-        {
+        if ($properties['width'] > $width / 2 and $properties['height'] > $height / 2) {
             // Presize width and height
             $pre_width = $width;
             $pre_height = $height;
@@ -208,15 +184,13 @@ class App_Image_Adapter_GD extends App_Image_Adapter
             $max_reduction_width = round($properties['width'] * 1.1);
             $max_reduction_height = round($properties['height'] * 1.1);
             // Reduce the size using an O(2n) algorithm, until it reaches the maximum reduction
-            while($pre_width / 2 > $max_reduction_width and $pre_height / 2 > $max_reduction_height)
-            {
+            while ($pre_width / 2 > $max_reduction_width and $pre_height / 2 > $max_reduction_height) {
                 $pre_width /= 2;
                 $pre_height /= 2;
             }
             // Create the temporary image to copy to
             $img = $this->imagecreatetransparent($pre_width, $pre_height);
-            if($status = imagecopyresized($img, $this->tmp_image, 0, 0, 0, 0, $pre_width, $pre_height, $width, $height))
-            {
+            if ($status = imagecopyresized($img, $this->tmp_image, 0, 0, 0, 0, $pre_width, $pre_height, $width, $height)) {
                 // Swap the new image for the old one
                 imagedestroy($this->tmp_image);
                 $this->tmp_image = $img;
@@ -228,8 +202,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter
         // Create the temporary image to copy to
         $img = $this->imagecreatetransparent($properties['width'], $properties['height']);
         // Execute the resize
-        if($status = imagecopyresampled($img, $this->tmp_image, 0, 0, 0, 0, $properties['width'], $properties['height'], $width, $height))
-        {
+        if ($status = imagecopyresampled($img, $this->tmp_image, 0, 0, 0, 0, $properties['width'], $properties['height'], $width, $height)) {
             // Swap the new image for the old one
             imagedestroy($this->tmp_image);
             $this->tmp_image = $img;
@@ -248,8 +221,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter
         // Fill the background with the transparent "color"
         imagecolortransparent($img, $transparent);
         // Merge the images
-        if($status = imagecopymerge($this->tmp_image, $img, 0, 0, 0, 0, imagesx($this->tmp_image), imagesy($this->tmp_image), 100))
-        {
+        if ($status = imagecopymerge($this->tmp_image, $img, 0, 0, 0, 0, imagesx($this->tmp_image), imagesy($this->tmp_image), 100)) {
             // Prevent the alpha from being lost
             imagealphablending($img, true);
             imagesavealpha($img, true);
@@ -263,9 +235,9 @@ class App_Image_Adapter_GD extends App_Image_Adapter
     public function sharpen($amount)
     {
         // Make sure that the sharpening function is available
-        if(! function_exists('imageconvolution'))
+        if (! function_exists('imageconvolution'))
             throw new App_Exception('Your configured adapter does not support the ' . __FUNCTION__ . ' image transformation.');
-            // Amount should be in the range of 18-10
+        // Amount should be in the range of 18-10
         $amount = round(abs(- 18 + ($amount * 0.08)), 2);
         // Gaussian blur matrix
         $matrix = array(array(- 1 , - 1 , - 1) , array(- 1 , $amount , - 1) , array(- 1 , - 1 , - 1));
@@ -279,21 +251,19 @@ class App_Image_Adapter_GD extends App_Image_Adapter
     }
 
     /**
-     * Returns an image with a transparent background. Used for rotating to
-     * prevent unfilled backgrounds.
-     *
-     * @param integer $ image width
-     * @param integer $ image height
-     * @return resource
-     */
+    * Returns an image with a transparent background. Used for rotating to
+    * prevent unfilled backgrounds.
+    *
+    * @param integer $ image width
+    * @param integer $ image height
+    * @return resource
+    */
     protected function imagecreatetransparent($width, $height)
     {
-        if(self::$blank_png === null)
-        {
+        if (self::$blank_png === null) {
             // Decode the blank PNG if it has not been done already
             self::$blank_png = imagecreatefromstring(
-            base64_decode(
-            'iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29' . 'mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADqSURBVHjaYvz//z/DYAYAAcTEMMgBQAANegcCBN' . 'CgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQ' . 'AANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoH' . 'AgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB' . '3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAgAEAMpcDTTQWJVEAAAAASUVORK5CYII='));
+                base64_decode('iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29' . 'mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADqSURBVHjaYvz//z/DYAYAAcTEMMgBQAANegcCBN' . 'CgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQ' . 'AANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoH' . 'AgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB' . '3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAgAEAMpcDTTQWJVEAAAAASUVORK5CYII='));
             // Set the blank PNG width and height
             self::$blank_png_width = imagesx(self::$blank_png);
             self::$blank_png_height = imagesy(self::$blank_png);

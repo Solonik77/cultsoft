@@ -1,37 +1,34 @@
 <?php
 /**
- * File helper class.
- *
- * $Id: file.php 3769 2008-12-15 00:48:56Z zombor $
- *
- * @author Kohana Team
- * @copyright (c) 2007-2008 Kohana Team
- * @license http://kohanaphp.com/license.html*
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-class V_Helper_File
-{
-
+* File helper class.
+*
+* $Id: file.php 3769 2008-12-15 00:48:56Z zombor $
+*
+* @author Kohana Team
+* @copyright (c) 2007-2008 Kohana Team
+* @license http://kohanaphp.com/license.html*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
+class V_Helper_File {
     /**
-     * Attempt to get the mime type from a file. This method is horribly
-     * unreliable, due to PHP being horribly unreliable when it comes to
-     * determining the mime-type of a file.
-     *
-     * @param string $ filename
-     * @return string mime-type, if found
-     * @return boolean FALSE, if not found
-     */
+    * Attempt to get the mime type from a file. This method is horribly
+    * unreliable, due to PHP being horribly unreliable when it comes to
+    * determining the mime-type of a file.
+    *
+    * @param string $ filename
+    * @return string mime-type, if found
+    * @return boolean FALSE, if not found
+    */
     public static function mime($filename)
     {
         // Make sure the file is readable
-        if(! (is_file($filename) and is_readable($filename)))
+        if (! (is_file($filename) and is_readable($filename)))
             return false;
-            // Get the extension from the filename
+        // Get the extension from the filename
         $extension = strtolower(substr(strrchr($filename, '.'), 1));
-        if(preg_match('/^(?:jpe?g|png|[gt]if|bmp|swf)$/', $extension))
-        {
+        if (preg_match('/^(?:jpe?g|png|[gt]if|bmp|swf)$/', $extension)) {
             // Disable error reporting
             $ER = error_reporting(0);
             // Use getimagesize() to find the mime type on images
@@ -39,11 +36,10 @@ class V_Helper_File
             // Turn error reporting back on
             error_reporting($ER);
             // Return the mime type
-            if(isset($mime['mime']))
+            if (isset($mime['mime']))
                 return $mime['mime'];
         }
-        if(function_exists('finfo_open'))
-        {
+        if (function_exists('finfo_open')) {
             // Use the fileinfo extension
             $finfo = finfo_open(FILEINFO_MIME);
             $mime = finfo_file($finfo, $filename);
@@ -51,21 +47,17 @@ class V_Helper_File
             // Return the mime type
             return $mime;
         }
-        if(ini_get('mime_magic.magicfile') and function_exists('mime_content_type'))
-        {
+        if (ini_get('mime_magic.magicfile') and function_exists('mime_content_type')) {
             // Return the mime type using mime_content_type
             return mime_content_type($filename);
         }
-        if(! app::isWin())
-        {
+        if (! app::isWin()) {
             // Attempt to locate use the file command, checking the return value
-            if($command = trim(exec('which file', $output, $return)) and $return === 0)
-            {
+            if ($command = trim(exec('which file', $output, $return)) and $return === 0) {
                 return trim(exec($command . ' -bi ' . escapeshellarg($filename)));
             }
         }
-        if(! empty($extension) and is_array($mime = Kohana::config('mimes.' . $extension)))
-        {
+        if (! empty($extension) and is_array($mime = Kohana::config('mimes.' . $extension))) {
             // Return the mime-type guess, based on the extension
             return $mime[0];
         }
@@ -74,13 +66,13 @@ class V_Helper_File
     }
 
     /**
-     * Split a file into pieces matching a specific size.
-     *
-     * @param string $ file to be split
-     * @param string $ directory to output to, defaults to the same directory as the file
-     * @param integer $ size, in MB, for each chunk to be
-     * @return integer The number of pieces that were created.
-     */
+    * Split a file into pieces matching a specific size.
+    *
+    * @param string $ file to be split
+    * @param string $ directory to output to, defaults to the same directory as the file
+    * @param integer $ size, in MB, for each chunk to be
+    * @return integer The number of pieces that were created.
+    */
     public static function split($filename, $output_dir = false, $piece_size = 10)
     {
         // Find output dir
@@ -95,14 +87,12 @@ class V_Helper_File
         $piece = 1; // Current piece
         $chunk = 1024 * 8; // Chunk size to read
         // Split the file
-        while(! feof($input_file))
-        {
+        while (! feof($input_file)) {
             // Open a new piece
             $piece_name = $filename . '.' . str_pad($piece, 3, '0', STR_PAD_LEFT);
             $piece_open = @fopen($piece_name, 'wb+') or die('Could not write piece ' . $piece_name);
             // Fill the current piece
-            while($read < $piece_size and $data = fread($input_file, $chunk))
-            {
+            while ($read < $piece_size and $data = fread($input_file, $chunk)) {
                 fwrite($piece_open, $data) or die('Could not write to open piece ' . $piece_name);
                 $read += $chunk;
             }
@@ -121,27 +111,25 @@ class V_Helper_File
     }
 
     /**
-     * Join a split file into a whole file.
-     *
-     * @param string $ split filename, without .000 extension
-     * @param string $ output filename, if different then an the filename
-     * @return integer The number of pieces that were joined.
-     */
+    * Join a split file into a whole file.
+    *
+    * @param string $ split filename, without .000 extension
+    * @param string $ output filename, if different then an the filename
+    * @return integer The number of pieces that were joined.
+    */
     public static function join($filename, $output = false)
     {
-        if($output == false)
+        if ($output == false)
             $output = $filename;
-            // Set up reading variables
+        // Set up reading variables
         $piece = 1; // Current piece
         $chunk = 1024 * 8; // Chunk size to read
         // Open output file
         $output_file = @fopen($output, 'wb+') or die('Could not open output file ' . $output);
         // Read each piece
-        while($piece_open = @fopen(($piece_name = $filename . '.' . str_pad($piece, 3, '0', STR_PAD_LEFT)), 'rb'))
-        {
+        while ($piece_open = @fopen(($piece_name = $filename . '.' . str_pad($piece, 3, '0', STR_PAD_LEFT)), 'rb')) {
             // Write the piece into the output file
-            while(! feof($piece_open))
-            {
+            while (! feof($piece_open)) {
                 fwrite($output_file, fread($piece_open, $chunk));
             }
             // Close the current piece
@@ -158,48 +146,39 @@ class V_Helper_File
     }
 
     /**
-     * Remove files and dirs recursively
-     */
+    * Remove files and dirs recursively
+    */
     public static function deleteTree($path)
     {
-        if(is_dir($path))
-        {
+        if (is_dir($path)) {
             $entries = scandir($path);
-            foreach($entries as $entry)
-            {
-                if($entry != '.' && $entry != '..')
-                {
+            foreach($entries as $entry) {
+                if ($entry != '.' && $entry != '..') {
                     self::deleteTree($path . DIRECTORY_SEPARATOR . $entry);
                 }
             }
             @rmdir($path);
-        }
-        else
-        {
+        } else {
             @unlink($path);
         }
     }
 
     /**
-     * Check is directory writeable
-     */
+    * Check is directory writeable
+    */
     public static function isDirWriteable($dir)
     {
-        if(is_dir($dir) && is_writable($dir))
-        {
-            if(! App::isWin())
-            {
+        if (is_dir($dir) && is_writable($dir)) {
+            if (! App::isWin()) {
                 $dir = ltrim($dir, DIRECTORY_SEPARATOR);
                 $file = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
                 $exist = file_exists($file);
                 $fp = @fopen($file, 'a');
-                if($fp === false)
-                {
+                if ($fp === false) {
                     return false;
                 }
                 fclose($fp);
-                if(! $exist)
-                {
+                if (! $exist) {
                     unlink($file);
                 }
             }
