@@ -6,7 +6,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class System_Component_BackofficeStructure {
+class Main_Component_BackofficeStructure {
     public function __construct()
     {
     }

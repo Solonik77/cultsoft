@@ -37,7 +37,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
             }
         }
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER') and ! App_Member::getAuth()->hasIdentity()) {
-            $request->setModuleName('system')->setControllerName('profile')->setActionName('signin');
+            $request->setModuleName('main')->setControllerName('profile')->setActionName('signin');
             Zend_Registry::set('member_access', 'NOT_AUTHORIZED');
             return;
         }
@@ -49,7 +49,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
         if ($this->_acl->has($resource)) {
             if (! $this->_acl->isAllowed($role, $resource)) {
                 Zend_Registry::set('member_access', 'ACCESS_DENY');
-                $request->setModuleName('system')->setControllerName('error')->setActionName('deny');
+                $request->setModuleName('main')->setControllerName('error')->setActionName('deny');
             } else {
                 Zend_Registry::set('member_access', 'ALLOWED');
             }

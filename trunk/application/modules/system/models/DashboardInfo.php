@@ -1,5 +1,5 @@
 <?php
-class System_Model_DashboardInfo {
+class Main_Model_DashboardInfo {
     private $db;
 
     public function __construct()

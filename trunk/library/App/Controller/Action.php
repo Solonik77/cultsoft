@@ -26,7 +26,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         // Set localized project name in page title first
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER')) {
             $this->view->headTitle(__('Control panel') . ' — ' . $languages['project_title'][$requestLangId]);
-            $site_pages = new System_Component_BackofficeStructure();
+            $site_pages = new Main_Component_BackofficeStructure();
             $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
             $inflector = new Zend_Filter_Inflector('sidebar/:sidebarblock.:suffix');
@@ -40,7 +40,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $this->view->sidebarBlocks = $sidebarBlock;
         } else {
             $this->view->headTitle($languages['project_title'][$requestLangId]);
-            $site_pages = new System_Component_SiteStructure();
+            $site_pages = new Main_Component_SiteStructure();
             $container = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->navigation($container);
         }

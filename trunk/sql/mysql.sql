@@ -3,7 +3,8 @@ SQLyog Community Edition- MySQL GUI v5.27
 Host - 5.1.31-community : Database - zfapp
 *********************************************************************
 Server version : 5.1.31-community
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -21,13 +22,13 @@ CREATE TABLE `prefix_acl_roles` (
   `parent_id` int(11) DEFAULT NULL,
   `role` varchar(64) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `res_module_system_controller_backofficeDashboard` tinyint(1) DEFAULT NULL,
+  `res_module_main_controller_backofficeDashboard` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_acl_roles` */
 
-insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`,`res_module_system_controller_backofficeDashboard`) values (1,0,'administrator','Administrator Account',0);
+insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`,`res_module_main_controller_backofficeDashboard`) values (1,0,'administrator','Administrator Account',0);
 
 /*Table structure for table `prefix_blog` */
 
