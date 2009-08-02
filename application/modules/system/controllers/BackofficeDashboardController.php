@@ -19,7 +19,7 @@ class System_BackofficeDashboardController extends App_Controller_Action {
 
     public function indexAction()
     {
-        $sys_info = new System_Model_DashboardInfo();
+        $sys_info = new Main_Model_DashboardInfo();
         $this->view->php_version = $sys_info->getPhpVersion();
         $this->view->php_sapi = $sys_info->getPhpServerAPI();
         $this->view->zf_version = $sys_info->getZfVersion();

@@ -71,10 +71,10 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->permCache->load('AclRoles'))) {
-            $model = new System_Model_DbTable_Acl_Roles();
+            $model = new Main_Model_DbTable_Acl_Roles();
             $model = $model->fetchAll();
             $model = $model->toArray();
-            $data = array(0 => array('id' => 0 , 'parent' => 0 , 'role' => 'guest' , 'description' => 'Guest Account' , 'res_module_system_controller_backofficeDashboard' => 0));
+            $data = array(0 => array('id' => 0 , 'parent' => 0 , 'role' => 'guest' , 'description' => 'Guest Account' , 'res_module_main_controller_backofficeDashboard' => 0));
             foreach($model as $item) {
                 $data[$item['id']] = $item;
             }
@@ -90,7 +90,7 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->permCache->load('SiteNavigationTree'))) {
-            $model = new System_Model_DbTable_Site_Structure();
+            $model = new Main_Model_DbTable_Site_Structure();
             $data = $model->getTree();
             $this->cache->permCache->save($data);
         }

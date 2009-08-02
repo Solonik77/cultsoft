@@ -6,7 +6,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class System_Model_DbTable_Members extends App_Db_Table_Abstract {
+class Main_Model_DbTable_Members extends App_Db_Table_Abstract {
     protected $_primary = 'id';
 
     public function __construct()

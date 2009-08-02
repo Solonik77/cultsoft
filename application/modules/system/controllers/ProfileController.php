@@ -6,7 +6,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class System_ProfileController extends App_Controller_Action {
+class Main_ProfileController extends App_Controller_Action {
     /**
     * Profile action: index
     * View member information
@@ -30,7 +30,7 @@ class System_ProfileController extends App_Controller_Action {
         if (App_Member::isAuth()) {
             $this->view->form = __('You are already logged.');
         } else {
-            $form = new System_Form_Signin();
+            $form = new Main_Form_Signin();
             if ($this->getRequest()->isPost()) {
                 $formData = $this->_request->getPost();
                 $form->populate($formData);

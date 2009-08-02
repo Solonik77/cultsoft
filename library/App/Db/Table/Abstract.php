@@ -36,9 +36,9 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     protected function _setupTableName()
     {
         $request = App::front()->getRequest();
-        $module = ($request) ? $request->getModuleName() : 'System_';
+        $module = ($request) ? $request->getModuleName() : 'Main_';
         if (! $this->_name) {
-            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('System_Model_DbTable_' , ucfirst(strtolower($module)) . '_Model_DbTable_'), '', get_class($this)));
+            $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Main_Model_DbTable_' , ucfirst(strtolower($module)) . '_Model_DbTable_'), '', get_class($this)));
         } else
         if (strpos($this->_name, '.')) {
             list ($this->_schema, $this->_name) = explode('.', $this->_name);

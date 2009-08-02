@@ -45,7 +45,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
         // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/system' , 'namespace' => 'System'));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
         $resourceLoader->addResourceTypes(
             array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
@@ -114,7 +114,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         App_Exception_PHP::enable();
         $front = App::front();
         $front->throwExceptions(false);
-        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'system' , 'controller' => 'error' , 'action' => 'error')));
+        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'main' , 'controller' => 'error' , 'action' => 'error')));
         $logger = new Zend_Log();
         if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
@@ -224,7 +224,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Admin panel route
         App::front()->getRouter()->addRoute('backoffice',
             new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*',
-                array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
+                array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);

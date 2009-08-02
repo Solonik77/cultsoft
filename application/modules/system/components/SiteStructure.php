@@ -6,7 +6,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class System_Component_SiteStructure {
+class Main_Component_SiteStructure {
     public function __construct()
     {
     }
