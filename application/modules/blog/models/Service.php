@@ -24,7 +24,7 @@ class Blog_Model_Service {
         $blogId = $requestId = App::front()->getRequest()->getParam('id');
         App::db()->beginTransaction();
         try {
-            $commonData = array('slug' => V_Helper_Text::slug((! empty($post['slug'])) ? $post['slug'] : $default_i18n['title']) , 'type' => $post['type']);
+            $commonData = array('fancy_url' => V_Helper_Text::fancy_url((! empty($post['fancy_url'])) ? $post['fancy_url'] : $default_i18n['title']) , 'type' => $post['type']);
             if ($blogId) {
                 // Update common data for blog
                 $commonData['updated'] = V_Helper_Date::now();

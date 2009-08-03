@@ -346,12 +346,12 @@ class V_Helper_Text {
     }
 
     /**
-    * Create slug from string.
+    * Create fancy_url from string.
     *
     * @param string
     * @return string
     */
-    public static function slug($var, $lower = true, $punkt = true)
+    public static function fancy_url($var, $lower = true, $punkt = true)
     {
         $var = iconv("UTF-8", "WINDOWS-1251", $var);
         $NpjLettersFrom = "абвгдезиклмнопрстуфцыі";

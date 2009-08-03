@@ -19,10 +19,10 @@ class Blog_Form_EditBlog extends App_Form {
             $this->addElement($title)->addElement($description);
             $this->addDisplayGroup(array('langid_' . $lang['id'] . '_title' , 'langid_' . $lang['id'] . '_description'), $lang['id'] . '_content', array("legend" => __($lang['name'])));
         }
-        $slug = $this->createElement('text', 'slug')->setLabel('Slug');
-        $slug->addValidator('stringLength', false, array(1 , 100));
-        $slug->addFilter('stringTrim')->addFilter('StripTags')->addFilter('StringToLower');
-        $this->addElement($slug);
+        $fancy_url = $this->createElement('text', 'fancy_url')->setLabel('fancy_url');
+        $fancy_url->addValidator('stringLength', false, array(1 , 100));
+        $fancy_url->addFilter('stringTrim')->addFilter('StripTags')->addFilter('StringToLower');
+        $this->addElement($fancy_url);
         $type = $this->createElement('select', 'type');
         $type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)')))->setValue($this->_type);
         $this->addElement($type);
