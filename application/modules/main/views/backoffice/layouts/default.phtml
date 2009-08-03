@@ -36,8 +36,10 @@ echo __('Welcome')?> <a
 		href="<?php
 echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php
 echo $this->member->getField('first_name') . ' ' . $this->member->getField('last_name')?></a></li>
-	<li><a href="#">Settings</a></li>
-	<li class="last"><a href="#">Log Out</a></li>
+	<li><a href="<?php
+echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'settings'))?>"><?php echo __('Settings')?></a></li>
+	<li class="last"><a href="<?php
+echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'logout'))?>"><?php echo __('Log Out')?></a></li>
 </ul>
 </div>
 </div>
