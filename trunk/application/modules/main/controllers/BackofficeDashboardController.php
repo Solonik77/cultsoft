@@ -7,7 +7,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class System_BackofficeDashboardController extends App_Controller_Action {
+class Main_BackofficeDashboardController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;
 
     public function init()
