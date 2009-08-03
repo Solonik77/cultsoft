@@ -19,7 +19,7 @@ class Blog_Form_EditBlog extends App_Form {
             $this->addElement($title)->addElement($description);
             $this->addDisplayGroup(array('langid_' . $lang['id'] . '_title' , 'langid_' . $lang['id'] . '_description'), $lang['id'] . '_content', array("legend" => __($lang['name'])));
         }
-        $fancy_url = $this->createElement('text', 'fancy_url')->setLabel('fancy_url');
+        $fancy_url = $this->createElement('text', 'fancy_url')->setLabel('Fancy url');
         $fancy_url->addValidator('stringLength', false, array(1 , 100));
         $fancy_url->addFilter('stringTrim')->addFilter('StripTags')->addFilter('StringToLower');
         $this->addElement($fancy_url);
