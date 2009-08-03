@@ -12,8 +12,8 @@ class Blog_AdminController extends App_Controller_Action {
 
     public function init()
     {
-        $this->view->pageTitle = __ ('Blogs');
-        $this->view->pageDescription = __ ('Create, edit, delete posts. Manage communities.');
+        $this->view->pageTitle = 'Blogs';
+        $this->view->pageDescription = 'Create, edit, delete posts. Manage communities.';
         $this->view->headTitle ($this->view->pageTitle);
     }
 
@@ -34,7 +34,7 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function manageBlogsAction()
     {
-        $this->view->pageDescription = __ ('Manage blogs.');
+        $this->view->pageDescription = 'Manage blogs.';
         $this->view->blogsList = $this->blogService->fetchBlogsList ();
     }
 
@@ -43,11 +43,11 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function newBlogAction()
     {
-        $this->view->pageDescription = __ ('Create new blog');
+        $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
         $form = new Blog_Form_EditBlog ();
         $form->compose ();
-        if ($this->_request->isPost ()) {
+        if ($this->_request->isPost()) {
             $formData = $this->_request->getPost ();
             $form->populate ($formData);
             if (! $form->isValid ($formData)) {
@@ -58,12 +58,12 @@ class Blog_AdminController extends App_Controller_Action {
                 // Saving new blog
                 if ($this->blogService->saveBlog ()) {
                     // Set message to view
-                    $this->_helper->messages ('Add new blog', 'success', true);
+                    $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
                     $this->_redirect ('blog/admin/manage-blogs');
                 } else {
                     // Set message to view
-                    $this->_helper->messages ('Add new blog error', 'error', true);
+                    $this->_helper->messages ('Error in creation new blog', 'error', true);
                     // Clear post
                     $this->_selfRedirect();
                 }
@@ -80,7 +80,7 @@ class Blog_AdminController extends App_Controller_Action {
         if (! $blogId = $this->_request->getParam ('id')) {
             return $this->render ('error-no-id');
         }
-        $this->view->pageDescription = __ ('Edit blog');
+        $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
         $form = new Blog_Form_EditBlog ();
         $form->compose ();
