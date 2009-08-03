@@ -35,7 +35,7 @@ class Blog_AdminController extends App_Controller_Action {
     public function manageBlogsAction()
     {
         $this->view->pageDescription = 'Manage blogs.';
-        $this->view->blogsList = $this->blogService->fetchBlogsList ();
+        $this->view->blogsList = $this->blogService->fetchBlogsList();
     }
 
     /**
