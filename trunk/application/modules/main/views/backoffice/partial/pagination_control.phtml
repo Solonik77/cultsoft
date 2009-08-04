@@ -3,7 +3,7 @@ if ($this->pageCount > 1): ?>
 <p class="pagination">
 <?php if (isset($this->previous)): ?>
   <a href="<?php echo $this->url(array('page' => $this->previous));
-    ?>">&laquo; Prev </a> &middot;
+    ?>">&laquo; <?php echo __('Prev')?> </a> &middot;
 <?php endif;
     ?>
 
@@ -17,7 +17,7 @@ if ($this->pageCount > 1): ?>
 
 <?php if (isset($this->next)): ?>
  &middot; <a href="<?php echo $this->url(array('page' => $this->next));
-    ?>">Next &raquo;</a>
+    ?>"> <?php echo __('Next')?> &raquo;</a>
 <?php endif;
     ?>
 
