@@ -39,7 +39,7 @@ class App_View_Helper_PaginationSort {
         $link .= ' class="';
         if (($this->_sortBy === $this->_request->getParam('sort-by'))) {
             $link .= 'sorted-';
-            $link .= ($this->_sortOrder == 'asc') ? 'desc' : 'asc';
+            $link .= ($this->_sortOrder == 'asc') ? 'asc' : 'desc';
         }
         $link .= '">';
         $link .= $this->_label . '</a>';
