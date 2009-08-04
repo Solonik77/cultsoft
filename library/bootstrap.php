@@ -331,7 +331,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
-            }
+            }          
 
             $response->sendResponse();
             exit();

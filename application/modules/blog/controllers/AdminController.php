@@ -36,7 +36,10 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageDescription = 'Manage blogs.';
         $this->view->types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-        $this->view->blogsDataGrid = $this->blogService->fetchBlogsDataGrid();
+        $this->view->blogsDataGrid = $this->blogService->fetchBlogsDataGrid(
+        array('id', 'title', 'created', 'type'),
+        $this->_request->getParam('sort-by'), 
+        $this->_request->getParam('sort-order'));
     }
 
     /**

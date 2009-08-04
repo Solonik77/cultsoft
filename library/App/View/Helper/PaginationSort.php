@@ -42,7 +42,10 @@ class App_View_Helper_PaginationSort {
             $link .= 'sorted-';
             $link .= ($this->_sortOrder == 'asc') ? 'asc' : 'desc';
         }
-        $link .= '">';
+        $link .= '" title="';
+        $link .= __('Sort table data by field') . ' «' . $this->_label . '» ';       
+        $link .= ($this->_sortOrder == 'asc') ? __('in ascending order') : __('in descending order');        
+        $link .= '">';        
         $link .= $this->_label . '</a>';
 
         return $link;
