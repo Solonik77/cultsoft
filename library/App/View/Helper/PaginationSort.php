@@ -29,7 +29,7 @@ class App_View_Helper_PaginationSort {
     public function __toString()
     {
         $link = '<a href="';
-        $array = array('page' => NULL, 'sort-by' => $this->_sortBy);
+        $array = array('page' => null, 'sort-by' => $this->_sortBy);
         if (($this->_sortBy === $this->_request->getParam('sort-by'))) {
             $array['sort-order'] = (($this->_request->getParam('sort-order') == 'desc') ? 'asc' : 'desc');
         } else {
@@ -43,9 +43,9 @@ class App_View_Helper_PaginationSort {
             $link .= ($this->_sortOrder == 'asc') ? 'asc' : 'desc';
         }
         $link .= '" title="';
-        $link .= __('Sort table data by field') . ' «' . $this->_label . '» ';       
-        $link .= ($this->_sortOrder == 'asc') ? __('in ascending order') : __('in descending order');        
-        $link .= '">';        
+        $link .= __('Sort table data by field') . ' «' . $this->_label . '» ';
+        $link .= ($this->_sortOrder == 'asc') ? __('in ascending order') : __('in descending order');
+        $link .= '">';
         $link .= $this->_label . '</a>';
 
         return $link;

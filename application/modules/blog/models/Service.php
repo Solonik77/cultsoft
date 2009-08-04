@@ -91,20 +91,18 @@ class Blog_Model_Service {
     public function fetchBlogsDataGrid(array $fields, $sortByField = 'id' , $sortOrder = 'asc')
     {
         $sortOrder = strtoupper((($sortOrder === 'asc') ? $sortOrder : 'desc'));
-        if(count($fields) == 0)
-        {
-          throw new App_Exception('Could not set valid array of fields for data grid');
+        if (count($fields) == 0) {
+            throw new App_Exception('Could not set valid array of fields for data grid');
         } else {
-        if(!in_array($sortByField, $fields))
-        {
-         $sortByField = (string) $fields[0];
-        }        
+            if (!in_array($sortByField, $fields)) {
+                $sortByField = (string) $fields[0];
+            }
         }
-        
-        $select = $this->_blog->select()->setIntegrityCheck(false)->from(DB_TABLE_PREFIX . 'blog', '*');
-        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id')
-        ->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))
-        ->order($sortByField . ' ' . $sortOrder);            
+
+        $select = $this->_blog->select()->setIntegrityCheck(false)->from(DB_TABLE_PREFIX . 'blog', array('id', 'type', 'created'));
+        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id')->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order($sortByField . ' ' . $sortOrder);
+        $columns = $select->getPart(Zend_Db_Select::COLUMNS);
+        // Zend_debug::dump($columns); die;
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(App::config()->itemsPerPage);
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
