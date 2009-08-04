@@ -7,6 +7,7 @@ class App_View_Helper_PaginationSort {
     private $_sortBy;
     private $_view;
     private $_request;
+
     public function paginationSort($label = null, $sortBy = null)
     {
         if ($label != null) {
@@ -28,7 +29,7 @@ class App_View_Helper_PaginationSort {
     public function __toString()
     {
         $link = '<a href="';
-        $array = array('sort-by' => $this->_sortBy);
+        $array = array('page' => NULL, 'sort-by' => $this->_sortBy);
         if (($this->_sortBy === $this->_request->getParam('sort-by'))) {
             $array['sort-order'] = (($this->_request->getParam('sort-order') == 'desc') ? 'asc' : 'desc');
         } else {

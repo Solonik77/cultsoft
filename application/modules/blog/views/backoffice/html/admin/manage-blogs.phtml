@@ -10,13 +10,12 @@ echo __('Create new blog')?></a></p>
 		<th><?php echo $this->paginationSort('Title', 'title')?></th>
 		<th><?php echo $this->paginationSort('Created', 'created')?></th>
 		<th><?php echo $this->paginationSort('Type')?></th>
-		<th><?=__('Actions')?></th>
+		<th><?php echo __('Actions')?></th>
 	</thead>
 	<tbody>
 <?php
 foreach($this->blogsDataGrid as $blog) {
-
-    ?>
+?>
 	<tr class="<?php
     echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php
@@ -35,17 +34,12 @@ foreach($this->blogsDataGrid as $blog) {
 		</tr>
 <?php
 }
-
 ?>
   </tbody>
 </table>
 
 <p><?php echo $this->paginationControl($this->blogsDataGrid)?></p>
 
-<?php
-else
-    :
-    ?>
+<?php else: ?>
 <p><?php echo __('No blogs here')?></p>
-
 <?php endif;
