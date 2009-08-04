@@ -14,7 +14,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageTitle = 'Blogs';
         $this->view->pageDescription = 'Create, edit, delete posts. Manage communities.';
-        $this->view->headTitle ($this->view->pageTitle);
+        $this->view->headTitle(__($this->view->pageTitle));
     }
 
     public function preDispatch()
