@@ -14,8 +14,7 @@ echo __('Create new blog')?></a></p>
 	</thead>
 	<tbody>
 <?php
-    $types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-foreach($this->blogsList as $blog) {
+foreach($this->blogsDataGrid as $blog) {
 
     ?>
 	<tr class="<?php
@@ -27,7 +26,7 @@ foreach($this->blogsList as $blog) {
 			<td><?php
     echo date("Y-t-d", strtotime($blog->created))?></td>
 			<td><?php
-    echo $types[$blog->type]?></td>
+    echo $this->types[$blog->type]?></td>
 			<td><a
 				href="<?=$this->url(array('action' => 'edit-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
 			<a

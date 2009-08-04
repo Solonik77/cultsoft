@@ -88,13 +88,13 @@ class Blog_Model_Service {
         return ($blog->current()) ? array_merge($return, $blog->current()->toArray()) : array();
     }
 
-    public function fetchBlogsList()
+    public function fetchBlogsDataGrid()
     {
         $select = $this->_blog->select()->setIntegrityCheck(false)->from(DB_TABLE_PREFIX . 'blog', '*');
         $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id')->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order(
             DB_TABLE_PREFIX . 'blog.id DESC');
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setItemCountPerPage(10);
+        $paginator->setItemCountPerPage(App::config()->itemsPerPage);
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
         return $paginator;
     }
