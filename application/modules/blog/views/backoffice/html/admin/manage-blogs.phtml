@@ -3,7 +3,7 @@
 echo $this->url(array('action' => 'new-blog'))?>"><?php
 echo __('Create new blog')?></a></p>
 
-<?php if (count($this->blogsList) > 0): ?>
+<?php if (count($this->blogsDataGrid) > 0): ?>
 <table class="grid">
 	<thead>
 		<th><?php echo $this->paginationSort('ID', 'id')?></th>
@@ -40,7 +40,7 @@ foreach($this->blogsDataGrid as $blog) {
   </tbody>
 </table>
 
-<p><?php echo $this->paginationControl($this->blogsList)?></p>
+<p><?php echo $this->paginationControl($this->blogsDataGrid)?></p>
 
 <?php
 else

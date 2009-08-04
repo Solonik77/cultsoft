@@ -436,6 +436,21 @@ table.grid thead th {
 	border-bottom-color: #D0D0D0;
 	border-left-color: #D0D0D0;
 }
+
+table.grid thead th a.sorted-asc:link,
+table.grid thead th a.sorted-asc:visited
+{
+	background-image: url(../images/arrows/soft-indicator-up.png);
+	background-repeat: no-repeat;
+	padding-left: 30px;
+}
+table.grid thead th a.sorted-desc:link,
+table.grid thead th a.sorted-desc:visited
+{
+	background-image: url(../images/arrows/soft-indicator-down.png);
+	background-repeat: no-repeat;
+	padding-left: 30px;
+}
 table.grid tbody td {
 	background-color: #FFF;
 	color: #333;
@@ -497,3 +512,4 @@ dl.zend_form dd ul.errors li {
 		font-size: 12px;
 		color: red;
 }
+
