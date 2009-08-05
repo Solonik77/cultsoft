@@ -16,7 +16,7 @@ define('VAR_PATH', realpath(dirname(__FILE__) . '/var') . DIRECTORY_SEPARATOR);
 // Define path to application directory
 define('APPLICATION_PATH', DOC_ROOT . 'application' . DIRECTORY_SEPARATOR);
 // Define application environment
-define('APPLICATION_ENV', 'development');
+defined('APPLICATION_ENV') || define('APPLICATION_ENV', getenv('APPLICATION_ENV'));
 // define('APPLICATION_ENV', 'production');
 define('LIBRARY_PATH', DOC_ROOT . 'library' . DIRECTORY_SEPARATOR);
 @set_include_path(LIBRARY_PATH . PATH_SEPARATOR . './');
