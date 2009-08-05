@@ -8,10 +8,10 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-require_once (LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
-require_once (LIBRARY_PATH . 'app.php');
+require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
+require_once(LIBRARY_PATH . 'app.php');
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-    private $_language_identificator;
+    protected $_language_identificator;
 
     /**
     * Constructor
@@ -106,7 +106,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initErrorHandler()
+    protected function _initErrorHandler()
     {
         // Enable exception handling
         App_Exception::enable();
@@ -128,7 +128,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _setLanguage()
+    protected function _setLanguage()
     {
         if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->project->timezone;
@@ -155,7 +155,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initDatabase()
+    protected function _initDatabase()
     {
         try {
             $config = App::config()->database->toArray();
@@ -169,7 +169,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance('File'));
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
-            define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
+            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
         }
         catch(Zend_Db_Adapter_Exception $e) {
             throw new App_Exception($e->getMessage());
@@ -181,7 +181,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initDate()
+    protected function _initDate()
     {
         Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache') , 'format_type' => 'php'));
     }
@@ -191,7 +191,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initSession()
+    protected function _initSession()
     {
         Zend_Session::setOptions(App::config()->session->toArray());
         if (App::config()->session_save_handler === 'db') {
@@ -203,7 +203,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     /**
     * View and Layout setup
     */
-    private function _initView()
+    protected function _initView()
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
@@ -213,7 +213,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initRoutes()
+    protected function _initRoutes()
     {
         // Change default router
         App::front()->getRouter()->addRoute('default',
@@ -229,7 +229,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
-        define('BACKOFFICE_PATH', App::config()->backoffice_path);
+        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path);
     }
 
     /**
@@ -237,7 +237,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initAccess()
+    protected function _initAccess()
     {
         App_Member::getInstance();
         App::front()->registerPlugin(new App_Controller_Plugin_Access());
@@ -248,7 +248,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initApplicationMailer()
+    protected function _initApplicationMailer()
     {
         App_Mail::setDefaultTransport(App::config()->mail->toArray());
     }
@@ -258,7 +258,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     *
     * @return void
     */
-    private function _initDebug()
+    protected function _initDebug()
     {
         if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(
