@@ -9,6 +9,7 @@ class Blog_Form_EditBlog extends App_Form {
 
     public function compose()
     {
+
         $this->setAction('');
         $siteLang = App::siteLanguages();
         foreach($siteLang as $lang) {
@@ -27,10 +28,12 @@ class Blog_Form_EditBlog extends App_Form {
         $type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)')))->setValue($this->_type);
         $this->addElement($type);
         $this->addElement('hash', 'csrf_hash', array('salt' => 'unique'));
+        $span = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'label')) );
+     
+        $this->addElement($this->createElement('submit', 'save_blog')->setLabel('Save')->setDecorators($span));
         if (App::front()->getRequest()->getParam('id')) {
-            $this->addElement('submit', 'delete_blog', array('label' => 'Delete'));
+            $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($span));
         }
-        $this->addElement('submit', 'save_blog', array('label' => 'Save'));
         return $this;
     }
 
@@ -39,4 +42,7 @@ class Blog_Form_EditBlog extends App_Form {
         $this->_type = $id;
         return $this;
     }
+    
+    
+
 }
