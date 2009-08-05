@@ -61,7 +61,10 @@ final class App {
     */
     public static function log($message, $type = 1)
     {
-        app::$log->log($message, $type);
+        if($type <= App::config()->system_log_threshold)
+        {
+            app::$log->log($message, $type);
+        }
         return;
     }
 
