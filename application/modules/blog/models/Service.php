@@ -104,7 +104,7 @@ class Blog_Model_Service {
         $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id', $cols['i18n_blog'])->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order($sortByField . ' ' . $sortOrder);
 
         $paginator = Zend_Paginator::factory($select);
-        $paginator->setItemCountPerPage(App::config()->itemsPerPage);
+        $paginator->setItemCountPerPage(App::config()->items_per_page);
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
         return $paginator;
     }
