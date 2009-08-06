@@ -17,12 +17,10 @@ final class App {
     protected static $config = null;
     // Database object
     protected static $db = null;
-    // Default system localization
-    protected static $locale = null;
+    // I18n Object
+    protected static $i18n = null;
     // Logger
     protected static $log = null;
-    // Zend_Translate object
-    protected static $i18n = null;
     // Base URI
     protected static $base_uri = '';
     // Website languages
@@ -71,9 +69,9 @@ final class App {
     /**
     * Get system locale information
     */
-    public static function locale()
+    public static function i18n()
     {
-        return App::$locale;
+        return App::$i18n;
     }
 
     /**
@@ -95,15 +93,15 @@ final class App {
             App::$log = $object;
         }
     }
-
-    /**
-    * Set translator object
+    
+    /*
+    * Set App Internationalization object
     */
-    public static function setTranslate(Zend_Translate $object)
+    public static function setI18N(App_I18n $object)
     {
-        App::$i18n = $object;
-        Zend_Validate_Abstract::setDefaultTranslator(App::$i18n);
-        Zend_Form::setDefaultTranslator(App::$i18n);
+        if (App::$i18n === null) {
+            App::$i18n = $object;
+        }
     }
 
     /**
@@ -205,8 +203,8 @@ final class App {
 function __($text = '', $print = false)
 {
     if ($print == true) {
-        echo App::translate()->_($text);
+        echo App::i18n()->getTranslator()->_($text);
     } else {
-        return App::translate()->_($text);
+        return App::i18n()->getTranslator()->_($text);
     }
 }
