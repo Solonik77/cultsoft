@@ -45,7 +45,7 @@ class Main_ProfileController extends App_Controller_Action {
                         $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
                     } else {
-                        App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'email')));
+                        App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'role_id', 'email')));
                         if (isset($formData['remember_me'])) {
                             Zend_Session::rememberMe(3600 * 24 * 14);
                         }
