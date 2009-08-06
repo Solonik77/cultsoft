@@ -261,7 +261,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(
-                    array('plugins' => array('Variables' , 'Html' , 'Database' => array('adapter' => array('standard' => App::db())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
+                    array('plugins' => array(
+                    'Auth' => array('user' => 'email', 'role' => 'id'),
+                    'Text',
+                    'Variables' ,
+                    'Database' => array('adapter' => array('standard' => App::db())) ,
+                    'File' => array('basePath' => APPLICATION_PATH) ,
+                    'Memory' ,
+                    'Html',                    
+                    'Time' ,
+                    'Registry' ,
+                    'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) ,
+                    'Exception'
+                    ))));
         }
     }
 
