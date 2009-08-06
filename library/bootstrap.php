@@ -51,6 +51,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_initErrorHandler();
         try {
             $this->_initEnvironment();
+            $this->_initInternationalization();
             $this->_initDatabase();
             $this->_initDate();
             $this->_initSession();
@@ -72,8 +73,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         App_Utf8::clean_globals();
         App_Input::instance();
-        // Set locale information
-        $this->_setLanguage();
         ini_set('log_errors', true);
         if ('development' === APPLICATION_ENV) {
             ini_set('display_errors', true);
@@ -83,6 +82,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
         }
         umask(0);
+    }
+    
+    /*
+    * Website language and locale setup
+    */
+    protected function _initInternationalization()
+    {
+            if (function_exists('date_default_timezone_set')) {
+            $timezone = App::config()->project->timezone;
+            // Set default timezone, due to increased validation of date settings
+            // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
+            date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
+        }
+        $languages = App::config()->languages->toArray();
+        $default_site_language_id = $languages['default_id'];
+        $default_site_locale = $languages['locale'][$default_site_language_id];
+        $default_language_identificator = $languages['identificator'][$default_site_language_id];
+        Zend_Locale::setDefault($default_language_identificator);
+        $i18n = new App_I18n();
+        App::setI18N($i18n);
+        try {
+            $i18n->setLocale(new Zend_Locale('auto'));          
+        }
+        catch(Zend_Locale_Exception $e) {
+            $i18n->setLocale(new Zend_Locale($default_language_identificator));           
+        }
+        $this->_language_identificator = (in_array(App::i18n()->getLocale()->getLanguage(), $languages['identificator'])) ? App::i18n()->getLocale()->getLanguage() : $default_language_identificator;
+        
     }
 
     /**
@@ -121,33 +148,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         $logger->addWriter(new Zend_Log_Writer_Stream(App::config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
-    }
-
-    /**
-    * Language setup
-    *
-    * @return void
-    */
-    protected function _setLanguage()
-    {
-        if (function_exists('date_default_timezone_set')) {
-            $timezone = App::config()->project->timezone;
-            // Set default timezone, due to increased validation of date settings
-            // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
-            date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
-        }
-        $languages = App::config()->languages->toArray();
-        $default_site_language_id = $languages['default_id'];
-        $default_site_locale = $languages['locale'][$default_site_language_id];
-        $default_language_identificator = $languages['identificator'][$default_site_language_id];
-        Zend_Locale::setDefault($default_language_identificator);
-        try {
-            App::setLocale(new Zend_Locale('auto'));
-        }
-        catch(Zend_Locale_Exception $e) {
-            App::setLocale(new Zend_Locale($default_language_identificator));
-        }
-        $this->_language_identificator = (in_array(App::locale()->getLanguage(), $languages['identificator'])) ? App::locale()->getLanguage() : $default_language_identificator;
     }
 
     /**
