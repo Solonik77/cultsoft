@@ -17,6 +17,8 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $request->setBaseUrl(App::baseUri());
         // Init ACL in controller
         $this->_acl = App_Acl::getInstance();
+        // Member information
+        $this->_member = App_Member::getInstance();
         $doctypeHelper = new Zend_View_Helper_Doctype();
         // Set global HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');

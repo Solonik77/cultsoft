@@ -1,10 +1,9 @@
 /*
 SQLyog Community Edition- MySQL GUI v5.27
-Host - 5.1.31-community : Database - zfapp
+Host - 5.1.36-community-log : Database - zfapp
 *********************************************************************
-Server version : 5.1.31-community
-*/
-
+Server version : 5.1.36-community-log
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -177,6 +176,8 @@ CREATE TABLE `prefix_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_session` */
+
+insert  into `prefix_session`(`id`,`modified`,`lifetime`,`user_agent`,`data`) values ('nkbkm29tg4squs77htfoq17hu1',1249574741,1440,'Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 FirePHP/0.3','__ZF|a:1:{s:39:\"Zend_Form_Element_Hash_unique_csrf_hash\";a:2:{s:4:\"ENNH\";i:1;s:3:\"ENT\";i:1249575041;}}Zend_Form_Element_Hash_unique_csrf_hash|a:1:{s:4:\"hash\";s:32:\"794e44aff7ca5ff21f51677fe840f7c0\";}ZFDebug_Time|a:1:{s:4:\"data\";a:1:{s:4:\"main\";a:1:{s:7:\"profile\";a:1:{s:6:\"signin\";a:2:{i:0;d:1011.6460323333740234375;i:1;d:1011.6779804229736328125;}}}}}');
 
 /*Table structure for table `prefix_site_languages` */
 
