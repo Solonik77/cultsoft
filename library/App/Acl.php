@@ -15,11 +15,11 @@ class App_Acl extends Zend_Acl {
     */
     public function __construct()
     {
-        if (App_Acl::$instance === null) {
+            $this->_permCache = App_Cache::getInstance('permCache');
             /**
             * Getting member roles from system cache
             */
-            $acl = App_Cache::getInstance()->getAclRoles();
+            $acl = $this->getAclRoles();
             $res = current($acl);
             $resources = array();
             if ($res) {
@@ -46,16 +46,42 @@ class App_Acl extends Zend_Acl {
                     }
                 }
             }
-        }
-        App_Acl::$instance = $this;
+
     }
 
-    public static function getInstance()
+    /**
+    * Get cached ACL Roles
+    */
+    public function getAclRoles()
     {
-        if (App_Acl::$instance == null) {
-            // Create a new instance
-            new App_Acl();
+        $data = null;
+        if (! ($data = $this->_permCache->load('AclRoles'))) {
+            $model = new Main_Model_DbTable_Acl_Roles();
+            $model = $model->fetchAll()->toArray();
+            $data = array(0 => array('id' => 0 , 'parent' => 0 , 'role' => 'guest' , 'description' => 'Guest Account'));
+            foreach($model as $item) {
+                $data[$item['id']] = $item;
+            }
+            $this->_permCache->save($data);
         }
-        return App_Acl::$instance;
+        return $data;
+    }
+    
+    /**
+    * Get cached system info
+    */
+    public function getAclResources()
+    {
+        $data = null;
+        if (! ($data = $this->_permCache->load('AclResources'))) {
+            $model = new Main_Model_DbTable_Acl_Resources();
+            $model = $model->fetchAll()->toArray();
+            $data = array();
+            foreach($model as $item) {
+                $data[$item['id']] = $item;
+            }
+            $this->_permCache->save($data);
+        }
+        return $data;
     }
 }

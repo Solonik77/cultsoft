@@ -13,6 +13,7 @@ class App_Member {
     protected static $instance = null;
     protected $_data = null;
     protected $_model = null;
+    protected $_acl = null;
 
     public static function getInstance()
     {
@@ -28,8 +29,9 @@ class App_Member {
     */
     public function __construct()
     {
-        if (App_Member::$instance === null) {
+        if (App_Member::$instance === null) {            
             $this->_model = new Main_Model_DbTable_Members();
+            $this->_acl = new App_Acl();
             if (App_Member::getAuth()->hasIdentity()) {
                 $this->loadMember(App_Member::getAuth()->getIdentity()->id);
             } else {
@@ -106,6 +108,11 @@ class App_Member {
     public function getData()
     {
         return $this->_data;
+    }
+    
+    public function getAcl()
+    {
+        return $this->_acl;
     }
 
     /**

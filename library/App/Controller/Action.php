@@ -16,7 +16,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         // Make urls absolute
         $request->setBaseUrl(App::baseUri());
         // Init ACL in controller
-        $this->_acl = App_Acl::getInstance();
+        $this->_acl = App_Member::getInstance()->getAcl();
         // Member information
         $this->_member = App_Member::getInstance();
         $doctypeHelper = new Zend_View_Helper_Doctype();
