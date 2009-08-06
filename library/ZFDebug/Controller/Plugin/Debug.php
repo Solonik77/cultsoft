@@ -60,7 +60,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
     *
     * @var array
     */
-    public static $standardPlugins = array('Cache', 'Html', 'Database', 'Exception', 'File', 'Memory', 'Registry', 'Time', 'Variables');
+    public static $standardPlugins = array('Cache', 'Text', 'Auth', 'Html', 'Database', 'Exception', 'File', 'Memory', 'Registry', 'Time', 'Variables');
 
     /**
     * Debug Bar Version Number

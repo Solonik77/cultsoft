@@ -95,6 +95,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
         if (!$this->_auth->hasIdentity()) {
             return 'Not authorized';
         }
+        
         $identity = $this->_auth->getIdentity();
         if (is_object($identity)) {
             $username = $this->_auth->getIdentity()-> {
