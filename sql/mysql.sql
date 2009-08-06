@@ -18,9 +18,9 @@ DROP TABLE IF EXISTS `prefix_acl_resources`;
 
 CREATE TABLE `prefix_acl_resources` (
   `id` int(11) NOT NULL,
-  `resource_title` varchar(250) DEFAULT NULL,
+  `resource` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prefix_acl_resources` */
 
@@ -49,7 +49,7 @@ CREATE TABLE `prefix_acl_roles_resources` (
   `resource_id` int(11) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prefix_acl_roles_resources` */
 
