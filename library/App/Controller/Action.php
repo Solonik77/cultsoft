@@ -44,15 +44,15 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $container = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->navigation($container);
         }
-        $module = ucfirst(strtolower($request->getParam('module')));       
+        $module = ucfirst(strtolower($request->getParam('module')));
         // Load module config
         $config_file = APPLICATION_PATH . 'modules/' . $module . '/configuration.ini';
-        if(file_exists($config_file) AND is_readable($config_file)) {
+        if (file_exists($config_file) AND is_readable($config_file)) {
             $options = new Zend_Config_Ini($config_file, null, true);
             $options->setReadOnly();
             App::addConfig($options);
-        }       
-         // Resource autoload
+        }
+        // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module , 'namespace' => $module));
         $resourceLoader->addResourceTypes(
             array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));

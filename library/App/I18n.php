@@ -14,17 +14,17 @@ class App_I18n {
     protected $translator;
     // Website languages
     protected $site_languages = array();
-    
+
     public function setLocale(Zend_Locale $object)
     {
-        $this->locale = $object;        
+        $this->locale = $object;
     }
-    
+
     public function getLocale()
     {
-     return $this->locale;
+        return $this->locale;
     }
-    
+
     /**
     * Set translator object
     */
@@ -36,15 +36,15 @@ class App_I18n {
         Zend_Form::setDefaultTranslator($this->translator);
         Zend_Controller_Router_Route::setDefaultTranslator($this->translator);
     }
-    
+
     /*
     * Return Zend translator object
     */
     public function getTranslator()
     {
-     return $this->translator;
+        return $this->translator;
     }
-    
+
     /**
     * Website languages
     */
@@ -67,27 +67,25 @@ class App_I18n {
             $data[$value['id']] = $value;
         }
         $this->site_languages = $data;
-    
+
         return $this->site_languages;
     }
- 
+
     /*
     * Get languages allowed for module
     * @return array
     */
-    public function getModuleLanguages($module = NULL)
+    public function getModuleLanguages($module = null)
     {
-       $module = ($module) ? $module : App::front()->getRequest()->getModuleName();       
-       $siteLanguages = $this->getSiteLanguages();
-       $config = App::config()->$module->languages->toArray();
-       $result = array();
-       foreach($siteLanguages as $lang)
-       {
-       if(in_array($lang['language_identificator'], $config))
-       {
-        $result[$lang['id']] = $lang;
-       }
-       }
-       return $result;
+        $module = ($module) ? $module : App::front()->getRequest()->getModuleName();
+        $siteLanguages = $this->getSiteLanguages();
+        $config = App::config()->$module->languages->toArray();
+        $result = array();
+        foreach($siteLanguages as $lang) {
+            if (in_array($lang['language_identificator'], $config)) {
+                $result[$lang['id']] = $lang;
+            }
+        }
+        return $result;
     }
 }
