@@ -11,6 +11,8 @@ class App_I18n {
     protected $locale;
     // Language tranlator
     protected $translator;
+    // Website languages
+    protected $site_languages = array();
     
     /**
     * Contructor
@@ -48,5 +50,31 @@ class App_I18n {
     public function getTranslator()
     {
      return $this->translator;
+    }
+    
+        /**
+    * Website languages
+    */
+    public function getSiteLanguages()
+    {
+        $site_languages = $this->site_languages;
+        if (count($site_languages) > 0) {
+            return $site_languages;
+        }
+        $cache = App_Cache::getInstance('permCache');
+        if (! $site_languages = $cache->load('website_languages')) {
+            $site_languages = new Main_Model_DbTable_Site_Languages();
+            $site_languages = $site_languages->fetchAll()->toArray();
+            if (count($site_languages) > 0) {
+                $cache->save($site_languages);
+            }
+        }
+        $data = array();
+        foreach($site_languages as $key => $value) {
+            $data[$value['id']] = $value;
+        }
+        $this->site_languages = $data;
+    
+        return $this->site_languages;
     }
 }

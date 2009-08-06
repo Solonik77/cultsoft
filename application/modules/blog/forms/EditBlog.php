@@ -10,7 +10,7 @@ class Blog_Form_EditBlog extends App_Form {
     public function compose()
     {
         $this->setAction('');
-        $siteLang = App::siteLanguages();
+        $siteLang = App::i18n()->getSiteLanguages();
         foreach($siteLang as $lang) {
             $title = $this->createElement('text', 'langid_' . $lang['id'] . '_title', array('maxlength' => 100))->setLabel('Title');
             $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
