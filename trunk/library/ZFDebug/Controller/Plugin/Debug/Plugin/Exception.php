@@ -145,8 +145,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Exception implements ZFDebug_Contro
                 $type = 'Unknown, ' . $level;
                 break;
         }
+        
         self::$errors[] = array('type' => $type , 'message' => $message , 'file' => $file , 'line' => $line);
-        if (ini_get('log_errors'))
+        App::log('Uncaught ' . $type . ' ' . $message . ' in file ' . $file . ' on line ' . $line, Zend_Log::ERR);
+        if (ini_get('log_errors'))            
             error_log(sprintf("%s: %s in %s on line %d", $type, $message, $file, $line));
         return true;
     }
