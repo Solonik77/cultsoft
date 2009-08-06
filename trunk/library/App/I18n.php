@@ -7,20 +7,13 @@
 * @license http://cultsoft.org.ua/engine/license.html
 */
 class App_I18n {
+    protected $_request;
     // System localization
     protected $locale;
     // Language tranlator
     protected $translator;
     // Website languages
     protected $site_languages = array();
-    
-    /**
-    * Contructor
-    */
-    public function __construct()
-    {
-
-    }
     
     public function setLocale(Zend_Locale $object)
     {
@@ -32,7 +25,7 @@ class App_I18n {
      return $this->locale;
     }
     
-        /**
+    /**
     * Set translator object
     */
     public function setTranslator(Zend_Translate $object)
@@ -52,7 +45,7 @@ class App_I18n {
      return $this->translator;
     }
     
-        /**
+    /**
     * Website languages
     */
     public function getSiteLanguages()
@@ -76,5 +69,25 @@ class App_I18n {
         $this->site_languages = $data;
     
         return $this->site_languages;
+    }
+ 
+    /*
+    * Get languages allowed for module
+    * @return array
+    */
+    public function getModuleLanguages($module = NULL)
+    {
+       $module = ($module) ? $module : App::front()->getRequest()->getModuleName();       
+       $siteLanguages = $this->getSiteLanguages();
+       $config = App::config()->$module->languages->toArray();
+       $result = array();
+       foreach($siteLanguages as $lang)
+       {
+       if(in_array($lang['language_identificator'], $config))
+       {
+        $result[$lang['id']] = $lang;
+       }
+       }
+       return $result;
     }
 }

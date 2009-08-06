@@ -84,6 +84,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         umask(0);
     }
     
+    /**
+    * Load system configuration
+    */
+    protected function _initConfiguration()
+    {
+        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
+        if ('development' === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
+        }
+        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
+        }
+        App::addConfig($options);
+    }
+    
     /*
     * Website language and locale setup
     */
@@ -110,22 +125,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         $this->_language_identificator = (in_array(App::i18n()->getLocale()->getLanguage(), $languages['identificator'])) ? App::i18n()->getLocale()->getLanguage() : $default_language_identificator;
         
-    }
-
-    /**
-    * Load system configuration
-    */
-    protected function _initConfiguration()
-    {
-        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-        if ('development' === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')) {
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
-        }
-        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
-        }
-        $options->setReadOnly();
-        App::setConfig($options);
     }
 
     /**
