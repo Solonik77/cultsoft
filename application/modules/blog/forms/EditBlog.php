@@ -10,14 +10,19 @@ class Blog_Form_EditBlog extends App_Form {
     public function compose()
     {
         $this->setAction('');
-        $siteLang = App::i18n()->getSiteLanguages();
-        foreach($siteLang as $lang) {
+        $siteLang = App::i18n()->getModuleLanguages();
+        if(count($siteLang) > 0) {
+        foreach($siteLang as $lang)
+		{
             $title = $this->createElement('text', 'langid_' . $lang['id'] . '_title', array('maxlength' => 100))->setLabel('Title');
             $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
             $description = $this->createElement('textarea', 'langid_' . $lang['id'] . '_description', array('label' => 'Description' , 'rows' => '2'));
             $description->addValidator('StringLength', false, array(3 , 255))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
             $this->addElement($title)->addElement($description);
             $this->addDisplayGroup(array('langid_' . $lang['id'] . '_title' , 'langid_' . $lang['id'] . '_description'), $lang['id'] . '_content', array("legend" => __($lang['name'])));
+        }
+        } else {
+       // @todo Show error message
         }
         $fancy_url = $this->createElement('text', 'fancy_url')->setLabel('Fancy url');
         $fancy_url->addValidator('stringLength', false, array(1 , 100));

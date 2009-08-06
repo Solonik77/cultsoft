@@ -75,10 +75,12 @@ final class App {
     /**
     * Set configuration
     */
-    public static function setConfig(Zend_Config $object)
+    public static function addConfig(Zend_Config $object)
     {
         if (App::$config === null) {
             App::$config = $object;
+        } else {
+          App::$config->merge($object);
         }
     }
 
