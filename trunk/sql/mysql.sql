@@ -1,8 +1,8 @@
 /*
 SQLyog Community Edition- MySQL GUI v5.27
-Host - 5.1.36-community-log : Database - zfapp
+Host - 5.1.35-community : Database - zfapp
 *********************************************************************
-Server version : 5.1.36-community-log
+Server version : 5.1.35-community
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -48,6 +48,7 @@ CREATE TABLE `prefix_acl_roles_resources` (
   `id` int(11) unsigned NOT NULL,
   `resource_id` int(11) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
+  `is_allow` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
