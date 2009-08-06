@@ -50,9 +50,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
         try {
-            $this->_initEnvironment();
-            $this->_initInternationalization();
+            $this->_initEnvironment();            
             $this->_initDatabase();
+            $this->_initInternationalization();
             $this->_initDate();
             $this->_initSession();
             $this->_initRoutes();

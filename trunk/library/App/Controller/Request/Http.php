@@ -16,7 +16,7 @@ class App_Controller_Request_Http extends Zend_Controller_Request_Http {
     public function getI18N($langId = null)
     {
         $post = $this->getPost();
-        $siteLanguages = App::siteLanguages();
+        $siteLanguages = App::i18n();
         $i18n = array();
         foreach($post as $key => $value) {
             if (substr($key, 0, 7) == 'langid_') {

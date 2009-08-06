@@ -23,8 +23,6 @@ final class App {
     protected static $log = null;
     // Base URI
     protected static $base_uri = '';
-    // Website languages
-    protected static $site_languages = array();
 
     /**
     * Return application configuration
@@ -171,30 +169,6 @@ final class App {
         return DIRECTORY_SEPARATOR === '\\';
     }
 
-    /**
-    * Website languages
-    */
-    public static function siteLanguages()
-    {
-        $site_languages = self::$site_languages;
-        if (count($site_languages) > 0) {
-            return $site_languages;
-        }
-        $cache = App_Cache::getInstance('permCache');
-        if (! $site_languages = $cache->load('website_languages')) {
-            $site_languages = new Main_Model_DbTable_Site_Languages();
-            $site_languages = $site_languages->fetchAll()->toArray();
-            if (count($site_languages) > 0) {
-                $cache->save($site_languages);
-            }
-        }
-        $data = array();
-        foreach($site_languages as $key => $value) {
-            $data[$value['id']] = $value;
-        }
-        self::$site_languages = $data;
-        return self::$site_languages;
-    }
 }
 
 /**
