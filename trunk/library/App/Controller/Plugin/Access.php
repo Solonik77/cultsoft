@@ -16,7 +16,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     */
     public function __construct()
     {
-        $this->_acl = App_Acl::getInstance();
+        $this->_acl = App_Member::getInstance()->getAcl();
     }
 
     public function preDispatch(Zend_Controller_Request_Abstract $request)
