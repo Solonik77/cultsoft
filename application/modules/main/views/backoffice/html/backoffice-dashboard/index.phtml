@@ -81,6 +81,12 @@ echo __('Disable functions')?></th>
 echo ($this->disable_functions) ? $this->disable_functions : __('unavailable')?></td>
 	</tr>
 	<tr>
+    <th><?php
+echo __('Mbstring extention')?></th>
+		<td><?php
+echo ($this->mbstring_ext) ? __('available') : __('unavailable')?></td>
+	</tr>    
+	<tr>
 		<th><?php
 echo __('Zlib extention')?></th>
 		<td><?php
