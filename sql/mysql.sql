@@ -205,7 +205,8 @@ DROP TABLE IF EXISTS `prefix_settings`;
 
 CREATE TABLE `prefix_settings` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `setting_name` varchar(255) NOT NULL default '',
+  `module` varchar(255) default NULL,
+  `setting_name` varchar(255) NOT NULL,
   `setting_value` text,
   PRIMARY KEY  (`id`,`setting_name`),
   KEY `setting_name` (`setting_name`)
