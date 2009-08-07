@@ -1,8 +1,8 @@
 /*
 SQLyog Community Edition- MySQL GUI v5.27
-Host - 5.1.35-community : Database - zfapp
+Host - 5.1.36-community-log : Database - zfapp
 *********************************************************************
-Server version : 5.1.35-community
+Server version : 5.1.36-community-log
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -17,12 +17,14 @@ Server version : 5.1.35-community
 DROP TABLE IF EXISTS `prefix_acl_resources`;
 
 CREATE TABLE `prefix_acl_resources` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `resource` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `prefix_acl_resources` */
+
+insert  into `prefix_acl_resources`(`id`,`resource`) values (1,'main_admindashboard');
 
 /*Table structure for table `prefix_acl_roles` */
 
@@ -45,14 +47,16 @@ insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`) values (1
 DROP TABLE IF EXISTS `prefix_acl_roles_resources`;
 
 CREATE TABLE `prefix_acl_roles_resources` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   `is_allow` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `prefix_acl_roles_resources` */
+
+insert  into `prefix_acl_roles_resources`(`id`,`resource_id`,`role_id`,`is_allow`) values (1,1,1,1);
 
 /*Table structure for table `prefix_blog` */
 
@@ -201,8 +205,6 @@ CREATE TABLE `prefix_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_session` */
-
-insert  into `prefix_session`(`id`,`modified`,`lifetime`,`user_agent`,`data`) values ('s5o7g138rg7r6scj64edv1dv74',1249575188,1440,'Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 FirePHP/0.3','ZFDebug_Time|a:1:{s:4:\"data\";a:1:{s:4:\"main\";a:2:{s:7:\"profile\";a:1:{s:6:\"signin\";a:4:{i:0;d:1011.6460323333740234375;i:1;d:1011.6779804229736328125;i:2;d:661.54003143310546875;i:3;d:661.571979522705078125;}}s:19:\"backofficeDashboard\";a:1:{s:5:\"index\";a:4:{i:0;d:1103.56807708740234375;i:1;d:1103.5969257354736328125;i:2;d:550.4629611968994140625;i:3;d:550.4939556121826171875;}}}}}__ZF|a:1:{s:39:\"Zend_Form_Element_Hash_unique_csrf_hash\";a:1:{s:3:\"ENT\";i:1249575431;}}Zend_Auth|a:1:{s:7:\"storage\";O:8:\"stdClass\":3:{s:2:\"id\";i:1;s:7:\"role_id\";i:1;s:5:\"email\";s:17:\"admin@example.com\";}}');
 
 /*Table structure for table `prefix_site_languages` */
 

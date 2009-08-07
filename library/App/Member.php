@@ -29,7 +29,7 @@ class App_Member {
     */
     public function __construct()
     {
-        if (App_Member::$instance === null) {            
+        if (App_Member::$instance === null) {
             $this->_model = new Main_Model_DbTable_Members();
             $this->_acl = new App_Acl();
             if (App_Member::getAuth()->hasIdentity()) {
@@ -57,7 +57,7 @@ class App_Member {
     {
         $data = $this->_model->getDataByID($id);
         $data = (object) $data->toArray();
-        $roles = App_Cache::getInstance()->getAclRoles();
+        $roles = $this->getAcl()->getRoles();
         foreach($roles as $role) {
             if ($role['id'] === $data->role_id) {
                 $data->role = $role['role'];
@@ -109,7 +109,7 @@ class App_Member {
     {
         return $this->_data;
     }
-    
+
     public function getAcl()
     {
         return $this->_acl;
