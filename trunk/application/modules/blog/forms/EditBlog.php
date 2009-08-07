@@ -31,11 +31,10 @@ class Blog_Form_EditBlog extends App_Form {
         $type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)')))->setValue($this->_type);
         $this->addElement($type);
         $this->addElement('hash', 'csrf_hash', array('salt' => 'unique'));
-        $span = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'label')));
 
-        $this->addElement($this->createElement('submit', 'save_blog')->setLabel('Save')->setDecorators($span));
+        $this->addElement($this->createElement('submit', 'save_blog')->setLabel('Save')->setDecorators($this->decoratorSpan));
         if (App::front()->getRequest()->getParam('id')) {
-            $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($span));
+            $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($this->decoratorSpan));
         }
         return $this;
     }
