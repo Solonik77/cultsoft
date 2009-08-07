@@ -42,10 +42,12 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
             return;
         }
         $role = App_Member::getInstance()->getRole();
+
         if (! $role) {
             $role = 'guest';
         }
-        $resource = 'module_' . $request->getModuleName() . '_controller_' . $request->getControllerName();
+        $resource = strtolower($request->getModuleName() . '_' . $request->getControllerName());
+
         if ($this->_acl->has($resource)) {
             if (! $this->_acl->isAllowed($role, $resource)) {
                 Zend_Registry::set('member_access', 'ACCESS_DENY');

@@ -24,7 +24,7 @@ CREATE TABLE `prefix_acl_resources` (
 
 /*Data for the table `prefix_acl_resources` */
 
-insert  into `prefix_acl_resources`(`id`,`resource`) values (1,'main_admindashboard');
+insert  into `prefix_acl_resources`(`id`,`resource`) values (1,'main_backofficedashboard');
 
 /*Table structure for table `prefix_acl_roles` */
 
