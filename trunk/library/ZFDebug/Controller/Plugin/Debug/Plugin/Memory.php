@@ -62,7 +62,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     public function getTab()
     {
         if (function_exists('memory_get_peak_usage')) {
-            return round(memory_get_peak_usage() / 1024) . 'K of ' . ini_get("memory_limit");
+            return round(memory_get_peak_usage() / 1024 / 1024, 2) . 'Mb of ' . ini_get("memory_limit");
         }
         return 'MemUsage n.a.';
     }
