@@ -32,8 +32,12 @@ class App_I18n {
     {
         $this->translator = $object;
         Zend_Validate_Abstract::setDefaultTranslator($this->translator);
-        Zend_Form::setDefaultTranslator($this->translator);
-        Zend_Form::setDefaultTranslator($this->translator);
+        $formTranslate = APPLICATION_PATH . 'modules/main/i18n/' . App::front()->getRequest()->getParam('requestLang') . '.php';        
+        if(file_exists($formTranslate) and is_readable($formTranslate)) {
+            Zend_Form::setDefaultTranslator(new Zend_Translate_Adapter_Array($formTranslate));
+        } else {
+            Zend_Form::setDefaultTranslator($this->translator);
+        }
         Zend_Controller_Router_Route::setDefaultTranslator($this->translator);
     }
 
