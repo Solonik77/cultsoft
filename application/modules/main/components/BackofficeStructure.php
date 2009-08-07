@@ -13,7 +13,10 @@ class Main_Component_BackofficeStructure {
 
     public function getTopMenu()
     {
-        return array(array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Dashboard')) , array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog') , 'pages' => array(array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'new-blog' , 'label' => __('Create blog')) , array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'manage-blogs' , 'label' => __('Manage blogs')))));
+        return array(array('module' => 'system' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Dashboard')) , array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog') , 'pages' => array(
+                    array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'manage-blogs' , 'label' => __('Manage blogs')),
+                    array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'new-blog' , 'label' => __('Create blog')) ,
+                    )));
     }
 
     public function getFooterMenu()
