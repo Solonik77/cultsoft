@@ -7,7 +7,8 @@
 * @license http://cultsoft.org.ua/engine/license.html
 */
 class App_Form extends Zend_Form {
-    /**
+    public $decoratorSpan;
+	/**
     * Contructor
     *
     * @return Zend_Form object
@@ -17,6 +18,7 @@ class App_Form extends Zend_Form {
         parent::__construct($options);
         $this->addPrefixPath('App_Form_Element', 'App/Form/Element/', 'element');
         $this->setMethod('post');
+        $this->decoratorSpan = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'label')));
     }
 
     /**

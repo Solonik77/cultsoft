@@ -27,6 +27,17 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function indexAction()
     {
+        $searchBlogFrom = new Blog_Form_Simple_Search_Blog;
+        if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+            $searchBlogFrom->populate ($formData);
+            if (! $searchBlogFrom->isValid ($formData)) {
+                // Errors in input data
+                $this->view->searchBlogFrom = $searchBlogFrom;
+                return $this->render();
+            }
+        }
+        $this->view->searchBlogFrom = $searchBlogFrom;
     }
 
     /**
