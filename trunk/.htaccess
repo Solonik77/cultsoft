@@ -20,7 +20,7 @@ AddDefaultCharset UTF-8
     php_flag suhosin.session.cryptua off
     php_flag zend.ze1_compatibility_mode Off
     php_value short_open_tag On
-    php_value mbstring.func_overload  7
+    php_value mbstring.func_overload  0
     php_value default_charset         UTF-8
     php_value mbstring.language       Russian
     php_value mbstring.internal_encoding      UTF-8

@@ -37,6 +37,7 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
         $this->view->file_uploads = $sys_info->isFileUploadsOn();
         $this->view->xml_ext = $sys_info->isPHPExtensionLoded('xml');
         $this->view->zlib_ext = $sys_info->isPHPExtensionLoded('zlib');
+        $this->view->mbstring_ext = $sys_info->isPHPExtensionLoded('mbstring');
         $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
         $this->view->os_version = $sys_info->getOsVersion();
     }
