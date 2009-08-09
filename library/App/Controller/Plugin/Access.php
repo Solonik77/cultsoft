@@ -27,7 +27,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
         if (($className) and ! class_exists($className, false)) {
             $fileSpec = App::front()->getDispatcher()->classToFilename($className);
             $dispatchDir = App::front()->getDispatcher()->getDispatchDirectory();
-            $test = $dispatchDir . DIRECTORY_SEPARATOR . $fileSpec;
+            $test = $dispatchDir . DS . $fileSpec;
             if (Zend_Loader::isReadable($test)) {
                 include_once $test;
                 $class = new Zend_Reflection_Class($request->getModuleName() . '_' . $request->getControllerName() . 'Controller');

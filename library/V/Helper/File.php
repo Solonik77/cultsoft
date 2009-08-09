@@ -154,7 +154,7 @@ class V_Helper_File {
             $entries = scandir($path);
             foreach($entries as $entry) {
                 if ($entry != '.' && $entry != '..') {
-                    self::deleteTree($path . DIRECTORY_SEPARATOR . $entry);
+                    self::deleteTree($path . DS . $entry);
                 }
             }
             @rmdir($path);
@@ -170,8 +170,8 @@ class V_Helper_File {
     {
         if (is_dir($dir) && is_writable($dir)) {
             if (! App::isWin()) {
-                $dir = ltrim($dir, DIRECTORY_SEPARATOR);
-                $file = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
+                $dir = ltrim($dir, DS);
+                $file = $dir . DS . uniqid(mt_rand()) . '.tmp';
                 $exist = file_exists($file);
                 $fp = @fopen($file, 'a');
                 if ($fp === false) {
