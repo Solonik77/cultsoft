@@ -60,3 +60,44 @@
 "in ascending order":"в прямом порядке"
 "in descending order":"в обратном порядке"
 "off";"отключен"
+
+notAlnum;Введенное значение "%value%" неправильное. Разрешены только латинские символы и цифры
+stringEmpty;Поле не может быть пустым. Заполните его, пожалуйста
+notAlpha;Введите в это поле только латинские символы
+invalid;"%value% неправильный EAN-13 штрих-код
+invalidLength;Неправильное значение "%value%". Введите 13 символов
+notBetween;"%value%" не находится между "%min%" и "%max%", включительно
+notBetweenStrict;"%value%" не находится строго между "%min%" и "%max%"
+ccnumLength;"%value%" должно быть численным значением от 13 до 19 цифр длинной
+ccnumChecksum;Подсчёт контрольной суммы неудался. Значение "%value%" неверно
+dateNotYYYY-MM-DD;"%value%" не подходит под формат год-месяц-день(напр. 2008-11-03)
+dateInvalid;"%value%" - неверная дата
+dateFalseFormat;"%value%" - не подходит по формату
+notDigits;Значение "%value%" неправильное. Введите только цифры
+emailAddressInvalid;"%value%" неправильный адрес електронной почты. Введите его в формате имя@домен
+emailAddressInvalidHostname;"%hostname%" неверный домен для адреса "%value%"
+emailAddressInvalidMxRecord;Домен "%hostname%" не имеет MX-записи об адресе "%value%"
+emailAddressDotAtom;"%localPart%" не соответствует формату dot-atom
+emailAddressQuotedString;"%localPart%" не соответствует формату указанной строки
+emailAddressInvalidLocalPart;"%localPart%" не правильное имя для адреса "%value%", вводите адрес вида имя@домен
+notFloat;"%value%" не является дробным числом
+notGreaterThan;"%value%" не превышает "%min%"
+notHex;"%value%" содержит в себе не только шестнадцатеричные символы
+hostnameIpAddressNotAllowed;"%value%" - это IP-адрес, но IP-адреса не разрешены 
+hostnameUnknownTld;"%value%" - это DNS имя хоста, но оно не дожно быть из TLD-списка
+hostnameDashCharacter;"%value%" - это DNS имя хоста, но знак "-" находится в неправильном месте
+hostnameInvalidHostnameSchema;"%value%" - это DNS имя хоста, но оно не соответствует TLD для TLD "%tld%"
+hostnameUndecipherableTld;"%value%" - это DNS имя хоста. Не удаётся извлечь TLD часть
+hostnameInvalidHostname;"%value%" - не соответствует ожидаемой структуре для DNS имени хоста
+hostnameInvalidLocalName;"%value%" - адрес является недопустимым локальным сетевым адресом
+hostnameLocalNameNotAllowed;"%value%" - адрес является сетевым расположением, но локальные сетевые адреса не разрешены
+notSame;Значения не совпадают
+missingToken;Не было введено значения для проверки на идентичность
+notInArray;"%value%" не найдено в перечисленных допустимых значениях
+notInt;"%value%" не является целочисленным значением
+notIpAddress;"%value%" не является правильным IP-адресом
+notLessThan;"%value%" не меньше, чем "%max%"
+isEmpty;Введённое значение пустое, заполните поле, пожалуйста
+regexNotMatch;Значение "%value%" не подходит под шаблон регулярного выражения "%pattern%"
+stringLengthTooShort;Длина введённого значения "%value%", меньше чем %min% симв.
+stringLengthTooLong;Длина введённого значения "%value%", больше чем %max% симв.
