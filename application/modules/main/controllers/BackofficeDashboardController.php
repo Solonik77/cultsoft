@@ -41,4 +41,11 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
         $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
         $this->view->os_version = $sys_info->getOsVersion();
     }
+
+    public function settingsAction()
+    {
+        $model = new Main_Model_SettingsService();
+        $settings = $model->getSettings()->toArray();
+        $this->view->settingsForm = new Main_Form_Backoffice_Settings($settings);
+    }
 }
