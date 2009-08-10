@@ -205,14 +205,18 @@ DROP TABLE IF EXISTS `prefix_settings`;
 
 CREATE TABLE `prefix_settings` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `module` varchar(255) default NULL,
-  `setting_name` varchar(255) NOT NULL,
+  `setting_name` varchar(255) default NULL,
+  `setting_description` text,
+  `setting_key` varchar(255) NOT NULL,
   `setting_value` text,
-  PRIMARY KEY  (`id`,`setting_name`),
-  KEY `setting_name` (`setting_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `module` varchar(255) NOT NULL default 'main',
+  PRIMARY KEY  (`id`,`setting_key`),
+  KEY `setting_name` (`setting_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_settings` */
+
+insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'Default language id',NULL,'languages.default_id','1','main');
 
 /*Table structure for table `prefix_site_languages` */
 
