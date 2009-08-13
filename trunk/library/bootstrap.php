@@ -32,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         parent::__construct($application);
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('App_');
-        $autoloader->registerNamespace('V_');
+        $autoloader->registerNamespace('Vendor_');
         if ('development' === APPLICATION_ENV) {
             $autoloader->registerNamespace('ZFDebug_');
         }
