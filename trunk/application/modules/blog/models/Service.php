@@ -24,14 +24,14 @@ class Blog_Model_Service {
         $blogId = $requestId = App::front()->getRequest()->getParam('id');
         App::db()->beginTransaction();
         try {
-            $commonData = array('fancy_url' => V_Helper_Text::fancy_url((! empty($post['fancy_url'])) ? $post['fancy_url'] : $default_i18n['title']) , 'type' => $post['type']);
+            $commonData = array('fancy_url' => Vendor_Helper_Text::fancy_url((! empty($post['fancy_url'])) ? $post['fancy_url'] : $default_i18n['title']) , 'type' => $post['type']);
             if ($blogId) {
                 // Update common data for blog
-                $commonData['updated'] = V_Helper_Date::now();
+                $commonData['updated'] = Vendor_Helper_Date::now();
                 $this->_blog->update($commonData, 'id = ' . intval($blogId));
             } else {
                 // Save common data for blog
-                $commonData['created'] = $commonData['updated'] = V_Helper_Date::now();
+                $commonData['created'] = $commonData['updated'] = Vendor_Helper_Date::now();
                 $blogId = $this->_blog->insert($commonData);
                 // Save blog member
                 $this->_blog_member->insert(

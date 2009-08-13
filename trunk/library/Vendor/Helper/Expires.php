@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Expires {
+class Vendor_Helper_Expires {
     /**
     * Sets the amount of time before a page expires
     *
@@ -20,7 +20,7 @@ class V_Helper_Expires {
     */
     public static function set($seconds = 60)
     {
-        if (V_Helper_Expires::check_headers()) {
+        if (Vendor_Helper_Expires::check_headers()) {
             $now = $expires = time();
             // Set the expiration timestamp
             $expires += $seconds;
@@ -41,7 +41,7 @@ class V_Helper_Expires {
     */
     public static function check($seconds = 60)
     {
-        if (! empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) and V_Helper_Expires::check_headers()) {
+        if (! empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) and Vendor_Helper_Expires::check_headers()) {
             if (($strpos = strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], ';')) !== false) {
                 // IE6 and perhaps other IE versions send length too, compensate here
                 $mod_time = substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, $strpos);

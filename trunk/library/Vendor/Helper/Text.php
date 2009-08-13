@@ -12,7 +12,7 @@ require_once LIBRARY_PATH . 'App/UTF8.php';
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Text {
+class Vendor_Helper_Text {
     /**
     * Limits a phrase to a given number of words.
     *

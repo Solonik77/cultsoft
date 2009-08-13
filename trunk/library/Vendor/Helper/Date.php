@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Date {
+class Vendor_Helper_Date {
     /**
     * Converts a UNIX timestamp to DOS format.
     *
@@ -107,7 +107,7 @@ class V_Helper_Date {
         // we choose to re-use seconds(), rather than creating an entirely new
         // function. Shhhh, it's cheating! ;) There are several more of these
         // in the following methods.
-        return V_Helper_Date::seconds($step);
+        return Vendor_Helper_Date::seconds($step);
     }
 
     /**
@@ -208,7 +208,7 @@ class V_Helper_Date {
     */
     public static function months()
     {
-        return V_Helper_Date::hours();
+        return Vendor_Helper_Date::hours();
     }
 
     /**
@@ -304,7 +304,7 @@ class V_Helper_Date {
     */
     public static function timespan_string($time1, $time2 = null, $output = 'years,months,weeks,days,hours,minutes,seconds')
     {
-        if ($difference = V_Helper_Date::timespan($time1, $time2, $output) and is_array($difference)) {
+        if ($difference = Vendor_Helper_Date::timespan($time1, $time2, $output) and is_array($difference)) {
             // Determine the key of the last item in the array
             $last = end($difference);
             $last = key($difference);

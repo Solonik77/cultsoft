@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Cookie {
+class Vendor_Helper_Cookie {
     /**
     * Sets a cookie with the given parameters.
     *
@@ -70,6 +70,6 @@ class V_Helper_Cookie {
         // Delete the cookie from globals
         unset($_COOKIE[$name]);
         // Sets the cookie value to an empty string, and the expiration to 24 hours ago
-        return V_Helper_Cookie::set($name, '', - 86400, $path, $domain, false, false);
+        return Vendor_Helper_Cookie::set($name, '', - 86400, $path, $domain, false, false);
     }
 } // End cookie

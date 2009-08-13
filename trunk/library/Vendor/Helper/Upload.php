@@ -12,7 +12,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Upload {
+class Vendor_Helper_Upload {
     /**
     * Save an uploaded file to a new location.
     *

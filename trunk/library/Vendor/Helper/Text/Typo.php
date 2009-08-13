@@ -61,7 +61,7 @@ index.php или .htaccess
 0.9
 + Первый бета-релиз
 */
-class V_Helper_Text_Typo extends V_Helper_Text {
+class Vendor_Helper_Text_Typo extends Vendor_Helper_Text {
     const PRINATABLE = 0x1;
     const ALPHA = 0x2;
     const LAT = 0x4;
