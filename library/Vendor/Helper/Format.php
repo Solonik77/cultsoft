@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Format {
+class Vendor_Helper_Format {
     /**
     * Formats a phone number according to the specified format.
     *

@@ -7,7 +7,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-require_once 'V/Helper/Html.php';
+require_once 'Vendor/Helper/Html.php';
 class App_Exception extends Zend_Exception {
     /**
     * Creates a new exception.
@@ -111,9 +111,9 @@ class App_Exception extends Zend_Exception {
                     if ($file_line >= $start_line) {
                         if ($file_line === $line) {
                             // Wrap the text of this line in <span> tags, for highlighting
-                            $read_line = '<span>' . v_helper_html::specialchars($read_line) . '</span>';
+                            $read_line = '<span>' . Vendor_Helper_html::specialchars($read_line) . '</span>';
                         } else {
-                            $read_line = v_helper_html::specialchars($read_line);
+                            $read_line = Vendor_Helper_html::specialchars($read_line);
                         }
                         $source .= $read_line;
                     }
@@ -183,7 +183,7 @@ class App_Exception extends Zend_Exception {
                             // Sanitize path
                             $arg = $this->debug_path($arg);
                         }
-                        $args[] = '<code>' . V_Helper_Text::limit_chars(v_helper_html::specialchars(self::debug_var($arg)), 50, '...') . '</code>';
+                        $args[] = '<code>' . Vendor_Helper_Text::limit_chars(Vendor_Helper_html::specialchars(self::debug_var($arg)), 50, '...') . '</code>';
                     }
                 }
                 $line[] = implode(', ', $args) . ($inline ? '' : ')');

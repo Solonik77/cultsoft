@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class V_Helper_Inflector {
+class Vendor_Helper_Inflector {
     // Cached inflections
     protected static $cache = array();
     // Uncountable and irregular words
@@ -26,13 +26,13 @@ class V_Helper_Inflector {
     */
     public static function uncountable($str)
     {
-        if (V_Helper_Inflector::$uncountable === null) {
+        if (Vendor_Helper_Inflector::$uncountable === null) {
             // Cache uncountables
-            V_Helper_Inflector::$uncountable = Kohana::config('inflector.uncountable');
+            Vendor_Helper_Inflector::$uncountable = Kohana::config('inflector.uncountable');
             // Make uncountables mirroed
-            V_Helper_Inflector::$uncountable = array_combine(V_Helper_Inflector::$uncountable, V_Helper_Inflector::$uncountable);
+            Vendor_Helper_Inflector::$uncountable = array_combine(Vendor_Helper_Inflector::$uncountable, Vendor_Helper_Inflector::$uncountable);
         }
-        return isset(V_Helper_Inflector::$uncountable[strtolower($str)]);
+        return isset(Vendor_Helper_Inflector::$uncountable[strtolower($str)]);
     }
 
     /**
@@ -55,15 +55,15 @@ class V_Helper_Inflector {
             return $str;
         // Cache key name
         $key = 'singular_' . $str . $count;
-        if (isset(V_Helper_Inflector::$cache[$key]))
-            return V_Helper_Inflector::$cache[$key];
-        if (V_Helper_Inflector::uncountable($str))
-            return V_Helper_Inflector::$cache[$key] = $str;
-        if (empty(V_Helper_Inflector::$irregular)) {
+        if (isset(Vendor_Helper_Inflector::$cache[$key]))
+            return Vendor_Helper_Inflector::$cache[$key];
+        if (Vendor_Helper_Inflector::uncountable($str))
+            return Vendor_Helper_Inflector::$cache[$key] = $str;
+        if (empty(Vendor_Helper_Inflector::$irregular)) {
             // Cache irregular words
-            V_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
+            Vendor_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
         }
-        if ($irregular = array_search($str, V_Helper_Inflector::$irregular)) {
+        if ($irregular = array_search($str, Vendor_Helper_Inflector::$irregular)) {
             $str = $irregular;
         } elseif (preg_match('/[sxz]es$/', $str) or preg_match('/[^aeioudgkprt]hes$/', $str)) {
             // Remove "es"
@@ -73,7 +73,7 @@ class V_Helper_Inflector {
         } elseif (substr($str, - 1) === 's' and substr($str, - 2) !== 'ss') {
             $str = substr($str, 0, - 1);
         }
-        return V_Helper_Inflector::$cache[$key] = $str;
+        return Vendor_Helper_Inflector::$cache[$key] = $str;
     }
 
     /**
@@ -95,16 +95,16 @@ class V_Helper_Inflector {
             return $str;
         // Cache key name
         $key = 'plural_' . $str . $count;
-        if (isset(V_Helper_Inflector::$cache[$key]))
-            return V_Helper_Inflector::$cache[$key];
-        if (V_Helper_Inflector::uncountable($str))
-            return V_Helper_Inflector::$cache[$key] = $str;
-        if (empty(V_Helper_Inflector::$irregular)) {
+        if (isset(Vendor_Helper_Inflector::$cache[$key]))
+            return Vendor_Helper_Inflector::$cache[$key];
+        if (Vendor_Helper_Inflector::uncountable($str))
+            return Vendor_Helper_Inflector::$cache[$key] = $str;
+        if (empty(Vendor_Helper_Inflector::$irregular)) {
             // Cache irregular words
-            V_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
+            Vendor_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
         }
-        if (isset(V_Helper_Inflector::$irregular[$str])) {
-            $str = V_Helper_Inflector::$irregular[$str];
+        if (isset(Vendor_Helper_Inflector::$irregular[$str])) {
+            $str = Vendor_Helper_Inflector::$irregular[$str];
         } elseif (preg_match('/[sxz]$/', $str) or preg_match('/[^aeioudgkprt]h$/', $str)) {
             $str .= 'es';
         } elseif (preg_match('/[^aeiou]y$/', $str)) {
@@ -114,7 +114,7 @@ class V_Helper_Inflector {
             $str .= 's';
         }
         // Set the cache and return
-        return V_Helper_Inflector::$cache[$key] = $str;
+        return Vendor_Helper_Inflector::$cache[$key] = $str;
     }
 
     /**
