@@ -216,7 +216,7 @@ CREATE TABLE `prefix_settings` (
 
 /*Data for the table `prefix_settings` */
 
-insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(6,'',NULL,'cache_lifetime','7200','main'),(7,'',NULL,'session.remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(10,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main');
+insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(10,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main');
 
 /*Table structure for table `prefix_site_languages` */
 
