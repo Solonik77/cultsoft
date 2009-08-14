@@ -50,7 +50,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
         try {
-            $this->_initEnvironment();            
+            $this->_initEnvironment();
             $this->_initDatabase();
             $this->_initInternationalization();
             $this->_initDate();
@@ -83,7 +83,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         umask(0);
     }
-    
+
     /**
     * Load system configuration
     */
@@ -98,33 +98,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
         App::addConfig($options);
     }
-    
+
     /*
     * Website language and locale setup
     */
     protected function _initInternationalization()
     {
-            if (function_exists('date_default_timezone_set')) {
+        if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->project->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
             date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
         }
-        $languages = App::config()->languages->toArray();
-        $default_site_language_id = $languages['default_id'];
-        $default_site_locale = $languages['locale'][$default_site_language_id];
-        $default_language_identificator = $languages['identificator'][$default_site_language_id];
-        Zend_Locale::setDefault($default_language_identificator);
+
         $i18n = new App_I18n();
+        $languages = $i18n->getSiteLanguages();
+        $default_request_lang = 'en';
+        $default_site_locale = 'en_US';
+        foreach($languages as $lang) {
+            if ($lang['is_active'] and $lang['is_default'] > 0) {
+                $default_request_lang = $lang['request_lang'];
+                $default_site_locale = $lang['locale'];
+                break;
+            }
+        }
+
+        Zend_Locale::setDefault($default_request_lang);
+        $i18n->setLocale(new Zend_Locale($default_request_lang));
         App::setI18N($i18n);
-        try {
-            $i18n->setLocale(new Zend_Locale('auto'));          
-        }
-        catch(Zend_Locale_Exception $e) {
-            $i18n->setLocale(new Zend_Locale($default_language_identificator));           
-        }
-        $this->_language_identificator = (in_array(App::i18n()->getLocale()->getLanguage(), $languages['identificator'])) ? App::i18n()->getLocale()->getLanguage() : $default_language_identificator;
-        
+        $this->_language_identificator = $default_request_lang;
     }
 
     /**
@@ -261,19 +263,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(
-                    array('plugins' => array(
-                    'Auth' => array('user' => 'email', 'role' => 'role_id'),
-                    'Text',
-                    'Variables' ,
-                    'Database' => array('adapter' => array('standard' => App::db())) ,
-                    'File' => array('basePath' => APPLICATION_PATH) ,
-                    'Memory' ,
-                    'Html',                    
-                    'Time' ,
-                    'Registry' ,
-                    'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) ,
-                    'Exception'
-                    ))));
+                    array('plugins' => array('Auth' => array('user' => 'email', 'role' => 'role_id'),
+                            'Text',
+                            'Variables' ,
+                            'Database' => array('adapter' => array('standard' => App::db())) ,
+                            'File' => array('basePath' => APPLICATION_PATH) ,
+                            'Memory' ,
+                            'Html',
+                            'Time' ,
+                            'Registry' ,
+                            'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) ,
+                            'Exception'
+                            ))));
         }
     }
 
@@ -342,7 +343,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
-            }          
+            }
 
             $response->sendResponse();
             exit();

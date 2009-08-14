@@ -16,7 +16,11 @@ class Main_Form_Backoffice_Settings extends App_Form {
     public function setFields($array)
     {
         foreach($array as $setting) {
-            $field = $this->createElement('text', $setting["id"])->setLabel($setting["setting_name"])->setValue($setting['setting_value']);
+            $field = $this->createElement('text', 'id_' . $setting["id"])->setLabel($setting["setting_name"])->setValue($setting['setting_value']);
+            $field->addFilter('stringTrim')->addFilter('StripTags');
+            if (is_int($setting["id"])) {
+                $field->addValidator('int');
+            }
             $this->addElement($field);
         }
         return $this;
