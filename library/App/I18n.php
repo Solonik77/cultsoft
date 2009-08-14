@@ -32,7 +32,7 @@ class App_I18n {
     {
         $this->translator = $object;
         Zend_Validate_Abstract::setDefaultTranslator($this->translator);
-        Zend_Form::setDefaultTranslator($this->translator);        
+        Zend_Form::setDefaultTranslator($this->translator);
         Zend_Controller_Router_Route::setDefaultTranslator($this->translator);
     }
 
@@ -78,10 +78,10 @@ class App_I18n {
     {
         $module = ($module) ? $module : App::front()->getRequest()->getModuleName();
         $siteLanguages = $this->getSiteLanguages();
-        $config = App::config()->$module->languages->toArray();
+        $config = explode(',', App::config()->$module->languages);
         $result = array();
         foreach($siteLanguages as $lang) {
-            if (in_array($lang['language_identificator'], $config)) {
+            if (in_array($lang['request_lang'], $config)) {
                 $result[$lang['id']] = $lang;
             }
         }

@@ -16,29 +16,35 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
     {
-        $languages = App::config()->languages->toArray();
-        $default_site_language_id = $languages['default_id'];
-        $default_site_locale = $languages['locale'][$default_site_language_id];
-        $default_language_identificator = $languages['identificator'][$default_site_language_id];
-        $member_language_id = intval(App_Member::getInstance()->getField('language_id'));
-        $request_lang = $request->getParam('requestLang');
-        if (in_array($request_lang, $languages['identificator'])) {
-            $system_lang = $request_lang;
-            foreach($languages['identificator'] as $key => $value) {
-                if ($value == $system_lang) {
-                    $site_language_id = $key;
-                }
+        $languages = App::I18N()->getSiteLanguages();
+        $request_lang_id = 1;
+        $request_lang = 'en';
+        $site_locale = 'en_US';
+        foreach($languages as $lang) {
+            if ($lang['is_active'] and $lang['is_default'] > 0) {
+                $request_lang_id = $lang['id'];
+                $request_lang = $lang['request_lang'];
+                $site_locale = $lang['locale'];
+                break;
             }
-        } else {
-            $system_lang = $default_language_identificator;
-            $site_language_id = $default_site_language_id;
         }
+        $member_language_id = intval(App_Member::getInstance()->getField('language_id'));
+        $query_srting_request_lang = $request->getParam('requestLang');
+        foreach($languages as $lang) {
+            if ($lang['is_active'] and $lang['request_lang'] == $query_srting_request_lang) {
+                $request_lang_id = $lang['id'];
+                $request_lang = $lang['request_lang'];
+                $site_locale = $lang['locale'];
+                break;
+            }
+        }
+
         Zend_Translate::setCache(App_Cache::getInstance('File'));
-        $translate = new Zend_Translate('csv', APPLICATION_PATH . 'i18n/', $system_lang, array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
+        $translate = new Zend_Translate('csv', APPLICATION_PATH . 'i18n/', $site_locale, array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
         App::i18n()->setTranslator($translate);
-        Zend_Locale::setDefault($system_lang);
-        App::i18n()->setLocale(new Zend_Locale($default_language_identificator));
-        App::front()->setParam('requestLang', $system_lang);
-        App::front()->setParam('requestLangId', $site_language_id);
+        Zend_Locale::setDefault($site_locale);
+        App::i18n()->setLocale(new Zend_Locale($request_lang));
+        App::front()->setParam('requestLang', $request_lang);
+        App::front()->setParam('requestLangId', $request_lang_id);
     }
 }
