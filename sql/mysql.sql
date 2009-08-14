@@ -212,11 +212,11 @@ CREATE TABLE `prefix_settings` (
   `module` varchar(255) NOT NULL DEFAULT 'main',
   PRIMARY KEY (`id`,`setting_key`),
   KEY `setting_name` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_settings` */
 
-insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(10,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main');
+insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(11,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main'),(14,'',NULL,'image.adapter','GD','main'),(15,'',NULL,'image.params.directory','','main'),(16,'',NULL,'encryption.default.key','Z4eN7D+PHP_7hE-SW!FtFraM3w0R|<','main'),(17,'',NULL,'encryption.default.mode','MCRYPT_MODE_NOFB','main'),(18,'',NULL,'encryption.default.cipher','MCRYPT_RIJNDAEL_128','main');
 
 /*Table structure for table `prefix_site_languages` */
 
