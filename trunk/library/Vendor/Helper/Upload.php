@@ -34,11 +34,11 @@ class Vendor_Helper_Upload {
         $filename = preg_replace('/\s+/', '_', $filename);
         if ($directory === null) {
             // Use the pre-configured upload directory
-            $directory = App::config()->upload->directory;
+            $directory = STATIC_PATH . "uploads";
         }
         // Make sure the directory ends with a slash
         $directory = rtrim($directory, '/') . '/';
-        if (! is_dir($directory) and App::config()->upload->create_directories == true) {
+        if (! is_dir($directory)) {
             // Create the upload directory
             mkdir($directory, 0777, true);
         }
