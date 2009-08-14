@@ -39,7 +39,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $autoloader->setFallbackAutoloader(false);
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
         $this->_initConfiguration();
-        $classFileIncCache = App::config()->syspath->cache . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'Zend Framework')) . '.php';
+        $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'Zend Framework')) . '.php';
         if (file_exists($classFileIncCache)) {
             include_once $classFileIncCache;
         }
@@ -147,7 +147,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
-        $logger->addWriter(new Zend_Log_Writer_Stream(App::config()->syspath->log . "/system_log_" . date('Y-m-d') . '.log'));
+        $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/system_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
 
@@ -194,10 +194,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     protected function _initSession()
     {
-        Zend_Session::setOptions(App::config()->session->toArray());
-        if (App::config()->session_save_handler === 'db') {
-            Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
-        }
+		Zend_Session::setOptions(array(
+		'remember_me_seconds' => intval(App::config()->remember_me_seconds),
+		'save_path' => VAR_PATH . "session",
+'gc_probability' => 1,
+'gc_divisor' => 5000,
+'name' => "zfsession",
+'use_only_cookies' => 1
+));
+        Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));        
         Zend_Session::start();
     }
 

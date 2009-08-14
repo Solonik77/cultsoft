@@ -212,11 +212,11 @@ CREATE TABLE `prefix_settings` (
   `module` varchar(255) NOT NULL DEFAULT 'main',
   PRIMARY KEY (`id`,`setting_key`),
   KEY `setting_name` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_settings` */
 
-insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'Default language id',NULL,'languages.default_id','1','main'),(4,'',NULL,'languages.locale.1','ru_RU','main'),(5,'',NULL,'languages.identificator.1','ru','main'),(6,'',NULL,'languages.locale.2','en_US','main'),(7,'',NULL,'languages.identificator.2','en','main'),(8,'',NULL,'languages.project_title.1','Dev project','main'),(9,'',NULL,'languages.project_title.2','New Project','main'),(10,'',NULL,'project.template','simple','main'),(11,'',NULL,'project.email','info@example.com','main'),(12,'',NULL,'project.timezone','Europe/Helsinki','main'),(13,'',NULL,'cache_lifetime','7200','main'),(14,'',NULL,'syspath.cache','var/cache/system','main'),(15,'',NULL,'syspath.log','var/logs','main'),(16,'',NULL,'session_save_handler','db','main'),(17,'',NULL,'session.save_path','var/session','main'),(18,'',NULL,'session.gc_probability','1','main'),(19,'',NULL,'session.gc_divisor','5000','main'),(20,'',NULL,'session.name','zfsession','main'),(21,'',NULL,'session.use_only_cookies','on','main'),(22,'',NULL,'session.remember_me_seconds ','864000','main'),(23,'',NULL,'mail.transport','smtp','main'),(24,'',NULL,'mail.host','localhost','main'),(25,'',NULL,'mail.username','smtpuser','main'),(26,'',NULL,'mail.password','smtppassword','main'),(27,'',NULL,'mail.port','25','main'),(28,'',NULL,'mail.auth','','main');
+insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(6,'',NULL,'cache_lifetime','7200','main'),(7,'',NULL,'session.remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(10,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main');
 
 /*Table structure for table `prefix_site_languages` */
 
@@ -230,12 +230,13 @@ CREATE TABLE `prefix_site_languages` (
   `territory` varchar(8) DEFAULT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT '0',
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `project_title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_site_languages` */
 
-insert  into `prefix_site_languages`(`id`,`name`,`request_lang`,`locale`,`territory`,`is_default`,`is_active`) values (1,'U.S. English','en','en_US','US',0,1),(2,'Russian','ru','ru_RU','RU',1,1);
+insert  into `prefix_site_languages`(`id`,`name`,`request_lang`,`locale`,`territory`,`is_default`,`is_active`,`project_title`) values (1,'U.S. English','en','en_US','US',0,1,''),(2,'Russian','ru','ru_RU','RU',1,1,'');
 
 /*Table structure for table `prefix_site_structure` */
 
