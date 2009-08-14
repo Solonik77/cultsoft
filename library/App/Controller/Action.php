@@ -22,12 +22,12 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $doctypeHelper = new Zend_View_Helper_Doctype();
         // Set global HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');
-        $languages = App::config()->languages->toArray();
+        $languages =  App::I18N()->getSiteLanguages();
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first
         if (Zend_Registry::get('BACKOFFICE_CONTROLLER')) {
-            $this->view->headTitle(__('Control panel') . ' — ' . $languages['project_title'][$requestLangId]);
+            $this->view->headTitle(__('Control panel') . ' — ' . $languages[$requestLangId]['project_title']);
             $site_pages = new Main_Component_BackofficeStructure();
             $this->view->topMenu = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->footerMenu = new Zend_Navigation($site_pages->getFooterMenu());
@@ -41,7 +41,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             }
             $this->view->sidebarBlocks = $sidebarBlock;
         } else {
-            $this->view->headTitle($languages['project_title'][$requestLangId]);
+            $this->view->headTitle($languages[$requestLangId]['project_title']);
             $site_pages = new Main_Component_SiteStructure();
             $container = new Zend_Navigation($site_pages->getTopMenu());
             $this->view->navigation($container);
