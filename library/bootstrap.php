@@ -2,8 +2,6 @@
 /**
 * Application process control file, loaded by the front controller.
 *
-* $Id$
-*
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
@@ -71,6 +69,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     protected function _initEnvironment()
     {
+        if (version_compare(phpversion(), '5.3', '<') === true) {
+            echo  '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
+            exit;
+        }
         App_Utf8::clean_globals();
         App_Input::instance();
         ini_set('log_errors', true);
@@ -338,8 +340,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 }
                 // This header must be sent with compressed content to prevent
                 // browser caches from breaking
-                $response->setHeader('Vary',
-                    'Accept-Encoding');
+                $response->setHeader('Vary', 'Accept-Encoding');
                 // Send the content encoding header
                 $response->setHeader('Content-Encoding', $compress);
                 // Sending Content-Length in CGI can result in unexpected behavior
