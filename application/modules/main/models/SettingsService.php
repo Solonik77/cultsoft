@@ -4,7 +4,7 @@ class Main_Model_SettingsService {
 
     public function __construct()
     {
-        $this->db = App::db();
+
     }
 
     public function getRoutes()

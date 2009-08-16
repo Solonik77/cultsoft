@@ -138,8 +138,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         // Enable exception handling
         App_Exception::enable();
-        // Enable error handling
-        App_Exception_PHP::enable();
         $front = App::front();
         $front->throwExceptions(false);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'main' , 'controller' => 'error' , 'action' => 'error')));
@@ -194,15 +192,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     */
     protected function _initSession()
     {
-		Zend_Session::setOptions(array(
-		'remember_me_seconds' => intval(App::config()->remember_me_seconds),
-		'save_path' => VAR_PATH . "session",
-'gc_probability' => 1,
-'gc_divisor' => 5000,
-'name' => "zfsession",
-'use_only_cookies' => 1
-));
-        Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));        
+        Zend_Session::setOptions(array(
+                'remember_me_seconds' => intval(App::config()->remember_me_seconds),
+                'save_path' => VAR_PATH . "session",
+                'gc_probability' => 1,
+                'gc_divisor' => 5000,
+                'name' => "zfsession",
+                'use_only_cookies' => 1
+                ));
+        Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         Zend_Session::start();
     }
 

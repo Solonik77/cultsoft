@@ -8,7 +8,7 @@
 */
 class App_Form extends Zend_Form {
     public $decoratorSpan;
-	/**
+    /**
     * Contructor
     *
     * @return Zend_Form object

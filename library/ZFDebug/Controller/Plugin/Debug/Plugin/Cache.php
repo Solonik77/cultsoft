@@ -82,19 +82,19 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Cache extends ZFDebug_Controller_Pl
         // Support for APC
         if (function_exists('apc_sma_info') && ini_get('apc.enabled')) {
             $mem = apc_sma_info();
-            if(count($mem)){
-            $mem_size = $mem['num_seg'] * $mem['seg_size'];
-            $mem_avail = $mem['avail_mem'];
-            $mem_used = $mem_size - $mem_avail;
+            if (count($mem)) {
+                $mem_size = $mem['num_seg'] * $mem['seg_size'];
+                $mem_avail = $mem['avail_mem'];
+                $mem_used = $mem_size - $mem_avail;
 
-            $cache = apc_cache_info();
+                $cache = apc_cache_info();
 
-            $panel .= '<h4>APC ' . phpversion('apc') . ' Enabled</h4>';
-            $panel .= round($mem_avail / 1024 / 1024, 1) . 'M available, ' . round($mem_used / 1024 / 1024, 1) . 'M used' . $this->getLinebreak()
-             . $cache['num_entries'] . ' Files cached (' . round($cache['mem_size'] / 1024 / 1024, 1) . 'M)' . $this->getLinebreak()
-             . $cache['num_hits'] . ' Hits (' . round($cache['num_hits'] * 100 / ($cache['num_hits'] + $cache['num_misses']), 1) . '%)' . $this->getLinebreak()
-             . $cache['expunges'] . ' Expunges (cache full count)';
-             }
+                $panel .= '<h4>APC ' . phpversion('apc') . ' Enabled</h4>';
+                $panel .= round($mem_avail / 1024 / 1024, 1) . 'M available, ' . round($mem_used / 1024 / 1024, 1) . 'M used' . $this->getLinebreak()
+                 . $cache['num_entries'] . ' Files cached (' . round($cache['mem_size'] / 1024 / 1024, 1) . 'M)' . $this->getLinebreak()
+                 . $cache['num_hits'] . ' Hits (' . round($cache['num_hits'] * 100 / ($cache['num_hits'] + $cache['num_misses']), 1) . '%)' . $this->getLinebreak()
+                 . $cache['expunges'] . ' Expunges (cache full count)';
+            }
         }
 
         foreach ($this->_cacheBackends as $name => $backend) {

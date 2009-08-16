@@ -139,7 +139,7 @@ class Vendor_Helper_Request {
             // Don't accept anything by default
             $q = 0;
             // Look up relevant mime types
-            foreach((array) Kohana::config('mimes.' . $type) as $type) {
+            foreach((array) App::config('mimes.' . $type) as $type) {
                 $q2 = Vendor_Helper_Request::accepts_at_quality($type, $explicit_check);
                 $q = ($q2 > $q) ? $q2 : $q;
             }

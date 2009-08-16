@@ -57,7 +57,7 @@ class Vendor_Helper_File {
                 return trim(exec($command . ' -bi ' . escapeshellarg($filename)));
             }
         }
-        if (! empty($extension) and is_array($mime = Kohana::config('mimes.' . $extension))) {
+        if (! empty($extension) and is_array($mime = App::config('mimes.' . $extension))) {
             // Return the mime-type guess, based on the extension
             return $mime[0];
         }

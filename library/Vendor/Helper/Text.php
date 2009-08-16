@@ -348,7 +348,7 @@ class Vendor_Helper_Text {
     /**
     * Create fancy_url from string.
     *
-    * @param string
+    * @param string $
     * @return string
     */
     public static function fancy_url($var, $lower = true, $punkt = true)

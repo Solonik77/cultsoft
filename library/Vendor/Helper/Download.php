@@ -43,7 +43,7 @@ class Vendor_Helper_Download {
             $extension = strtolower(substr(strrchr($filename, '.'), 1));
         }
         // Get the mime type of the file
-        $mime = Kohana::config('mimes.' . $extension);
+        $mime = App::config('mimes.' . $extension);
         if (empty($mime)) {
             // Set a default mime if none was found
             $mime = array('application/octet-stream');
@@ -55,7 +55,7 @@ class Vendor_Helper_Download {
         header('Content-Length: ' . sprintf('%d', $filesize));
         // More caching prevention
         header('Expires: 0');
-        if (Kohana::user_agent('browser') === 'Internet Explorer') {
+        if (App_Exception::user_agent('browser') === 'Internet Explorer') {
             // Send IE headers
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
             header('Pragma: public');
