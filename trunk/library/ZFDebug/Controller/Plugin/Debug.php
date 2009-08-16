@@ -204,7 +204,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
         /**
         * Creating menu tab for all registered plugins
         */
-        
+
         foreach ($this->_plugins as $plugin) {
             $panel = $plugin->getPanel();
             if ($panel == '') {
@@ -214,7 +214,6 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
             /* @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface */
             $html .= '<div id="ZFDebug_' . $plugin->getIdentifier()
              . '" class="ZFDebug_panel">' . $panel . '</div>';
-        
         }
 
         $html .= '<div id="ZFDebug_info">';
@@ -222,7 +221,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
         /**
         * Creating panel content for all registered plugins
         */
-        
+
         foreach ($this->_plugins as $plugin) {
             $tab = $plugin->getTab();
             if ($tab == '') {
@@ -232,8 +231,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
             /* @var $plugin ZFDebug_Controller_Plugin_Debug_Plugin_Interface */
             $html .= '<span class="ZFDebug_span clickable" onclick="ZFDebugPanel(\'ZFDebug_' . $plugin->getIdentifier() . '\');">';
             $html .= '<img src="' . $this->_icon($plugin->getIdentifier()) . '" style="vertical-align:middle" alt="' . $plugin->getIdentifier() . '" title="' . $plugin->getIdentifier() . '"' . $this->getClosingBracket() . ' ';
-            $html .=  $tab . '</span>';
-            
+            $html .= $tab . '</span>';
         }
 
         $html .= '<span class="ZFDebug_span ZFDebug_last clickable" id="ZFDebug_toggler" onclick="ZFDebugSlideBar()">&#171;</span>';
@@ -291,7 +289,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
     protected function _getVersionPanel()
     {
         $panel = '<h4>ZFDebug v' . $this->_version . '</h4>' . '<p>©2008-2009 <a href="http://jokke.dk">Joakim Nygard</a> &amp; <a href="http://www.bangal.de">Andreas Pankratz</a></p>' . '<p>The project is hosted at <a href="http://code.google.com/p/zfdebug/">http://zfdebug.googlecode.com</a> and released under the BSD License' . $this->getLinebreak() . 'Includes images from the <a href="http://www.famfamfam.com/lab/icons/silk/">Silk Icon set</a> by Mark James</p>' . '<p>Disable ZFDebug temporarily by sending ZFDEBUG_DISABLE as a GET/POST parameter</p>';
-        $panel .= '<h4>Zend Framework '.Zend_Version::VERSION.' / PHP '.phpversion().' with extensions:</h4>';
+        $panel .= '<h4>Zend Framework ' . Zend_Version::VERSION . ' / PHP ' . phpversion() . ' with extensions:</h4>';
         $extensions = get_loaded_extensions();
         natcasesort($extensions);
         $panel .= implode('<br>', $extensions);
@@ -493,7 +491,7 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
     protected function _output($html)
     {
         static $run = 0;
-        if(!$run) {
+        if (!$run) {
             $response = $this->getResponse();
             $response->setBody(str_ireplace('</head>', $this->_headerOutput() . "\n</head>", $response->getBody()));
             $response->setBody(str_ireplace('</body>', '<div id="ZFDebug_debug">' . $html . '</div></body>', $response->getBody()));

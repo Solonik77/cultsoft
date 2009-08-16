@@ -57,8 +57,7 @@ final class App {
     */
     public static function log($message, $type = 1)
     {
-        if($type <= App::config()->system_log_threshold)
-        {
+        if ($type <= App::config()->system_log_threshold) {
             app::$log->log($message, $type);
         }
         return;
@@ -80,7 +79,7 @@ final class App {
         if (App::$config === null) {
             App::$config = $object;
         } else {
-          App::$config->merge($object);
+            App::$config->merge($object);
         }
     }
 
@@ -93,7 +92,7 @@ final class App {
             App::$log = $object;
         }
     }
-    
+
     /*
     * Set App Internationalization object
     */
@@ -164,13 +163,20 @@ final class App {
     }
 
     /**
+    * Is Platform running on CLI?
+    */
+    public static function isCli()
+    {
+        return (PHP_SAPI === 'cli');
+    }
+
+    /**
     * Is Platform running on Windows?
     */
     public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }
-
 }
 
 /**

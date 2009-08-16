@@ -31,7 +31,7 @@ class Vendor_Helper_Cookie {
         // If the name param is an array, we import it
         is_array($name) and extract($name, EXTR_OVERWRITE);
         // Fetch default options
-        $config = Kohana::config('cookie');
+        $config = App::config('cookie');
         foreach(array('value' , 'expire' , 'domain' , 'path' , 'secure' , 'httponly') as $item) {
             if ($$item === null and isset($config[$item])) {
                 $$item = $config[$item];

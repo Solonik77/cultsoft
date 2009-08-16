@@ -293,7 +293,6 @@ class App_Input {
         // +----------------------------------------------------------------------+
         // | Author: Christian Stocker <chregu@bitflux.ch>                        |
         // +----------------------------------------------------------------------+
-
         // Kohana Modifications:
         // * Changed double quotes to single quotes, changed indenting and spacing
         // * Removed magic_quotes stuff

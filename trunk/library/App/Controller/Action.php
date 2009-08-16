@@ -22,7 +22,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         $doctypeHelper = new Zend_View_Helper_Doctype();
         // Set global HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');
-        $languages =  App::I18N()->getSiteLanguages();
+        $languages = App::I18N()->getSiteLanguages();
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
         // Set localized project name in page title first

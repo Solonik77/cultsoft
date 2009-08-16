@@ -28,7 +28,7 @@ class Vendor_Helper_Inflector {
     {
         if (Vendor_Helper_Inflector::$uncountable === null) {
             // Cache uncountables
-            Vendor_Helper_Inflector::$uncountable = Kohana::config('inflector.uncountable');
+            Vendor_Helper_Inflector::$uncountable = App::config('inflector.uncountable');
             // Make uncountables mirroed
             Vendor_Helper_Inflector::$uncountable = array_combine(Vendor_Helper_Inflector::$uncountable, Vendor_Helper_Inflector::$uncountable);
         }
@@ -61,7 +61,7 @@ class Vendor_Helper_Inflector {
             return Vendor_Helper_Inflector::$cache[$key] = $str;
         if (empty(Vendor_Helper_Inflector::$irregular)) {
             // Cache irregular words
-            Vendor_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
+            Vendor_Helper_Inflector::$irregular = App::config('inflector.irregular');
         }
         if ($irregular = array_search($str, Vendor_Helper_Inflector::$irregular)) {
             $str = $irregular;
@@ -101,7 +101,7 @@ class Vendor_Helper_Inflector {
             return Vendor_Helper_Inflector::$cache[$key] = $str;
         if (empty(Vendor_Helper_Inflector::$irregular)) {
             // Cache irregular words
-            Vendor_Helper_Inflector::$irregular = Kohana::config('inflector.irregular');
+            Vendor_Helper_Inflector::$irregular = App::config('inflector.irregular');
         }
         if (isset(Vendor_Helper_Inflector::$irregular[$str])) {
             $str = Vendor_Helper_Inflector::$irregular[$str];

@@ -1,64 +1,171 @@
 <?php
-echo '<?xml version="1.0" encoding="UTF-8" ?>';
-echo $this->doctype();
+
+// Unique error identifier
+$error_id = uniqid('error');
 
 ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<?php
-echo $this->headTitle();
-echo $this->headLink();
-echo $this->headScript();
-echo $this->headStyle();
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Framework error</title>
+<style type="text/css">
+<?php if(APPLICATION_ENV == 'production'): ?>
+body {
+	font-size: 90%;
+	font-family: sans-serif;
+	line-height: 160%;
+	background: #eee;
+}
+#framework_error {
+	text-align: center;
+	background: #fff;
+}
+#framework_error h1 {
+	padding: 0.2em 1em;
+	margin: 0;
+	font-size: 0.9em;
+	font-weight: normal;
+	background: #cff292;
+	color: #911;
+}
+#framework_error p {
+	padding: 1em;
+	margin: 0;
+}
+<?php else: ?>
+#framework_error { background: #ddd; font-size: 1em; font-family:sans-serif; text-align: left; color: #111; }
+#framework_error h1,
+#framework_error h2 { margin: 0; padding: 1em; font-size: 1em; font-weight: normal; background: #911; color: #fff; }
+	#framework_error h1 a,
+	#framework_error h2 a { color: #fff; }
+#framework_error h2 { background: #222; }
+#framework_error h3 { margin: 0; padding: 0.4em 0 0; font-size: 1em; font-weight: normal; }
+#framework_error p { margin: 0; padding: 0.2em 0; }
+#framework_error a { color: #1b323b; }
+#framework_error pre { overflow: auto; white-space: pre-wrap; }
+#framework_error table { width: 100%; display: block; margin: 0 0 0.4em; padding: 0; border-collapse: collapse; background: #fff; }
+	#framework_error table td { border: solid 1px #ddd; text-align: left; vertical-align: top; padding: 0.4em; }
+#framework_error div.content { padding: 0.4em 1em 1em; overflow: hidden; }
+#framework_error pre.source { margin: 0 0 1em; padding: 0.4em; background: #fff; border: dotted 1px #b7c680; line-height: 1.2em; }
+	#framework_error pre.source span.line { display: block; }
+	#framework_error pre.source span.highlight { background: #f0eb96; }
+		#framework_error pre.source span.line span.number { color: #666; }
+#framework_error ol.trace { display: block; margin: 0 0 0 2em; padding: 0; list-style: decimal; }
+	#framework_error ol.trace li { margin: 0; padding: 0; }
+<?php endif; ?>
+</style>
+<?php if(APPLICATION_ENV != 'production'): ?>
+<script type="text/javascript">
+document.write('<style type="text/css"> .collapsed { display: none; } </style>');
+function koggle(elem)
+{
+	elem = document.getElementById(elem);
 
-?>
+	if (elem.style && elem.style['display'])
+		// Only works with the "style" attr
+		var disp = elem.style['display'];
+	else if (elem.currentStyle)
+		// For MSIE, naturally
+		var disp = elem.currentStyle['display'];
+	else if (window.getComputedStyle)
+		// For most other browsers
+		var disp = document.defaultView.getComputedStyle(elem, null).getPropertyValue('display');
+
+	// Toggle the state of the "display" style
+	elem.style.display = disp == 'block' ? 'none' : 'block';
+	return false;
+}
+</script>
+<? endif; ?>
 </head>
 <body>
-<?php
-if (APPLICATION_ENV == 'development') {
-
-    ?>
-<div class="kohana_error"><?php
-    echo $this->layout()->type?> [ <strong><?php
-    echo $this->layout()->file?></strong>, line <strong><?php
-    echo $this->layout()->line?></strong> ]
-<div class="message">
-<p><?php
-    echo $this->layout()->description?></p>
-<pre><?php
-    echo $this->layout()->message?></pre></div>
-</div>
-<div class="kohana_trace"><?php
-    if (! empty($this->layout()->source)) {
-
-        ?>
-<div class="source"><pre id="kohana_error_source"><?php
-        echo $this->layout()->source?></pre></div>
-<?php
-    }
-
-    ?> <?php
-    if (! empty($this->layout()->trace)) {
-
-        ?> <pre class="trace"><?php
-        echo implode("\n", $this->layout()->trace)?></pre> <?php
-    }
-
-    ?></div>
-
-<?php
-} else {
-
-    ?>
+<?php if(APPLICATION_ENV == 'production'): ?>
 <div id="framework_error" style="width: 24em; margin: 50px auto;">
 <h1>Unable to Complete Request</h1>
 <p style="text-align: center">You can go to the <a href="/">home page</a>
 or <a href="">try again</a>.</p>
 </div>
-	<?php
-}
-
-?>
+<?php else: ?>
+<div id="framework_error">
+	<h1><span class="type"><?php echo $type ?> [ <?php echo $code ?> ]:</span> <span class="message"><?php echo $message ?></span></h1>
+	<div id="<?php echo $error_id ?>" class="content">
+		<p><span class="file"><?php echo App_Exception::debugPath($file) ?> [ <?php echo $line ?> ]</span></p>
+		<?php echo App_Exception::debugSource($file, $line) ?>
+		<ol class="trace">
+		<?php foreach (App_Exception::trace($trace) as $i => $step): ?>
+			<li>
+				<p>
+					<span class="file">
+						<?php if ($step['file']): $source_id = $error_id.'source'.$i; ?>
+							<a href="#<?php echo $source_id ?>" onclick="return koggle('<?php echo $source_id ?>')"><?php echo App_Exception::debugPath($step['file']) ?> [ <?php echo $step['line'] ?> ]</a>
+						<?php else: ?>
+							{PHP internal call}
+						<?php endif ?>
+					</span>
+					&raquo;
+					<?php echo $step['function'] ?>(<?php if ($step['args']): $args_id = $error_id.'args'.$i; ?><a href="#<?php echo $args_id ?>" onclick="return koggle('<?php echo $args_id ?>')">arguments</a><?php endif ?>)
+				</p>
+				<?php if (isset($args_id)): ?>
+				<div id="<?php echo $args_id ?>" class="collapsed">
+					<table cellspacing="0">
+					<?php foreach ($step['args'] as $name => $arg): ?>
+						<tr>
+							<td><code><?php echo $name ?></code></td>
+							<td><pre><?php echo App_Exception::dump($arg) ?></pre></td>
+						</tr>
+					<?php endforeach ?>
+					</table>
+				</div>
+				<?php endif ?>
+				<?php if (isset($source_id)): ?>
+					<pre id="<?php echo $source_id ?>" class="source collapsed"><code><?php echo $step['source'] ?></code></pre>
+				<?php endif ?>
+			</li>
+			<?php unset($args_id, $source_id); ?>
+		<?php endforeach ?>
+		</ol>
+	</div>
+	<h2><a href="#<?php echo $env_id = $error_id.'environment' ?>" onclick="return koggle('<?php echo $env_id ?>')">Environment</a></h2>
+	<div id="<?php echo $env_id ?>" class="content collapsed">
+		<?php $included = get_included_files() ?>
+		<h3><a href="#<?php echo $env_id = $error_id.'environment_included' ?>" onclick="return koggle('<?php echo $env_id ?>')">Included files</a> (<?php echo count($included) ?>)</h3>
+		<div id="<?php echo $env_id ?>" class="collapsed">
+			<table cellspacing="0">
+				<?php foreach ($included as $file): ?>
+				<tr>
+					<td><code><?php echo App_Exception::debugPath($file) ?></code></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php $included = get_loaded_extensions() ?>
+		<h3><a href="#<?php echo $env_id = $error_id.'environment_loaded' ?>" onclick="return koggle('<?php echo $env_id ?>')">Loaded extensions</a> (<?php echo count($included) ?>)</h3>
+		<div id="<?php echo $env_id ?>" class="collapsed">
+			<table cellspacing="0">
+				<?php foreach ($included as $file): ?>
+				<tr>
+					<td><code><?php echo App_Exception::debugPath($file) ?></code></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php foreach (array('_SESSION', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER') as $var): ?>
+		<?php if (empty($GLOBALS[$var]) OR ! is_array($GLOBALS[$var])) continue ?>
+		<h3><a href="#<?php echo $env_id = $error_id.'environment'.strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>
+		<div id="<?php echo $env_id ?>" class="collapsed">
+			<table cellspacing="0">
+				<?php foreach ($GLOBALS[$var] as $key => $value): ?>
+				<tr>
+					<td><code><?php echo $key ?></code></td>
+					<td><pre><?php echo App_Exception::dump($value) ?></pre></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endforeach ?>
+	</div>
+</div>
+<?php endif; ?>
 </body>
 </html>
