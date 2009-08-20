@@ -368,7 +368,7 @@ class Vendor_Helper_Text {
         $var = strtr($var, $NpjLettersFrom, $NpjLettersTo);
         $var = strtr($var, $NpjBiLetters);
 
-        if ($punkt) $var = preg_replace("/[^a-z0-9\_\-.]+/mi", "", $var);
+        if ($punkt) $var = preg_replace("/[^a-z0-9\_\-]+/mi", "", $var);
         else $var = preg_replace("/[^a-z0-9\_\-]+/mi", "", $var);
 
         $var = preg_replace('#[\-]+#i', '-', $var);
