@@ -22,7 +22,7 @@ class App_View_Helper_Messages {
             foreach($messages as $message) {
                 if (! array_key_exists($message['status'], $statMessages))
                     $statMessages[$message['status']] = array();
-                array_push($statMessages[$message['status']], App::translate()->_($message['message']));
+                array_push($statMessages[$message['status']], __($message['message']));
             }
             // This chunk of code formats messages for HTML output (per
             // the example in the class comments).

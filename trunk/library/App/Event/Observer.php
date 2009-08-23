@@ -35,8 +35,8 @@ abstract class App_Event_Observer implements SplObserver {
 	 */
 	public function update(SplSubject $caller)
 	{
-		if ( ! ($caller instanceof Event_Subject))
-			throw new Kohana_Exception('event.invalid_subject', get_class($caller), get_class($this));
+		if ( ! ($caller instanceof App_Event_Subject))
+			throw new App_Exception('Attempt to attach invalid subject ' . get_class($caller) . ' to ' . get_class($this) . ' failed: Subjects must extend the Event_Subject class');
 
 		// Update the caller
 		$this->caller = $caller;

@@ -24,6 +24,25 @@ class App_Calendar extends App_Event_Subject {
 
 	// Observed data
 	protected $observed_data;
+    
+        /**
+     * View instance
+     *
+     * @var Zend_View_Instance
+     */
+    public $view = null;
+    
+  /**
+     * Sets the view instance.
+     *
+     * @param  Zend_View_Interface $view View instance
+     * @return Zend_View_Helper_PaginationControl
+     */
+    public function setView(Zend_View_Interface $view)
+    {
+        $this->view = $view;
+        return $this;
+    }
 
 	/**
 	 * Returns an array of the names of the days, using the current locale.
@@ -39,28 +58,25 @@ class App_Calendar extends App_Event_Subject {
 		// Days of the week
 		$days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 
-		if (Calendar::$start_monday === TRUE)
+		if (App_Calendar::$start_monday === TRUE)
 		{
 			// Push Sunday to the end of the days
 			array_push($days, array_shift($days));
 		}
 
-		if (strpos(Kohana::config('locale.language.0'), 'en') !== 0)
-		{
 			// This is a bit awkward, but it works properly and is reliable
 			foreach ($days as $i => $day)
 			{
 				// Convert the English names to i18n names
 				$days[$i] = strftime($format, strtotime($day));
 			}
-		}
 
 		if (is_int($length) OR ctype_digit($length))
 		{
 			foreach ($days as $i => $day)
 			{
 				// Shorten the days to the expected length
-				$days[$i] = utf8::substr($day, 0, $length);
+				$days[$i] = App_Utf8::substr($day, 0, $length);
 			}
 		}
 
@@ -77,7 +93,7 @@ class App_Calendar extends App_Event_Subject {
 	 */
 	public static function factory($month = NULL, $year = NULL)
 	{
-		return new Calendar($month, $year);
+		return new App_Calendar($month, $year);
 	}
 
 	/**
@@ -97,11 +113,13 @@ class App_Calendar extends App_Event_Subject {
 		$this->month = (int) $month;
 		$this->year  = (int) $year;
 
-		if (Calendar::$start_monday === TRUE)
+		if (App_Calendar::$start_monday === TRUE)
 		{
 			// Week starts on Monday
 			$this->week_start = 1;
 		}
+        
+        $this->view = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->view;
 	}
 
 	/**
@@ -126,7 +144,7 @@ class App_Calendar extends App_Event_Subject {
 	 */
 	public function event($name = NULL)
 	{
-		return new Calendar_Event($this);
+		return new App_Calendar_Event($this);
 	}
 
 	/**
@@ -340,14 +358,12 @@ class App_Calendar extends App_Event_Subject {
 	 */
 	public function render()
 	{
-		$view =  new View('kohana_calendar', array
+		return $this->view->partial('calendar.phtml', array
 		(
 			'month'  => $this->month,
 			'year'   => $this->year,
 			'weeks'  => $this->weeks(),
 		));
-
-		return $view->render();
 	}
 
 	/**
