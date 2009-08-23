@@ -1,35 +1,18 @@
-<?php
-if ($this->pageCount > 1): ?>
+<?php if ($this->pageCount > 1): ?>
 <p class="pagination">
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->previous));
-
-    ?>">&laquo; <?php echo __('Prev')?> </a> &middot;
-<?php endif;
+  <a href="<?php echo $this->url(array('page' => $this->previous))?>">&laquo; <?php echo __('Prev')?> </a> &middot;
+<?php endif
 
     ?>
 
 <?php foreach ($this->pagesInRange as $page): ?>
     <a href="<?php echo $this->url(array('page' => $page));
 
-    ?>" <?php if ($page == $this->current): ?>id="selected"><?php endif;
-
-    ?><?php echo $page;
-
-    ?></a>
-<?php endforeach;
-
-    ?>
-
+    ?>" <?php if ($page == $this->current): ?>id="selected"><?php endif?><?php echo $page?></a>
+<?php endforeach ?>
 <?php if (isset($this->next)): ?>
- &middot; <a href="<?php echo $this->url(array('page' => $this->next));
-
-    ?>"> <?php echo __('Next')?> &raquo;</a>
-<?php endif;
-
-    ?>
-
+ &middot; <a href="<?php echo $this->url(array('page' => $this->next))?>"> <?php echo __('Next')?> &raquo;</a>
+<?php endif ?>
 </p>
-<?php endif;
-
-    ?>
+<?php endif ?>

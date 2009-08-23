@@ -23,8 +23,8 @@ abstract class App_Event_Subject implements SplSubject {
 	 */
 	public function attach(SplObserver $obj)
 	{
-		if ( ! ($obj instanceof Event_Observer))
-			throw new Kohana_Exception('eventable.invalid_observer', get_class($obj), get_class($this));
+		if ( ! ($obj instanceof App_Event_Observer))
+			throw new App_Exception('Attempt to attach invalid observer '. get_class($obj).' to ' . get_class($this) . ' failed: Observers must extend the Event_Observer class' );
 
 		// Add a new listener
 		$this->listeners[spl_object_hash($obj)] = $obj;
