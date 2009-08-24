@@ -10,9 +10,9 @@ class Blog_Form_EditBlog extends App_Form {
     public function compose()
     {
         $this->setAction('');
-        $siteLang = App::i18n()->getModuleLanguages();
-        if (count($siteLang) > 0) {
-            foreach($siteLang as $lang) {
+        $moduleLangs = App::i18n()->getModuleLanguages();
+        if (count($moduleLangs) > 0) {
+            foreach($moduleLangs as $lang) {
                 $title = $this->createElement('text', 'langid_' . $lang['id'] . '_title', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $description = $this->createElement('textarea', 'langid_' . $lang['id'] . '_description', array('label' => 'Description' , 'rows' => '2'));

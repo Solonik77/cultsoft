@@ -47,13 +47,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $this->view->navigation($container);
         }
         $module = ucfirst(strtolower($request->getParam('module')));
-        // Load module config
-        $config_file = APPLICATION_PATH . 'modules/' . $module . '/configuration.ini';
-        if (file_exists($config_file) AND is_readable($config_file)) {
-            $options = new Zend_Config_Ini($config_file, null, true);
-            $options->setReadOnly();
-            App::addConfig($options);
-        }
+
         // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module , 'namespace' => $module));
         $resourceLoader->addResourceTypes(
