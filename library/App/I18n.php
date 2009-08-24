@@ -14,6 +14,8 @@ class App_I18n {
     protected $translator;
     // Website languages
     protected $site_languages = array();
+    protected $default_site_language = array();
+    protected $default_site_language_id = array();
 
     public function setLocale(Zend_Locale $object)
     {
@@ -36,7 +38,7 @@ class App_I18n {
         Zend_Controller_Router_Route::setDefaultTranslator($this->translator);
     }
 
-    /*
+    /**
     * Return Zend translator object
     */
     public function getTranslator()
@@ -64,14 +66,41 @@ class App_I18n {
         $data = array();
         foreach($site_languages as $key => $value) {
             $data[$value['id']] = $value;
+            if ($value['is_active'] and $value['is_default']) {
+                $this->default_site_language = $value;
+                $this->default_site_language_id = $value['id'];
+            }
         }
         $this->site_languages = $data;
 
         return $this->site_languages;
     }
 
-    /*
+    /**
+    * Get default language
+    */
+    public function getDefaultSiteLanguage()
+    {
+        if ($this->default_site_language == null) {
+            $this->getSiteLanguages();
+        }
+        return $this->default_site_language;
+    }
+
+    /**
+    * Get default language ID
+    */
+    public function getDefaultSiteLanguageId()
+    {
+        if ($this->default_site_language_id == null) {
+            $this->getSiteLanguages();
+        }
+        return $this->default_site_language_id;
+    }
+
+    /**
     * Get languages allowed for module
+    *
     * @return array
     */
     public function getModuleLanguages($module = null)

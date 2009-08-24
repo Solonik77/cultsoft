@@ -176,13 +176,13 @@ class App_Exception extends Zend_Exception {
     {
         if (strpos($file, LIBRARY_PATH) === 0) {
             $file = 'LIBRARY_PATH/' . substr($file, strlen(LIBRARY_PATH));
-        }elseif (strpos($file, STATIC_PATH) === 0) {
+        } elseif (strpos($file, STATIC_PATH) === 0) {
             $file = 'STATIC_PATH/' . substr($file, strlen(STATIC_PATH));
-        }elseif (strpos($file, VAR_PATH) === 0) {
+        } elseif (strpos($file, VAR_PATH) === 0) {
             $file = 'VAR_PATH/' . substr($file, strlen(VAR_PATH));
-        }elseif (strpos($file, APPLICATION_PATH) === 0) {
+        } elseif (strpos($file, APPLICATION_PATH) === 0) {
             $file = 'APPLICATION_PATH/' . substr($file, strlen(APPLICATION_PATH));
-        }elseif (strpos($file, DOC_ROOT) === 0) {
+        } elseif (strpos($file, DOC_ROOT) === 0) {
             $file = 'DOC_ROOT/' . substr($file, strlen(DOC_ROOT));
         }
 
@@ -193,8 +193,8 @@ class App_Exception extends Zend_Exception {
     * Returns an HTML string, highlighting a specific line of a file, with some
     * number of lines padded above and below.
     *
-    *      // Highlights the current line of the current file
-    *      echo App_exception::debugSource(__FILE__, __LINE__);
+    *       // Highlights the current line of the current file
+    *       echo App_exception::debugSource(__FILE__, __LINE__);
     *
     * @param string $ file to open
     * @param integer $ line number to highlight
@@ -226,7 +226,7 @@ class App_Exception extends Zend_Exception {
                 if ($line === $line_number) {
                     // Apply highlighting to this row
                     $row = '<span class="line highlight">' . $row . '</span>';
-                }else {
+                } else {
                     $row = '<span class="line">' . $row . '</span>';
                 }
                 // Add to the captured source
@@ -242,8 +242,8 @@ class App_Exception extends Zend_Exception {
     /**
     * Returns an array of HTML strings that represent each step in the backtrace.
     *
-    *      // Displays the entire current backtrace
-    *      echo implode('<br/>', App_Exception::trace());
+    *       // Displays the entire current backtrace
+    *       echo implode('<br/>', App_Exception::trace());
     *
     * @param string $ path to debug
     * @return string
@@ -283,18 +283,18 @@ class App_Exception extends Zend_Exception {
                 if (empty($step['args'])) {
                     // No arguments
                     $args = array();
-                }else {
+                } else {
                     // Sanitize the file path
                     $args = array($step['args'][0]);
                 }
-            }elseif (isset($step['args'])) {
+            } elseif (isset($step['args'])) {
                 if (isset($step['class'])) {
                     if (method_exists($step['class'], $step['function'])) {
                         $reflection = new ReflectionMethod($step['class'], $step['function']);
-                    }else {
+                    } else {
                         $reflection = new ReflectionMethod($step['class'], '__call');
                     }
-                }else {
+                } else {
                     $reflection = new ReflectionFunction($step['function']);
                 }
                 // Get the function parameters
@@ -306,7 +306,7 @@ class App_Exception extends Zend_Exception {
                     if (isset($params[$i])) {
                         // Assign the argument by the parameter name
                         $args[$params[$i]->name] = $arg;
-                    }else {
+                    } else {
                         // Assign the argument by number
                         $args[$i] = $arg;
                     }
@@ -358,11 +358,11 @@ class App_Exception extends Zend_Exception {
     {
         if ($var === null) {
             return '<small>NULL</small>';
-        }elseif (is_bool($var)) {
+        } elseif (is_bool($var)) {
             return '<small>bool</small> ' . ($var ? 'TRUE' : 'FALSE');
-        }elseif (is_float($var)) {
+        } elseif (is_float($var)) {
             return '<small>float</small> ' . $var;
-        }elseif (is_resource($var)) {
+        } elseif (is_resource($var)) {
             if (($type = get_resource_type($var)) === 'stream' AND $meta = stream_get_meta_data($var)) {
                 $meta = stream_get_meta_data($var);
 
@@ -378,20 +378,20 @@ class App_Exception extends Zend_Exception {
 
                     return '<small>resource</small><span>(' . $type . ')</span> ' . htmlspecialchars($file, ENT_NOQUOTES, self::$charset);
                 }
-            }else {
+            } else {
                 return '<small>resource</small><span>(' . $type . ')</span>';
             }
-        }elseif (is_string($var)) {
+        } elseif (is_string($var)) {
             if (strlen($var) > $length) {
                 // Encode the truncated string
                 $str = htmlspecialchars(substr($var, 0, $length), ENT_NOQUOTES, 'UTF-8') . '&nbsp;&hellip;';
-            }else {
+            } else {
                 // Encode the string
                 $str = htmlspecialchars($var, ENT_NOQUOTES, 'UTF-8');
             }
 
             return '<small>string</small><span>(' . strlen($var) . ')</span> "' . $str . '"';
-        }elseif (is_array($var)) {
+        } elseif (is_array($var)) {
             $output = array();
             // Indentation for this variable
             $space = str_repeat($s = '    ', $level);
@@ -405,9 +405,9 @@ class App_Exception extends Zend_Exception {
 
             if (empty($var)) {
                 // Do nothing
-            }elseif (isset($var[$marker])) {
+            } elseif (isset($var[$marker])) {
                 $output[] = "(\n$space$s*RECURSION*\n$space)";
-            }elseif ($level < 5) {
+            } elseif ($level < 5) {
                 $output[] = "<span>(";
 
                 $var[$marker] = true;
@@ -422,13 +422,13 @@ class App_Exception extends Zend_Exception {
                 unset($var[$marker]);
 
                 $output[] = "$space)</span>";
-            }else {
+            } else {
                 // Depth too great
                 $output[] = "(\n$space$s...\n$space)";
             }
 
             return '<small>array</small><span>(' . count($var) . ')</span> ' . implode("\n", $output);
-        }elseif (is_object($var)) {
+        } elseif (is_object($var)) {
             // Copy the object as an array
             $array = (array) $var;
 
@@ -442,9 +442,9 @@ class App_Exception extends Zend_Exception {
 
             if (empty($var)) {
                 // Do nothing
-            }elseif (isset($objects[$hash])) {
+            } elseif (isset($objects[$hash])) {
                 $output[] = "{\n$space$s*RECURSION*\n$space}";
-            }elseif ($level < 5) {
+            } elseif ($level < 5) {
                 $output[] = "<code>{";
 
                 $objects[$hash] = true;
@@ -454,7 +454,7 @@ class App_Exception extends Zend_Exception {
                         $access = '<small>' . ($key[1] === '*' ? 'protected' : 'private') . '</small>';
                         // Remove the access level from the variable name
                         $key = substr($key, strrpos($key, "\x00") + 1);
-                    }else {
+                    } else {
                         $access = '<small>public</small>';
                     }
 
@@ -463,13 +463,13 @@ class App_Exception extends Zend_Exception {
                 unset($objects[$hash]);
 
                 $output[] = "$space}</code>";
-            }else {
+            } else {
                 // Depth too great
                 $output[] = "{\n$space$s...\n$space}";
             }
 
             return '<small>object</small> <span>' . get_class($var) . '(' . count($array) . ')</span> ' . implode("\n", $output);
-        }else {
+        } else {
             return '<small>' . gettype($var) . '</small> ' . htmlspecialchars(print_r($var, true), ENT_NOQUOTES, 'UTF-8');
         }
     }
