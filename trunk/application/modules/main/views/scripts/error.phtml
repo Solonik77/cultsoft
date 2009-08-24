@@ -1,5 +1,4 @@
 <?php
-
 // Unique error identifier
 $error_id = uniqid('error');
 
@@ -10,7 +9,7 @@ $error_id = uniqid('error');
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Framework error</title>
 <style type="text/css">
-<?php if(APPLICATION_ENV == 'production'): ?>
+<?php if (APPLICATION_ENV == 'production'): ?>
 body {
 	font-size: 90%;
 	font-family: sans-serif;
@@ -55,7 +54,7 @@ body {
 	#framework_error ol.trace li { margin: 0; padding: 0; }
 <?php endif; ?>
 </style>
-<?php if(APPLICATION_ENV != 'production'): ?>
+<?php if (APPLICATION_ENV != 'production'): ?>
 <script type="text/javascript">
 document.write('<style type="text/css"> .collapsed { display: none; } </style>');
 function koggle(elem)
@@ -77,10 +76,10 @@ function koggle(elem)
 	return false;
 }
 </script>
-<? endif; ?>
+<?php endif; ?>
 </head>
 <body>
-<?php if(APPLICATION_ENV == 'production'): ?>
+<?php if (APPLICATION_ENV == 'production'): ?>
 <div id="framework_error" style="width: 24em; margin: 50px auto;">
 <h1>Unable to Complete Request</h1>
 <p style="text-align: center">You can go to the <a href="/">home page</a>
@@ -97,14 +96,14 @@ or <a href="">try again</a>.</p>
 			<li>
 				<p>
 					<span class="file">
-						<?php if ($step['file']): $source_id = $error_id.'source'.$i; ?>
+						<?php if ($step['file']): $source_id = $error_id . 'source' . $i; ?>
 							<a href="#<?php echo $source_id ?>" onclick="return koggle('<?php echo $source_id ?>')"><?php echo App_Exception::debugPath($step['file']) ?> [ <?php echo $step['line'] ?> ]</a>
 						<?php else: ?>
 							{PHP internal call}
 						<?php endif ?>
 					</span>
 					&raquo;
-					<?php echo $step['function'] ?>(<?php if ($step['args']): $args_id = $error_id.'args'.$i; ?><a href="#<?php echo $args_id ?>" onclick="return koggle('<?php echo $args_id ?>')">arguments</a><?php endif ?>)
+					<?php echo $step['function'] ?>(<?php if ($step['args']): $args_id = $error_id . 'args' . $i; ?><a href="#<?php echo $args_id ?>" onclick="return koggle('<?php echo $args_id ?>')">arguments</a><?php endif ?>)
 				</p>
 				<?php if (isset($args_id)): ?>
 				<div id="<?php echo $args_id ?>" class="collapsed">
@@ -126,10 +125,10 @@ or <a href="">try again</a>.</p>
 		<?php endforeach ?>
 		</ol>
 	</div>
-	<h2><a href="#<?php echo $env_id = $error_id.'environment' ?>" onclick="return koggle('<?php echo $env_id ?>')">Environment</a></h2>
+	<h2><a href="#<?php echo $env_id = $error_id . 'environment' ?>" onclick="return koggle('<?php echo $env_id ?>')">Environment</a></h2>
 	<div id="<?php echo $env_id ?>" class="content collapsed">
 		<?php $included = get_included_files() ?>
-		<h3><a href="#<?php echo $env_id = $error_id.'environment_included' ?>" onclick="return koggle('<?php echo $env_id ?>')">Included files</a> (<?php echo count($included) ?>)</h3>
+		<h3><a href="#<?php echo $env_id = $error_id . 'environment_included' ?>" onclick="return koggle('<?php echo $env_id ?>')">Included files</a> (<?php echo count($included) ?>)</h3>
 		<div id="<?php echo $env_id ?>" class="collapsed">
 			<table cellspacing="0">
 				<?php foreach ($included as $file): ?>
@@ -140,7 +139,7 @@ or <a href="">try again</a>.</p>
 			</table>
 		</div>
 		<?php $included = get_loaded_extensions() ?>
-		<h3><a href="#<?php echo $env_id = $error_id.'environment_loaded' ?>" onclick="return koggle('<?php echo $env_id ?>')">Loaded extensions</a> (<?php echo count($included) ?>)</h3>
+		<h3><a href="#<?php echo $env_id = $error_id . 'environment_loaded' ?>" onclick="return koggle('<?php echo $env_id ?>')">Loaded extensions</a> (<?php echo count($included) ?>)</h3>
 		<div id="<?php echo $env_id ?>" class="collapsed">
 			<table cellspacing="0">
 				<?php foreach ($included as $file): ?>
@@ -152,7 +151,7 @@ or <a href="">try again</a>.</p>
 		</div>
 		<?php foreach (array('_SESSION', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER') as $var): ?>
 		<?php if (empty($GLOBALS[$var]) OR ! is_array($GLOBALS[$var])) continue ?>
-		<h3><a href="#<?php echo $env_id = $error_id.'environment'.strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>
+		<h3><a href="#<?php echo $env_id = $error_id . 'environment' . strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>
 		<div id="<?php echo $env_id ?>" class="collapsed">
 			<table cellspacing="0">
 				<?php foreach ($GLOBALS[$var] as $key => $value): ?>

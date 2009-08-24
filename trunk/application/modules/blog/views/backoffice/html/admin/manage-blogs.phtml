@@ -14,9 +14,7 @@ echo __('Create new blog')?></a></p>
 	</thead>
 	<tbody>
 <?php
-    foreach($this->blogsDataGrid as $blog) {
-
-    ?>
+    foreach($this->blogsDataGrid as $blog) { ?>
 	<tr class="<?php
     echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php

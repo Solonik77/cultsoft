@@ -1,8 +1,6 @@
 <?php
 /**
 * Blog service
-*
-* @author Dmytro Denysenko
 */
 class Blog_Model_Service {
     private $_blog;
@@ -19,7 +17,7 @@ class Blog_Model_Service {
     public function saveBlog()
     {
         $post = App::front()->getRequest()->getPost();
-        $default_i18n = App::front()->getRequest()->getI18n(App::config()->languages->default_id);
+        $default_i18n = App::front()->getRequest()->getI18n(App::i18n()->getDefaultSiteLanguageId());
         $i18n = App::front()->getRequest()->getI18n();
         $blogId = $requestId = App::front()->getRequest()->getParam('id');
         App::db()->beginTransaction();

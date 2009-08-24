@@ -2,7 +2,7 @@
 /**
 * Default system errors controller.
 * This controller used for view system error
-*               information pages in development environment and simple warnings in production.
+*                information pages in development environment and simple warnings in production.
 *
 * @author Denysenko Dmytro
 * @copyright (c) 2009 CultSoft
@@ -36,4 +36,3 @@ class Main_ErrorController extends App_Controller_Action {
         $this->view->message = 'Access deny';
     }
 }
-

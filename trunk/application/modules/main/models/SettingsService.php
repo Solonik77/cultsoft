@@ -4,7 +4,6 @@ class Main_Model_SettingsService {
 
     public function __construct()
     {
-
     }
 
     public function getRoutes()
