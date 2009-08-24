@@ -1,35 +1,45 @@
-/*
-SQLyog Community Edition- MySQL GUI v5.27
-Host - 5.1.35-community : Database - zfapp
-*********************************************************************
-Server version : 5.1.35-community
-*/
+﻿# MySQL-Front 5.1  (Build 3.58)
 
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE */;
+/*!40101 SET SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES */;
+/*!40103 SET SQL_NOTES='ON' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS */;
+/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
-/*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+# Host: localhost    Database: zfapp
+# ------------------------------------------------------
+# Server version 5.1.35-community
 
-/*Table structure for table `prefix_acl_resources` */
+#
+# Source for table prefix_acl_resources
+#
 
 DROP TABLE IF EXISTS `prefix_acl_resources`;
-
 CREATE TABLE `prefix_acl_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `resource` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_acl_resources` */
+#
+# Dumping data for table prefix_acl_resources
+#
+LOCK TABLES `prefix_acl_resources` WRITE;
+/*!40000 ALTER TABLE `prefix_acl_resources` DISABLE KEYS */;
 
-insert  into `prefix_acl_resources`(`id`,`resource`) values (1,'main_backofficedashboard');
+INSERT INTO `prefix_acl_resources` VALUES (1,'main_backofficedashboard');
+/*!40000 ALTER TABLE `prefix_acl_resources` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_acl_roles` */
+#
+# Source for table prefix_acl_roles
+#
 
 DROP TABLE IF EXISTS `prefix_acl_roles`;
-
 CREATE TABLE `prefix_acl_roles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
@@ -38,14 +48,21 @@ CREATE TABLE `prefix_acl_roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_acl_roles` */
+#
+# Dumping data for table prefix_acl_roles
+#
+LOCK TABLES `prefix_acl_roles` WRITE;
+/*!40000 ALTER TABLE `prefix_acl_roles` DISABLE KEYS */;
 
-insert  into `prefix_acl_roles`(`id`,`parent_id`,`role`,`description`) values (1,0,'administrator','Administrator Account');
+INSERT INTO `prefix_acl_roles` VALUES (1,0,'administrator','Administrator Account');
+/*!40000 ALTER TABLE `prefix_acl_roles` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_acl_roles_resources` */
+#
+# Source for table prefix_acl_roles_resources
+#
 
 DROP TABLE IF EXISTS `prefix_acl_roles_resources`;
-
 CREATE TABLE `prefix_acl_roles_resources` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
@@ -54,14 +71,21 @@ CREATE TABLE `prefix_acl_roles_resources` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_acl_roles_resources` */
+#
+# Dumping data for table prefix_acl_roles_resources
+#
+LOCK TABLES `prefix_acl_roles_resources` WRITE;
+/*!40000 ALTER TABLE `prefix_acl_roles_resources` DISABLE KEYS */;
 
-insert  into `prefix_acl_roles_resources`(`id`,`resource_id`,`role_id`,`is_allow`) values (1,1,1,1);
+INSERT INTO `prefix_acl_roles_resources` VALUES (1,1,1,1);
+/*!40000 ALTER TABLE `prefix_acl_roles_resources` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_blog` */
+#
+# Source for table prefix_blog
+#
 
 DROP TABLE IF EXISTS `prefix_blog`;
-
 CREATE TABLE `prefix_blog` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fancy_url` varchar(100) DEFAULT NULL,
@@ -71,12 +95,20 @@ CREATE TABLE `prefix_blog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog` */
+#
+# Dumping data for table prefix_blog
+#
+LOCK TABLES `prefix_blog` WRITE;
+/*!40000 ALTER TABLE `prefix_blog` DISABLE KEYS */;
 
-/*Table structure for table `prefix_blog_comments` */
+/*!40000 ALTER TABLE `prefix_blog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_blog_comments
+#
 
 DROP TABLE IF EXISTS `prefix_blog_comments`;
-
 CREATE TABLE `prefix_blog_comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned DEFAULT NULL,
@@ -93,12 +125,20 @@ CREATE TABLE `prefix_blog_comments` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_comments` */
+#
+# Dumping data for table prefix_blog_comments
+#
+LOCK TABLES `prefix_blog_comments` WRITE;
+/*!40000 ALTER TABLE `prefix_blog_comments` DISABLE KEYS */;
 
-/*Table structure for table `prefix_blog_member` */
+/*!40000 ALTER TABLE `prefix_blog_comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_blog_member
+#
 
 DROP TABLE IF EXISTS `prefix_blog_member`;
-
 CREATE TABLE `prefix_blog_member` (
   `blog_id` int(11) unsigned NOT NULL,
   `member_id` int(11) unsigned DEFAULT NULL,
@@ -110,12 +150,20 @@ CREATE TABLE `prefix_blog_member` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_member` */
+#
+# Dumping data for table prefix_blog_member
+#
+LOCK TABLES `prefix_blog_member` WRITE;
+/*!40000 ALTER TABLE `prefix_blog_member` DISABLE KEYS */;
 
-/*Table structure for table `prefix_blog_posts` */
+/*!40000 ALTER TABLE `prefix_blog_member` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_blog_posts
+#
 
 DROP TABLE IF EXISTS `prefix_blog_posts`;
-
 CREATE TABLE `prefix_blog_posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) unsigned DEFAULT NULL,
@@ -126,12 +174,20 @@ CREATE TABLE `prefix_blog_posts` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_posts` */
+#
+# Dumping data for table prefix_blog_posts
+#
+LOCK TABLES `prefix_blog_posts` WRITE;
+/*!40000 ALTER TABLE `prefix_blog_posts` DISABLE KEYS */;
 
-/*Table structure for table `prefix_i18n_blog` */
+/*!40000 ALTER TABLE `prefix_blog_posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_i18n_blog
+#
 
 DROP TABLE IF EXISTS `prefix_i18n_blog`;
-
 CREATE TABLE `prefix_i18n_blog` (
   `i18n_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
@@ -143,12 +199,20 @@ CREATE TABLE `prefix_i18n_blog` (
   KEY `blog_id` (`blog_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_i18n_blog` */
+#
+# Dumping data for table prefix_i18n_blog
+#
+LOCK TABLES `prefix_i18n_blog` WRITE;
+/*!40000 ALTER TABLE `prefix_i18n_blog` DISABLE KEYS */;
 
-/*Table structure for table `prefix_i18n_blog_posts` */
+/*!40000 ALTER TABLE `prefix_i18n_blog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_i18n_blog_posts
+#
 
 DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
-
 CREATE TABLE `prefix_i18n_blog_posts` (
   `i18n_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned DEFAULT NULL,
@@ -160,12 +224,20 @@ CREATE TABLE `prefix_i18n_blog_posts` (
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_i18n_blog_posts` */
+#
+# Dumping data for table prefix_i18n_blog_posts
+#
+LOCK TABLES `prefix_i18n_blog_posts` WRITE;
+/*!40000 ALTER TABLE `prefix_i18n_blog_posts` DISABLE KEYS */;
 
-/*Table structure for table `prefix_members` */
+/*!40000 ALTER TABLE `prefix_i18n_blog_posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_members
+#
 
 DROP TABLE IF EXISTS `prefix_members`;
-
 CREATE TABLE `prefix_members` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(64) DEFAULT NULL,
@@ -180,14 +252,21 @@ CREATE TABLE `prefix_members` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_members` */
+#
+# Dumping data for table prefix_members
+#
+LOCK TABLES `prefix_members` WRITE;
+/*!40000 ALTER TABLE `prefix_members` DISABLE KEYS */;
 
-insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`timezone_offset`,`registered`,`language_id`,`is_active`,`first_name`,`last_name`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,2.00,'0000-00-00 00:00:00',1,1,NULL,NULL);
+INSERT INTO `prefix_members` VALUES (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,2,'0000-00-00 00:00:00',1,1,NULL,NULL);
+/*!40000 ALTER TABLE `prefix_members` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_session` */
+#
+# Source for table prefix_session
+#
 
 DROP TABLE IF EXISTS `prefix_session`;
-
 CREATE TABLE `prefix_session` (
   `id` char(32) NOT NULL DEFAULT '',
   `modified` int(11) DEFAULT NULL,
@@ -197,12 +276,20 @@ CREATE TABLE `prefix_session` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_session` */
+#
+# Dumping data for table prefix_session
+#
+LOCK TABLES `prefix_session` WRITE;
+/*!40000 ALTER TABLE `prefix_session` DISABLE KEYS */;
 
-/*Table structure for table `prefix_settings` */
+/*!40000 ALTER TABLE `prefix_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table prefix_settings
+#
 
 DROP TABLE IF EXISTS `prefix_settings`;
-
 CREATE TABLE `prefix_settings` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `setting_name` varchar(255) DEFAULT NULL,
@@ -212,16 +299,40 @@ CREATE TABLE `prefix_settings` (
   `module` varchar(255) NOT NULL DEFAULT 'main',
   PRIMARY KEY (`id`,`setting_key`),
   KEY `setting_name` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_settings` */
+#
+# Dumping data for table prefix_settings
+#
+LOCK TABLES `prefix_settings` WRITE;
+/*!40000 ALTER TABLE `prefix_settings` DISABLE KEYS */;
 
-insert  into `prefix_settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(11,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main'),(14,'',NULL,'image.adapter','GD','main'),(15,'',NULL,'image.params.directory','','main'),(16,'',NULL,'encryption.default.key','Z4eN7D+PHP_7hE-SW!FtFraM3w0R|<','main'),(17,'',NULL,'encryption.default.mode','MCRYPT_MODE_NOFB','main'),(18,'',NULL,'encryption.default.cipher','MCRYPT_RIJNDAEL_128','main');
+INSERT INTO `prefix_settings` VALUES (1,'Log threshold','System log threshold','system_log_threshold','4','main');
+INSERT INTO `prefix_settings` VALUES (2,'Default items per page',NULL,'items_per_page','10','main');
+INSERT INTO `prefix_settings` VALUES (3,'',NULL,'project.template','simple','main');
+INSERT INTO `prefix_settings` VALUES (4,'',NULL,'project.email','info@example.com','main');
+INSERT INTO `prefix_settings` VALUES (5,'',NULL,'project.timezone','Europe/Helsinki','main');
+INSERT INTO `prefix_settings` VALUES (7,'',NULL,'remember_me_seconds ','864000','main');
+INSERT INTO `prefix_settings` VALUES (8,'',NULL,'mail.transport','smtp','main');
+INSERT INTO `prefix_settings` VALUES (9,'',NULL,'mail.host','localhost','main');
+INSERT INTO `prefix_settings` VALUES (10,'',NULL,'mail.password','smtppassword','main');
+INSERT INTO `prefix_settings` VALUES (11,'',NULL,'mail.username','smtpuser','main');
+INSERT INTO `prefix_settings` VALUES (12,'',NULL,'mail.port','25','main');
+INSERT INTO `prefix_settings` VALUES (13,'',NULL,'mail.auth','','main');
+INSERT INTO `prefix_settings` VALUES (14,'',NULL,'image.adapter','GD','main');
+INSERT INTO `prefix_settings` VALUES (15,'',NULL,'image.params.directory','','main');
+INSERT INTO `prefix_settings` VALUES (16,'',NULL,'encryption.default.key','Z4eN7D+PHP_7hE-SW!FtFraM3w0R|<','main');
+INSERT INTO `prefix_settings` VALUES (17,'',NULL,'encryption.default.mode','MCRYPT_MODE_NOFB','main');
+INSERT INTO `prefix_settings` VALUES (18,'',NULL,'encryption.default.cipher','MCRYPT_RIJNDAEL_128','main');
+INSERT INTO `prefix_settings` VALUES (19,'Blog languages','Languages for blog content','allowed_languages','ru','blog');
+/*!40000 ALTER TABLE `prefix_settings` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_site_languages` */
+#
+# Source for table prefix_site_languages
+#
 
 DROP TABLE IF EXISTS `prefix_site_languages`;
-
 CREATE TABLE `prefix_site_languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -234,14 +345,22 @@ CREATE TABLE `prefix_site_languages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_site_languages` */
+#
+# Dumping data for table prefix_site_languages
+#
+LOCK TABLES `prefix_site_languages` WRITE;
+/*!40000 ALTER TABLE `prefix_site_languages` DISABLE KEYS */;
 
-insert  into `prefix_site_languages`(`id`,`name`,`request_lang`,`locale`,`territory`,`is_default`,`is_active`,`project_title`) values (1,'U.S. English','en','en_US','US',0,1,''),(2,'Russian','ru','ru_RU','RU',1,1,'');
+INSERT INTO `prefix_site_languages` VALUES (1,'U.S. English','en','en_US','US',0,1,'');
+INSERT INTO `prefix_site_languages` VALUES (2,'Russian','ru','ru_RU','RU',1,1,'');
+/*!40000 ALTER TABLE `prefix_site_languages` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `prefix_site_structure` */
+#
+# Source for table prefix_site_structure
+#
 
 DROP TABLE IF EXISTS `prefix_site_structure`;
-
 CREATE TABLE `prefix_site_structure` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(100) DEFAULT NULL,
@@ -255,9 +374,26 @@ CREATE TABLE `prefix_site_structure` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_site_structure` */
+#
+# Dumping data for table prefix_site_structure
+#
+LOCK TABLES `prefix_site_structure` WRITE;
+/*!40000 ALTER TABLE `prefix_site_structure` DISABLE KEYS */;
 
-insert  into `prefix_site_structure`(`id`,`label`,`title`,`module`,`controller`,`action`,`visible`,`left_column_id`,`right_column_id`) values (1,'Home','','default','index','index',1,1,20),(2,'Blog','','blog','index','index',1,2,9),(3,'IT Blog','','blog','index','it',1,3,4),(4,'Music blog','','blog','index','music',1,5,6),(5,'3D Blog','','blog','index','3d',1,7,8),(6,'Shop','','store','index','index',1,10,19),(7,'Titanium','','store','product','titanium',1,11,14),(8,'FLASH','','store','product','flash',1,12,13),(9,'CD PLAYERS','','store','product','cd',1,15,16),(10,'2 WAY RADIOS','','store','product','radios',1,17,18);
+INSERT INTO `prefix_site_structure` VALUES (1,'Home','','default','index','index',1,1,20);
+INSERT INTO `prefix_site_structure` VALUES (2,'Blog','','blog','index','index',1,2,9);
+INSERT INTO `prefix_site_structure` VALUES (3,'IT Blog','','blog','index','it',1,3,4);
+INSERT INTO `prefix_site_structure` VALUES (4,'Music blog','','blog','index','music',1,5,6);
+INSERT INTO `prefix_site_structure` VALUES (5,'3D Blog','','blog','index','3d',1,7,8);
+INSERT INTO `prefix_site_structure` VALUES (6,'Shop','','store','index','index',1,10,19);
+INSERT INTO `prefix_site_structure` VALUES (7,'Titanium','','store','product','titanium',1,11,14);
+INSERT INTO `prefix_site_structure` VALUES (8,'FLASH','','store','product','flash',1,12,13);
+INSERT INTO `prefix_site_structure` VALUES (9,'CD PLAYERS','','store','product','cd',1,15,16);
+INSERT INTO `prefix_site_structure` VALUES (10,'2 WAY RADIOS','','store','product','radios',1,17,18);
+/*!40000 ALTER TABLE `prefix_site_structure` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
