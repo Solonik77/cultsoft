@@ -19,7 +19,7 @@
  *
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CPagination.php 564 2009-01-21 22:07:10Z qiang.xue $
+ * @version $Id: CPagination.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.web
  * @since 1.0
  */
@@ -38,6 +38,12 @@ class CPagination extends CComponent
 	 * Defaults to empty string, meaning using the current route.
 	 */
 	public $route='';
+	/**
+	 * @var array the additional GET parameters (name=>value) that should be used when generating pagination URLs.
+	 * Defaults to null, meaning using the currently available GET parameters.
+	 * @since 1.0.9
+	 */
+	public $params;
 
 	private $_pageSize=self::DEFAULT_PAGE_SIZE;
 	private $_itemCount=0;
@@ -140,7 +146,7 @@ class CPagination extends CComponent
 	 */
 	public function createPageUrl($controller,$page)
 	{
-		$params=($this->route==='')?$_GET:array();
+		$params=$this->params===null ? $_GET : $this->params;
 		if($page>0) // page 0 is the default
 			$params[$this->pageVar]=$page+1;
 		else

@@ -13,8 +13,8 @@
 
 <div id="header">
 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-<div id="main_menu">
-<?php $this->widget('application.components.main_menu',array(
+<div id="mainmenu">
+<?php $this->widget('application.components.MainMenu',array(
 	'items'=>array(
 		array('label'=>'Home', 'url'=>array('/site/index')),
 		array('label'=>'Contact', 'url'=>array('/site/contact')),
@@ -22,7 +22,7 @@
 		array('label'=>'Logout', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 	),
 )); ?>
-</div><!-- main_menu -->
+</div><!-- mainmenu -->
 </div><!-- header -->
 
 <div id="content">

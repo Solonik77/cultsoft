@@ -52,7 +52,7 @@
  * To do so, set {@link useMemcached} to be true.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMemCache.php 1295 2009-08-06 20:00:34Z qiang.xue $
+ * @version $Id: CMemCache.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.caching
  * @since 1.0
  */
@@ -148,7 +148,7 @@ class CMemCache extends CCache
 	 */
 	protected function getValues($keys)
 	{
-		return array_combine($keys,$this->_cache->get($keys));
+		return $this->useMemcached ? $this->_cache->getMulti($keys) : $this->_cache->get($keys);
 	}
 
 	/**
@@ -217,7 +217,7 @@ class CMemCache extends CCache
  * for detailed explanation of each configuration property.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMemCache.php 1295 2009-08-06 20:00:34Z qiang.xue $
+ * @version $Id: CMemCache.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.caching
  * @since 1.0
  */

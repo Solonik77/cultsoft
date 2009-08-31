@@ -25,6 +25,8 @@
  * yyyy    | 4 year digit, e.g., 2005
  * h       | Hour in 0 to 23, no padding (since version 1.0.5)
  * hh      | Hour in 00 to 23, zero leading (since version 1.0.5)
+ * H       | Hour in 0 to 23, no padding (since version 1.0.9)
+ * HH      | Hour in 00 to 23, zero leading (since version 1.0.9)
  * m       | Minutes in 0 to 59, no padding (since version 1.0.5)
  * mm      | Minutes in 00 to 59, zero leading (since version 1.0.5)
  * s	   | Seconds in 0 to 59, no padding (since version 1.0.5)
@@ -42,7 +44,7 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDateTimeParser.php 1202 2009-07-04 17:56:59Z qiang.xue $
+ * @version $Id: CDateTimeParser.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.utils
  * @since 1.0
  */
@@ -106,6 +108,7 @@ class CDateTimeParser
 					break;
 				}
 				case 'h':
+				case 'H':
 				{
 					if(($hour=self::parseInteger($value,$i,1,2))===false)
 						return false;
@@ -113,6 +116,7 @@ class CDateTimeParser
 					break;
 				}
 				case 'hh':
+				case 'HH':
 				{
 					if(($hour=self::parseInteger($value,$i,2,2))===false)
 						return false;

@@ -79,7 +79,7 @@
  * {@link CWebApplication::getUrlManager()}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CUrlManager.php 1295 2009-08-06 20:00:34Z qiang.xue $
+ * @version $Id: CUrlManager.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web
  * @since 1.0
  */
@@ -281,7 +281,7 @@ class CUrlManager extends CApplicationComponent
 	}
 
 	/**
-	 * Parses a path info into URL segments and saves them to $_GET.
+	 * Parses a path info into URL segments and saves them to $_GET and $_REQUEST.
 	 * @param string path info
 	 * @since 1.0.3
 	 */
@@ -296,10 +296,19 @@ class CUrlManager extends CApplicationComponent
 			$key=$segs[$i];
 			if($key==='') continue;
 			$value=$segs[$i+1];
-			if(($pos=strpos($key,'[]'))!==false)
-				$_GET[substr($key,0,$pos)][]=$value;
+			if(($pos=strpos($key,'['))!==false && ($pos2=strpos($key,']',$pos+1))!==false)
+			{
+				$name=substr($key,0,$pos);
+				if($pos2===$pos+1)
+					$_REQUEST[$name][]=$_GET[$name][]=$value;
+				else
+				{
+					$key=substr($key,$pos+1,$pos2-$pos-1);
+					$_REQUEST[$name][$key]=$_GET[$name][$key]=$value;
+				}
+			}
 			else
-				$_GET[$key]=$value;
+				$_REQUEST[$key]=$_GET[$key]=$value;
 		}
 	}
 
@@ -390,7 +399,7 @@ class CUrlManager extends CApplicationComponent
  * may have a set of named parameters.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CUrlManager.php 1295 2009-08-06 20:00:34Z qiang.xue $
+ * @version $Id: CUrlManager.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web
  * @since 1.0
  */
@@ -577,10 +586,13 @@ class CUrlRule extends CComponent
 			$pathInfo=$manager->removeUrlSuffix($rawPathInfo,$this->urlSuffix);
 
 		// URL suffix required, but not found in the requested URL
-		if($manager->useStrictParsing && $pathInfo===$rawPathInfo
-			&& ($this->urlSuffix!='' || $this->urlSuffix===null && $manager->urlSuffix!=''))
-			throw new CHttpException(404,Yii::t('yii','Unable to resolve the request "{route}".',
-				array('{route}'=>$rawPathInfo)));
+		if($manager->useStrictParsing && $pathInfo===$rawPathInfo)
+		{
+			$urlSuffix=$this->urlSuffix===null ? $manager->urlSuffix : $this->urlSuffix;
+			if($urlSuffix!='' && $urlSuffix!=='/')
+				throw new CHttpException(404,Yii::t('yii','Unable to resolve the request "{route}".',
+					array('{route}'=>$rawPathInfo)));
+		}
 
 		$pathInfo.='/';
 		if(preg_match($this->pattern.$case,$pathInfo,$matches))
@@ -588,7 +600,7 @@ class CUrlRule extends CComponent
 			foreach($this->defaultParams as $name=>$value)
 			{
 				if(!isset($_GET[$name]))
-					$_GET[$name]=$value;
+					$_REQUEST[$name]=$_GET[$name]=$value;
 			}
 			$tr=array();
 			foreach($matches as $key=>$value)
@@ -596,7 +608,7 @@ class CUrlRule extends CComponent
 				if(isset($this->references[$key]))
 					$tr[$this->references[$key]]=$value;
 				else if(isset($this->params[$key]))
-					$_GET[$key]=$value;
+					$_REQUEST[$key]=$_GET[$key]=$value;
 			}
 			if($pathInfo!==$matches[0]) // there're additional GET params
 				CUrlManager::parsePathInfo(ltrim(substr($pathInfo,strlen($matches[0])),'/'));

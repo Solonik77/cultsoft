@@ -29,25 +29,25 @@ body
 	font-size: 200%;
 }
 
-#main_menu
+#mainmenu
 {
 	position: absolute;
 	top: 59px;
 }
 
-#main_menu ul
+#mainmenu ul
 {
 	padding: 0;
 	margin: 0;
 	padding: 0.4em 0 0.3em 0;
 }
 
-#main_menu ul li
+#mainmenu ul li
 {
 	display: inline;
 }
 
-#main_menu ul li a
+#mainmenu ul li a
 {
 	padding: 0.4em 0.4em;
 	color: white;
@@ -55,7 +55,7 @@ body
 	font-weight: bold;
 }
 
-#main_menu ul li a:hover, #main_menu ul li a.active
+#mainmenu ul li a:hover, #mainmenu ul li a.active
 {
 	background: #E6F2FF;
 	color: #6399cd;

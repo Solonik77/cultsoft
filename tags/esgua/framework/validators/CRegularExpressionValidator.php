@@ -12,7 +12,7 @@
  * CRegularExpressionValidator validates that the attribute value matches to the specified {@link pattern regular expression}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CRegularExpressionValidator.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CRegularExpressionValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -37,7 +37,7 @@ class CRegularExpressionValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 		if($this->pattern===null)
 			throw new CException(Yii::t('yii','The "pattern" property must be specified with a valid regular expression.'));

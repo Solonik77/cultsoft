@@ -23,7 +23,7 @@
  * To specify the filter method, set {@link filter} property to be the function name.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CFilterValidator.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CFilterValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -44,6 +44,6 @@ class CFilterValidator extends CValidator
 	{
 		if($this->filter===null || !is_callable($this->filter))
 			throw new CException(Yii::t('yii','The "filter" property must be specified with a valid callback.'));
-		$object->$attribute=call_user_func_array($this->filter,$object->$attribute);
+		$object->$attribute=call_user_func_array($this->filter,array($object->$attribute));
 	}
 }

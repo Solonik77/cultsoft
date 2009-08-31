@@ -12,7 +12,7 @@
  * CRequiredValidator validates that the specified attribute does not have null or empty value.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CRequiredValidator.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CRequiredValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -26,8 +26,7 @@ class CRequiredValidator extends CValidator
 	 */
 	protected function validateAttribute($object,$attribute)
 	{
-		$value=$object->$attribute;
-		if($value===null || trim($value)==='')
+		if($this->isEmpty($object->$attribute,true))
 		{
 			$message=$this->message!==null?$this->message:Yii::t('yii','{attribute} cannot be blank.');
 			$this->addError($object,$attribute,$message);

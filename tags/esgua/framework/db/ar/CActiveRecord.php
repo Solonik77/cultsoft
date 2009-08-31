@@ -16,7 +16,7 @@
  * about this class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1368,6 +1368,26 @@ abstract class CActiveRecord extends CModel
 	}
 
 	/**
+	 * Deletes rows which match the specified attribute values.
+	 * See {@link find()} for detailed explanation about $condition and $params.
+	 * @param array list of attribute values (indexed by attribute names) that the active records should match.
+	 * Since version 1.0.8, an attribute value can be an array which will be used to generate an IN condition.
+	 * @param mixed query condition or criteria.
+	 * @param array parameters to be bound to an SQL statement.
+	 * @return CActiveRecord the record found. Null if none is found.
+	 * @since 1.0.9
+	 */
+	public function deleteAllByAttributes($attributes,$condition='',$params=array())
+	{
+		Yii::trace(get_class($this).'.deleteAllByAttributes()','system.db.ar.CActiveRecord');
+		$builder=$this->getCommandBuilder();
+		$table=$this->getTableSchema();
+		$criteria=$builder->createColumnCriteria($table,$attributes,$condition,$params);
+		$command=$builder->createDeleteCommand($table,$criteria);
+		return $command->execute();
+	}
+
+	/**
 	 * Creates an active record with the given attributes.
 	 * This method is internally used by the find methods.
 	 * @param array attribute values (column name=>column value)
@@ -1466,7 +1486,7 @@ abstract class CActiveRecord extends CModel
 /**
  * CBaseActiveRelation is the base class for all active relations.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0.4
  */
@@ -1592,7 +1612,7 @@ class CBaseActiveRelation extends CComponent
 /**
  * CStatRelation represents a statistical relational query.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0.4
  */
@@ -1627,7 +1647,7 @@ class CStatRelation extends CBaseActiveRelation
 /**
  * CActiveRelation is the base class for representing active relations that bring back related objects.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1689,7 +1709,7 @@ class CActiveRelation extends CBaseActiveRelation
 /**
  * CBelongsToRelation represents the parameters specifying a BELONGS_TO relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1701,7 +1721,7 @@ class CBelongsToRelation extends CActiveRelation
 /**
  * CHasOneRelation represents the parameters specifying a HAS_ONE relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1713,7 +1733,7 @@ class CHasOneRelation extends CActiveRelation
 /**
  * CHasManyRelation represents the parameters specifying a HAS_MANY relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1764,7 +1784,7 @@ class CHasManyRelation extends CActiveRelation
 /**
  * CManyManyRelation represents the parameters specifying a MANY_MANY relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */
@@ -1777,7 +1797,7 @@ class CManyManyRelation extends CHasManyRelation
  * CActiveRecordMetaData represents the meta-data for an Active Record class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CActiveRecord.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.ar
  * @since 1.0
  */

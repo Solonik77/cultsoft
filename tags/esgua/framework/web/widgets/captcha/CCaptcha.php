@@ -28,7 +28,7 @@
  * a verification code matching the code displayed in the CAPTCHA image.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CCaptcha.php 1295 2009-08-06 20:00:34Z qiang.xue $
+ * @version $Id: CCaptcha.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web.widgets.captcha
  * @since 1.0
  */
@@ -95,7 +95,7 @@ class CCaptcha extends CWidget
 		else
 			$id=$this->imageOptions['id']=$this->getId();
 		$url=$this->getController()->createUrl($this->captchaAction);
-		$alt=isset($imageOptions['alt'])?$imageOptions['alt']:'';
+		$alt=isset($this->imageOptions['alt'])?$imageOptions['alt']:'';
 		echo CHtml::image($url,$alt,$this->imageOptions);
 	}
 

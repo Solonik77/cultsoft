@@ -15197,7 +15197,7 @@ class HTMLPurifier_URIScheme_news extends HTMLPurifier_URIScheme {
 
 
 /**
- * Validates nntp (Network news Transfer Protocol) as defined by generic RFC 1738
+ * Validates nntp (Network News Transfer Protocol) as defined by generic RFC 1738
  */
 class HTMLPurifier_URIScheme_nntp extends HTMLPurifier_URIScheme {
     

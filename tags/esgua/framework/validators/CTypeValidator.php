@@ -26,7 +26,7 @@
  * value doesn't follow the format, the attribute is considered as invalid.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CTypeValidator.php 978 2009-05-06 03:36:09Z qiang.xue $
+ * @version $Id: CTypeValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -73,7 +73,7 @@ class CTypeValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 
 		if($this->type==='integer')

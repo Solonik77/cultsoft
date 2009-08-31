@@ -48,7 +48,7 @@
  * </pre>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CSort.php 702 2009-02-18 19:29:48Z qiang.xue $
+ * @version $Id: CSort.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web
  * @since 1.0.1
  */
@@ -98,6 +98,12 @@ class CSort extends CComponent
 	 * and the corresponding sort direction. Defaults to array('-','.').
 	 */
 	public $separators=array('-','.');
+	/**
+	 * @var array the additional GET parameters (name=>value) that should be used when generating sort URLs.
+	 * Defaults to null, meaning using the currently available GET parameters.
+	 * @since 1.0.9
+	 */
+	public $params;
 
 	private $_directions;
 
@@ -112,7 +118,10 @@ class CSort extends CComponent
 	}
 
 	/**
-	 * Modifies the query criteria by changing its ORDER BY property.
+	 * Modifies the query criteria by changing its {@link CDbCriteria::order} property.
+	 * This method will use {@link directions} to determine which columns need to be sorted.
+	 * They will be put in the ORDER BY clause. If the criteria already has non-empty {@link CDbCriteria::order} value,
+	 * the new value will be appended to it.
 	 * @param CDbCriteria the query criteria
 	 */
 	public function applyOrder($criteria)
@@ -149,7 +158,7 @@ class CSort extends CComponent
 	 * If it is an attribute of a related AR object, the name should be prefixed with
 	 * the relation name (e.g. 'author.name', where 'author' is the relation name).
 	 * @param string the link label. If null, the label will be determined according
-	 * to the attribute (see {@link CActiveRecord::getAttributeLabel}).
+	 * to the attribute (see {@link resolveLabel}).
 	 * @param array additional HTML attributes for the hyperlink tag
 	 * @return string the generated hyperlink
 	 */
@@ -177,11 +186,12 @@ class CSort extends CComponent
 
 	/**
 	 * Resolves the attribute label based on label definition in the AR class.
+	 * This will invoke {@link CActiveRecord::getAttributeLabel} to determine what label to use.
 	 * @param string the attribute name.
 	 * @return string the attribute label
 	 * @since 1.0.2
 	 */
-	protected function resolveLabel($attribute)
+	public function resolveLabel($attribute)
 	{
 		if(($pos=strpos($attribute,'.'))!==false)
 		{
@@ -248,7 +258,7 @@ class CSort extends CComponent
 				$attribute=$this->attributes[$attribute];
 			$sorts[]=$descending ? $attribute.$this->separators[1].'desc' : $attribute;
 		}
-		$params=$_GET;
+		$params=$this->params===null ? $_GET : $this->params;
 		$params[$this->sortVar]=implode($this->separators[0],$sorts);
 		return $controller->createUrl($this->route,$params);
 	}
@@ -262,7 +272,7 @@ class CSort extends CComponent
 	 * @param string the attribute name (could be an alias) that the user requests to sort on
 	 * @return string the real attribute name. False if the attribute cannot be sorted
 	 */
-	protected function validateAttribute($attribute)
+	public function validateAttribute($attribute)
 	{
 		if(empty($this->attributes))
 			$attributes=CActiveRecord::model($this->modelClass)->attributeNames();

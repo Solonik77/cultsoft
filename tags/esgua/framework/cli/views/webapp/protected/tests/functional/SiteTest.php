@@ -12,11 +12,11 @@ class SiteTest extends WebTestCase
 	{
 		$this->open('?r=site/contact');
 		$this->assertTextPresent('Contact Us');
-		$this->assertElementPresent('name=contact_form[name]');
+		$this->assertElementPresent('name=ContactForm[name]');
 
-		$this->type('name=contact_form[name]','tester');
-		$this->type('name=contact_form[email]','tester@example.com');
-		$this->type('name=contact_form[subject]','test subject');
+		$this->type('name=ContactForm[name]','tester');
+		$this->type('name=ContactForm[email]','tester@example.com');
+		$this->type('name=ContactForm[subject]','test subject');
 		$this->clickAndWait("//input[@value='Submit']");
 		$this->assertTextPresent('Body cannot be blank.');
 	}

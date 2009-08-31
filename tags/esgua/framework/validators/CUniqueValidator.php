@@ -12,7 +12,7 @@
  * CUniqueValidator validates that the attribute value is unique in the corresponding database table.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CUniqueValidator.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CUniqueValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -63,7 +63,7 @@ class CUniqueValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 
 		$className=$this->className===null?get_class($object):Yii::import($this->className);

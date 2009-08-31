@@ -46,7 +46,7 @@
  * the application will switch to its error handling logic and jump to step 6 afterwards.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CApplication.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CApplication.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.base
  * @since 1.0
  */
@@ -130,9 +130,11 @@ abstract class CApplication extends CModule
 	 */
 	public function run()
 	{
-		$this->onBeginRequest(new CEvent($this));
+		if($this->hasEventHandler('onBeginRequest'))
+			$this->onBeginRequest(new CEvent($this));
 		$this->processRequest();
-		$this->onEndRequest(new CEvent($this));
+		if($this->hasEventHandler('onEndRequest'))
+			$this->onEndRequest(new CEvent($this));
 	}
 
 	/**
@@ -143,7 +145,8 @@ abstract class CApplication extends CModule
 	 */
 	public function end($status=0)
 	{
-		$this->onEndRequest(new CEvent($this));
+		if($this->hasEventHandler('onEndRequest'))
+			$this->onEndRequest(new CEvent($this));
 		exit($status);
 	}
 

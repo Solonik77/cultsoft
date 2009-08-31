@@ -14,7 +14,7 @@
  * CCaptchaValidator should be used together with {@link CCaptchaAction}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CCaptchaValidator.php 922 2009-04-05 21:36:33Z qiang.xue $
+ * @version $Id: CCaptchaValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -45,7 +45,7 @@ class CCaptchaValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 
 		if(($captcha=Yii::app()->getController()->createAction($this->captchaAction))===null)

@@ -44,7 +44,7 @@
  * you should store them directly in session on the server side if needed.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CWebUser.php 1194 2009-06-29 20:00:12Z qiang.xue $
+ * @version $Id: CWebUser.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.web.auth
  * @since 1.0
  */
@@ -361,12 +361,21 @@ class CWebUser extends CApplicationComponent implements IWebUser
 	/**
 	 * @return string a prefix for the name of the session variables storing user session data.
 	 */
-	protected function getStateKeyPrefix()
+	public function getStateKeyPrefix()
 	{
 		if($this->_keyPrefix!==null)
 			return $this->_keyPrefix;
 		else
 			return $this->_keyPrefix=md5('Yii.'.get_class($this).'.'.Yii::app()->getId());
+	}
+
+	/**
+	 * @param string a prefix for the name of the session variables storing user session data.
+	 * @since 1.0.9
+	 */
+	public function setStateKeyPrefix($value)
+	{
+		$this->_keyPrefix=$value;
 	}
 
 	/**

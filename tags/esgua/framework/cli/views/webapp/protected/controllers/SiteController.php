@@ -33,10 +33,10 @@ class SiteController extends CController
 	 */
 	public function actionContact()
 	{
-		$contact=new contact_form;
-		if(isset($_POST['contact_form']))
+		$contact=new ContactForm;
+		if(isset($_POST['ContactForm']))
 		{
-			$contact->attributes=$_POST['contact_form'];
+			$contact->attributes=$_POST['ContactForm'];
 			if($contact->validate())
 			{
 				$headers="From: {$contact->email}\r\nReply-To: {$contact->email}";

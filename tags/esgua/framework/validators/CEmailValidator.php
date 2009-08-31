@@ -12,7 +12,7 @@
  * CEmailValidator validates that the attribute value is a valid email address.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CEmailValidator.php 993 2009-05-07 21:43:44Z qiang.xue $
+ * @version $Id: CEmailValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -62,7 +62,7 @@ class CEmailValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 		$valid=preg_match($this->pattern,$value) || $this->allowName && preg_match($this->fullPattern,$value);
 		if($valid)

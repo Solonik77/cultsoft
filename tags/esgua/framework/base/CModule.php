@@ -14,7 +14,7 @@
  * CModule mainly manages application components and sub-modules.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CModule.php 1252 2009-07-15 20:14:09Z qiang.xue $
+ * @version $Id: CModule.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.base
  * @since 1.0.4
  */
@@ -249,7 +249,7 @@ abstract class CModule extends CComponent
 	 */
 	public function getModule($id)
 	{
-		if(array_key_exists($id,$this->_modules))
+		if(isset($this->_modules[$id]) || array_key_exists($id,$this->_modules))
 			return $this->_modules[$id];
 		else if(isset($this->_moduleConfig[$id]))
 		{

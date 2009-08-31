@@ -14,7 +14,7 @@
  * The data includes the number formatting information and date formatting information.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CLocale.php 1325 2009-08-10 21:07:53Z qiang.xue $
+ * @version $Id: CLocale.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.i18n
  * @since 1.0
  */
@@ -183,6 +183,7 @@ class CLocale extends CComponent
 	 * Returns the month names in the specified width.
 	 * @param string month name width. It can be 'wide', 'abbreviated' or 'narrow'.
 	 * @return array month names indexed by month values (1-12)
+	 * @since 1.0.9
 	 */
 	public function getMonthNames($width='wide')
 	{
@@ -203,6 +204,7 @@ class CLocale extends CComponent
 	 * Returns the week day names in the specified width.
 	 * @param string weekday name width.  It can be 'wide', 'abbreviated' or 'narrow'.
 	 * @return array the weekday names indexed by weekday values (0-6, 0 means Sunday, 1 Monday, etc.)
+	 * @since 1.0.9
 	 */
 	public function getWeekDayNames($width='wide')
 	{

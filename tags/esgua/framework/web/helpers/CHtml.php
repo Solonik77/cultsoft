@@ -13,7 +13,7 @@
  * CHtml is a static class that provides a collection of helper methods for creating HTML views.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CHtml.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CHtml.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web.helpers
  * @since 1.0
  */
@@ -267,7 +267,7 @@ class CHtml
 		if($request->enableCsrfValidation)
 		{
 			$token=self::hiddenField($request->csrfTokenName,$request->getCsrfToken(),array('id'=>false));
-			$form.="\n".$token;
+			$form.="\n".self::tag('div',array('style'=>'display:none'),$token);
 		}
 		return $form;
 	}
@@ -296,7 +296,7 @@ class CHtml
 	public static function statefulForm($action='',$method='post',$htmlOptions=array())
 	{
 		return self::form($action,$method,$htmlOptions)."\n".
-			self::tag('div',array('style'=>'visibility:hidden'),self::pageStateField(''));
+			self::tag('div',array('style'=>'display:none'),self::pageStateField(''));
 	}
 
 	/**
@@ -384,7 +384,8 @@ class CHtml
 	 * Generates a button using HTML button tag.
 	 * This method is similar to {@link button} except that it generates a 'button'
 	 * tag instead of 'input' tag.
-	 * @param string the button label
+	 * @param string the button label. Note that this value will be directly inserted in the button element
+	 * without being HTML-encoded.
 	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
 	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
 	 * @return string the generated button tag
@@ -397,10 +398,8 @@ class CHtml
 			$htmlOptions['name']=self::ID_PREFIX.self::$count++;
 		if(!isset($htmlOptions['type']))
 			$htmlOptions['type']='button';
-		if(!isset($htmlOptions['value']))
-			$htmlOptions['value']=$label;
 		self::clientChange('click',$htmlOptions);
-		return self::tag('button',$htmlOptions);
+		return self::tag('button',$htmlOptions,$label);
 	}
 
 	/**
@@ -1153,6 +1152,11 @@ EOD;
 	 * @param string the attribute
 	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
 	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
+	 * Since version 1.0.9, a special option named 'uncheckValue' is available that can be used to specify
+	 * the value returned when the radiobutton is not checked. By default, this value is '0'.
+	 * Internally, a hidden field is rendered so that when the radiobutton is not checked,
+	 * we can still obtain the posted uncheck value.
+	 * If 'uncheckValue' is set as NULL, the hidden field will not be rendered.
 	 * @return string the generated radio button
 	 * @see clientChange
 	 * @see activeInputField
@@ -1162,12 +1166,22 @@ EOD;
 		self::resolveNameID($model,$attribute,$htmlOptions);
 		if(!isset($htmlOptions['value']))
 			$htmlOptions['value']=1;
-		if($model->$attribute)
+		if(!isset($htmlOptions['checked']) && $model->$attribute==$htmlOptions['value'])
 			$htmlOptions['checked']='checked';
 		self::clientChange('click',$htmlOptions);
+
+		if(array_key_exists('uncheckValue',$htmlOptions))
+		{
+			$uncheck=$htmlOptions['uncheckValue'];
+			unset($htmlOptions['uncheckValue']);
+		}
+		else
+			$uncheck='0';
+
+		$hidden=$uncheck!==null ? self::hiddenField($htmlOptions['name'],$uncheck,array('id'=>self::ID_PREFIX.$htmlOptions['id'])) : '';
+
 		// add a hidden field so that if the radio button is not selected, it still submits a value
-		return self::hiddenField($htmlOptions['name'],$htmlOptions['value']?0:-1,array('id'=>self::ID_PREFIX.$htmlOptions['id']))
-			. self::activeInputField('radio',$model,$attribute,$htmlOptions);
+		return $hidden . self::activeInputField('radio',$model,$attribute,$htmlOptions);
 	}
 
 	/**
@@ -1181,6 +1195,9 @@ EOD;
 	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
 	 * Since version 1.0.2, a special option named 'uncheckValue' is available that can be used to specify
 	 * the value returned when the checkbox is not checked. By default, this value is '0'.
+	 * Internally, a hidden field is rendered so that when the checkbox is not checked,
+	 * we can still obtain the posted uncheck value.
+	 * If 'uncheckValue' is set as NULL, the hidden field will not be rendered.
 	 * @return string the generated check box
 	 * @see clientChange
 	 * @see activeInputField
@@ -1190,11 +1207,11 @@ EOD;
 		self::resolveNameID($model,$attribute,$htmlOptions);
 		if(!isset($htmlOptions['value']))
 			$htmlOptions['value']=1;
-		if($model->$attribute)
+		if(!isset($htmlOptions['checked']) && $model->$attribute==$htmlOptions['value'])
 			$htmlOptions['checked']='checked';
 		self::clientChange('click',$htmlOptions);
 
-		if(isset($htmlOptions['uncheckValue']))
+		if(array_key_exists('uncheckValue',$htmlOptions))
 		{
 			$uncheck=$htmlOptions['uncheckValue'];
 			unset($htmlOptions['uncheckValue']);
@@ -1202,8 +1219,9 @@ EOD;
 		else
 			$uncheck='0';
 
-		return self::hiddenField($htmlOptions['name'],$uncheck,array('id'=>self::ID_PREFIX.$htmlOptions['id']))
-			. self::activeInputField('checkbox',$model,$attribute,$htmlOptions);
+		$hidden=$uncheck!==null ? self::hiddenField($htmlOptions['name'],$uncheck,array('id'=>self::ID_PREFIX.$htmlOptions['id'])) : '';
+
+		return $hidden . self::activeInputField('checkbox',$model,$attribute,$htmlOptions);
 	}
 
 	/**
@@ -1540,6 +1558,7 @@ EOD;
 
 	/**
 	 * Generates input field name for a model attribute.
+	 * Unlike {@link resolveName}, this method does NOT modify the attribute name.
 	 * @param CModel the data model
 	 * @param string the attribute
 	 * @return string the generated input field name
@@ -1722,11 +1741,13 @@ EOD;
 	/**
 	 * Generates input name and ID for a model attribute.
 	 * This method will update the HTML options by setting appropriate 'name' and 'id' attributes.
+	 * This method may also modify the attribute name if the name
+	 * contains square brackets (mainly used in tabular input).
 	 * @param CModel the data model
 	 * @param string the attribute
 	 * @param array the HTML options
 	 */
-	protected static function resolveNameID($model,&$attribute,&$htmlOptions)
+	public static function resolveNameID($model,&$attribute,&$htmlOptions)
 	{
 		if(!isset($htmlOptions['name']))
 			$htmlOptions['name']=self::resolveName($model,$attribute);
@@ -1736,12 +1757,14 @@ EOD;
 
 	/**
 	 * Generates input name for a model attribute.
+	 * Note, the attribute name may be modified after calling this method if the name
+	 * contains square brackets (mainly used in tabular input).
 	 * @param CModel the data model
 	 * @param string the attribute
 	 * @return string the input name
 	 * @since 1.0.2
 	 */
-	protected static function resolveName($model,&$attribute)
+	public static function resolveName($model,&$attribute)
 	{
 		if(($pos=strpos($attribute,'['))!==false)
 		{

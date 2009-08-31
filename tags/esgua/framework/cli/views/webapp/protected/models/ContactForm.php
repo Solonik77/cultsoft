@@ -1,11 +1,11 @@
 <?php
 
 /**
- * contact_form class.
- * contact_form is the data structure for keeping
+ * ContactForm class.
+ * ContactForm is the data structure for keeping
  * contact form data. It is used by the 'contact' action of 'SiteController'.
  */
-class contact_form extends CFormModel
+class ContactForm extends CFormModel
 {
 	public $name;
 	public $email;

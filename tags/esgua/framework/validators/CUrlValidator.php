@@ -12,7 +12,7 @@
  * CUrlValidator validates that the attribute value is a valid http or https URL.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CUrlValidator.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CUrlValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -37,9 +37,9 @@ class CUrlValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
-		if(!preg_match($this->pattern,$value))
+		if(!is_string($value) || !preg_match($this->pattern,$value))
 		{
 			$message=$this->message!==null?$this->message:Yii::t('yii','{attribute} is not a valid URL.');
 			$this->addError($object,$attribute,$message);

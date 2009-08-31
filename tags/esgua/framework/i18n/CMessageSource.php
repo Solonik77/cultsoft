@@ -18,7 +18,7 @@
  * A concrete class must implement {@link loadMessages} or override {@link translateMessage}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMessageSource.php 759 2009-02-26 21:23:53Z qiang.xue $
+ * @version $Id: CMessageSource.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.i18n
  * @since 1.0
  */
@@ -95,12 +95,14 @@ abstract class CMessageSource extends CApplicationComponent
 			$this->_messages[$key]=$this->loadMessages($category,$language);
 		if(isset($this->_messages[$key][$message]) && $this->_messages[$key][$message]!=='')
 			return $this->_messages[$key][$message];
-		else
+		else if($this->hasEventHandler('onMissingTranslation'))
 		{
 			$event=new CMissingTranslationEvent($this,$category,$message,$language);
 			$this->onMissingTranslation($event);
 			return $event->message;
 		}
+		else
+			return $message;
 	}
 
 	/**
@@ -121,7 +123,7 @@ abstract class CMessageSource extends CApplicationComponent
  * CMissingTranslationEvent represents the parameter for the {@link CMessageSource::onMissingTranslation onMissingTranslation} event.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMessageSource.php 759 2009-02-26 21:23:53Z qiang.xue $
+ * @version $Id: CMessageSource.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.i18n
  * @since 1.0
  */

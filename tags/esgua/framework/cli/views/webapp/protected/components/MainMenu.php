@@ -1,6 +1,6 @@
 <?php
 /**
- * main_menu is a widget displaying main menu items.
+ * MainMenu is a widget displaying main menu items.
  *
  * The menu items are displayed as an HTML list. One of the items
  * may be set as active, which could add an "active" CSS class to the rendered item.
@@ -19,7 +19,7 @@
  *   as a controller ID and will match all actions of the controller.
  *   If pattern is not given, the url array will be used instead.
  */
-class main_menu extends CWidget
+class MainMenu extends CWidget
 {
 	public $items=array();
 
@@ -42,7 +42,7 @@ class main_menu extends CWidget
 			$item2['active']=$this->isActive($pattern,$controller->uniqueID,$action->id);
 			$items[]=$item2;
 		}
-		$this->render('main_menu',array('items'=>$items));
+		$this->render('mainMenu',array('items'=>$items));
 	}
 
 	protected function isActive($pattern,$controllerID,$actionID)

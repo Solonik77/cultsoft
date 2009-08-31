@@ -11,8 +11,8 @@
 /**
  * COciSchema is the class for retrieving metadata information from a PostgreSQL database.
  *
- * @author Ricardo Grana <qiang.xue@gmail.com>
- * @version $Id: COciSchema.php 1123 2009-06-13 12:17:54Z qiang.xue $
+ * @author Ricardo Grana <rickgrana@yahoo.com.br>
+ * @version $Id: COciSchema.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.db.schema.oci
  * @since 1.0.5
  */
@@ -183,6 +183,7 @@ EOD;
 					$table->primaryKey=array($table->primaryKey,$c->name);
 				else
 					$table->primaryKey[]=$c->name;
+				$table->sequenceName='';
 			}
 		}
 		return true;

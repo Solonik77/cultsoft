@@ -14,7 +14,7 @@
  * Note, this validator should only be used with string-typed attributes.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CStringValidator.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CStringValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -55,7 +55,7 @@ class CStringValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 		$length=strlen($value);
 		if($this->min!==null && $length<$this->min)

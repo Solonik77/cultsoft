@@ -14,12 +14,28 @@
  * CDummyCache does not do/cache anything. It is used as the default 'cache' application component.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDummyCache.php 1325 2009-08-10 21:07:53Z qiang.xue $
+ * @version $Id: CDummyCache.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.caching
  * @since 1.0
  */
 class CDummyCache extends CApplicationComponent implements ICache, ArrayAccess
 {
+	/**
+	 * @var string a string prefixed to every cache key so that it is unique. Defaults to {@link CApplication::getId() application ID}.
+	 */
+	public $keyPrefix;
+
+	/**
+	 * Initializes the application component.
+	 * This method overrides the parent implementation by setting default cache key prefix.
+	 */
+	public function init()
+	{
+		parent::init();
+		if($this->keyPrefix===null)
+			$this->keyPrefix=Yii::app()->getId();
+	}
+
 	/**
 	 * Retrieves a value from cache with a specified key.
 	 * @param string a key identifying the cached value

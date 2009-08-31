@@ -24,7 +24,7 @@
  * Previously, it only compares to see if two values are equal or not.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CCompareValidator.php 1308 2009-08-07 23:43:11Z qiang.xue $
+ * @version $Id: CCompareValidator.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.validators
  * @since 1.0
  */
@@ -74,7 +74,7 @@ class CCompareValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 		if($this->compareValue!==null)
 			$compareTo=$compareValue=$this->compareValue;
@@ -132,20 +132,6 @@ class CCompareValidator extends CValidator
 				break;
 			default:
 				throw new CException(Yii::t('yii','Invalid operator "{operator}".',array('{operator}'=>$this->operator)));
-		}
-	}
-
-	protected function compareValues($value,$value2)
-	{
-		switch($this->operator)
-		{
-			case '=':
-			case '==':
-				return ($this->strict && $value===$compareValue) || (!$this->strict && $value==$compareValue);
-			case '!=':
-				return ($this->strict && $value!==$compareValue) || (!$this->strict && $value!=$compareValue);
-			case '>':
-				return $value>$compareValue;
 		}
 	}
 }

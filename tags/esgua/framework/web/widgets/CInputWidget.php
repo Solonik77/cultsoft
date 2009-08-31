@@ -17,7 +17,7 @@
  * Child classes may use {@link resolveNameID} and {@link hasModel}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CInputWidget.php 978 2009-05-06 03:36:09Z qiang.xue $
+ * @version $Id: CInputWidget.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.web.widgets
  * @since 1.0
  */
@@ -28,7 +28,8 @@ abstract class CInputWidget extends CWidget
 	 */
 	public $model;
 	/**
-	 * @var string the attribute associated with this widget.
+	 * @var string the attribute associated with this widget. Starting from version 1.0.9,
+	 * the name can contain square brackets (e.g. 'name[1]') which is used to collect tabular data input.
 	 */
 	public $attribute;
 	/**
@@ -52,10 +53,10 @@ abstract class CInputWidget extends CWidget
 	{
 		if($this->name!==null)
 			$name=$this->name;
-		else if($this->hasModel())
-			$name=CHtml::activeName($this->model,$this->attribute);
 		else if(isset($this->htmlOptions['name']))
 			$name=$this->htmlOptions['name'];
+		else if($this->hasModel())
+			$name=CHtml::resolveName($this->model,$this->attribute);
 		else
 			throw new CException(Yii::t('yii','{class} must specify "model" and "attribute" or "name" property values.',array('{class}'=>get_class($this))));
 

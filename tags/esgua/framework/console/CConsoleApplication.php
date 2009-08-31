@@ -37,14 +37,14 @@
  * </pre>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CConsoleApplication.php 434 2008-12-30 23:14:31Z qiang.xue $
+ * @version $Id: CConsoleApplication.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.console
  * @since 1.0
  */
 class CConsoleApplication extends CApplication
 {
 	/**
-	 * @var array mapping from controller ID to controller configurations.
+	 * @var array mapping from command name to command configurations.
 	 * Each command configuration can be either a string or an array.
 	 * If the former, the string should be the file path of the command class.
 	 * If the latter, the array must contain a 'class' element which specifies

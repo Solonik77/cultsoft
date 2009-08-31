@@ -12,7 +12,7 @@
  * CDbCriteria represents a query criteria, such as conditions, ordering by, limit/offset.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDbCriteria.php 1051 2009-05-22 20:14:05Z qiang.xue $
+ * @version $Id: CDbCriteria.php 1374 2009-08-29 20:36:55Z qiang.xue $
  * @package system.db.schema
  * @since 1.0
  */
@@ -71,6 +71,32 @@ class CDbCriteria
 	{
 		foreach($data as $name=>$value)
 			$this->$name=$value;
+	}
+
+	/**
+	 * Appends a condition to the existing {@link condition}.
+	 * The new condition and the existing condition will be concatenated via the specified operator
+	 * which defaults to 'AND'.
+	 * The new condition can also be an array. In this case, all elements in the array
+	 * will be concatenated together via the operator.
+	 * This method handles the case when the existing condition is empty.
+	 * After calling this method, the {@link condition} property will be modified.
+	 * @param mixed the new condition. It can be either a string or an array of strings.
+	 * @param string the operator to join different conditions. Defaults to 'AND'.
+	 * @since 1.0.9
+	 */
+	public function addCondition($condition,$operator='AND')
+	{
+		if(is_array($condition))
+		{
+			if($condition===array())
+				return;
+			$condition='('.implode(') '.$operator.' (',$condition).')';
+		}
+		if($this->condition==='')
+			$this->condition=$condition;
+		else
+			$this->condition='('.$this->condition.') '.$operator.' ('.$condition.')';
 	}
 
 	/**

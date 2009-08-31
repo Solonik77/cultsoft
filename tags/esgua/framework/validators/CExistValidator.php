@@ -17,7 +17,7 @@
  * CExistValidator can only be used for active record objects.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CExistValidator.php 1269 2009-07-22 15:41:20Z qiang.xue $
+ * @version $Id: CExistValidator.php 1354 2009-08-20 18:15:14Z qiang.xue $
  * @package system.validators
  * @since 1.0.4
  */
@@ -60,7 +60,7 @@ class CExistValidator extends CValidator
 	protected function validateAttribute($object,$attribute)
 	{
 		$value=$object->$attribute;
-		if($this->allowEmpty && ($value===null || $value===''))
+		if($this->allowEmpty && $this->isEmpty($value))
 			return;
 
 		$className=$this->className===null?get_class($object):Yii::import($this->className);
