@@ -1,6 +1,6 @@
 <?php
 
-class App_View_Helper_TinyMCE extends Zend_View_Helper_Abstract {
+class App_View_Helper_TinyMce extends Zend_View_Helper_Abstract {
     protected $_enabled = false;
     protected $_defaultScript = '/static/system/clientscripts/tiny_mce/tiny_mce.js';
 
@@ -65,7 +65,7 @@ class App_View_Helper_TinyMCE extends Zend_View_Helper_Abstract {
         return $this;
     }
 
-    public function TinyMCE ()
+    public function TinyMce ()
     {
         return $this;
     }
@@ -114,7 +114,7 @@ class App_View_Helper_TinyMCE extends Zend_View_Helper_Abstract {
         if (false === $this->_useCompressor) {
             return;
         }
-        $script = 'tinyMCE_GZ.init({' . PHP_EOL
+        $script = 'tinyMce_GZ.init({' . PHP_EOL
          . 'themes: "' . implode(',', $this->_supportedTheme) . '"' . PHP_EOL
          . 'plugins: "' . implode(',', $this->_supportedPlugins) . '"' . PHP_EOL
          . 'languages: "' . implode(',', $this->_supportedLanguages) . '"' . PHP_EOL
@@ -128,7 +128,7 @@ class App_View_Helper_TinyMCE extends Zend_View_Helper_Abstract {
 
     protected function _renderEditor ()
     {
-        $script = 'tinyMCE.init({' . PHP_EOL;
+        $script = 'tinyMce.init({' . PHP_EOL;
 
         foreach ($this->_config as $name => $value) {
             if (is_array($value)) {
