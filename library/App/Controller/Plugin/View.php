@@ -67,6 +67,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         // Configure Zend Pagiantor
         Zend_Paginator::setDefaultScrollingStyle('Elastic');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination_control.phtml');
+        $this->_view->addFilterPath('App/View/Filter', 'App_View_Filter');        
         // Enable JQuery support
         $this->_view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $this->_view->jQuery()->enable();
