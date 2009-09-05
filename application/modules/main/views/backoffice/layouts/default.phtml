@@ -7,21 +7,15 @@ echo $this->doctype();
 <head>
 <?php
 echo $this->headTitle()?>
-<?php
+<?php echo $this->headMeta()?>
 
-echo $this->headMeta()?>
-<?php
+<?php echo $this->headLink()?>
+ 
+<?php echo $this->headStyle()?>
 
-echo $this->headLink()?>
-<?php
+<?php echo $this->headScript()?>
 
-echo $this->headStyle()?>
-<?php
-
-echo $this->headScript()?>
-<?php
-
-echo $this->inlineScript()?>
+<?php echo $this->inlineScript()?>
 
 </head>
 <body>
