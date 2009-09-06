@@ -349,6 +349,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 }
             }
             $response->sendResponse();
+            exit;
         }
         catch(Exception $e) {
             throw new App_Exception($e->getMessage());
