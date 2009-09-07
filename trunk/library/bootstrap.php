@@ -171,6 +171,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance('File'));
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
+            App::db()->query("SET NAMES 'utf8'");
             defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
         }
         catch(Zend_Db_Adapter_Exception $e) {
