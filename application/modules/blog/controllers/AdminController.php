@@ -19,7 +19,7 @@ class Blog_AdminController extends App_Controller_Action {
 
     public function preDispatch()
     {
-        $this->blogService = new Blog_Model_Service();
+        $this->blogService = new  Blog_Orm_Model;
     }
 
     /**
@@ -69,7 +69,8 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 // Saving new blog
-                if ($this->blogService->saveBlog()) {
+                $this->blogService->save();
+                if ($this->blogService->save()) {
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
@@ -95,26 +96,26 @@ class Blog_AdminController extends App_Controller_Action {
         }
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
-        $form = new Blog_Form_EditBlog();
+        $form = new Blog_Form_EditBlog;
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $this->blogService->findBlog($blogId) : $this->_request->getPost();
+        $formData = (! $this->_request->isPost()) ? $this->blogService->find($blogId) : $this->_request->getPost();
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('delete_blog')) {
                 // Delete blog
-                if ($this->blogService->deleteBlog()) {
+                if ($this->blogService->delete()) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
                     $this->_redirect ('blog/admin/manage-blogs');
                 }
             }
-            if (! $form->isValid ($formData)) {
+            if (! $form->isValid($formData)) {
                 // Errors in input data
                 $this->view->form = $form;
                 return $this->render();
             } else {
                 // Saving new blog
-                if ($this->blogService->saveBlog()) {
+                if ($this->blogService->save()) {
                     // Set message to view
                     $this->_helper->messages ('Changes for blog successfully saved', 'success', true);
                     // Clear post
@@ -138,7 +139,7 @@ class Blog_AdminController extends App_Controller_Action {
         if (! $blogId = $this->_request->getParam ('id')) {
             return $this->render ('error-no-id');
         } else {
-            if ($this->blogService->deleteBlog()) {
+            if ($this->blogService->delete()) {
                 $this->_helper->messages ('Blog deleted successfully', 'success', true);
             }
         }
