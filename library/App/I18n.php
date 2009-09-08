@@ -57,7 +57,7 @@ class App_I18n {
         }
         $cache = App_Cache::getInstance('permCache');
         if (! $site_languages = $cache->load('website_languages')) {
-            $site_languages = new Main_Model_DbTable_Site_Languages();
+            $site_languages = new Main_DbTable_Site_Languages();
             $site_languages = $site_languages->fetchAll()->toArray();
             if (count($site_languages) > 0) {
                 $cache->save($site_languages);

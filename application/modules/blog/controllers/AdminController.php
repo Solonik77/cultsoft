@@ -58,7 +58,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
-        $form = new Blog_Form_EditBlog();
+        $form = new Blog_Form_EditBlog;
         $form->compose();
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
@@ -73,7 +73,7 @@ class Blog_AdminController extends App_Controller_Action {
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
-                    $this->_redirect ('blog/admin/manage-blogs');
+                    $this->_redirect('blog/admin/manage-blogs');
                 } else {
                     // Set message to view
                     $this->_helper->messages ('Error in creation new blog', 'error', true);
@@ -98,10 +98,10 @@ class Blog_AdminController extends App_Controller_Action {
         $form = new Blog_Form_EditBlog();
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $this->blogService->findBlog ($blogId) : $this->_request->getPost();
+        $formData = (! $this->_request->isPost()) ? $this->blogService->findBlog($blogId) : $this->_request->getPost();
         $form->populate ($formData);
         if ($this->_request->isPost()) {
-            if ($this->_request->getParam ('delete_blog')) {
+            if ($this->_request->getParam('delete_blog')) {
                 // Delete blog
                 if ($this->blogService->deleteBlog()) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
@@ -121,7 +121,7 @@ class Blog_AdminController extends App_Controller_Action {
                     $this->_redirect ('blog/admin/manage-blogs');
                 } else {
                     // Set message to view
-                    $this->_helper->messages ('Error editing blog', 'error', true);
+                    $this->_helper->messages('Error editing blog', 'error', true);
                     // Clear post
                     $this->_selfRedirect();
                 }
