@@ -2,7 +2,7 @@
 /**
 * Blog service
 */
-class  Blog_Orm_Model {
+class  Blog_Orm_Model implements App_Orm_Model_Interface {
     private $_blog;
     private $_i18n_blog;
     private $_blog_member;
@@ -14,7 +14,7 @@ class  Blog_Orm_Model {
         $this->_blog_member = new Blog_DbTable_Blog_Member();
     }
 
-    public function saveBlog()
+    public function save()
     {
         $post = App::front()->getRequest()->getPost();
         $default_i18n = false;
@@ -54,7 +54,7 @@ class  Blog_Orm_Model {
         }
     }
 
-    public function deleteBlog($id = 0)
+    public function delete($id = 0)
     {
         $id = (int) ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
         try {
@@ -67,7 +67,7 @@ class  Blog_Orm_Model {
         }
     }
 
-    public function findBlog($id = 0, $langId = null)
+    public function find($id = 0, $langId = null)
     {
         $select = $this->_i18n_blog->select();
         $select->where('blog_id = ?', (int) $id)->order('blog_id DESC');
