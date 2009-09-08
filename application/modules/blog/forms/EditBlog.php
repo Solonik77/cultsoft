@@ -13,12 +13,12 @@ class Blog_Form_EditBlog extends App_Form {
         $moduleLangs = App::i18n()->getModuleLanguages();
         if (count($moduleLangs) > 0) {
             foreach($moduleLangs as $lang) {
-                $title = $this->createElement('text', 'title[' . $lang['id'] . ']', array('maxlength' => 100))->setLabel('Title');
+                $title = $this->createElement('text', 'i18n[' . $lang['id'] . '][title]', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
-                $description = $this->createElement('textarea', 'description[' . $lang['id'] . ']', array('label' => 'Description' , 'rows' => '2'));
+                $description = $this->createElement('textarea', 'i18n[' . $lang['id'] . '][description]', array('label' => 'Description' , 'rows' => '2'));
                 $description->addValidator('StringLength', false, array(3 , 255))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $this->addElement($title)->addElement($description);
-                $this->addDisplayGroup(array('title[' . $lang['id'] . ']' , 'description[' . $lang['id'] . ']'), 'content_' . $lang['id'], array("legend" => __($lang['name'])));
+                $this->addDisplayGroup(array('i18n[' . $lang['id'] . '][title]' , 'i18n[' . $lang['id'] . '][description]'), 'content_' . $lang['id'], array("legend" => __($lang['name'])));
             }
         } else {
             //  @todo Show error message
