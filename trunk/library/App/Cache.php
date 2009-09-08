@@ -72,7 +72,7 @@ class App_Cache {
     {
         $data = null;
         if (! ($data = $this->cache->permCache->load('SiteNavigationTree'))) {
-            $model = new Main_Model_DbTable_Site_Structure();
+            $model = new Main_DbTable_Site_Structure();
             $data = $model->getTree();
             $this->cache->permCache->save($data);
         }
