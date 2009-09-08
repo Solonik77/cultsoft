@@ -2,7 +2,7 @@
 /**
 * Blog service
 */
-class Blog_Model_Service {
+class  Blog_Orm_Model {
     private $_blog;
     private $_i18n_blog;
     private $_blog_member;
@@ -17,8 +17,8 @@ class Blog_Model_Service {
     public function saveBlog()
     {
         $post = App::front()->getRequest()->getPost();
-        $default_i18n = App::front()->getRequest()->getI18n(App::i18n()->getDefaultSiteLanguageId());
-        $i18n = App::front()->getRequest()->getI18n();
+        $default_i18n = false;
+        $i18n = false;
         $blogId = $requestId = App::front()->getRequest()->getParam('id');
         App::db()->beginTransaction();
         try {
