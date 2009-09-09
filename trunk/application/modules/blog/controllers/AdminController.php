@@ -56,7 +56,6 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function newBlogAction()
     {
-        $this->blogModel->getTest();
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
         $form = new Blog_Form_EditBlog;
