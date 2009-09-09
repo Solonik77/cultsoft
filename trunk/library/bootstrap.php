@@ -74,6 +74,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             echo  '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
             exit;
         }
+        
         App_Utf8::clean_globals();
         App_Input::instance();
         ini_set('log_errors', true);

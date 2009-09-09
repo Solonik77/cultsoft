@@ -56,12 +56,13 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function newBlogAction()
     {
-        $this->view->pageDescription = 'Create new blog';
+		$this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
         $form = new Blog_Form_EditBlog;
         $form->compose();
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
+            print_r($formData); die;
             $form->populate ($formData);
             if (! $form->isValid ($formData)) {
                 // Errors in input data

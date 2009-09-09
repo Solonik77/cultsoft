@@ -3,11 +3,12 @@
 abstract class App_Model_Abstract {
     private $_table;
     private $_attributes = array();
-    private $_columns = array();
 
     public function __call($name, $args)
     {
-        if (preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute($match[2])) {
+        if (preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(
+                    strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore'))
+                    )) {
             if ('get' == $match[1]) {
                 return $this->$attribute;
             } else {
@@ -20,8 +21,6 @@ abstract class App_Model_Abstract {
 
     public function validateAttribute($name)
     {
-        $name = Zend_Filter::filterStatic($name, 'Word_CamelCaseToUnderscore');
-        $name = strtolower($name);
         if ($this->$name !== false) {
             return strtolower($name);
         } else {
@@ -53,6 +52,7 @@ abstract class App_Model_Abstract {
         } else if (array_key_exists($name, $this->getMetaData()->_attributes)) {
             return $this->_attributes[$name];
         } else {
+            throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
             return false;
         }
     }

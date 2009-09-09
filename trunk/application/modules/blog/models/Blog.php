@@ -2,20 +2,13 @@
 /**
 * Blog model
 */
-class  Blog extends App_Model_Abstract
-{
-
-
-    protected $_blog;
-    protected $_i18n_blog;
-    protected $_blog_member;
-
-    public function setId($id) {
-    if (!$this->id) {
-      $this->id = $id;
+class Blog extends App_Model_Abstract {
+    public function setId($id)
+    {
+        if (!$this->id) {
+            $this->id = $id;
+        }
     }
-  }
-
 
     public function __construct()
     {
