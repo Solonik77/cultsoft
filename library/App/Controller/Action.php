@@ -20,7 +20,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         // Member information
         $this->_member = App_Member::getInstance();
         $doctypeHelper = new Zend_View_Helper_Doctype();
-        // Set global HTML doctype
+        // Set HTML doctype
         $doctypeHelper->doctype('XHTML1_STRICT');
         $languages = App::I18N()->getSiteLanguages();
         $requestLang = App::front()->getParam('requestLang');
@@ -47,15 +47,18 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $this->view->navigation($container);
         }
         $module = ucfirst(strtolower($request->getParam('module')));
-
         // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . $module , 'namespace' => $module));
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . strtolower($module) , 'namespace' => $module));
         $resourceLoader->addResourceTypes(
             array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
+        $module = strtolower($module);
+        if($module != 'main')
+        {
+            set_include_path(APPLICATION_PATH . 'modules/' . $module . '/models/' . PATH_SEPARATOR . get_include_path());
+        }
+        
         if ($this->getRequest()->isXmlHttpRequest()) {
-            // AJAX request
             Zend_Layout::disableLayout();
-            Zend_Controller_Action_HelperBroker::removeHelper('viewRenderer');
         }
     }
 
