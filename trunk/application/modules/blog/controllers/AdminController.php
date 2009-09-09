@@ -69,7 +69,7 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 // Saving new blog
-                $this->blogModel->save();
+                 $this->blogModel->setAttributes($this->_request->getPost('blog'));
                 if ($this->blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
@@ -99,12 +99,12 @@ class Blog_AdminController extends App_Controller_Action {
         $form = new Blog_Form_EditBlog;
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $this->blogModel->find($blogId) : $this->_request->getPost();
+        $formData = (! $this->_request->isPost()) ? $this->blogModel->findByPK($blogId) : $this->_request->getPost();
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('delete_blog')) {
                 // Delete blog
-                if ($this->blogModel->delete()) {
+                if ($this->blogModel->delete($blogId)) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
                     $this->_redirect ('blog/admin/manage-blogs');
                 }
@@ -114,7 +114,8 @@ class Blog_AdminController extends App_Controller_Action {
                 $this->view->form = $form;
                 return $this->render();
             } else {
-                // Saving new blog
+                $this->blogModel->setAttributes($this->_request->getPost('blog'));
+				// Saving new blog
                 if ($this->blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('Changes for blog successfully saved', 'success', true);

@@ -14,14 +14,14 @@ class Blog_Form_EditBlog extends App_Form {
         $moduleLangs = App::i18n()->getModuleLanguages();
         if (count($moduleLangs) > 0) {
             foreach($moduleLangs as $lang) {
-                $langForm = new Zend_Form_SubForm('content');
-                $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
+                $langForm = new Zend_Form_SubForm;
+                $langForm->setLegend( __($lang['name']));
+                $langForm->setElementsBelongTo('i18n[' . $lang['id'] . ']');
                 $title = $this->createElement('text', 'title', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $description = $this->createElement('textarea', 'description', array('label' => 'Description' , 'rows' => '2'));
                 $description->addValidator('StringLength', false, array(3 , 255))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $langForm->addElement($title)->addElement($description);
-                $langForm->addDisplayGroup(array('title' , 'description'), 'content_' . $lang['id'], array("legend" => __($lang['name'])));
                 $this->addSubForm($langForm, 'lang_' . $lang['id']);
             }
         } else {
