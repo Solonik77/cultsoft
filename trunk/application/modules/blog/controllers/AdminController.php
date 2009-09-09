@@ -8,7 +8,7 @@
 */
 class Blog_AdminController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;
-    protected $blogService;
+    protected $blogModel;
 
     public function init()
     {
@@ -19,7 +19,7 @@ class Blog_AdminController extends App_Controller_Action {
 
     public function preDispatch()
     {
-        $this->blogService = new  Blog_Orm_Model;
+        $this->blogModel = new Blog;
     }
 
     /**
@@ -47,7 +47,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageDescription = 'Manage blogs.';
         $this->view->types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-        $this->view->blogsDataGrid = $this->blogService->fetchBlogsDataGrid($this->_request->getParam('sort-by'),
+        $this->view->blogsDataGrid = $this->blogModel->fetchBlogsDataGrid($this->_request->getParam('sort-by'),
             $this->_request->getParam('sort-order'));
     }
 
@@ -69,8 +69,8 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 // Saving new blog
-                $this->blogService->save();
-                if ($this->blogService->save()) {
+                $this->blogModel->save();
+                if ($this->blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
@@ -99,12 +99,12 @@ class Blog_AdminController extends App_Controller_Action {
         $form = new Blog_Form_EditBlog;
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $this->blogService->find($blogId) : $this->_request->getPost();
+        $formData = (! $this->_request->isPost()) ? $this->blogModel->find($blogId) : $this->_request->getPost();
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('delete_blog')) {
                 // Delete blog
-                if ($this->blogService->delete()) {
+                if ($this->blogModel->delete()) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
                     $this->_redirect ('blog/admin/manage-blogs');
                 }
@@ -115,7 +115,7 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 // Saving new blog
-                if ($this->blogService->save()) {
+                if ($this->blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('Changes for blog successfully saved', 'success', true);
                     // Clear post
@@ -139,7 +139,7 @@ class Blog_AdminController extends App_Controller_Action {
         if (! $blogId = $this->_request->getParam ('id')) {
             return $this->render ('error-no-id');
         } else {
-            if ($this->blogService->delete()) {
+            if ($this->blogModel->delete()) {
                 $this->_helper->messages ('Blog deleted successfully', 'success', true);
             }
         }
