@@ -1,11 +1,12 @@
 <?php
 /**
-* Blog service
+* Blog model
 */
-class  Blog_Orm_Model implements App_Orm_Model_Interface {
-    private $_blog;
-    private $_i18n_blog;
-    private $_blog_member;
+class  Blog
+{
+    protected $_blog;
+    protected $_i18n_blog;
+    protected $_blog_member;
 
     public function __construct()
     {
