@@ -10,11 +10,12 @@ class Blog_Form_EditBlog extends App_Form {
     public function compose()
     {
         $this->setAction('');
+        $this->setElementsBelongTo('blog');
         $moduleLangs = App::i18n()->getModuleLanguages();
         if (count($moduleLangs) > 0) {
             foreach($moduleLangs as $lang) {
-                $langForm  = new App_Form;
-                $langForm->setElementsBelongTo('i18n[' . $lang['id'] . ']');
+                $langForm = new Zend_Form_SubForm('content');
+                $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
                 $title = $this->createElement('text', 'title', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $description = $this->createElement('textarea', 'description', array('label' => 'Description' , 'rows' => '2'));

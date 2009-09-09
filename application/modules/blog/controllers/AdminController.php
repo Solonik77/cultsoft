@@ -62,7 +62,6 @@ class Blog_AdminController extends App_Controller_Action {
         $form->compose();
         if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
-            print_r($formData); die;
             $form->populate ($formData);
             if (! $form->isValid ($formData)) {
                 // Errors in input data
