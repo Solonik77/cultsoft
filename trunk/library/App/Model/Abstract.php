@@ -14,7 +14,14 @@ abstract class App_Model_Abstract {
             if ('get' == $match[1]) {
                 return $this->$attribute;
             } else {
-                $this->$attribute = $args[0];
+                       if (count($this->_columns) == 0) {
+                            $this->getMetaData();
+                       } 
+               if(isset($this->_columns[$attribute])){                       
+                    $this->$attribute = $this->_attributes[$attribute] = $args[0];
+               } else {
+                throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
+               }
             }
         } else {
             throw new App_Exception('Call to undefined method ' . $name . '()');
