@@ -4,6 +4,7 @@ abstract class App_Model_Abstract {
     private $_table;
     private $_columns = array();
     private $_attributes = array();
+    private $_dependentTables = array();
 
     public function __call($name, $args)
     {
@@ -37,6 +38,22 @@ abstract class App_Model_Abstract {
             if (class_exists($dbTableClass)) {
                 $this->_table = new $dbTableClass;
                 $info = $this->_table->info();
+                if (count($info['dependentTables']) > 0) {
+                    foreach($info['dependentTables'] as $table) {
+                        if (class_exists($table)) {
+                            $dependentTable = new $table;
+                            $dependentInfo = $dependentTable->info();
+                            $table = strtolower(substr($table, strlen($module) + 9));
+                            $this->_dependentTables[$table] = new StdClass;
+                            $array = array();
+                            foreach($dependentInfo['cols'] as $key => $col) {
+                                $array[$col] = null;
+                            }
+                            $this->_dependentTables[$table]->_columns = $array;
+                        }
+                    }
+                }
+
                 $cols = $info['cols'];
                 foreach($cols as $col) {
                     $this->_columns[$col] = $info['metadata'][$col]['DEFAULT'];
@@ -48,17 +65,34 @@ abstract class App_Model_Abstract {
 
     public function setAttributes($array)
     {
-		if (count($this->_columns) == 0) {
+        if (count($this->_columns) == 0) {
             $this->getMetaData();
         }
 
+        $dependentTables = $this->getDependentTables();
         $result = array();
-		foreach($this->_columns as $key => $value){
-		if(isset($array[$key])){
-			$result[$key] = $array[$key];
-			}
-		}
+        foreach($this->_columns as $key => $value) {
+            if (isset($array[$key])) {
+                $result[$key] = $array[$key];
+            }
+        }
         $this->_attributes = $result;
+        $result = array();
+        foreach($dependentTables as $table => $column) {
+            // print_r($array);
+            // print_r($column->_columns);
+            if (isset($array[$table])) {
+                $result[$key] = $array[$key];
+            }
+        }
+    }
+
+    public function getDependentTables()
+    {
+        if (count($this->_columns) == 0) {
+            $this->getMetaData();
+        }
+        return $this->_dependentTables;
     }
 
     public function getAttributes()

@@ -16,7 +16,7 @@ class Blog_Form_EditBlog extends App_Form {
             foreach($moduleLangs as $lang) {
                 $langForm = new Zend_Form_SubForm;
                 $langForm->setLegend( __($lang['name']));
-                $langForm->setElementsBelongTo('i18n[' . $lang['id'] . ']');
+                $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
                 $title = $this->createElement('text', 'title', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $description = $this->createElement('textarea', 'description', array('label' => 'Description' , 'rows' => '2'));
