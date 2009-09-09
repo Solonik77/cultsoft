@@ -9,9 +9,9 @@ class  Blog_Orm_Model implements App_Orm_Model_Interface {
 
     public function __construct()
     {
-        $this->_blog = new Blog_DbTable_Blog();
-        $this->_i18n_blog = new Blog_DbTable_I18n_Blog();
-        $this->_blog_member = new Blog_DbTable_Blog_Member();
+        $this->_blog = new Blog_DbTable_Blog;
+        $this->_i18n_blog = new Blog_DbTable_I18n_Blog;
+        $this->_blog_member = new Blog_DbTable_Blog_Member;
     }
 
     public function save()
