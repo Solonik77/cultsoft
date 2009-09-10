@@ -56,12 +56,28 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function newBlogAction()
     {
-
-		$this->view->pageDescription = 'Create new blog';
+        $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
         $form = new Blog_Form_EditBlog;
         $form->compose();
         if ($this->_request->isPost()) {
+        $post = $this->_request->getPost('blog');
+            $this->blogModel->setAttributes($post);
+            $this->blogModel->setAttribute('updated', Vendor_Helper_Date::now());
+
+            $moduleLangs = App::i18n()->getModuleLanguages();
+
+			if (isset($post['i18n_blog']) AND count($moduleLangs) > 0) {
+                $i18n_blog = $post['i18n_blog'];
+                foreach($moduleLangs as $lang) {
+                    if (isset($i18n_blog[$lang['id']])) {
+                        $this->blogModel->setDependentAttributes('i18n_blog', $i18n_blog[$lang['id']]);
+                        $this->blogModel->setDependentAttribute('i18n_blog', 'lang_id', $lang['id']);
+                    }
+                }
+            }
+           // var_dump($this->blogModel->getDependentAttribute('i18n_blog', 'title')); die;
+
             $formData = $this->_request->getPost();
             $form->populate ($formData);
             if (! $form->isValid ($formData)) {
@@ -70,8 +86,11 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 // Saving new blog
-                 $this->blogModel->setAttributes($this->_request->getPost('blog'));
+                $this->blogModel->setAttributes($this->_request->getPost('blog'));
+
                 if ($this->blogModel->save()) {
+                    $this->blogModel->setDependentAttribute('i18n_blog', 'blog_id', $this->blogModel->id);
+                    $this->blogModel->saveDependent();
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
@@ -116,7 +135,7 @@ class Blog_AdminController extends App_Controller_Action {
                 return $this->render();
             } else {
                 $this->blogModel->setAttributes($this->_request->getPost('blog'));
-				// Saving new blog
+                // Saving new blog
                 if ($this->blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('Changes for blog successfully saved', 'success', true);

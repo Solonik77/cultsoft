@@ -6,25 +6,79 @@ abstract class App_Model_Abstract {
     private $_attributes = array();
     private $_dependentTables = array();
 
-    public function __call($name, $args)
+    public function getAttributes()
     {
-        if (preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(
-                    strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore'))
-                    )) {
-            if ('get' == $match[1]) {
-                return $this->$attribute;
-            } else {
-                if (count($this->_columns) == 0) {
-                    $this->getMetaData();
-                }
-                if (isset($this->_columns[$attribute])) {
-                    $this->$attribute = $this->_attributes[$attribute] = $args[0];
-                } else {
-                    throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
-                }
+        return $this->_attributes;
+    }
+
+    public function setAttributes($array)
+    {
+        if (count($this->_columns) == 0) {
+            $this->getMetaData();
+        }
+
+        $result = array();
+        foreach($this->_columns as $key => $value) {
+            if (isset($array[$key])) {
+                $result[$key] = $array[$key];
             }
-        } else {
-            throw new App_Exception('Call to undefined method ' . $name . '()');
+        }
+        $this->_attributes = $result;
+        return $this;
+    }
+
+    public function setAttribute($attribute, $value)
+    {
+        if (count($this->_columns) == 0) {
+            $this->getMetaData();
+        }
+        if (array_key_exists($attribute, $this->_columns)) {
+            $this->_attributes[$attribute] = $value;
+        }
+
+        return $this;
+    }
+
+    public function getDependentTables()
+    {
+        if (count($this->_columns) == 0) {
+            $this->getMetaData();
+        }
+        return $this->_dependentTables;
+    }
+
+    public function getDependentTable($table)
+    {
+        $tables = $this->getDependentTables();
+        return (isset($tables[$table])) ? $tables[$table] : null;
+    }
+
+    public function getDependentAttributes($table)
+    {
+        $table = $this->getDependentTable($table);
+        return ($table) ? $table->_attributes : false;
+    }
+
+    public function getDependentAttribute($table, $attribute)
+    {
+        $attrubutes = $this->getDependentAttributes($table);
+        return (array_key_exists($attribute, $attrubutes)) ? $attrubutes[$attribute] : false;
+    }
+
+    public function setDependentAttributes($table, $attributes)
+    {
+        if (is_array($attributes) and count($attributes) > 0) {
+            foreach($attributes as $attribute => $value) {
+			    $this->setDependentAttribute($table, $attribute, $value);
+            }
+        }
+    }
+
+    public function setDependentAttribute($table, $attribute, $value)
+    {
+        $attributeValue = $this->getDependentAttribute($table, $attribute);
+        if ($attributeValue !== false) {
+            $this->_dependentTables[$table]->_attributes[$attribute] = $value;
         }
     }
 
@@ -57,6 +111,7 @@ abstract class App_Model_Abstract {
                                 $array[$col] = null;
                             }
                             $this->_dependentTables[$table]->_columns = $array;
+                            $this->_dependentTables[$table]->_attributes = $array;
                         }
                     }
                 }
@@ -70,41 +125,26 @@ abstract class App_Model_Abstract {
         return $this;
     }
 
-    public function setAttributes($array)
+    public function __call($name, $args)
     {
-        if (count($this->_columns) == 0) {
-            $this->getMetaData();
-        }
-
-        $dependentTables = $this->getDependentTables();
-        $result = array();
-        foreach($this->_columns as $key => $value) {
-            if (isset($array[$key])) {
-                $result[$key] = $array[$key];
+        if (preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(
+                    strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore'))
+                    )) {
+            if ('get' == $match[1]) {
+                return $this->$attribute;
+            } else {
+                if (count($this->_columns) == 0) {
+                    $this->getMetaData();
+                }
+                if (isset($this->_columns[$attribute])) {
+                    $this->$attribute = $this->_attributes[$attribute] = $args[0];
+                } else {
+                    throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
+                }
             }
+        } else {
+            throw new App_Exception('Call to undefined method ' . $name . '()');
         }
-        $this->_attributes = $result;
-        $result = array();
-        foreach($dependentTables as $table => $column) {
-            // print_r($array);
-            // print_r($column->_columns);
-            if (isset($array[$table])) {
-                $result[$key] = $array[$key];
-            }
-        }
-    }
-
-    public function getDependentTables()
-    {
-        if (count($this->_columns) == 0) {
-            $this->getMetaData();
-        }
-        return $this->_dependentTables;
-    }
-
-    public function getAttributes()
-    {
-        return $this->_attributes;
     }
 
     public function __get($name)
