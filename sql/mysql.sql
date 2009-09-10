@@ -69,11 +69,11 @@ DROP TABLE IF EXISTS `prefix_blog`;
 CREATE TABLE `prefix_blog` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fancy_url` varchar(100) DEFAULT NULL,
-  `type` smallint(1) DEFAULT NULL,
-  `created` datetime DEFAULT '0000-00-00 00:00:00',
-  `updated` datetime DEFAULT '0000-00-00 00:00:00',
+  `type` smallint(1) NOT NULL DEFAULT '1',
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `prefix_blog` */
 
@@ -88,9 +88,9 @@ CREATE TABLE `prefix_blog_comments` (
   `author_email` varchar(100) DEFAULT NULL,
   `author_url` varchar(200) DEFAULT NULL,
   `author_ip` varchar(100) DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `content` text,
-  `approved` varchar(20) DEFAULT NULL,
+  `approved` tinyint(1) DEFAULT '0',
   `member_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
@@ -116,8 +116,6 @@ CREATE TABLE `prefix_blog_member` (
 
 /*Data for the table `prefix_blog_member` */
 
-insert  into `prefix_blog_member`(`blog_id`,`member_id`,`is_moderator`,`is_administrator`) values (1,1,1,1),(2,1,1,1),(3,1,1,1),(4,1,1,1),(5,1,1,1),(6,1,1,1),(7,1,1,1);
-
 /*Table structure for table `prefix_blog_posts` */
 
 DROP TABLE IF EXISTS `prefix_blog_posts`;
@@ -126,7 +124,7 @@ CREATE TABLE `prefix_blog_posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) unsigned DEFAULT NULL,
   `member_id` int(11) unsigned DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `blog_id` (`blog_id`),
   KEY `member_id` (`member_id`)
@@ -178,7 +176,7 @@ CREATE TABLE `prefix_members` (
   `email` varchar(100) DEFAULT NULL,
   `role_id` smallint(1) DEFAULT NULL,
   `timezone_offset` double(12,2) DEFAULT '0.00',
-  `registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `language_id` smallint(1) DEFAULT NULL,
   `is_active` smallint(1) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
@@ -188,7 +186,7 @@ CREATE TABLE `prefix_members` (
 
 /*Data for the table `prefix_members` */
 
-insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`timezone_offset`,`registered`,`language_id`,`is_active`,`first_name`,`last_name`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,2.00,'0000-00-00 00:00:00',1,1,NULL,NULL);
+insert  into `prefix_members`(`id`,`password`,`email`,`role_id`,`timezone_offset`,`date_registered`,`language_id`,`is_active`,`first_name`,`last_name`) values (1,'224cf2b695a5e8ecaecfb9015161fa4b','admin@example.com',1,2.00,'0000-00-00 00:00:00',1,1,NULL,NULL);
 
 /*Table structure for table `prefix_session` */
 

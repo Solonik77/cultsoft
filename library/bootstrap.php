@@ -315,7 +315,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $response = App::front()->dispatch();
             $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control',
                 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=UTF-8');
-/*
+
             if ($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and (int) ini_get('zlib.output_compression') === 0) {
                 if ($level < 1 or $level > 9) {
                     // Normalize the level to be an integer between 1 and 9. This
@@ -350,7 +350,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }                
-            }*/
+            }
             $response->sendResponse();
             exit;
         }
