@@ -53,11 +53,11 @@ class Blog_AdminController extends App_Controller_Action {
     /**
     * Create new blog
     */
-    public function newBlogAction()
+    public function createBlogAction()
     {
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
-        $form = new Blog_Form_EditBlog;
+        $form = new Blog_Form_Blog;
         $form->compose();
         if ($this->_request->isPost()) {
             $blogModel = new Blog;
@@ -113,7 +113,7 @@ class Blog_AdminController extends App_Controller_Action {
     /**
     * Edit blog
     */
-    public function editBlogAction()
+    public function updateBlogAction()
     {
         if (! $blogId = $this->_request->getParam ('id')) {
             return $this->render ('error-no-id');
@@ -121,7 +121,7 @@ class Blog_AdminController extends App_Controller_Action {
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
         $blogModel = new Blog;
-        $form = new Blog_Form_EditBlog;
+        $form = new Blog_Form_Blog;
         $form->compose();
         // Get blog content
         $blogRow = $blogModel->findByPK($blogId);

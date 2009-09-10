@@ -21,7 +21,7 @@ class Main_Component_BackofficeStructure {
             array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog') ,
                 'pages' => array(
                     array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'manage-blogs' , 'label' => __('Manage blogs')),
-                    array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'new-blog' , 'label' => __('Create blog')) ,
+                    array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'create-blog' , 'label' => __('Create blog')) ,
                     )),
             );
     }

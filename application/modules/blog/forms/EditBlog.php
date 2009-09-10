@@ -1,5 +1,5 @@
 <?php
-class Blog_Form_EditBlog extends App_Form {
+class Blog_Form_Blog extends App_Form {
     private $_type = 0;
 
     public function __construct($options = null)
