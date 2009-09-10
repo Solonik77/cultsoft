@@ -33,7 +33,7 @@ abstract class App_Event {
         if (! isset(App_Event::$events[$name])) {
             // Create an empty event if it is not yet defined
             App_Event::$events[$name] = array();
-        }elseif ($unique AND in_array($callback, App_Event::$events[$name], true)) {
+        } elseif ($unique AND in_array($callback, App_Event::$events[$name], true)) {
             // The event already exists
             return false;
         }
@@ -56,7 +56,7 @@ abstract class App_Event {
         if (empty(App_Event::$events[$name]) OR ($key = array_search($existing, App_Event::$events[$name])) === false) {
             // Just add the event if there are no events
             return App_Event::add($name, $callback);
-        }else {
+        } else {
             // Insert the event immediately before the existing event
             return App_Event::insert_event($name, $key, $callback);
         }
@@ -75,7 +75,7 @@ abstract class App_Event {
         if (empty(App_Event::$events[$name]) OR ($key = array_search($existing, App_Event::$events[$name])) === false) {
             // Just add the event if there are no events
             return App_Event::add($name, $callback);
-        }else {
+        } else {
             // Insert the event immediately after the existing event
             return App_Event::insert_event($name, $key + 1, $callback);
         }
@@ -123,7 +123,7 @@ abstract class App_Event {
         if (! in_array($callback, App_Event::$events[$name], true)) {
             // Replace the exisiting event with the new event
             App_Event::$events[$name][$key] = $callback;
-        }else {
+        } else {
             // Remove the existing event from the queue
             unset(App_Event::$events[$name][$key]);
             // Reset the array so the keys are ordered properly
@@ -155,7 +155,7 @@ abstract class App_Event {
     {
         if ($callback === false) {
             App_Event::$events[$name] = array();
-        }elseif (isset(App_Event::$events[$name])) {
+        } elseif (isset(App_Event::$events[$name])) {
             // Loop through each of the event callbacks and compare it to the
             // callback requested for removal. The callback is removed if it
             // matches.
