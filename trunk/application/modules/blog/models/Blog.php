@@ -10,20 +10,8 @@ class Blog extends App_Model_Abstract {
         parent::__construct();
     }
 
-    public function delete($id = 0)
-    {
-        $id = (int) ($id != 0) ? $id : App::front()->getRequest()->getParam('id');
-        try {
-            $where = $this->_blog->getAdapter()->quoteInto('id = ?', $id);
-            $this->_blog->delete($where);
-            return true;
-        }
-        catch(Exception $e) {
-            return false;
-        }
-    }
-
-    public function find($id = 0, $langId = null)
+    /*
+	public function find($id = 0, $langId = null)
     {
         $select = $this->_i18n_blog->select();
         $select->where('blog_id = ?', (int) $id)->order('blog_id DESC');
@@ -41,7 +29,9 @@ class Blog extends App_Model_Abstract {
         $blog = $this->_blog->find($id);
         return ($blog->current()) ? array_merge($return, $blog->current()->toArray()) : array();
     }
+    */
 
+/*
     public function fetchBlogsDataGrid($sortByField = 'id' , $sortOrder = 'asc')
     {
         $sortOrder = strtoupper((($sortOrder === 'asc') ? $sortOrder : 'desc'));
@@ -62,4 +52,5 @@ class Blog extends App_Model_Abstract {
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
         return $paginator;
     }
+    */
 }

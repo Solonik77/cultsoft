@@ -102,6 +102,7 @@ abstract class App_Model_Abstract {
                 if (null === ($id = $this->getId())) {
                     unset($data['id']);
                     $this->getDbTable()->insert($data);
+                    $this->setId(App::db()->lastInsertId());
                 } else {
                     $this->getDbTable()->update($data, array('id = ?' => $id));
                 }
@@ -113,6 +114,18 @@ abstract class App_Model_Abstract {
                 App::log($e->getMessage(), 3);
                 return false;
             }
+        }
+    }
+
+    public function delete()
+    {
+        try {
+            $where = $this->getTable()->getAdapter()->quoteInto('id = ?', $this->getId());
+            $this->getTable()->delete($where);
+            return true;
+        }
+        catch(Exception $e) {
+            return false;
         }
     }
 
