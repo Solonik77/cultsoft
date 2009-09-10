@@ -1,10 +1,18 @@
 <?php
 
 abstract class App_Model_Abstract {
-    private $_table;
+    protected $_table;
     private $_columns = array();
     private $_attributes = array();
-    private $_dependentTables = array();
+
+    public function __construct()
+    {
+        if ($this->_table) {
+            $this->_table = new $this->_table;
+        } else {
+            throw new App_Exception('Could not set table name for application model ' . __CLASS__);
+        }
+    }
 
     public function getAttributes()
     {
@@ -39,49 +47,6 @@ abstract class App_Model_Abstract {
         return $this;
     }
 
-    public function getDependentTables()
-    {
-        if (count($this->_columns) == 0) {
-            $this->getMetaData();
-        }
-        return $this->_dependentTables;
-    }
-
-    public function getDependentTable($table)
-    {
-        $tables = $this->getDependentTables();
-        return (isset($tables[$table])) ? $tables[$table] : null;
-    }
-
-    public function getDependentAttributes($table)
-    {
-        $table = $this->getDependentTable($table);
-        return ($table) ? $table->_attributes : false;
-    }
-
-    public function getDependentAttribute($table, $attribute)
-    {
-        $attrubutes = $this->getDependentAttributes($table);
-        return (array_key_exists($attribute, $attrubutes)) ? $attrubutes[$attribute] : false;
-    }
-
-    public function setDependentAttributes($table, $attributes)
-    {
-        if (is_array($attributes) and count($attributes) > 0) {
-            foreach($attributes as $attribute => $value) {
-			    $this->setDependentAttribute($table, $attribute, $value);
-            }
-        }
-    }
-
-    public function setDependentAttribute($table, $attribute, $value)
-    {
-        $attributeValue = $this->getDependentAttribute($table, $attribute);
-        if ($attributeValue !== false) {
-            $this->_dependentTables[$table]->_attributes[$attribute] = $value;
-        }
-    }
-
     public function validateAttribute($name)
     {
         if ($this->$name !== false) {
@@ -99,23 +64,6 @@ abstract class App_Model_Abstract {
             if (class_exists($dbTableClass)) {
                 $this->_table = new $dbTableClass;
                 $info = $this->_table->info();
-                if (count($info['dependentTables']) > 0) {
-                    foreach($info['dependentTables'] as $table) {
-                        if (class_exists($table)) {
-                            $dependentTable = new $table;
-                            $dependentInfo = $dependentTable->info();
-                            $table = strtolower(substr($table, strlen($module) + 9));
-                            $this->_dependentTables[$table] = new StdClass;
-                            $array = array();
-                            foreach($dependentInfo['cols'] as $key => $col) {
-                                $array[$col] = null;
-                            }
-                            $this->_dependentTables[$table]->_columns = $array;
-                            $this->_dependentTables[$table]->_attributes = $array;
-                        }
-                    }
-                }
-
                 $cols = $info['cols'];
                 foreach($cols as $col) {
                     $this->_columns[$col] = $info['metadata'][$col]['DEFAULT'];
@@ -123,6 +71,56 @@ abstract class App_Model_Abstract {
             }
         }
         return $this;
+    }
+
+    public function getDbTable()
+    {
+        return $this->_table;
+    }
+
+    public function setDbTable($dbTable)
+    {
+        if (is_string($dbTable)) {
+            $dbTable = new $dbTable();
+        }
+        if (!$dbTable instanceof App_Db_Table_Abstract) {
+            throw new App_Exception("Invalid table data gateway provided");
+        }
+        $this->_table = $dbTable;
+        return $this;
+    }
+
+    public function save()
+    {
+        if (count($this->_attributes) > 0) {
+            $data = array();
+            foreach($this->_attributes as $attribute => $value) {
+                $data[$attribute] = $value;
+            }
+            App::db()->beginTransaction();
+            try {
+                if (null === ($id = $this->getId())) {
+                    unset($data['id']);
+                    $this->getDbTable()->insert($data);
+                } else {
+                    $this->getDbTable()->update($data, array('id = ?' => $id));
+                }
+                App::db()->commit();
+                return true;
+            }
+            catch(Exception $e) {
+                App::db()->rollBack();
+                App::log($e->getMessage(), 3);
+                return false;
+            }
+        }
+    }
+
+    public function setId($id)
+    {
+        if (!$this->id) {
+            $this->id = $id;
+        }
     }
 
     public function __call($name, $args)
