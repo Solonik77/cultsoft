@@ -46,7 +46,7 @@ class Blog_AdminController extends App_Controller_Action {
         $blogModel = new Blog;
         $this->view->pageDescription = 'Manage blogs.';
         $this->view->types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-        $this->view->blogsDataGrid = $blogModel->fetchBlogsDataGrid($this->_request->getParam('sort-by'),
+        $this->view->blogsDataGrid = $blogModel->loadBlogs($this->_request->getParam('sort-by'),
             $this->_request->getParam('sort-order'));
     }
 
@@ -120,10 +120,18 @@ class Blog_AdminController extends App_Controller_Action {
         }
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
+        $blogModel = new Blog;
         $form = new Blog_Form_EditBlog;
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $blogModel->findByPK($blogId) : $this->_request->getPost();
+        $blogRow = $blogModel->findByPK($blogId);
+        $i18nBlog = $blogRow->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
+        $formData = $blogRow->toArray();
+        foreach($i18nBlog as $row) {
+            $formData['lang_' . $row['lang_id']] = $row;
+        }
+        $formData = (! $this->_request->isPost()) ? $formData : $this->_request->getPost();
+
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('delete_blog')) {

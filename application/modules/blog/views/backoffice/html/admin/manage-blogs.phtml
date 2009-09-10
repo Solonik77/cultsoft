@@ -22,7 +22,7 @@ echo __('Create new blog')?></a></p>
 			<td><?php
     echo $blog->title?></td>
 			<td><?php
-    echo date("Y-t-d", strtotime($blog->created))?></td>
+    echo date("Y-t-d", strtotime($blog->date_created))?></td>
 			<td><?php
     echo $this->types[$blog->type]?></td>
 			<td><a
