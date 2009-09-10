@@ -193,8 +193,8 @@ class App_Exception extends Zend_Exception {
     * Returns an HTML string, highlighting a specific line of a file, with some
     * number of lines padded above and below.
     *
-    *       // Highlights the current line of the current file
-    *       echo App_exception::debugSource(__FILE__, __LINE__);
+    *        // Highlights the current line of the current file
+    *        echo App_exception::debugSource(__FILE__, __LINE__);
     *
     * @param string $ file to open
     * @param integer $ line number to highlight
@@ -242,8 +242,8 @@ class App_Exception extends Zend_Exception {
     /**
     * Returns an array of HTML strings that represent each step in the backtrace.
     *
-    *       // Displays the entire current backtrace
-    *       echo implode('<br/>', App_Exception::trace());
+    *        // Displays the entire current backtrace
+    *        echo implode('<br/>', App_Exception::trace());
     *
     * @param string $ path to debug
     * @return string

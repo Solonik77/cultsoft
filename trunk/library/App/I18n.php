@@ -108,7 +108,7 @@ class App_I18n {
         $module = ($module) ? $module : App::front()->getRequest()->getModuleName();
         $siteLanguages = $this->getSiteLanguages();
         $model = new Main_Model_SettingsService;
-        $config = current($model->getSettings("module = '" . $module . "' AND setting_key = 'allowed_languages'")->toArray());        
+        $config = current($model->getSettings("module = '" . $module . "' AND setting_key = 'allowed_languages'")->toArray());
         $config = explode(',', $config['setting_value']);
 
         $result = array();
