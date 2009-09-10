@@ -129,6 +129,17 @@ abstract class App_Model_Abstract {
         }
     }
 
+    public function findByPK($id)
+    {
+        $data = $this->getDbTable()->fetchRow('id = ' . (int) $id);
+
+        if (!is_object($data)) {
+            return null;
+        }
+        $this->setAttributes($data->toArray());
+        return $data;
+    }
+
     public function setId($id)
     {
         if (!$this->id) {
