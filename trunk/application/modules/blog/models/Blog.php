@@ -3,58 +3,11 @@
 * Blog model
 */
 class Blog extends App_Model_Abstract {
-    public function setId($id)
-    {
-        if (!$this->id) {
-            $this->id = $id;
-        }
-    }
+    protected $_table = 'Blog_DbTable_Blog';
 
     public function __construct()
     {
-        $this->_blog = new Blog_DbTable_Blog;
-        $this->_i18n_blog = new Blog_DbTable_I18n_Blog;
-        $this->_blog_member = new Blog_DbTable_Blog_Member;
-    }
-
-    public function save()
-    {
-        $post = App::front()->getRequest()->getPost();
-        $default_i18n = false;
-        $i18n = false;
-        $blogId = $requestId = App::front()->getRequest()->getParam('id');
-        App::db()->beginTransaction();
-        try {
-            $commonData = array('fancy_url' => Vendor_Helper_Text::fancy_url((! empty($post['fancy_url'])) ? $post['fancy_url'] : $default_i18n['title']) , 'type' => $post['type']);
-            if ($blogId) {
-                // Update common data for blog
-                $commonData['updated'] = Vendor_Helper_Date::now();
-                $this->_blog->update($commonData, 'id = ' . intval($blogId));
-            } else {
-                // Save common data for blog
-                $commonData['created'] = $commonData['updated'] = Vendor_Helper_Date::now();
-                $blogId = $this->_blog->insert($commonData);
-                // Save blog member
-                $this->_blog_member->insert(
-                    array('member_id' => App_Member::getInstance()->getId() , 'blog_id' => $blogId , 'is_moderator' => 1 , 'is_administrator' => 1));
-            }
-            // Save i18n content for blog
-            foreach($i18n as $value) {
-                if ($requestId) {
-                    $this->_i18n_blog->update(array('title' => $value['title'] , 'description' => $value['description']),
-                        array('blog_id = ' . intval($requestId) , 'lang_id = ' . intval($value['lang_id'])));
-                } else {
-                    $this->_i18n_blog->insert(array('blog_id' => $blogId , 'lang_id' => $value['lang_id'] , 'title' => $value['title'] , 'description' => $value['description']));
-                }
-            }
-            App::db()->commit();
-            return true;
-        }
-        catch(Exception $e) {
-            App::db()->rollBack();
-            App::log($e->getMessage(), 3);
-            return false;
-        }
+        parent::__construct();
     }
 
     public function delete($id = 0)

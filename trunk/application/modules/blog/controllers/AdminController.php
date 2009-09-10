@@ -8,7 +8,6 @@
 */
 class Blog_AdminController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;
-    protected $blogModel;
 
     public function init()
     {
@@ -19,7 +18,6 @@ class Blog_AdminController extends App_Controller_Action {
 
     public function preDispatch()
     {
-        $this->blogModel = new Blog;
     }
 
     /**
@@ -45,9 +43,10 @@ class Blog_AdminController extends App_Controller_Action {
     */
     public function manageBlogsAction()
     {
+        $blogModel = new Blog;
         $this->view->pageDescription = 'Manage blogs.';
         $this->view->types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
-        $this->view->blogsDataGrid = $this->blogModel->fetchBlogsDataGrid($this->_request->getParam('sort-by'),
+        $this->view->blogsDataGrid = $blogModel->fetchBlogsDataGrid($this->_request->getParam('sort-by'),
             $this->_request->getParam('sort-order'));
     }
 
@@ -61,36 +60,32 @@ class Blog_AdminController extends App_Controller_Action {
         $form = new Blog_Form_EditBlog;
         $form->compose();
         if ($this->_request->isPost()) {
-        $post = $this->_request->getPost('blog');
-            $this->blogModel->setAttributes($post);
-            $this->blogModel->setAttribute('updated', Vendor_Helper_Date::now());
-
-            $moduleLangs = App::i18n()->getModuleLanguages();
-
-			if (isset($post['i18n_blog']) AND count($moduleLangs) > 0) {
-                $i18n_blog = $post['i18n_blog'];
-                foreach($moduleLangs as $lang) {
-                    if (isset($i18n_blog[$lang['id']])) {
-                        $this->blogModel->setDependentAttributes('i18n_blog', $i18n_blog[$lang['id']]);
-                        $this->blogModel->setDependentAttribute('i18n_blog', 'lang_id', $lang['id']);
-                    }
-                }
-            }
-           // var_dump($this->blogModel->getDependentAttribute('i18n_blog', 'title')); die;
+            $blogModel = new Blog;
+            $post = $this->_request->getPost('blog');
+            $blogModel->setAttributes($post);
 
             $formData = $this->_request->getPost();
-            $form->populate ($formData);
+            $form->populate($formData);
             if (! $form->isValid ($formData)) {
                 // Errors in input data
                 $this->view->form = $form;
                 return $this->render();
             } else {
                 // Saving new blog
-                $this->blogModel->setAttributes($this->_request->getPost('blog'));
-
-                if ($this->blogModel->save()) {
-                    $this->blogModel->setDependentAttribute('i18n_blog', 'blog_id', $this->blogModel->id);
-                    $this->blogModel->saveDependent();
+                if ($blogModel->save()) {
+                    $blogModel->setAttributes($this->_request->getPost('blog'));
+                    $moduleLangs = App::i18n()->getModuleLanguages();
+                    if (count($moduleLangs) > 0) {
+                        foreach($moduleLangs as $lang) {
+                            if (isset($post['i18n_blog'][$lang['id']])) {
+                                $blogI18nModel = new Blog_I18n;
+                                $blogI18nModel->setAttributes($post['i18n_blog'][$lang['id']]);
+                                $blogI18nModel->setLangId($lang['id']);
+                                $blogI18nModel->setBlogId($blogModel->getId());
+                                $blogI18nModel->save();
+                            }
+                        }
+                    }
                     // Set message to view
                     $this->_helper->messages ('New blog successfully created', 'success', true);
                     // Clear post
@@ -119,12 +114,12 @@ class Blog_AdminController extends App_Controller_Action {
         $form = new Blog_Form_EditBlog;
         $form->compose();
         // Get blog content
-        $formData = (! $this->_request->isPost()) ? $this->blogModel->findByPK($blogId) : $this->_request->getPost();
+        $formData = (! $this->_request->isPost()) ? $blogModel->findByPK($blogId) : $this->_request->getPost();
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('delete_blog')) {
                 // Delete blog
-                if ($this->blogModel->delete($blogId)) {
+                if ($blogModel->delete($blogId)) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
                     $this->_redirect ('blog/admin/manage-blogs');
                 }
@@ -134,9 +129,9 @@ class Blog_AdminController extends App_Controller_Action {
                 $this->view->form = $form;
                 return $this->render();
             } else {
-                $this->blogModel->setAttributes($this->_request->getPost('blog'));
+                $blogModel->setAttributes($this->_request->getPost('blog'));
                 // Saving new blog
-                if ($this->blogModel->save()) {
+                if ($blogModel->save()) {
                     // Set message to view
                     $this->_helper->messages ('Changes for blog successfully saved', 'success', true);
                     // Clear post
@@ -160,7 +155,7 @@ class Blog_AdminController extends App_Controller_Action {
         if (! $blogId = $this->_request->getParam ('id')) {
             return $this->render ('error-no-id');
         } else {
-            if ($this->blogModel->delete()) {
+            if ($blogModel->delete()) {
                 $this->_helper->messages ('Blog deleted successfully', 'success', true);
             }
         }
