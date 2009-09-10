@@ -8,6 +8,7 @@
 */
 class App_Form extends Zend_Form {
     public $decoratorSpan;
+    protected $_isUpdate = false;
     /**
     * Contructor
     *
@@ -52,5 +53,16 @@ class App_Form extends Zend_Form {
             throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
         }
         return $this->setAttrib('name', $name);
+    }
+
+    public function setIsUpdate($value)
+    {
+        $value = (bool) $value;
+		return $this->_isUpdate = $value;
+    }
+
+    public function getIsUpdate()
+    {
+		return (bool) $this->_isUpdate;
     }
 }
