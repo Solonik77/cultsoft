@@ -97,20 +97,17 @@ abstract class App_Model_Abstract {
             foreach($this->_attributes as $attribute => $value) {
                 $data[$attribute] = $value;
             }
-            App::db()->beginTransaction();
             try {
-                if (null === ($id = $this->getId())) {
+                if (false === ($id = $this->getId())) {
                     unset($data['id']);
                     $this->getDbTable()->insert($data);
                     $this->setId(App::db()->lastInsertId());
                 } else {
-                    $this->getDbTable()->update($data, array('id = ?' => $id));
+					$this->getDbTable()->update($data, array('id = ?' => $this->getId()));
                 }
-                App::db()->commit();
                 return true;
             }
             catch(Exception $e) {
-                App::db()->rollBack();
                 App::log($e->getMessage(), 3);
                 return false;
             }
@@ -131,13 +128,23 @@ abstract class App_Model_Abstract {
 
     public function findByPK($id)
     {
-        $data = $this->getDbTable()->fetchRow('id = ' . (int) $id);
+        $row = $this->getDbTable()->fetchRow('id = ' . (int) $id);
 
-        if (!is_object($data)) {
+        if (!is_object($row)) {
             return null;
         }
-        $this->setAttributes($data->toArray());
-        return $data;
+        $this->setAttributes($row->toArray());
+        return $row;
+    }
+
+    public function findByCondition($condition)
+    {
+        $row = $this->getDbTable()->fetchRow($condition);
+        if (!is_object($row)) {
+            return null;
+        }
+        $this->setAttributes($row->toArray());
+        return $row;
     }
 
     public function setId($id)
@@ -174,7 +181,7 @@ abstract class App_Model_Abstract {
         if (isset($this->_attributes[$name])) {
             return $this->_attributes[$name];
         } else if (array_key_exists($name, $this->getMetaData()->_columns)) {
-            return $this->_attributes[$name];
+            return (isset($this->_attributes[$name])) ? $this->_attributes[$name] : $this->_columns[$name];
         } else {
             throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
             return false;

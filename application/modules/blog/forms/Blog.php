@@ -37,9 +37,11 @@ class Blog_Form_Blog extends App_Form {
         $this->addElement('hash', 'csrf_hash', array('salt' => 'unique'));
 
         $this->addElement($this->createElement('submit', 'save_blog')->setLabel('Save')->setDecorators($this->decoratorSpan));
-        if (App::front()->getRequest()->getParam('id')) {
+        if ($this->getIsUpdate()) {
             $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($this->decoratorSpan));
-        }
+        $this->addElement($this->createElement('hidden', 'id'));
+		}
+
         return $this;
     }
 
