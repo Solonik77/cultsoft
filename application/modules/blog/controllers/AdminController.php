@@ -71,6 +71,15 @@ class Blog_AdminController extends App_Controller_Action {
                 $this->view->form = $form;
                 return $this->render();
             } else {
+                $blogModel->setDateUpdated(Vendor_Helper_Date::now());
+                $blogModel->setDateCreated(Vendor_Helper_Date::now());
+
+                if (null == ($fancy_url = $post['fancy_url'])) {
+                    $firstLangKey = current(array_keys($post['i18n_blog']));
+                    $fancy_url = isset($post['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $post['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $post['i18n_blog'][$firstLangKey]['title'];
+                }
+                $blogModel->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
+                $blogModel->setType($post['type']);
                 // Saving new blog
                 if ($blogModel->save()) {
                     $blogModel->setAttributes($this->_request->getPost('blog'));
