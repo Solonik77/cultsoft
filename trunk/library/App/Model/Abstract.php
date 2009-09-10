@@ -134,7 +134,7 @@ abstract class App_Model_Abstract {
                 if (count($this->_columns) == 0) {
                     $this->getMetaData();
                 }
-                if (isset($this->_columns[$attribute])) {
+                if (array_key_exists($attribute, $this->_columns)) {
                     $this->$attribute = $this->_attributes[$attribute] = $args[0];
                 } else {
                     throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
