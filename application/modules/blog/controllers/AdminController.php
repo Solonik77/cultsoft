@@ -87,7 +87,7 @@ class Blog_AdminController extends App_Controller_Action {
                     if (count($moduleLangs) > 0) {
                         foreach($moduleLangs as $lang) {
                             if (isset($post['i18n_blog'][$lang['id']])) {
-                                $blogI18nModel = new Blog_I18n;
+                                $blogI18nModel = new I18n_Blog;
                                 $blogI18nModel->setAttributes($post['i18n_blog'][$lang['id']]);
                                 $blogI18nModel->setLangId($lang['id']);
                                 $blogI18nModel->setBlogId($blogModel->getId());
