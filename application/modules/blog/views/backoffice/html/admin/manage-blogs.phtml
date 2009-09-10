@@ -26,7 +26,7 @@ echo __('Create new blog')?></a></p>
 			<td><?php
     echo $this->types[$blog->type]?></td>
 			<td><a
-				href="<?=$this->url(array('action' => 'edit-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
+				href="<?=$this->url(array('action' => 'update-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
 			<a
 				href="<?=$this->url(array('action' => 'delete-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Delete')?></a>
 			</td>
