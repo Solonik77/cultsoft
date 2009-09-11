@@ -46,6 +46,10 @@ class App_Acl extends Zend_Acl {
             }
         }
     }
+    
+     private function __clone()
+    {
+    }
 
     /**
      * Get cached ACL Roles

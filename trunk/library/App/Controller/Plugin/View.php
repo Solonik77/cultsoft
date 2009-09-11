@@ -17,6 +17,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
      */
     public function __construct()
     {
+  
     }
 
     public function preDispatch(Zend_Controller_Request_Abstract $request)
@@ -62,6 +63,15 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
             }
         }
         $this->_view->addScriptPath($this->_templatePath . 'partial/');
+
+        $this->_view->inlineScript()->appendScript("
+            document.createElement('header');
+            document.createElement('nav');
+            document.createElement('section');
+            document.createElement('article');
+            document.createElement('aside');
+            document.createElement('footer');
+        ", 'text/javascript', array('conditional' => ' IE '));       
         $this->_view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
         $this->_view->headTitle()->setSeparator(' « ');
         // Configure Zend Pagiantor

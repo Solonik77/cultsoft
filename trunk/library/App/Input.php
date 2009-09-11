@@ -34,6 +34,10 @@ class App_Input {
         }
         return App_Input::$instance;
     }
+    
+    private function __clone()
+    {
+    }
 
     /**
      * Sanitizes global GET, POST and COOKIE data. Also takes care of
