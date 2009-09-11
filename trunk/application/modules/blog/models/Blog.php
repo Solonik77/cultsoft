@@ -33,4 +33,8 @@ class Blog extends App_Model_Abstract {
         return $paginator;
     }
 
+    public function getBlogTypes()
+    {
+        return array('private' => 'Personal blog', 'collaborative' => 'Collaborative blog (community)');
+    }
 }

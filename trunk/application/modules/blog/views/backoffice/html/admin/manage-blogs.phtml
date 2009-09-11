@@ -8,7 +8,7 @@ echo __('Create new blog')?></a></p>
 	<thead>
 		<th><?php echo $this->paginationSort('ID', 'id')?></th>
 		<th><?php echo $this->paginationSort('Title', 'title')?></th>
-		<th><?php echo $this->paginationSort('Created', 'created')?></th>		
+		<th><?php echo $this->paginationSort('Created', 'created')?></th>
 		<th><?php echo $this->paginationSort('Type')?></th>
 		<th><?php echo __('Owner')?></th>
         <th><?php echo __('Actions')?></th>
@@ -24,8 +24,7 @@ echo __('Create new blog')?></a></p>
     echo $blog->title?></td>
 			<td><?php
     echo date("Y-t-d", strtotime($blog->date_created))?></td>
-			<td><?php
-    echo $this->types[$blog->type]?></td>
+			<td><?php echo __($this->blogTypes[$blog->type])?></td>
             <td><?php echo $blog->first_name?> <?php echo $blog->last_name?></td>
 			<td><a
 				href="<?=$this->url(array('action' => 'update-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
