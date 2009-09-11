@@ -5,12 +5,7 @@
 class Blog extends App_Model_Abstract
 {
     protected $_table = 'Blog_DbTable_Blog';
-    protected $id;
-    protected $fancy_url;
-    protected $date_created;
-    protected $date_updated;
-    protected $member_id;
-    protected $type;
+
     public function __construct ()
     {
         parent::__construct();
