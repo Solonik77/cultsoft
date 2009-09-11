@@ -1,17 +1,17 @@
 <?php
 /**
-* App_Db_Table
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-* @category Zend
-* @package Zend_Db
-* @subpackage Abstract
-*/
+ * App_Db_Table
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ * @category Zend
+ * @package Zend_Db
+ * @subpackage Abstract
+ */
 /**
-* Zend_Db_Table
-*/
+ * Zend_Db_Table
+ */
 require_once 'Zend/Db/Table/Abstract.php';
 abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     private $_cache;
@@ -23,16 +23,16 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     }
 
     /**
-    * Initialize table and schema names.
-    *
-    * If the table name is not set in the class definition,
-    * use the class name itself as the table name.
-    *
-    * A schema name provided with the table name(e.g., "schema.table") overrides
-    * any existing value for $this->_schema.
-    *
-    * @return void
-    */
+     * Initialize table and schema names.
+     *
+     * If the table name is not set in the class definition,
+     * use the class name itself as the table name.
+     *
+     * A schema name provided with the table name(e.g., "schema.table") overrides
+     * any existing value for $this->_schema.
+     *
+     * @return void
+     */
     protected function _setupTableName()
     {
         $request = App::front()->getRequest();
@@ -48,10 +48,10 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     }
 
     /**
-    * Initialize object
-    *
-    * @return void
-    */
+     * Initialize object
+     *
+     * @return void
+     */
     public function init()
     {
         parent::init();

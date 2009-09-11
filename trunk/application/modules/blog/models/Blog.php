@@ -1,10 +1,10 @@
 <?php
 /**
-* Blog model
-*/
+ * Blog model
+ */
 class Blog extends App_Model_Abstract {
     protected $_table = 'Blog_DbTable_Blog';
-
+    protected $id;
     public function __construct()
     {
         parent::__construct();

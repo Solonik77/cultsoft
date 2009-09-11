@@ -1,21 +1,21 @@
 <?php
 /**
-* Remote url/file helper.
-*
-* $Id: remote.php 3769 2008-12-15 00:48:56Z zombor $
-*
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Remote url/file helper.
+ *
+ * $Id: remote.php 3769 2008-12-15 00:48:56Z zombor $
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html*
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Vendor_Helper_Remote {
     public static function status($url)
     {
         if (! Vendor_Helper_Valid::url($url, 'http'))
-            return false;
+        return false;
         // Get the hostname and path
         $url = parse_url($url);
         if (empty($url['path'])) {
@@ -25,7 +25,7 @@ class Vendor_Helper_Remote {
         // Open a remote connection
         $remote = fsockopen($url['host'], 80, $errno, $errstr, 5);
         if (! is_resource($remote))
-            return false;
+        return false;
         // Set CRLF
         $CRLF = "\r\n";
         // Send request

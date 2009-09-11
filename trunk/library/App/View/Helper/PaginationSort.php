@@ -1,7 +1,7 @@
 <?php
 /**
-* Pagination sort links view helper
-*/
+ * Pagination sort links view helper
+ */
 class App_View_Helper_PaginationSort {
     private $_label;
     private $_sortBy;

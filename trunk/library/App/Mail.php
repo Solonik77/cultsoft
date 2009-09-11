@@ -1,13 +1,13 @@
 <?php
 /**
-* Application mailer
-*
-* $Id$
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Application mailer
+ *
+ * $Id$
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Mail {
     // Zend_Mail instance
     protected static $mail;
@@ -15,8 +15,8 @@ class App_Mail {
     protected static $transport;
 
     /**
-    * Send an email message.
-    */
+     * Send an email message.
+     */
     public static function send($to, $subject, $message, $html = false, $from = null)
     {
         // Connect to Zend_Mail
@@ -52,8 +52,8 @@ class App_Mail {
     }
 
     /**
-    * Connect to mail server with default transport
-    */
+     * Connect to mail server with default transport
+     */
     protected static function connect()
     {
         try {
@@ -65,8 +65,8 @@ class App_Mail {
     }
 
     /**
-    * Disconnect
-    */
+     * Disconnect
+     */
     protected static function disconnect()
     {
         App_Mail::$transport->getConnection()->disconnect();
@@ -75,8 +75,8 @@ class App_Mail {
     }
 
     /**
-    * Set default Zend_Mail transport
-    */
+     * Set default Zend_Mail transport
+     */
     public static function setDefaultTransport(array $config = array())
     {
         if (! isset($config['transport'])) {

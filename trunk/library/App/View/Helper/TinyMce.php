@@ -28,7 +28,7 @@ class App_View_Helper_TinyMce extends Zend_View_Helper_Abstract {
         'theme_advanced_buttons2' => "tablecontrols,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,",
 
         'theme_advanced_buttons3' => "hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,fullscreen,insertlayer,moveforward,movebackward,absolute,|,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak",
-        );
+    );
     protected $_scriptPath;
     protected $_scriptFile;
     protected $_useCompressor = false;
@@ -115,12 +115,12 @@ class App_View_Helper_TinyMce extends Zend_View_Helper_Abstract {
             return;
         }
         $script = 'tinyMce_GZ.init({' . PHP_EOL
-         . 'themes: "' . implode(',', $this->_supportedTheme) . '"' . PHP_EOL
-         . 'plugins: "' . implode(',', $this->_supportedPlugins) . '"' . PHP_EOL
-         . 'languages: "' . implode(',', $this->_supportedLanguages) . '"' . PHP_EOL
-         . 'disk_cache: true' . PHP_EOL
-         . 'debug: false' . PHP_EOL
-         . '});';
+        . 'themes: "' . implode(',', $this->_supportedTheme) . '"' . PHP_EOL
+        . 'plugins: "' . implode(',', $this->_supportedPlugins) . '"' . PHP_EOL
+        . 'languages: "' . implode(',', $this->_supportedLanguages) . '"' . PHP_EOL
+        . 'disk_cache: true' . PHP_EOL
+        . 'debug: false' . PHP_EOL
+        . '});';
 
         $this->view->headScript()->appendScript($script);
         return $this;

@@ -1,10 +1,10 @@
 <?php
 /**
-* Messages view helper
-*
-* This helper creates an easy method to return groupings of
-* flash messages by status.
-*/
+ * Messages view helper
+ *
+ * This helper creates an easy method to return groupings of
+ * flash messages by status.
+ */
 class App_View_Helper_Messages {
     public function messages()
     {
@@ -21,7 +21,7 @@ class App_View_Helper_Messages {
         if (count($messages) > 0) {
             foreach($messages as $message) {
                 if (! array_key_exists($message['status'], $statMessages))
-                    $statMessages[$message['status']] = array();
+                $statMessages[$message['status']] = array();
                 array_push($statMessages[$message['status']], __($message['message']));
             }
             // This chunk of code formats messages for HTML output (per

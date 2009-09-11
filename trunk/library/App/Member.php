@@ -1,13 +1,13 @@
 <?php
 /**
-* Member Information
-*
-* $Id$
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Member Information
+ *
+ * $Id$
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 require_once('Vendor/Helper/Date.php');
 
 class App_Member {
@@ -27,8 +27,8 @@ class App_Member {
     }
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         if (App_Member::$instance === null) {
@@ -44,8 +44,8 @@ class App_Member {
     }
 
     /**
-    * Load default user information for guest
-    */
+     * Load default user information for guest
+     */
     private function loadGuest()
     {
         $this->_data = (object) array('id' => 0 , 'login' => 'Guest' , 'email' => 'guest@example.com' , 'created' => Vendor_Helper_Date::utc_now() , 'is_active' => 1 , 'language_id' => 1 , 'role' => 'guest' , 'acl_resource' => array());
@@ -53,8 +53,8 @@ class App_Member {
     }
 
     /**
-    * Load logged member information
-    */
+     * Load logged member information
+     */
     private function loadMember($id)
     {
         $data = $this->_model->getDataByID($id);
@@ -81,32 +81,32 @@ class App_Member {
     }
 
     /**
-    * Get current member role
-    */
+     * Get current member role
+     */
     public function getId()
     {
         return $this->getField('id');
     }
 
     /**
-    * Get current member role
-    */
+     * Get current member role
+     */
     public function getRole()
     {
         return $this->getField('role');
     }
 
     /**
-    * Get member field
-    */
+     * Get member field
+     */
     public function getField($field)
     {
         return ((isset($this->_data->$field)) ? $this->_data->$field : null);
     }
 
     /**
-    * Get member all data
-    */
+     * Get member all data
+     */
     public function getData()
     {
         return $this->_data;
@@ -118,16 +118,16 @@ class App_Member {
     }
 
     /**
-    * Auth check
-    */
+     * Auth check
+     */
     public static function isAuth()
     {
         return App_Member::getAuth()->hasIdentity();
     }
 
     /**
-    * Auth instance
-    */
+     * Auth instance
+     */
     public static function getAuth()
     {
         return Zend_Auth::getInstance();

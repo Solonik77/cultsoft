@@ -1,7 +1,7 @@
 <?php
 class Blog_Form_Blog extends App_Form {
-    private $_type = 0;
-
+    private $_currentBlogType = 'private';
+    private $_blogTypes = array();
     public function __construct($options = null)
     {
         parent::__construct($options);
@@ -17,7 +17,7 @@ class Blog_Form_Blog extends App_Form {
                 $langForm = new Zend_Form_SubForm;
                 $langForm->setLegend(__($lang['name']));
                 $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
-                if ($this->getIsUpdate()){
+                if ($this->getIsUpdate()) {
                     $langForm->addElement($this->createElement('hidden', 'id'));
                 }
                 $title = $this->createElement('text', 'title', array('maxlength' => 100))->setLabel('Title');
@@ -35,7 +35,7 @@ class Blog_Form_Blog extends App_Form {
         $fancy_url->addFilter('stringTrim')->addFilter('StripTags')->addFilter('StringToLower');
         $this->addElement($fancy_url);
         $type = $this->createElement('select', 'type');
-        $type->setRequired(true)->setLabel('Type')->addValidator('int')->setMultiOptions(array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)')))->setValue($this->_type);
+        $type->setRequired(true)->setLabel('Type')->addValidator('StringLength', false, array(3 , 255))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags')->setMultiOptions($this->_blogTypes)->setValue($this->_currentBlogType);
         $this->addElement($type);
         $this->addElement('hash', 'csrf_hash', array('salt' => 'unique'));
 
@@ -43,14 +43,19 @@ class Blog_Form_Blog extends App_Form {
         if ($this->getIsUpdate()) {
             $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($this->decoratorSpan));
             $this->addElement($this->createElement('hidden', 'id'));
-		}
+        }
 
         return $this;
     }
 
-    public function setType($id)
+    public function setBlogTypes($array)
     {
-        $this->_type = $id;
+        $this->_blogTypes = $array;
+    }
+
+    public function setCurrentBlogType($type)
+    {
+        $this->_currentBlogType = $type;
         return $this;
     }
 }

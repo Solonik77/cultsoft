@@ -1,23 +1,23 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: $
+ */
 
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
 class ZFDebug_Controller_Plugin_Debug_Plugin {
     protected $_closingBracket = null;
 
@@ -47,11 +47,11 @@ class ZFDebug_Controller_Plugin_Debug_Plugin {
     }
 
     /**
-    * Transforms data into readable format
-    *
-    * @param array $values
-    * @return string
-    */
+     * Transforms data into readable format
+     *
+     * @param array $values
+     * @return string
+     */
     protected function _cleanData($values)
     {
         if (is_array($values)) {

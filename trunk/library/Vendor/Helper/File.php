@@ -1,31 +1,31 @@
 <?php
 /**
-* File helper class.
-*
-* $Id: file.php 3769 2008-12-15 00:48:56Z zombor $
-*
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * File helper class.
+ *
+ * $Id: file.php 3769 2008-12-15 00:48:56Z zombor $
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html*
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Vendor_Helper_File {
     /**
-    * Attempt to get the mime type from a file. This method is horribly
-    * unreliable, due to PHP being horribly unreliable when it comes to
-    * determining the mime-type of a file.
-    *
-    * @param string $ filename
-    * @return string mime-type, if found
-    * @return boolean FALSE, if not found
-    */
+     * Attempt to get the mime type from a file. This method is horribly
+     * unreliable, due to PHP being horribly unreliable when it comes to
+     * determining the mime-type of a file.
+     *
+     * @param string $ filename
+     * @return string mime-type, if found
+     * @return boolean FALSE, if not found
+     */
     public static function mime($filename)
     {
         // Make sure the file is readable
         if (! (is_file($filename) and is_readable($filename)))
-            return false;
+        return false;
         // Get the extension from the filename
         $extension = strtolower(substr(strrchr($filename, '.'), 1));
         if (preg_match('/^(?:jpe?g|png|[gt]if|bmp|swf)$/', $extension)) {
@@ -37,7 +37,7 @@ class Vendor_Helper_File {
             error_reporting($ER);
             // Return the mime type
             if (isset($mime['mime']))
-                return $mime['mime'];
+            return $mime['mime'];
         }
         if (function_exists('finfo_open')) {
             // Use the fileinfo extension
@@ -66,13 +66,13 @@ class Vendor_Helper_File {
     }
 
     /**
-    * Split a file into pieces matching a specific size.
-    *
-    * @param string $ file to be split
-    * @param string $ directory to output to, defaults to the same directory as the file
-    * @param integer $ size, in MB, for each chunk to be
-    * @return integer The number of pieces that were created.
-    */
+     * Split a file into pieces matching a specific size.
+     *
+     * @param string $ file to be split
+     * @param string $ directory to output to, defaults to the same directory as the file
+     * @param integer $ size, in MB, for each chunk to be
+     * @return integer The number of pieces that were created.
+     */
     public static function split($filename, $output_dir = false, $piece_size = 10)
     {
         // Find output dir
@@ -111,16 +111,16 @@ class Vendor_Helper_File {
     }
 
     /**
-    * Join a split file into a whole file.
-    *
-    * @param string $ split filename, without .000 extension
-    * @param string $ output filename, if different then an the filename
-    * @return integer The number of pieces that were joined.
-    */
+     * Join a split file into a whole file.
+     *
+     * @param string $ split filename, without .000 extension
+     * @param string $ output filename, if different then an the filename
+     * @return integer The number of pieces that were joined.
+     */
     public static function join($filename, $output = false)
     {
         if ($output == false)
-            $output = $filename;
+        $output = $filename;
         // Set up reading variables
         $piece = 1; // Current piece
         $chunk = 1024 * 8; // Chunk size to read
@@ -146,8 +146,8 @@ class Vendor_Helper_File {
     }
 
     /**
-    * Remove files and dirs recursively
-    */
+     * Remove files and dirs recursively
+     */
     public static function deleteTree($path)
     {
         if (is_dir($path)) {
@@ -164,8 +164,8 @@ class Vendor_Helper_File {
     }
 
     /**
-    * Check is directory writeable
-    */
+     * Check is directory writeable
+     */
     public static function isDirWriteable($dir)
     {
         if (is_dir($dir) && is_writable($dir)) {

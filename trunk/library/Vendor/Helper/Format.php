@@ -1,24 +1,24 @@
 <?php
 /**
-* Format helper class.
-*
-* $Id: format.php 4070 2009-03-11 20:37:38Z Geert $
-*
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Format helper class.
+ *
+ * $Id: format.php 4070 2009-03-11 20:37:38Z Geert $
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html*
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Vendor_Helper_Format {
     /**
-    * Formats a phone number according to the specified format.
-    *
-    * @param string $ phone number
-    * @param string $ format string
-    * @return string
-    */
+     * Formats a phone number according to the specified format.
+     *
+     * @param string $ phone number
+     * @param string $ format string
+     * @return string
+     */
     public static function phone($number, $format = '3-3-4')
     {
         // Get rid of all non-digit characters in number string
@@ -27,7 +27,7 @@ class Vendor_Helper_Format {
         $format_parts = preg_split('/[^1-9][^0-9]*/', $format, - 1, PREG_SPLIT_NO_EMPTY);
         // Number must match digit count of a valid format
         if (strlen($number_clean) !== array_sum($format_parts))
-            return $number;
+        return $number;
         // Build regex
         $regex = '(\d{' . implode('})(\d{', $format_parts) . '})';
         // Build replace string
@@ -39,19 +39,19 @@ class Vendor_Helper_Format {
     }
 
     /**
-    * Formats a URL to contain a protocol at the beginning.
-    *
-    * @param string $ possibly incomplete URL
-    * @return string
-    */
+     * Formats a URL to contain a protocol at the beginning.
+     *
+     * @param string $ possibly incomplete URL
+     * @return string
+     */
     public static function url($str = '')
     {
         // Clear protocol-only strings like "http://"
         if ($str === '' or substr($str, - 3) === '://')
-            return '';
+        return '';
         // If no protocol given, prepend "http://" by default
         if (strpos($str, '://') === false)
-            return 'http://' . $str;
+        return 'http://' . $str;
         // Return the original URL
         return $str;
     }

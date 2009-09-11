@@ -1,7 +1,7 @@
 <?php
 /**
-* GD Image Adapter.
-*/
+ * GD Image Adapter.
+ */
 class App_Image_Adapter_GD extends App_Image_Adapter {
     // A transparent PNG as a string
     protected static $blank_png;
@@ -12,12 +12,12 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
     {
         // Make sure that GD2 is available
         if (! function_exists('gd_info'))
-            throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
+        throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
         // Get the GD information
         $info = gd_info();
         // Make sure that the GD2 is installed
         if (strpos($info['GD Version'], '2.') === false)
-            throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
+        throw new App_Exception('The Image library requires GD2. Please see http://php.net/gd_info for more information.');
     }
 
     public function process($image, $actions, $dir, $file, $render = false)
@@ -49,10 +49,10 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
         }
         // Make sure the image type is supported for import
         if (empty($create) or ! function_exists($create))
-            throw new App_Exception('The specified image, ' . $image['file'] . ', is not an allowed image type.');
+        throw new App_Exception('The specified image, ' . $image['file'] . ', is not an allowed image type.');
         // Make sure the image type is supported for saving
         if (empty($save) or ! function_exists($save))
-            throw new App_Exception('The specified image, ' . $dir . $file . ', is not an allowed image type.');
+        throw new App_Exception('The specified image, ' . $dir . $file . ', is not an allowed image type.');
         // Load the image
         $this->image = $image;
         // Create the GD image resource
@@ -236,7 +236,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
     {
         // Make sure that the sharpening function is available
         if (! function_exists('imageconvolution'))
-            throw new App_Exception('Your configured adapter does not support the ' . __FUNCTION__ . ' image transformation.');
+        throw new App_Exception('Your configured adapter does not support the ' . __FUNCTION__ . ' image transformation.');
         // Amount should be in the range of 18-10
         $amount = round(abs(- 18 + ($amount * 0.08)), 2);
         // Gaussian blur matrix
@@ -251,19 +251,19 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
     }
 
     /**
-    * Returns an image with a transparent background. Used for rotating to
-    * prevent unfilled backgrounds.
-    *
-    * @param integer $ image width
-    * @param integer $ image height
-    * @return resource
-    */
+     * Returns an image with a transparent background. Used for rotating to
+     * prevent unfilled backgrounds.
+     *
+     * @param integer $ image width
+     * @param integer $ image height
+     * @return resource
+     */
     protected function imagecreatetransparent($width, $height)
     {
         if (self::$blank_png === null) {
             // Decode the blank PNG if it has not been done already
             self::$blank_png = imagecreatefromstring(
-                base64_decode('iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29' . 'mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADqSURBVHjaYvz//z/DYAYAAcTEMMgBQAANegcCBN' . 'CgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQ' . 'AANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoH' . 'AgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB' . '3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAgAEAMpcDTTQWJVEAAAAASUVORK5CYII='));
+            base64_decode('iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29' . 'mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADqSURBVHjaYvz//z/DYAYAAcTEMMgBQAANegcCBN' . 'CgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQ' . 'AANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoH' . 'AgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB' . '3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAgAEAMpcDTTQWJVEAAAAASUVORK5CYII='));
             // Set the blank PNG width and height
             self::$blank_png_width = imagesx(self::$blank_png);
             self::$blank_png_height = imagesy(self::$blank_png);

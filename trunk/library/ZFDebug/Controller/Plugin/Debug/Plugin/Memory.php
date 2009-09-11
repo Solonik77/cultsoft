@@ -1,64 +1,64 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: Memory.php 97 2009-06-25 13:08:56Z gugakfugl $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: Memory.php 97 2009-06-25 13:08:56Z gugakfugl $
+ */
 
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plugin_Abstract implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'memory';
 
     /**
-    *
-    * @var array
-    */
+     *
+     * @var array
+     */
     protected $_memory = array();
 
     protected $_closingBracket = null;
 
     /**
-    * Creating time plugin
-    *
-    * @return void
-    */
+     * Creating time plugin
+     *
+     * @return void
+     */
     public function __construct()
     {
         Zend_Controller_Front::getInstance()->registerPlugin($this);
     }
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier()
     {
         return $this->_identifier;
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab()
     {
         if (function_exists('memory_get_peak_usage')) {
@@ -68,10 +68,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel()
     {
         $panel = '<h4>Memory Usage</h4>';
@@ -85,27 +85,27 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     }
 
     /**
-    * Sets a memory mark identified with $name
-    *
-    * @param string $name
-    */
+     * Sets a memory mark identified with $name
+     *
+     * @param string $name
+     */
     public function mark($name)
     {
         if (!function_exists('memory_get_peak_usage')) {
             return;
         }
         if (isset($this->_memory['user'][$name]))
-            $this->_memory['user'][$name] = memory_get_peak_usage() - $this->_memory['user'][$name];
+        $this->_memory['user'][$name] = memory_get_peak_usage() - $this->_memory['user'][$name];
         else
-            $this->_memory['user'][$name] = memory_get_peak_usage();
+        $this->_memory['user'][$name] = memory_get_peak_usage();
     }
 
     /**
-    * Defined by Zend_Controller_Plugin_Abstract
-    *
-    * @param Zend_Controller_Request_Abstract $
-    * @return void
-    */
+     * Defined by Zend_Controller_Plugin_Abstract
+     *
+     * @param Zend_Controller_Request_Abstract $
+     * @return void
+     */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         if (function_exists('memory_get_peak_usage')) {
@@ -114,11 +114,11 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     }
 
     /**
-    * Defined by Zend_Controller_Plugin_Abstract
-    *
-    * @param Zend_Controller_Request_Abstract $
-    * @return void
-    */
+     * Defined by Zend_Controller_Plugin_Abstract
+     *
+     * @param Zend_Controller_Request_Abstract $
+     * @return void
+     */
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         if (function_exists('memory_get_peak_usage')) {

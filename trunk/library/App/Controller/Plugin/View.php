@@ -1,20 +1,20 @@
 <?php
 /**
-* Setting Zend View and Layout to load views
-* from STATIC_PATH folders
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Setting Zend View and Layout to load views
+ * from STATIC_PATH folders
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private $_isBackofficeController = false;
     private $_templatePath;
     private $_view;
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
     }
@@ -67,7 +67,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         // Configure Zend Pagiantor
         Zend_Paginator::setDefaultScrollingStyle('Elastic');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination_control.phtml');
-        $this->_view->addFilterPath('App/View/Filter', 'App_View_Filter');        
+        $this->_view->addFilterPath('App/View/Filter', 'App_View_Filter');
         // Enable JQuery support
         $this->_view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $this->_view->jQuery()->enable();
@@ -78,7 +78,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     {
         $this->_viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $this->_viewRenderer->setView($this->_view)->setViewBasePathSpec($this->_templatePath)->setViewScriptPathSpec((($this->_isBackofficeController !== true) ? 'html/:module/:controller/:action.:suffix' : 'html/:controller/:action.:suffix'))->setViewScriptPathNoControllerSpec(
-            (($this->_isBackofficeController !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
+        (($this->_isBackofficeController !== true) ? 'html/:module/:action.:suffix' : 'html/:action.:suffix'))->setViewSuffix('phtml');
     }
 
     private function _initZendLayout(Zend_Controller_Request_Abstract $request)
@@ -129,7 +129,7 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $requestLang = App::front()->getParam('requestLang');
         $requestLangId = App::front()->getParam('requestLangId');
         $this->_view->getHelper('DeclareVars')->declareVars(
-            array('member' => App_Member::getInstance() , 'uploadedIMG' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang ,
+        array('member' => App_Member::getInstance() , 'uploadedIMG' => App::baseUri() . 'static/upload/images/' , 'requestLang' => $requestLang ,
                 'projectTitle' => $languages[$requestLangId]['project_title'] ,
                 'baseUrl' => App::baseUri() , 'tplJS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/clientscripts/' : 'static/system/backoffice/clientscripts/') , 'tplCSS' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/css/' : 'static/system/backoffice/css/') , 'tplIMG' => App::baseUri() . ((! $this->_isBackofficeController) ? 'static/view_resources/' . App::config()->project->template . '/images/' : 'static/system/backoffice/images/')));
     }

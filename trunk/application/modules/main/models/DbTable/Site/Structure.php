@@ -1,11 +1,11 @@
 <?php
 /**
-* Member database model
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Member database model
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Main_DbTable_Site_Structure extends App_Db_Nestedsets {
     protected $_primary = 'id';
 

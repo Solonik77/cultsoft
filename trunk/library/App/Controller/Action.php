@@ -1,11 +1,11 @@
 <?php
 /**
-* Base Application action controller
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Base Application action controller
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 abstract class App_Controller_Action extends Zend_Controller_Action {
     // Zend_ACL Instance
     private $_acl;
@@ -50,7 +50,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . strtolower($module) , 'namespace' => $module));
         $resourceLoader->addResourceTypes(
-            array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
+        array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $module = strtolower($module);
         if ($module != 'main') {
             set_include_path(APPLICATION_PATH . 'modules/' . $module . '/models/' . PATH_SEPARATOR . get_include_path());
@@ -62,14 +62,14 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
     }
 
     /**
-    * Redirect to another URL
-    *
-    * Proxies to {@link Zend_Controller_Action_Helper_Redirector::gotoUrl()}.
-    *
-    * @param string $url
-    * @param array $options Options to be used when redirecting
-    * @return void
-    */
+     * Redirect to another URL
+     *
+     * Proxies to {@link Zend_Controller_Action_Helper_Redirector::gotoUrl()}.
+     *
+     * @param string $url
+     * @param array $options Options to be used when redirecting
+     * @return void
+     */
     protected function _selfRedirect(array $options = array())
     {
         $url = App::front()->getRequest()->getPathInfo();

@@ -1,9 +1,9 @@
 <?php
 /**
-* Blog
-*
-* @author Dmytro Denysenko
-*/
+ * Blog
+ *
+ * @author Dmytro Denysenko
+ */
 class Blog_DbTable_Blog extends App_Db_Table_Abstract {
     protected $_primary = 'id';
     protected $_dependentTables = array('Blog_DbTable_I18n_Blog');
