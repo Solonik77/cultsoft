@@ -490,13 +490,10 @@ class ZFDebug_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstract {
      */
     protected function _output($html)
     {
-        static $run = 0;
-        if (!$run) {
             $response = $this->getResponse();
             $response->setBody(str_ireplace('</head>', $this->_headerOutput() . "\n</head>", $response->getBody()));
             $response->setBody(str_ireplace('</body>', '<div id="ZFDebug_debug">' . $html . '</div></body>', $response->getBody()));
-        }
-        $run++;
+        
     }
 
     public function getLinebreak()

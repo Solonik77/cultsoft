@@ -31,6 +31,10 @@ class App_Cache {
             return App_Cache::$instance->$instanceId();
         }
     }
+    
+    private function __clone()
+    {
+    }
 
     /**
      * Constructor
