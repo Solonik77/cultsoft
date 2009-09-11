@@ -23,7 +23,9 @@ class Blog extends App_Model_Abstract {
 
         $select = $this->_table->select()->setIntegrityCheck(false);
         $select->from(DB_TABLE_PREFIX . 'blog', $cols['blog']);
-        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id', $cols['i18n_blog'])->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order($sortByField . ' ' . $sortOrder);
+        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id', $cols['i18n_blog']);
+        $select->join(DB_TABLE_PREFIX . 'members', DB_TABLE_PREFIX . 'members.id = ' . DB_TABLE_PREFIX . 'blog.member_id', array('first_name' , 'last_name'));
+        $select->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order($sortByField . ' ' . $sortOrder);
 
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(App::config()->items_per_page);

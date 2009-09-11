@@ -71,6 +71,7 @@ class Blog_AdminController extends App_Controller_Action {
                 $this->view->form = $form;
                 return $this->render();
             } else {
+                $blogModel->setMemberId(App_Member::getInstance()->getId());
                 $blogModel->setDateUpdated(Vendor_Helper_Date::now());
                 $blogModel->setDateCreated(Vendor_Helper_Date::now());
 
@@ -170,7 +171,7 @@ class Blog_AdminController extends App_Controller_Action {
                         }
                     }
                     // Set message to view
-                    $this->_helper->messages ('Changes for blog successfully saved', 'success', true);
+                    $this->_helper->messages('Changes for blog successfully saved', 'success', true);
                     // Clear post
                     $this->_redirect ('blog/admin/manage-blogs');
                 } else {
