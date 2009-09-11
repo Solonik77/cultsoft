@@ -7,8 +7,9 @@ abstract class App_Model_Abstract {
 
     public function __construct()
     {
-        if ($this->_table) {
+        if($this->_table) {
             $this->_table = new $this->_table;
+            $this->getMetaData();            
         } else {
             throw new App_Exception('Could not set table name for application model ' . __CLASS__);
         }
@@ -21,10 +22,6 @@ abstract class App_Model_Abstract {
 
     public function setAttributes($array)
     {
-        if (count($this->_columns) == 0) {
-            $this->getMetaData();
-        }
-
         $result = array();
         foreach($this->_columns as $key => $value) {
             if (isset($array[$key])) {
@@ -37,9 +34,6 @@ abstract class App_Model_Abstract {
 
     public function setAttribute($attribute, $value)
     {
-        if (count($this->_columns) == 0) {
-            $this->getMetaData();
-        }
         if (array_key_exists($attribute, $this->_columns)) {
             $this->_attributes[$attribute] = $value;
         }
@@ -59,16 +53,11 @@ abstract class App_Model_Abstract {
     public function getMetaData()
     {
         if (count($this->_columns) == 0) {
-            $module = App::front()->getRequest()->getParam('module', 'main');
-            $dbTableClass = ucfirst($module) . '_DbTable_' . get_class($this);
-            if (class_exists($dbTableClass)) {
-                $this->_table = new $dbTableClass;
                 $info = $this->_table->info();
                 $cols = $info['cols'];
                 foreach($cols as $col) {
                     $this->_columns[$col] = $info['metadata'][$col]['DEFAULT'];
                 }
-            }
         }
         return $this;
     }
@@ -97,8 +86,9 @@ abstract class App_Model_Abstract {
             foreach($this->_attributes as $attribute => $value) {
                 $data[$attribute] = $value;
             }
+            
             try {
-                if (false === ($id = $this->getId())) {
+                if (NULL === ($id = $this->getId())) {
                     unset($data['id']);
                     $this->getDbTable()->insert($data);
                     $this->setId(App::db()->lastInsertId());
@@ -162,9 +152,6 @@ abstract class App_Model_Abstract {
             if ('get' == $match[1]) {
                 return $this->$attribute;
             } else {
-                if (count($this->_columns) == 0) {
-                    $this->getMetaData();
-                }
                 if (array_key_exists($attribute, $this->_columns)) {
                     $this->$attribute = $this->_attributes[$attribute] = $args[0];
                 } else {

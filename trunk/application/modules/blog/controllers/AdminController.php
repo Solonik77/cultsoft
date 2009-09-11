@@ -163,10 +163,8 @@ class Blog_AdminController extends App_Controller_Action {
                         foreach($moduleLangs as $lang) {
                             if (isset($postParams['i18n_blog'][$lang['id']])) {
                                 $blogI18nModel = new I18n_Blog;
-                                $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'], 'blog_id = ?' => $blogModel->getId()));
-                                $id = $blogI18nModel->getId();
+                                $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'], 'blog_id = ?' => $blogModel->getId()));                                
 								$blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
-                                $blogI18nModel->setId($id);
 								$blogI18nModel->setLangId($lang['id']);
                                 $blogI18nModel->setBlogId($blogModel->getId());
                                 $blogI18nModel->save();

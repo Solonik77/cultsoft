@@ -17,6 +17,9 @@ class Blog_Form_Blog extends App_Form {
                 $langForm = new Zend_Form_SubForm;
                 $langForm->setLegend(__($lang['name']));
                 $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
+                if ($this->getIsUpdate()){
+                    $langForm->addElement($this->createElement('hidden', 'id'));
+                }
                 $title = $this->createElement('text', 'title', array('maxlength' => 100))->setLabel('Title');
                 $title->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
                 $description = $this->createElement('textarea', 'description', array('label' => 'Description' , 'rows' => '2'));
@@ -39,7 +42,7 @@ class Blog_Form_Blog extends App_Form {
         $this->addElement($this->createElement('submit', 'save_blog')->setLabel('Save')->setDecorators($this->decoratorSpan));
         if ($this->getIsUpdate()) {
             $this->addElement($this->createElement('submit', 'delete_blog')->setLabel('Delete')->setDecorators($this->decoratorSpan));
-        $this->addElement($this->createElement('hidden', 'id'));
+            $this->addElement($this->createElement('hidden', 'id'));
 		}
 
         return $this;
