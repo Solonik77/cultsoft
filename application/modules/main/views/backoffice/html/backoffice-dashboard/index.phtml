@@ -3,99 +3,99 @@ echo __('System information')?></h3>
 <table>
 	<tr>
 		<th width="40%"><?php
-echo __('Operating system')?></th>
+		echo __('Operating system')?></th>
 		<td><?php
-echo $this->os_version?></td>
+		echo $this->os_version?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('PHP Version')?></th>
+		echo __('PHP Version')?></th>
 		<td><?php
-echo $this->php_version?></td>
+		echo $this->php_version?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('PHP Server API')?></th>
+		echo __('PHP Server API')?></th>
 		<td><?php
-echo $this->php_sapi?></td>
+		echo $this->php_sapi?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Zend Framework version')?></th>
+		echo __('Zend Framework version')?></th>
 		<td><?php
-echo $this->zf_version?></td>
+		echo $this->zf_version?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Database adapter')?></th>
+		echo __('Database adapter')?></th>
 		<td><?php
-echo $this->sql_adapter?></td>
+		echo $this->sql_adapter?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Database server version')?></th>
+		echo __('Database server version')?></th>
 		<td><?php
-echo $this->sql_version?></td>
+		echo $this->sql_version?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Image adapter component')?></th>
+		echo __('Image adapter component')?></th>
 		<td><?php
-echo $this->image_adapter?></td>
+		echo $this->image_adapter?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo $this->image_adapter?> Version</th>
+		echo $this->image_adapter?> Version</th>
 		<td><?php
-echo $this->image_adapter_version?></td>
-
-
+		echo $this->image_adapter_version?></td>
+	
+	
 	<tr>
 		<th><?php
-echo __('Apache rewrite module')?></th>
+		echo __('Apache rewrite module')?></th>
 		<td><?php
-echo ($this->apache_rewrite) ? __('available') : __('unavailable')?></td>
+		echo ($this->apache_rewrite) ? __('available') : __('unavailable')?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Free disk space')?></th>
+		echo __('Free disk space')?></th>
 		<td><?php
-echo $this->free_disk_space?></td>
+		echo $this->free_disk_space?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Safe mode')?></th>
+		echo __('Safe mode')?></th>
 		<td><?php
-echo ($this->safe_mode) ? __('on') : __('off')?></td>
+		echo ($this->safe_mode) ? __('on') : __('off')?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Memory limit')?></th>
+		echo __('Memory limit')?></th>
 		<td><?php
-echo ($this->memory_limit) ? $this->memory_limit : __('unavailable')?></td>
+		echo ($this->memory_limit) ? $this->memory_limit : __('unavailable')?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Disable functions')?></th>
+		echo __('Disable functions')?></th>
 		<td><?php
-echo ($this->disable_functions) ? $this->disable_functions : __('unavailable')?></td>
-	</tr>
-	<tr>
-    <th><?php
-echo __('Mbstring extention')?></th>
-		<td><?php
-echo ($this->mbstring_ext) ? __('available') : __('unavailable')?></td>
+		echo ($this->disable_functions) ? $this->disable_functions : __('unavailable')?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Zlib extention')?></th>
+		echo __('Mbstring extention')?></th>
 		<td><?php
-echo ($this->zlib_ext) ? __('available') : __('unavailable')?></td>
+		echo ($this->mbstring_ext) ? __('available') : __('unavailable')?></td>
 	</tr>
 	<tr>
 		<th><?php
-echo __('Iconv')?></th>
+		echo __('Zlib extention')?></th>
 		<td><?php
-echo ($this->iconv_func) ? __('available') : __('unavailable')?></td>
+		echo ($this->zlib_ext) ? __('available') : __('unavailable')?></td>
+	</tr>
+	<tr>
+		<th><?php
+		echo __('Iconv')?></th>
+		<td><?php
+		echo ($this->iconv_func) ? __('available') : __('unavailable')?></td>
 	</tr>
 </table>

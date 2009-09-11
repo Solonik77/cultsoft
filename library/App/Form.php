@@ -1,19 +1,19 @@
 <?php
 /**
-* Application Forms Class
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Application Forms Class
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Form extends Zend_Form {
     public $decoratorSpan;
     protected $_isUpdate = false;
     /**
-    * Contructor
-    *
-    * @return Zend_Form object
-    */
+     * Contructor
+     *
+     * @return Zend_Form object
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);
@@ -23,11 +23,11 @@ class App_Form extends Zend_Form {
     }
 
     /**
-    * Set form action
-    *
-    * @param string $action
-    * @return Zend_Form
-    */
+     * Set form action
+     *
+     * @param string $action
+     * @return Zend_Form
+     */
     public function setAction($action)
     {
         $request = App::front()->getRequest();
@@ -40,11 +40,11 @@ class App_Form extends Zend_Form {
     }
 
     /**
-    * Set form name
-    *
-    * @param string $name
-    * @return Zend_Form
-    */
+     * Set form name
+     *
+     * @param string $name
+     * @return Zend_Form
+     */
     public function setName($name)
     {
         $name = $this->filterName($name, true);
@@ -58,11 +58,11 @@ class App_Form extends Zend_Form {
     public function setIsUpdate($value)
     {
         $value = (bool) $value;
-		return $this->_isUpdate = $value;
+        return $this->_isUpdate = $value;
     }
 
     public function getIsUpdate()
     {
-		return (bool) $this->_isUpdate;
+        return (bool) $this->_isUpdate;
     }
 }

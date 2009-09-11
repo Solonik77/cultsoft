@@ -1,17 +1,17 @@
 <?php
 /**
-* Process queuing/execution class. Allows an unlimited number of callbacks
-* to be added to 'events'. Events can be run multiple times, and can also
-* process event-specific data. By default, Kohana has several system events.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-* @author Kohana Team
-* @copyright (c) 2007 Kohana Team
-* @license http://kohanaphp.com/license.html
-* @link http://docs.kohanaphp.com/general/events
-*/
+ * Process queuing/execution class. Allows an unlimited number of callbacks
+ * to be added to 'events'. Events can be run multiple times, and can also
+ * process event-specific data. By default, Kohana has several system events.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ * @author Kohana Team
+ * @copyright (c) 2007 Kohana Team
+ * @license http://kohanaphp.com/license.html
+ * @link http://docs.kohanaphp.com/general/events
+ */
 abstract class App_Event {
     // Event callbacks
     protected static $events = array();
@@ -21,13 +21,13 @@ abstract class App_Event {
     public static $data;
 
     /**
-    * Add a callback to an event queue.
-    *
-    * @param string $ event name
-    * @param array $ http://php.net/callback
-    * @param boolean $ prevent duplicates
-    * @return boolean
-    */
+     * Add a callback to an event queue.
+     *
+     * @param string $ event name
+     * @param array $ http://php.net/callback
+     * @param boolean $ prevent duplicates
+     * @return boolean
+     */
     public static function add($name, $callback, $unique = false)
     {
         if (! isset(App_Event::$events[$name])) {
@@ -44,13 +44,13 @@ abstract class App_Event {
     }
 
     /**
-    * Add a callback to an event queue, before a given event.
-    *
-    * @param string $ event name
-    * @param array $ existing event callback
-    * @param array $ event callback
-    * @return boolean
-    */
+     * Add a callback to an event queue, before a given event.
+     *
+     * @param string $ event name
+     * @param array $ existing event callback
+     * @param array $ event callback
+     * @return boolean
+     */
     public static function add_before($name, $existing, $callback)
     {
         if (empty(App_Event::$events[$name]) OR ($key = array_search($existing, App_Event::$events[$name])) === false) {
@@ -63,13 +63,13 @@ abstract class App_Event {
     }
 
     /**
-    * Add a callback to an event queue, after a given event.
-    *
-    * @param string $ event name
-    * @param array $ existing event callback
-    * @param array $ event callback
-    * @return boolean
-    */
+     * Add a callback to an event queue, after a given event.
+     *
+     * @param string $ event name
+     * @param array $ existing event callback
+     * @param array $ event callback
+     * @return boolean
+     */
     public static function add_after($name, $existing, $callback)
     {
         if (empty(App_Event::$events[$name]) OR ($key = array_search($existing, App_Event::$events[$name])) === false) {
@@ -82,43 +82,43 @@ abstract class App_Event {
     }
 
     /**
-    * Inserts a new event at a specfic key location.
-    *
-    * @param string $ event name
-    * @param integer $ key to insert new event at
-    * @param array $ event callback
-    * @return void
-    */
+     * Inserts a new event at a specfic key location.
+     *
+     * @param string $ event name
+     * @param integer $ key to insert new event at
+     * @param array $ event callback
+     * @return void
+     */
     private static function insert_event($name, $key, $callback)
     {
         if (in_array($callback, App_Event::$events[$name], true))
-            return false;
+        return false;
         // Add the new event at the given key location
         App_Event::$events[$name] = array_merge
         (
-            // Events before the key
-            array_slice(App_Event::$events[$name], 0, $key),
-            // New event callback
-            array($callback),
-            // Events after the key
-            array_slice(App_Event::$events[$name], $key)
-            );
+        // Events before the key
+        array_slice(App_Event::$events[$name], 0, $key),
+        // New event callback
+        array($callback),
+        // Events after the key
+        array_slice(App_Event::$events[$name], $key)
+        );
 
         return true;
     }
 
     /**
-    * Replaces an event with another event.
-    *
-    * @param string $ event name
-    * @param array $ event to replace
-    * @param array $ new callback
-    * @return boolean
-    */
+     * Replaces an event with another event.
+     *
+     * @param string $ event name
+     * @param array $ event to replace
+     * @param array $ new callback
+     * @return boolean
+     */
     public static function replace($name, $existing, $callback)
     {
         if (empty(App_Event::$events[$name]) OR ($key = array_search($existing, App_Event::$events[$name], true)) === false)
-            return false;
+        return false;
 
         if (! in_array($callback, App_Event::$events[$name], true)) {
             // Replace the exisiting event with the new event
@@ -134,23 +134,23 @@ abstract class App_Event {
     }
 
     /**
-    * Get all callbacks for an event.
-    *
-    * @param string $ event name
-    * @return array
-    */
+     * Get all callbacks for an event.
+     *
+     * @param string $ event name
+     * @return array
+     */
     public static function get($name)
     {
         return empty(App_Event::$events[$name]) ? array() : App_Event::$events[$name];
     }
 
     /**
-    * Clear some or all callbacks from an event.
-    *
-    * @param string $ event name
-    * @param array $ specific callback to remove, FALSE for all callbacks
-    * @return void
-    */
+     * Clear some or all callbacks from an event.
+     *
+     * @param string $ event name
+     * @param array $ specific callback to remove, FALSE for all callbacks
+     * @return void
+     */
     public static function clear($name, $callback = false)
     {
         if ($callback === false) {
@@ -168,12 +168,12 @@ abstract class App_Event {
     }
 
     /**
-    * Execute all of the callbacks attached to an event.
-    *
-    * @param string $ event name
-    * @param array $ data can be processed as App_Event::$data by the callbacks
-    * @return void
-    */
+     * Execute all of the callbacks attached to an event.
+     *
+     * @param string $ event name
+     * @param array $ data can be processed as App_Event::$data by the callbacks
+     * @return void
+     */
     public static function run($name, &$data = null)
     {
         if (! empty(App_Event::$events[$name])) {
@@ -193,11 +193,11 @@ abstract class App_Event {
     }
 
     /**
-    * Check if a given event has been run.
-    *
-    * @param string $ event name
-    * @return boolean
-    */
+     * Check if a given event has been run.
+     *
+     * @param string $ event name
+     * @return boolean
+     */
     public static function has_run($name)
     {
         return isset(App_Event::$has_run[$name]);

@@ -1,19 +1,19 @@
 <?php
 /**
-* Member access Zend Controller plugin
-* Provide access to controller by ACL rules check
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Member access Zend Controller plugin
+ * Provide access to controller by ACL rules check
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     // Zend_ACL Instance
     private $_acl;
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         $this->_acl = App_Member::getInstance()->getAcl();

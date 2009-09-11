@@ -1,13 +1,13 @@
 <?php
 
 /**
-* App_Utf8::to_unicode
-*
-* @author Kohana Team
-* @copyright (c) 2007 Kohana Team
-* @copyright (c) 2005 Harry Fuecks
-* @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
-*/
+ * App_Utf8::to_unicode
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007 Kohana Team
+ * @copyright (c) 2005 Harry Fuecks
+ * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+ */
 function _to_unicode($str)
 {
     $mState = 0; // cached expected number of octets after the current octet until the beginning of the next UTF8 character sequence
@@ -77,8 +77,8 @@ function _to_unicode($str)
                     // Check for illegal sequences and codepoints
                     // From Unicode 3.1, non-shortest form is illegal
                     if (((2 == $mBytes) and ($mUcs4 < 0x0080)) or ((3 == $mBytes) and ($mUcs4 < 0x0800)) or ((4 == $mBytes) and ($mUcs4 < 0x10000)) or (4 < $mBytes) or // From Unicode 3.2, surrogate characters are illegal
-                            (($mUcs4 &0xFFFFF800) == 0xD800) or // Codepoints outside the Unicode range are illegal
-                            ($mUcs4 > 0x10FFFF)) {
+                    (($mUcs4 &0xFFFFF800) == 0xD800) or // Codepoints outside the Unicode range are illegal
+                    ($mUcs4 > 0x10FFFF)) {
                         trigger_error('utf8::to_unicode: Illegal sequence or codepoint in UTF-8 at byte ' . $i, E_USER_WARNING);
                         return false;
                     }

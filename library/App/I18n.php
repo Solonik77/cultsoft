@@ -1,11 +1,11 @@
 <?php
 /**
-* Website Language translation and locale configuration
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Website Language translation and locale configuration
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_I18n {
     protected $_request;
     // System localization
@@ -28,8 +28,8 @@ class App_I18n {
     }
 
     /**
-    * Set translator object
-    */
+     * Set translator object
+     */
     public function setTranslator(Zend_Translate $object)
     {
         $this->translator = $object;
@@ -39,16 +39,16 @@ class App_I18n {
     }
 
     /**
-    * Return Zend translator object
-    */
+     * Return Zend translator object
+     */
     public function getTranslator()
     {
         return $this->translator;
     }
 
     /**
-    * Website languages
-    */
+     * Website languages
+     */
     public function getSiteLanguages()
     {
         $site_languages = $this->site_languages;
@@ -77,8 +77,8 @@ class App_I18n {
     }
 
     /**
-    * Get default language
-    */
+     * Get default language
+     */
     public function getDefaultSiteLanguage()
     {
         if ($this->default_site_language == null) {
@@ -88,8 +88,8 @@ class App_I18n {
     }
 
     /**
-    * Get default language ID
-    */
+     * Get default language ID
+     */
     public function getDefaultSiteLanguageId()
     {
         if ($this->default_site_language_id == null) {
@@ -99,10 +99,10 @@ class App_I18n {
     }
 
     /**
-    * Get languages allowed for module
-    *
-    * @return array
-    */
+     * Get languages allowed for module
+     *
+     * @return array
+     */
     public function getModuleLanguages($module = null)
     {
         $module = ($module) ? $module : App::front()->getRequest()->getModuleName();

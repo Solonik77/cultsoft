@@ -1,24 +1,24 @@
 <?php
 /**
-* Messages helper, translated into view
-*
-* This helper creates an easy method to return groupings of
-* flash messages by status.
-*/
+ * Messages helper, translated into view
+ *
+ * This helper creates an easy method to return groupings of
+ * flash messages by status.
+ */
 class App_Controller_Action_Helper_Messages extends Zend_Controller_Action_Helper_Abstract {
     /**
-    * $_messages - Messages
-    *
-    * @var array
-    */
+     * $_messages - Messages
+     *
+     * @var array
+     */
     private static $_messages = array();
 
     /**
-    * Messages function.
-    *
-    * Takes a specially formatted array of flash messages and prepares them
-    * for output.
-    */
+     * Messages function.
+     *
+     * Takes a specially formatted array of flash messages and prepares them
+     * for output.
+     */
     public function messages($message = null, $status = null, $flash = false)
     {
         if ($message === null) {

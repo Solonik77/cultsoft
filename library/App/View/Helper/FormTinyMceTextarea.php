@@ -30,10 +30,10 @@ class App_View_Helper_FormTinyMceTextarea extends Zend_View_Helper_FormTextarea 
         $this->view->tinyMce()->render();
 
         $xhtml = '<textarea name="' . $this->view->escape($name) . '"'
-         . ' id="' . $this->view->escape($id) . '"'
-         . $disabled
-         . $this->_htmlAttribs($attribs) . '>'
-         . $this->view->escape($value) . '</textarea>';
+        . ' id="' . $this->view->escape($id) . '"'
+        . $disabled
+        . $this->_htmlAttribs($attribs) . '>'
+        . $this->view->escape($value) . '</textarea>';
 
         return $xhtml;
     }

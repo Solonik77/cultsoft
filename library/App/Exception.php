@@ -1,35 +1,35 @@
 <?php
 /**
-* Application Exception Class
-* $Id$
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Application Exception Class
+ * $Id$
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 require_once 'Vendor/Helper/Html.php';
 class App_Exception extends Zend_Exception {
     /**
-    *
-    * @var array PHP error code => human readable name
-    */
+     *
+     * @var array PHP error code => human readable name
+     */
     public static $php_errors = array(
-        E_ERROR => 'Fatal Error',
-        E_USER_ERROR => 'User Error',
-        E_PARSE => 'Parse Error',
-        E_WARNING => 'Warning',
-        E_USER_WARNING => 'User Warning',
-        E_STRICT => 'Strict',
-        E_NOTICE => 'Notice',
-        E_RECOVERABLE_ERROR => 'Recoverable Error',
-        );
+    E_ERROR => 'Fatal Error',
+    E_USER_ERROR => 'User Error',
+    E_PARSE => 'Parse Error',
+    E_WARNING => 'Warning',
+    E_USER_WARNING => 'User Warning',
+    E_STRICT => 'Strict',
+    E_NOTICE => 'Notice',
+    E_RECOVERABLE_ERROR => 'Recoverable Error',
+    );
     /**
-    * Creates a new exception.
-    *
-    * @param string $ error message
-    * @param array $ translation variables
-    * @return void
-    */
+     * Creates a new exception.
+     *
+     * @param string $ error message
+     * @param array $ translation variables
+     * @return void
+     */
     public function __construct($message, array $variables = null, $code = 0)
     {
         // Pass the message to the parent
@@ -37,10 +37,10 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Enable Application exception handling.
-    *
-    * @return void
-    */
+     * Enable Application exception handling.
+     *
+     * @return void
+     */
     public static function enable()
     {
         set_exception_handler(array(__CLASS__ , 'exceptionHandler'));
@@ -48,10 +48,10 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Disable Application exception handling.
-    *
-    * @return void
-    */
+     * Disable Application exception handling.
+     *
+     * @return void
+     */
     public static function disable()
     {
         restore_exception_handler();
@@ -59,12 +59,12 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * PHP error handler, converts all errors into ErrorExceptions. This handler
-    * respects error_reporting settings.
-    *
-    * @throws ErrorException
-    * @return TRUE
-    */
+     * PHP error handler, converts all errors into ErrorExceptions. This handler
+     * respects error_reporting settings.
+     *
+     * @throws ErrorException
+     * @return TRUE
+     */
     public static function errorHandler($code, $error, $file = null, $line = null)
     {
         if ((error_reporting() &$code) !== 0) {
@@ -77,11 +77,11 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Exception handler.
-    *
-    * @param object $ Exception instance
-    * @return void
-    */
+     * Exception handler.
+     *
+     * @param object $ Exception instance
+     * @return void
+     */
     public static function exceptionHandler(Exception $e)
     {
         try {
@@ -149,11 +149,11 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Magic object-to-string method.
-    *
-    * @uses exceptionText method
-    * @return string
-    */
+     * Magic object-to-string method.
+     *
+     * @uses exceptionText method
+     * @return string
+     */
     public function __toString()
     {
         return App_Exception::exceptionText($this);
@@ -165,13 +165,13 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Removes application, system, modpath, or docroot from a filename,
-    * replacing them with the plain text equivalents. Useful for debugging
-    * when you want to display a shorter path.
-    *
-    * @param string $ path to debug
-    * @return string
-    */
+     * Removes application, system, modpath, or docroot from a filename,
+     * replacing them with the plain text equivalents. Useful for debugging
+     * when you want to display a shorter path.
+     *
+     * @param string $ path to debug
+     * @return string
+     */
     public static function debugPath($file)
     {
         if (strpos($file, LIBRARY_PATH) === 0) {
@@ -190,17 +190,17 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Returns an HTML string, highlighting a specific line of a file, with some
-    * number of lines padded above and below.
-    *
-    *        // Highlights the current line of the current file
-    *        echo App_exception::debugSource(__FILE__, __LINE__);
-    *
-    * @param string $ file to open
-    * @param integer $ line number to highlight
-    * @param integer $ number of padding lines
-    * @return string
-    */
+     * Returns an HTML string, highlighting a specific line of a file, with some
+     * number of lines padded above and below.
+     *
+     *        // Highlights the current line of the current file
+     *        echo App_exception::debugSource(__FILE__, __LINE__);
+     *
+     * @param string $ file to open
+     * @param integer $ line number to highlight
+     * @param integer $ number of padding lines
+     * @return string
+     */
     public static function debugSource($file, $line_number, $padding = 5)
     {
         // Open the file and set the line position
@@ -215,7 +215,7 @@ class App_Exception extends Zend_Exception {
         while (($row = fgets($file)) !== false) {
             // Increment the line number
             if (++$line > $range['end'])
-                break;
+            break;
 
             if ($line >= $range['start']) {
                 // Make the row safe for output
@@ -240,14 +240,14 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Returns an array of HTML strings that represent each step in the backtrace.
-    *
-    *        // Displays the entire current backtrace
-    *        echo implode('<br/>', App_Exception::trace());
-    *
-    * @param string $ path to debug
-    * @return string
-    */
+     * Returns an array of HTML strings that represent each step in the backtrace.
+     *
+     *        // Displays the entire current backtrace
+     *        echo implode('<br/>', App_Exception::trace());
+     *
+     * @param string $ path to debug
+     * @return string
+     */
     public static function trace(array $trace = null)
     {
         if ($trace === null) {
@@ -324,7 +324,7 @@ class App_Exception extends Zend_Exception {
                 'file' => isset($file) ? $file : null,
                 'line' => isset($line) ? $line : null,
                 'source' => isset($source) ? $source : null,
-                );
+            );
 
             unset($function, $args, $file, $line, $source);
         }
@@ -333,27 +333,27 @@ class App_Exception extends Zend_Exception {
     }
 
     /**
-    * Returns an HTML string of information about a single variable.
-    *
-    * Borrows heavily on concepts from the Debug class of {@link http://nettephp.com/ Nette}.
-    *
-    * @param mixed $ variable to dump
-    * @param integer $ maximum length of strings
-    * @return string
-    */
+     * Returns an HTML string of information about a single variable.
+     *
+     * Borrows heavily on concepts from the Debug class of {@link http://nettephp.com/ Nette}.
+     *
+     * @param mixed $ variable to dump
+     * @param integer $ maximum length of strings
+     * @return string
+     */
     public static function dump($value, $length = 128)
     {
         return self::_dump($value, $length);
     }
 
     /**
-    * Helper for App_Exception::dump(), handles recursion in arrays and objects.
-    *
-    * @param mixed $ variable to dump
-    * @param integer $ maximum length of strings
-    * @param integer $ recursion level (internal)
-    * @return string
-    */
+     * Helper for App_Exception::dump(), handles recursion in arrays and objects.
+     *
+     * @param mixed $ variable to dump
+     * @param integer $ maximum length of strings
+     * @param integer $ recursion level (internal)
+     * @return string
+     */
     private static function _dump(&$var, $length = 128, $level = 0)
     {
         if ($var === null) {

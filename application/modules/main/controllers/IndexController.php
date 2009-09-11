@@ -1,12 +1,12 @@
 <?php
 /**
-* Index controller.
-* This controller used for front demo and testing pages.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Index controller.
+ * This controller used for front demo and testing pages.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Main_IndexController extends App_Controller_Action {
     // CONST BACKOFFICE_CONTROLLER = TRUE;
     public function init()
@@ -14,8 +14,8 @@ class Main_IndexController extends App_Controller_Action {
     }
 
     /**
-    * Default system action
-    */
+     * Default system action
+     */
     public function indexAction()
     {
     }

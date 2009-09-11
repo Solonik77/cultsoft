@@ -1,11 +1,11 @@
 <?php
 /**
-* Provide simple sinleton interface to Zend_Cache different backends and internal system information.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Provide simple sinleton interface to Zend_Cache different backends and internal system information.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Cache {
     protected static $instance;
     protected $cache;
@@ -16,8 +16,8 @@ class App_Cache {
     protected $_default_cache_lifetime = 7200;
 
     /**
-    * Singleton Application cache
-    */
+     * Singleton Application cache
+     */
     public static function getInstance($instanceId = null)
     {
         if (App_Cache::$instance == null) {
@@ -33,8 +33,8 @@ class App_Cache {
     }
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         if (App_Cache::$instance === null) {
@@ -49,8 +49,8 @@ class App_Cache {
     }
 
     /**
-    * Magic __call execute system internal or Zend_Cache methods
-    */
+     * Magic __call execute system internal or Zend_Cache methods
+     */
     public function __call($method, $args)
     {
         $return = null;
@@ -66,8 +66,8 @@ class App_Cache {
     }
 
     /**
-    * Get data for website navigation menu tree
-    */
+     * Get data for website navigation menu tree
+     */
     public function getSiteNavigationTree()
     {
         $data = null;
@@ -80,8 +80,8 @@ class App_Cache {
     }
 
     /**
-    * Create instances of Zend_Cache with unique ID
-    */
+     * Create instances of Zend_Cache with unique ID
+     */
     public function initInstance(array $instanceId, $frontendOptions = null, $backendOptions = null)
     {
         $frontendOptions = (! is_null($frontendOptions) and is_array($frontendOptions) and ! empty($frontendOptions)) ? $frontendOptions : $this->_defaultFrontendOptions;

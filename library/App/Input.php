@@ -1,13 +1,13 @@
 <?php
 /**
-* Input library.
-*
-* $Id$
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Input library.
+ *
+ * $Id$
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Input {
     // Enable or disable automatic XSS cleaning
     protected $use_xss_clean = false;
@@ -21,11 +21,11 @@ class App_Input {
     protected static $instance;
 
     /**
-    * Retrieve a singleton instance of Input. This will always be the first
-    * created instance of this class.
-    *
-    * @return object
-    */
+     * Retrieve a singleton instance of Input. This will always be the first
+     * created instance of this class.
+     *
+     * @return object
+     */
     public static function instance()
     {
         if (App_Input::$instance === null) {
@@ -36,11 +36,11 @@ class App_Input {
     }
 
     /**
-    * Sanitizes global GET, POST and COOKIE data. Also takes care of
-    * magic_quotes and register_globals, if they have been enabled.
-    *
-    * @return void
-    */
+     * Sanitizes global GET, POST and COOKIE data. Also takes care of
+     * magic_quotes and register_globals, if they have been enabled.
+     *
+     * @return void
+     */
     public function __construct()
     {
         // Use XSS clean?
@@ -105,7 +105,7 @@ class App_Input {
                 foreach($_COOKIE as $key => $val) {
                     // Ignore special attributes in RFC2109 compliant cookies
                     if ($key == '$Version' or $key == '$Path' or $key == '$Domain')
-                        continue;
+                    continue;
                     // Sanitize $_COOKIE
                     $_COOKIE[$this->clean_input_keys($key)] = $this->clean_input_data($val);
                 }
@@ -119,72 +119,72 @@ class App_Input {
     }
 
     /**
-    * Fetch an item from the $_GET array.
-    *
-    * @param string $ key to find
-    * @param mixed $ default value
-    * @param boolean $ XSS clean the value
-    * @return mixed
-    */
+     * Fetch an item from the $_GET array.
+     *
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     public function get($key = array(), $default = null, $xss_clean = false)
     {
         return $this->search_array($_GET, $key, $default, $xss_clean);
     }
 
     /**
-    * Fetch an item from the $_POST array.
-    *
-    * @param string $ key to find
-    * @param mixed $ default value
-    * @param boolean $ XSS clean the value
-    * @return mixed
-    */
+     * Fetch an item from the $_POST array.
+     *
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     public function post($key = array(), $default = null, $xss_clean = false)
     {
         return $this->search_array($_POST, $key, $default, $xss_clean);
     }
 
     /**
-    * Fetch an item from the $_COOKIE array.
-    *
-    * @param string $ key to find
-    * @param mixed $ default value
-    * @param boolean $ XSS clean the value
-    * @return mixed
-    */
+     * Fetch an item from the $_COOKIE array.
+     *
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     public function cookie($key = array(), $default = null, $xss_clean = false)
     {
         return $this->search_array($_COOKIE, $key, $default, $xss_clean);
     }
 
     /**
-    * Fetch an item from the $_SERVER array.
-    *
-    * @param string $ key to find
-    * @param mixed $ default value
-    * @param boolean $ XSS clean the value
-    * @return mixed
-    */
+     * Fetch an item from the $_SERVER array.
+     *
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     public function server($key = array(), $default = null, $xss_clean = false)
     {
         return $this->search_array($_SERVER, $key, $default, $xss_clean);
     }
 
     /**
-    * Fetch an item from a global array.
-    *
-    * @param array $ array to search
-    * @param string $ key to find
-    * @param mixed $ default value
-    * @param boolean $ XSS clean the value
-    * @return mixed
-    */
+     * Fetch an item from a global array.
+     *
+     * @param array $ array to search
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     protected function search_array($array, $key, $default = null, $xss_clean = false)
     {
         if ($key === array())
-            return $array;
+        return $array;
         if (! isset($array[$key]))
-            return $default;
+        return $default;
         // Get the value
         $value = $array[$key];
         if ($this->use_xss_clean === false and $xss_clean === true) {
@@ -195,14 +195,14 @@ class App_Input {
     }
 
     /**
-    * Fetch the IP Address.
-    *
-    * @return string
-    */
+     * Fetch the IP Address.
+     *
+     * @return string
+     */
     public function ip_address()
     {
         if ($this->ip_address !== null)
-            return $this->ip_address;
+        return $this->ip_address;
         // Server keys that could contain the client IP address
         $keys = array('HTTP_X_FORWARDED_FOR' , 'HTTP_CLIENT_IP' , 'REMOTE_ADDR');
         foreach($keys as $key) {
@@ -223,26 +223,26 @@ class App_Input {
     }
 
     /**
-    * Fetch the User Agent.
-    *
-    * @return string
-    */
+     * Fetch the User Agent.
+     *
+     * @return string
+     */
     public function user_agent()
     {
         return $this->user_agent;
     }
 
     /**
-    * Clean cross site scripting exploits from string.
-    * HTMLPurifier may be used if installed, otherwise defaults to built in method.
-    * Note - This function should only be used to deal with data upon submission.
-    * It's not something that should be used for general runtime processing
-    * since it requires a fair amount of processing overhead.
-    *
-    * @param string $ data to clean
-    * @param string $ xss_clean method to use('htmlpurifier' or defaults to built-in method)
-    * @return string
-    */
+     * Clean cross site scripting exploits from string.
+     * HTMLPurifier may be used if installed, otherwise defaults to built in method.
+     * Note - This function should only be used to deal with data upon submission.
+     * It's not something that should be used for general runtime processing
+     * since it requires a fair amount of processing overhead.
+     *
+     * @param string $ data to clean
+     * @param string $ xss_clean method to use('htmlpurifier' or defaults to built-in method)
+     * @return string
+     */
     public function xss_clean($data, $tool = null)
     {
         if ($tool === null) {
@@ -270,11 +270,11 @@ class App_Input {
     }
 
     /**
-    * Default built-in cross site scripting filter.
-    *
-    * @param string $ data to clean
-    * @return string
-    */
+     * Default built-in cross site scripting filter.
+     *
+     * @param string $ data to clean
+     * @return string
+     */
     protected function xss_filter_default($data)
     {
         // http://svn.bitflux.ch/repos/public/popoon/trunk/classes/externalinput.php
@@ -333,19 +333,19 @@ class App_Input {
     }
 
     /**
-    * HTMLPurifier cross site scripting filter. This version assumes the
-    * existence of the standard htmlpurifier library, and is set to not tidy
-    * input.
-    *
-    * @param string $ data to clean
-    * @return string
-    */
+     * HTMLPurifier cross site scripting filter. This version assumes the
+     * existence of the standard htmlpurifier library, and is set to not tidy
+     * input.
+     *
+     * @param string $ data to clean
+     * @return string
+     */
     protected function xss_filter_htmlpurifier($data)
     {
         /**
-        *
-        * @todo License should go here, http://htmlpurifier.org/
-        */
+         *
+         * @todo License should go here, http://htmlpurifier.org/
+         */
         if (! class_exists('HTMLPurifier_Config', false)) {
             // Load HTMLPurifier
             require 'HTMLPurifier/HTMLPurifier.auto.php';
@@ -360,12 +360,12 @@ class App_Input {
     }
 
     /**
-    * This is a helper method. It enforces W3C specifications for allowed
-    * key name strings, to prevent malicious exploitation.
-    *
-    * @param string $ string to clean
-    * @return string
-    */
+     * This is a helper method. It enforces W3C specifications for allowed
+     * key name strings, to prevent malicious exploitation.
+     *
+     * @param string $ string to clean
+     * @return string
+     */
     public function clean_input_keys($str)
     {
         $chars = PCRE_UNICODE_PROPERTIES ? '\pL' : 'a-zA-Z';
@@ -376,12 +376,12 @@ class App_Input {
     }
 
     /**
-    * This is a helper method. It escapes data and forces all newline
-    * characters to "\n".
-    *
-    * @param unknown_type $ string to clean
-    * @return string
-    */
+     * This is a helper method. It escapes data and forces all newline
+     * characters to "\n".
+     *
+     * @param unknown_type $ string to clean
+     * @return string
+     */
     public function clean_input_data($str)
     {
         if (is_array($str)) {

@@ -13,7 +13,7 @@ class Main_Model_SettingsService {
     public function getSettings($where = '1 = 1')
     {
         $settings = new Main_DbTable_Settings;
-        $select = $settings->select();        
+        $select = $settings->select();
         if($where) {
             $select->where($where);
         }

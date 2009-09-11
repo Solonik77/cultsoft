@@ -1,17 +1,17 @@
 <?php
 /**
-* Global website email forms.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Global website email forms.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Main_Form_Signin extends App_Form {
     /**
-    * Contructor
-    *
-    * @return Zend_Form object
-    */
+     * Contructor
+     *
+     * @return Zend_Form object
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);

@@ -1,18 +1,18 @@
 <?php
 /**
-* Default access control list for application.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Default access control list for application.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Acl extends Zend_Acl {
     // ACL singleton
     private static $instance = null;
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function __construct()
     {
         $this->_permCache = App_Cache::getInstance('permCache');
@@ -48,8 +48,8 @@ class App_Acl extends Zend_Acl {
     }
 
     /**
-    * Get cached ACL Roles
-    */
+     * Get cached ACL Roles
+     */
     public function getRoles()
     {
         $data = null;
@@ -66,8 +66,8 @@ class App_Acl extends Zend_Acl {
     }
 
     /**
-    * Get cached ACL resources
-    */
+     * Get cached ACL resources
+     */
     public function getResources()
     {
         $data = null;
@@ -84,8 +84,8 @@ class App_Acl extends Zend_Acl {
     }
 
     /**
-    * Get cached ACL resources
-    */
+     * Get cached ACL resources
+     */
     public function getRolesResources()
     {
         $data = null;

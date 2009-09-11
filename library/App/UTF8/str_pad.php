@@ -1,13 +1,13 @@
 <?php
 
 /**
-* App_Utf8::str_pad
-*
-* @author Kohana Team
-* @copyright (c) 2007 Kohana Team
-* @copyright (c) 2005 Harry Fuecks
-* @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
-*/
+ * App_Utf8::str_pad
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007 Kohana Team
+ * @copyright (c) 2005 Harry Fuecks
+ * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+ */
 function _str_pad($str, $final_str_length, $pad_str = ' ', $pad_type = STR_PAD_RIGHT)
 {
     if (App_Utf8::is_ascii($str) and App_Utf8::is_ascii($pad_str)) {

@@ -11,36 +11,37 @@ echo __('Create new blog')?></a></p>
 		<th><?php echo $this->paginationSort('Created', 'created')?></th>
 		<th><?php echo $this->paginationSort('Type')?></th>
 		<th><?php echo __('Owner')?></th>
-        <th><?php echo __('Actions')?></th>
+		<th><?php echo __('Actions')?></th>
 	</thead>
 	<tbody>
-<?php
-    foreach($this->blogsDataGrid as $blog) { ?>
-	<tr class="<?php
+	<?php
+	foreach($this->blogsDataGrid as $blog) { ?>
+		<tr
+			class="<?php
     echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php
-    echo $blog->id?></td>
+			echo $blog->id?></td>
 			<td><?php
-    echo $blog->title?></td>
+			echo $blog->title?></td>
 			<td><?php
-    echo date("Y-t-d", strtotime($blog->date_created))?></td>
+			echo date("Y-t-d", strtotime($blog->date_created))?></td>
 			<td><?php echo __($this->blogTypes[$blog->type])?></td>
-            <td><?php echo $blog->first_name?> <?php echo $blog->last_name?></td>
+			<td><?php echo $blog->first_name?> <?php echo $blog->last_name?></td>
 			<td><a
 				href="<?=$this->url(array('action' => 'update-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
 			<a
 				href="<?=$this->url(array('action' => 'delete-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Delete')?></a>
 			</td>
 		</tr>
-<?php
-}
+		<?php
+	}
 
-?>
-  </tbody>
+	?>
+	</tbody>
 </table>
 
 <p><?php echo $this->paginationControl($this->blogsDataGrid)?></p>
 
-<?php else: ?>
+	<?php else: ?>
 <p><?php echo __('No blogs here')?></p>
-<?php endif;
+	<?php endif;

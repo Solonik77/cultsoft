@@ -1,7 +1,7 @@
 <?php
 /**
-* ImageMagick Image Adapter.
-*/
+ * ImageMagick Image Adapter.
+ */
 class App_Image_Adapter_ImageMagick extends App_Image_Adapter {
     // Directory that IM is installed in
     protected $dir = '';
@@ -11,33 +11,33 @@ class App_Image_Adapter_ImageMagick extends App_Image_Adapter {
     protected $tmp_image;
 
     /**
-    * Attempts to detect the ImageMagick installation directory.
-    *
-    * @throws App_Exception
-    * @param array $ configuration
-    * @return void
-    */
+     * Attempts to detect the ImageMagick installation directory.
+     *
+     * @throws App_Exception
+     * @param array $ configuration
+     * @return void
+     */
     public function __construct($config)
     {
         if (empty($config['directory'])) {
             // Attempt to locate IM by using "which"(only works for *nix!)
             if (! is_file($path = exec('which convert')))
-                throw new App_Exception('The ImageMagick directory specified does not contain a required program');
+            throw new App_Exception('The ImageMagick directory specified does not contain a required program');
             $config['directory'] = dirname($path);
         }
         // Set the command extension
         $this->ext = (PHP_SHLIB_SUFFIX === 'dll') ? '.exe' : '';
         // Check to make sure the provided path is correct
         if (! is_file(realpath($config['directory']) . '/convert' . $this->ext))
-            throw new App_Exception('The ImageMagick directory specified does not contain a required program, convert' . $this->ext);
+        throw new App_Exception('The ImageMagick directory specified does not contain a required program, convert' . $this->ext);
         // Set the installation directory
         $this->dir = str_replace('\\', '/', realpath($config['directory'])) . '/';
     }
 
     /**
-    * Creates a temporary image and executes the given actions. By creating a
-    * temporary copy of the image before manipulating it, this process is atomic.
-    */
+     * Creates a temporary image and executes the given actions. By creating a
+     * temporary copy of the image before manipulating it, this process is atomic.
+     */
     public function process($image, $actions, $dir, $file, $render = false)
     {
         // We only need the filename
@@ -58,7 +58,7 @@ class App_Image_Adapter_ImageMagick extends App_Image_Adapter {
             // done to allow the file type to change correctly, and to handle
             // the quality conversion in the most effective way possible.
             if ($error = exec(
-                    escapeshellcmd($this->dir . 'convert' . $this->ext) . ' -quality ' . $quality . '% ' . $this->cmd_image . ' ' . $this->new_image)) {
+            escapeshellcmd($this->dir . 'convert' . $this->ext) . ' -quality ' . $quality . '% ' . $this->cmd_image . ' ' . $this->new_image)) {
                 $this->errors[] = $error;
             } else {
                 // Output the image directly to the browser

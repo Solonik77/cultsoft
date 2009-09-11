@@ -1,15 +1,15 @@
 <?php
 /**
-* Calendar creation library.
-*
-* @package Calendar
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html
-*/
+ * Calendar creation library.
+ *
+ * @package Calendar
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html
+ */
 class App_Calendar extends App_Event_Subject {
     // Start the calendar on Sunday by default
     public static $start_monday = false;
@@ -22,18 +22,18 @@ class App_Calendar extends App_Event_Subject {
     protected $observed_data;
 
     /**
-    * View instance
-    *
-    * @var Zend_View_Instance
-    */
+     * View instance
+     *
+     * @var Zend_View_Instance
+     */
     public $view = null;
 
     /**
-    * Sets the view instance.
-    *
-    * @param Zend_View_Interface $view View instance
-    * @return Zend_View_Helper_PaginationControl
-    */
+     * Sets the view instance.
+     *
+     * @param Zend_View_Interface $view View instance
+     * @return Zend_View_Helper_PaginationControl
+     */
     public function setView(Zend_View_Interface $view)
     {
         $this->view = $view;
@@ -41,11 +41,11 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Returns an array of the names of the days, using the current locale.
-    *
-    * @param integer $ left of day names
-    * @return array
-    */
+     * Returns an array of the names of the days, using the current locale.
+     *
+     * @param integer $ left of day names
+     * @return array
+     */
     public static function days($length = true)
     {
         // strftime day format
@@ -74,26 +74,26 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Create a new Calendar instance. A month and year can be specified.
-    * By default, the current month and year are used.
-    *
-    * @param integer $ month number
-    * @param integer $ year number
-    * @return object
-    */
+     * Create a new Calendar instance. A month and year can be specified.
+     * By default, the current month and year are used.
+     *
+     * @param integer $ month number
+     * @param integer $ year number
+     * @return object
+     */
     public static function factory($month = null, $year = null)
     {
         return new App_Calendar($month, $year);
     }
 
     /**
-    * Create a new Calendar instance. A month and year can be specified.
-    * By default, the current month and year are used.
-    *
-    * @param integer $ month number
-    * @param integer $ year number
-    * @return void
-    */
+     * Create a new Calendar instance. A month and year can be specified.
+     * By default, the current month and year are used.
+     *
+     * @param integer $ month number
+     * @param integer $ year number
+     * @return void
+     */
     public function __construct($month = null, $year = null)
     {
         empty($month) and $month = date('n'); // Current month
@@ -112,11 +112,11 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Allows fetching the current month and year.
-    *
-    * @param string $ key to get
-    * @return mixed
-    */
+     * Allows fetching the current month and year.
+     *
+     * @param string $ key to get
+     * @return mixed
+     */
     public function __get($key)
     {
         if ($key === 'month' OR $key === 'year') {
@@ -125,23 +125,23 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Calendar_Event factory method.
-    *
-    * @param string $ unique name for the event
-    * @return object Calendar_Event
-    */
+     * Calendar_Event factory method.
+     *
+     * @param string $ unique name for the event
+     * @return object Calendar_Event
+     */
     public function event($name = null)
     {
         return new App_Calendar_Event($this);
     }
 
     /**
-    * Calendar_Event factory method.
-    *
-    * @chainable
-    * @param string $ standard event type
-    * @return object
-    */
+     * Calendar_Event factory method.
+     *
+     * @chainable
+     * @param string $ standard event type
+     * @return object
+     */
     public function standard($name)
     {
         switch ($name) {
@@ -197,12 +197,12 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Returns an array for use with a view. The array contains an array for
-    * each week. Each week contains 7 arrays, with a day number and status:
-    * TRUE if the day is in the month, FALSE if it is padding.
-    *
-    * @return array
-    */
+     * Returns an array for use with a view. The array contains an array for
+     * each week. Each week contains 7 arrays, with a day number and status:
+     * TRUE if the day is in the month, FALSE if it is padding.
+     *
+     * @return array
+     */
     public function weeks()
     {
         // First day of the month as a timestamp
@@ -272,12 +272,12 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Adds new data from an observer. All event data contains and array of CSS
-    * classes and an array of output messages.
-    *
-    * @param array $ observer data.
-    * @return void
-    */
+     * Adds new data from an observer. All event data contains and array of CSS
+     * classes and an array of output messages.
+     *
+     * @param array $ observer data.
+     * @return void
+     */
     public function add_data(array $data)
     {
         // Add new classes
@@ -290,11 +290,11 @@ class App_Calendar extends App_Event_Subject {
     }
 
     /**
-    * Resets the observed data and sends a notify to all attached events.
-    *
-    * @param array $ UNIX timestamp
-    * @return void
-    */
+     * Resets the observed data and sends a notify to all attached events.
+     *
+     * @param array $ UNIX timestamp
+     * @return void
+     */
     public function notify($data)
     {
         // Reset observed data
@@ -302,31 +302,31 @@ class App_Calendar extends App_Event_Subject {
         (
             'classes' => array(),
             'output' => array(),
-            );
+        );
         // Send a notify
         parent::notify($data);
     }
 
     /**
-    * Convert the calendar to HTML using the kohana_calendar view.
-    *
-    * @return string
-    */
+     * Convert the calendar to HTML using the kohana_calendar view.
+     *
+     * @return string
+     */
     public function render()
     {
         return $this->view->partial('calendar.phtml', array
-            (
+        (
                 'month' => $this->month,
                 'year' => $this->year,
                 'weeks' => $this->weeks(),
-                ));
+        ));
     }
 
     /**
-    * Magically convert this object to a string, the rendered calendar.
-    *
-    * @return string
-    */
+     * Magically convert this object to a string, the rendered calendar.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->render();

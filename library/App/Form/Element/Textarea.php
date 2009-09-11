@@ -1,11 +1,11 @@
 <?php
 class App_Form_Element_Textarea extends Zend_Form_Element_Textarea {
     /**
-    * Set element name
-    *
-    * @param string $name
-    * @return Zend_Form_Element
-    */
+     * Set element name
+     *
+     * @param string $name
+     * @return Zend_Form_Element
+     */
     public function setName($name)
     {
         $name = $this->filterName($name, true);

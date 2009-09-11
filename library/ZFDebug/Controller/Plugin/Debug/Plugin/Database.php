@@ -1,51 +1,51 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id: Database.php 97 2009-06-25 13:08:56Z gugakfugl $
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id: Database.php 97 2009-06-25 13:08:56Z gugakfugl $
+ */
 
 /**
-*
-* @see Zend_Db_Table_Abstract
-*/
+ *
+ * @see Zend_Db_Table_Abstract
+ */
 require_once 'Zend/Db/Table/Abstract.php';
 
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'database';
 
     /**
-    *
-    * @var array
-    */
+     *
+     * @var array
+     */
     protected $_db = array();
 
     protected $_explain = false;
 
     /**
-    * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
-    *
-    * @param Zend_Db_Adapter_Abstract $ |array $adapters
-    * @return void
-    */
+     * Create ZFDebug_Controller_Plugin_Debug_Plugin_Variables
+     *
+     * @param Zend_Db_Adapter_Abstract $ |array $adapters
+     * @return void
+     */
     public function __construct(array $options = array())
     {
         if (!isset($options['adapter']) || !count($options['adapter'])) {
@@ -71,24 +71,24 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     }
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier()
     {
         return $this->_identifier;
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab()
     {
         if (!$this->_db)
-            return 'No adapter';
+        return 'No adapter';
 
         foreach ($this->_db as $adapter) {
             $profiler = $adapter->getProfiler();
@@ -100,14 +100,14 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel()
     {
         if (!$this->_db)
-            return '';
+        return '';
 
         $html = '<h4>Database queries</h4>';
         if (Zend_Db_Table_Abstract::getDefaultMetadataCache ()) {
@@ -136,10 +136,10 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
                     if ($this->_explain && $supportedAdapter && Zend_Db_Profiler::SELECT == $profile->getQueryType()) {
                         $explain = $adapter->fetchRow('EXPLAIN ' . $profile->getQuery());
                         $html .= '<strong>Type:</strong> ' . strtolower($explain['select_type']) . ', ' . $explain['type'] . $this->getLinebreak()
-                         . '<strong>Possible Keys:</strong> ' . $explain['possible_keys'] . $this->getLinebreak()
-                         . '<strong>Key Used:</strong> ' . $explain['key'] . $this->getLinebreak()
-                         . '<strong>Rows:</strong> ' . $explain['rows'] . $this->getLinebreak()
-                         . '<strong>Extra:</strong> ' . $explain['Extra'];
+                        . '<strong>Possible Keys:</strong> ' . $explain['possible_keys'] . $this->getLinebreak()
+                        . '<strong>Key Used:</strong> ' . $explain['key'] . $this->getLinebreak()
+                        . '<strong>Rows:</strong> ' . $explain['rows'] . $this->getLinebreak()
+                        . '<strong>Extra:</strong> ' . $explain['Extra'];
                     }
 
                     $html .= '</p></li>';

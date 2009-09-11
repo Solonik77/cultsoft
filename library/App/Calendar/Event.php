@@ -1,12 +1,12 @@
 <?php
 /**
-* Calendar event observer class.
-*
-* @package Calendar
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Calendar event observer class.
+ *
+ * @package Calendar
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class App_Calendar_Event extends App_Event_Observer {
     // Boolean conditions
     protected $booleans = array
@@ -17,7 +17,7 @@ class App_Calendar_Event extends App_Event_Observer {
         'last_day',
         'last_occurrence',
         'easter',
-        );
+    );
     // Rendering conditions
     protected $conditions = array();
     // Cell classes
@@ -26,30 +26,30 @@ class App_Calendar_Event extends App_Event_Observer {
     protected $output = '';
 
     /**
-    * Adds a condition to the event. The condition can be one of the following:
-    *
-    * timestamp       - UNIX timestamp
-    * day             - day number (1-31)
-    * week            - week number (1-5)
-    * month           - month number (1-12)
-    * year            - year number (4 digits)
-    * day_of_week     - day of week (1-7)
-    * current         - active month (boolean) (only show data for the month being rendered)
-    * weekend         - weekend day (boolean)
-    * first_day       - first day of month (boolean)
-    * last_day        - last day of month (boolean)
-    * occurrence      - occurrence of the week day (1-5) (use with "day_of_week")
-    * last_occurrence - last occurrence of week day (boolean) (use with "day_of_week")
-    * easter          - Easter day (boolean)
-    * callback        - callback test (boolean)
-    *
-    * To unset a condition, call condition with a value of NULL.
-    *
-    * @chainable
-    * @param string $ condition key
-    * @param mixed $ condition value
-    * @return object
-    */
+     * Adds a condition to the event. The condition can be one of the following:
+     *
+     * timestamp       - UNIX timestamp
+     * day             - day number (1-31)
+     * week            - week number (1-5)
+     * month           - month number (1-12)
+     * year            - year number (4 digits)
+     * day_of_week     - day of week (1-7)
+     * current         - active month (boolean) (only show data for the month being rendered)
+     * weekend         - weekend day (boolean)
+     * first_day       - first day of month (boolean)
+     * last_day        - last day of month (boolean)
+     * occurrence      - occurrence of the week day (1-5) (use with "day_of_week")
+     * last_occurrence - last occurrence of week day (boolean) (use with "day_of_week")
+     * easter          - Easter day (boolean)
+     * callback        - callback test (boolean)
+     *
+     * To unset a condition, call condition with a value of NULL.
+     *
+     * @chainable
+     * @param string $ condition key
+     * @param mixed $ condition value
+     * @return object
+     */
     public function condition($key, $value)
     {
         if ($value === null) {
@@ -72,12 +72,12 @@ class App_Calendar_Event extends App_Event_Observer {
     }
 
     /**
-    * Add a CSS class for this event. This can be called multiple times.
-    *
-    * @chainable
-    * @param string $ CSS class name
-    * @return object
-    */
+     * Add a CSS class for this event. This can be called multiple times.
+     *
+     * @chainable
+     * @param string $ CSS class name
+     * @return object
+     */
     public function add_class($class)
     {
         $this->classes[$class] = $class;
@@ -86,12 +86,12 @@ class App_Calendar_Event extends App_Event_Observer {
     }
 
     /**
-    * Remove a CSS class for this event. This can be called multiple times.
-    *
-    * @chainable
-    * @param string $ CSS class name
-    * @return object
-    */
+     * Remove a CSS class for this event. This can be called multiple times.
+     *
+     * @chainable
+     * @param string $ CSS class name
+     * @return object
+     */
     public function remove_class($class)
     {
         unset($this->classes[$class]);
@@ -100,12 +100,12 @@ class App_Calendar_Event extends App_Event_Observer {
     }
 
     /**
-    * Set HTML output for this event.
-    *
-    * @chainable
-    * @param string $ HTML output
-    * @return object
-    */
+     * Set HTML output for this event.
+     *
+     * @chainable
+     * @param string $ HTML output
+     * @return object
+     */
     public function output($str)
     {
         $this->output = $str;
@@ -114,12 +114,12 @@ class App_Calendar_Event extends App_Event_Observer {
     }
 
     /**
-    * Add a CSS class for this event. This can be called multiple times.
-    *
-    * @chainable
-    * @param string $ CSS class name
-    * @return object
-    */
+     * Add a CSS class for this event. This can be called multiple times.
+     *
+     * @chainable
+     * @param string $ CSS class name
+     * @return object
+     */
     public function notify($data)
     {
         // Split the date and current status
@@ -136,14 +136,14 @@ class App_Calendar_Event extends App_Event_Observer {
             'year' => (int) date('Y', $timestamp),
             'day_of_week' => (int) date('w', $timestamp),
             'current' => (bool) $current,
-            );
+        );
         // Tested conditions
         $tested = array();
 
         foreach ($condition as $key => $value) {
             // Test basic conditions first
             if (isset($this->conditions[$key]) AND $this->conditions[$key] !== $value)
-                return false;
+            return false;
             // Condition has been tested
             $tested[$key] = true;
         }
@@ -218,25 +218,25 @@ class App_Calendar_Event extends App_Event_Observer {
             }
             // Test advanced conditions
             if ($condition[$key] !== $value)
-                return false;
+            return false;
         }
 
         $this->caller->add_data(array
-            (
+        (
                 'classes' => $this->classes,
                 'output' => $this->output,
-                ));
+        ));
     }
 
     /**
-    * Find the week day occurrence for a specific timestamp. The occurrence is
-    * relative to the current month. For example, the second Saturday of any
-    * given month will return "2" as the occurrence. This is used in combination
-    * with the "occurrence" condition.
-    *
-    * @param integer $ UNIX timestamp
-    * @return integer
-    */
+     * Find the week day occurrence for a specific timestamp. The occurrence is
+     * relative to the current month. For example, the second Saturday of any
+     * given month will return "2" as the occurrence. This is used in combination
+     * with the "occurrence" condition.
+     *
+     * @param integer $ UNIX timestamp
+     * @return integer
+     */
     protected function day_occurrence($timestamp)
     {
         // Get the current month for the timestamp

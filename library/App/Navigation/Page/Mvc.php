@@ -5,9 +5,9 @@ class App_Navigation_Page_Mvc extends Zend_Navigation_Page_Mvc
     {
         if (!$this->_active) {
             $front = Zend_Controller_Front::getInstance();
-			$router = $front->getRouter();
-			
-			$request = $router->route($front->getRequest());
+            $router = $front->getRouter();
+             
+            $request = $router->route($front->getRequest());
             $reqParams = $request->getParams();
 
             if (!array_key_exists('module', $reqParams)) {
@@ -15,8 +15,8 @@ class App_Navigation_Page_Mvc extends Zend_Navigation_Page_Mvc
             }
 
             $myParams = $this->_params;
-			
-			$route = $router->getRoute($this->_route);
+             
+            $route = $router->getRoute($this->_route);
             $routeDefaults = $route->getDefaults();
 
             if (null !== $this->_module) {
@@ -38,7 +38,7 @@ class App_Navigation_Page_Mvc extends Zend_Navigation_Page_Mvc
             }
 
             if (count(array_intersect_assoc($reqParams, $myParams)) ==
-                count($myParams)) {
+            count($myParams)) {
                 $this->_active = true;
                 return true;
             }

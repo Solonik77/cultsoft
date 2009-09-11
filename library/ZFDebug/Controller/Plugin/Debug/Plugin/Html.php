@@ -1,67 +1,67 @@
 <?php
 /**
-* ZFDebug Zend Additions
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-* @version $Id$
-*/
+ * ZFDebug Zend Additions
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version $Id$
+ */
 
 /**
-*
-* @category ZFDebug
-* @package ZFDebug_Controller
-* @subpackage Plugins
-* @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
-* @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
-*/
+ *
+ * @category ZFDebug
+ * @package ZFDebug_Controller
+ * @subpackage Plugins
+ * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ */
 class ZFDebug_Controller_Plugin_Debug_Plugin_Html extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
     /**
-    * Contains plugin identifier name
-    *
-    * @var string
-    */
+     * Contains plugin identifier name
+     *
+     * @var string
+     */
     protected $_identifier = 'html';
 
     /**
-    * Create ZFDebug_Controller_Plugin_Debug_Plugin_Html
-    *
-    * @param string $tab
-    * @paran string $panel
-    * @return void
-    */
+     * Create ZFDebug_Controller_Plugin_Debug_Plugin_Html
+     *
+     * @param string $tab
+     * @paran string $panel
+     * @return void
+     */
     public function __construct()
     {
     }
 
     /**
-    * Gets identifier for this plugin
-    *
-    * @return string
-    */
+     * Gets identifier for this plugin
+     *
+     * @return string
+     */
     public function getIdentifier()
     {
         return $this->_identifier;
     }
 
     /**
-    * Gets menu tab for the Debugbar
-    *
-    * @return string
-    */
+     * Gets menu tab for the Debugbar
+     *
+     * @return string
+     */
     public function getTab()
     {
         return 'HTML';
     }
 
     /**
-    * Gets content panel for the Debugbar
-    *
-    * @return string
-    */
+     * Gets content panel for the Debugbar
+     *
+     * @return string
+     */
     public function getPanel()
     {
         $body = Zend_Controller_Front::getInstance()->getResponse()->getBody();
@@ -80,11 +80,11 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Html extends ZFDebug_Controller_Plu
             };
         </script>';
         $panel .= '<span id="ZFDebug_Html_Tagcount"></span> Tags' . $this->getLinebreak()
-         . 'HTML Size: ' . round(strlen($body) / 1024, 2) . 'K' . $this->getLinebreak()
-         . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files' . $this->getLinebreak()
-         . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files' . $this->getLinebreak()
-         . '<span id="ZFDebug_Html_Imgcount"></span> Images' . $this->getLinebreak()
-         . '<form method="post" action="http://validator.w3.org/check"><p><input type="hidden" name="fragment" value="' . htmlentities($body) . '"' . $this->getClosingBracket() . '<input type="submit" value="Validate With W3C"' . $this->getClosingBracket() . '</p></form>';
+        . 'HTML Size: ' . round(strlen($body) / 1024, 2) . 'K' . $this->getLinebreak()
+        . '<span id="ZFDebug_Html_Stylecount"></span> Stylesheet Files' . $this->getLinebreak()
+        . '<span id="ZFDebug_Html_Scriptcount"></span> Javascript Files' . $this->getLinebreak()
+        . '<span id="ZFDebug_Html_Imgcount"></span> Images' . $this->getLinebreak()
+        . '<form method="post" action="http://validator.w3.org/check"><p><input type="hidden" name="fragment" value="' . htmlentities($body) . '"' . $this->getClosingBracket() . '<input type="submit" value="Validate With W3C"' . $this->getClosingBracket() . '</p></form>';
         return $panel;
     }
 }

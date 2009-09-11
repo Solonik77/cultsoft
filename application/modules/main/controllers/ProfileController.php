@@ -1,30 +1,30 @@
 <?php
 /**
-* Profile controller. This controller used for authorization and user profile information pages.
-*
-* @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
-*/
+ * Profile controller. This controller used for authorization and user profile information pages.
+ *
+ * @author Denysenko Dmytro
+ * @copyright (c) 2009 CultSoft
+ * @license http://cultsoft.org.ua/engine/license.html
+ */
 class Main_ProfileController extends App_Controller_Action {
     /**
-    * Profile action: index
-    * View member information
-    */
+     * Profile action: index
+     * View member information
+     */
     public function indexAction()
     {
     }
 
     /**
-    * View member profile
-    */
+     * View member profile
+     */
     public function viewAction()
     {
     }
 
     /**
-    * Profile action: signin
-    */
+     * Profile action: signin
+     */
     public function signinAction()
     {
         if (App_Member::isAuth()) {
@@ -59,8 +59,8 @@ class Main_ProfileController extends App_Controller_Action {
     }
 
     /**
-    * Logout action
-    */
+     * Logout action
+     */
     public function logoutAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
@@ -72,10 +72,10 @@ class Main_ProfileController extends App_Controller_Action {
     }
 
     /**
-    * Getting Auth Adapter
-    *
-    * @return Zend_Auth_Adapter_DbTable object
-    */
+     * Getting Auth Adapter
+     *
+     * @return Zend_Auth_Adapter_DbTable object
+     */
     protected function _getAuthAdapter($email, $password)
     {
         $authAdapter = new Zend_Auth_Adapter_DbTable(App::db(), DB_TABLE_PREFIX . 'members', 'email', 'password', 'MD5(MD5(?))');

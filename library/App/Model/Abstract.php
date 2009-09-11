@@ -9,7 +9,7 @@ abstract class App_Model_Abstract {
     {
         if($this->_table) {
             $this->_table = new $this->_table;
-            $this->getMetaData();            
+            $this->getMetaData();
         } else {
             throw new App_Exception('Could not set table name for application model ' . __CLASS__);
         }
@@ -53,11 +53,11 @@ abstract class App_Model_Abstract {
     public function getMetaData()
     {
         if (count($this->_columns) == 0) {
-                $info = $this->_table->info();
-                $cols = $info['cols'];
-                foreach($cols as $col) {
-                    $this->_columns[$col] = $info['metadata'][$col]['DEFAULT'];
-                }
+            $info = $this->_table->info();
+            $cols = $info['cols'];
+            foreach($cols as $col) {
+                $this->_columns[$col] = $info['metadata'][$col]['DEFAULT'];
+            }
         }
         return $this;
     }
@@ -66,12 +66,12 @@ abstract class App_Model_Abstract {
     {
         return $this->_table;
     }
-    
+
     public function getTable()
     {
         return $this->getDbTable();
     }
-    
+
     public function setDbTable($dbTable)
     {
         if (is_string($dbTable)) {
@@ -83,7 +83,7 @@ abstract class App_Model_Abstract {
         $this->_table = $dbTable;
         return $this;
     }
-    
+
     public function save()
     {
         if (count($this->_attributes) > 0) {
@@ -91,14 +91,14 @@ abstract class App_Model_Abstract {
             foreach($this->_attributes as $attribute => $value) {
                 $data[$attribute] = $value;
             }
-            
+
             try {
                 if (NULL === ($id = $this->getId())) {
                     unset($data['id']);
                     $this->getDbTable()->insert($data);
                     $this->setId(App::db()->lastInsertId());
                 } else {
-					$this->getDbTable()->update($data, array('id = ?' => $this->getId()));
+                    $this->getDbTable()->update($data, array('id = ?' => $this->getId()));
                 }
                 return true;
             }
@@ -153,8 +153,8 @@ abstract class App_Model_Abstract {
     public function __call($name, $args)
     {
         if (preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(
-                    strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore'))
-                    )) {
+        strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore'))
+        )) {
             if ('get' == $match[1]) {
                 return $this->$attribute;
             } else {
