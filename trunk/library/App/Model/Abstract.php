@@ -66,7 +66,12 @@ abstract class App_Model_Abstract {
     {
         return $this->_table;
     }
-
+    
+    public function getTable()
+    {
+        return $this->getDbTable();
+    }
+    
     public function setDbTable($dbTable)
     {
         if (is_string($dbTable)) {
@@ -78,7 +83,7 @@ abstract class App_Model_Abstract {
         $this->_table = $dbTable;
         return $this;
     }
-
+    
     public function save()
     {
         if (count($this->_attributes) > 0) {
@@ -112,6 +117,7 @@ abstract class App_Model_Abstract {
             return true;
         }
         catch(Exception $e) {
+            App::log($e->getMessage(), 3);
             return false;
         }
     }

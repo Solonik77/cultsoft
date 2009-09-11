@@ -110,13 +110,10 @@ class Blog_AdminController extends App_Controller_Action {
     }
 
     /**
-    * Edit blog
-    */
+        * Edit blog
+        */
     public function updateBlogAction()
-    {
-        if (! $blogId = $this->_request->getParam ('id')) {
-            throw new App_Exception('Page not found');
-        }
+    {        
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
         $blogModel = new Blog;
@@ -124,7 +121,8 @@ class Blog_AdminController extends App_Controller_Action {
         $form->setIsUpdate(true);
         $form->compose();
         // Get blog content
-        $blogRow = $blogModel->findByPK($blogId);
+        $blogRow = $blogModel->findByPK($this->_request->getParam ('id'));
+        if($blogRow){        
         $i18nBlog = $blogRow->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
         $formData = $blogRow->toArray();
         foreach($i18nBlog as $row) {
@@ -135,7 +133,7 @@ class Blog_AdminController extends App_Controller_Action {
         $form->populate ($formData);
         if ($this->_request->isPost()) {
             $postParams = $this->_request->getPost('blog');
-            if ($this->_request->getParam('delete_blog')) {
+            if (isset($postParams['delete_blog'])) {
                 // Delete blog
                 if ($blogModel->delete()) {
                     $this->_helper->messages ('Blog deleted successfully', 'success', true);
@@ -184,18 +182,24 @@ class Blog_AdminController extends App_Controller_Action {
             }
         }
         $this->view->form = $form;
+        } else {
+          throw new App_Exception('Page not found');
+        }
     }
 
     /**
-    * Delete blog
-    */
+        * Delete blog
+        */
     public function deleteBlogAction()
     {
-        if (! $blogId = $this->_request->getParam ('id')) {
-            throw new App_Exception('Page not found');;
+        $blogModel = new Blog;
+        $blogRow = $blogModel->findByPK($this->_request->getParam ('id', 0));
+        if (!$blogRow) {
+            throw new App_Exception('Page not found');
         } else {
-            if ($blogModel->delete()) {
-                $this->_helper->messages ('Blog deleted successfully', 'success', true);
+            if ($blogModel->delete())
+            {
+                $this->_helper->messages('Blog deleted successfully', 'success', true);
             }
         }
         $this->_redirect ('blog/admin/manage-blogs');
