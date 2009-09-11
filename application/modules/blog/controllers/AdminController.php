@@ -45,7 +45,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $blogModel = new Blog;
         $this->view->pageDescription = 'Manage blogs.';
-        $this->view->types = array(1 => __('Personal blog') , 2 => __('Collaborative blog (community)'));
+        $this->view->blogTypes = $blogModel->getBlogTypes();
         $this->view->blogsDataGrid = $blogModel->loadBlogs($this->_request->getParam('sort-by'),
             $this->_request->getParam('sort-order'));
     }
@@ -114,7 +114,7 @@ class Blog_AdminController extends App_Controller_Action {
         * Edit blog
         */
     public function updateBlogAction()
-    {        
+    {
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
         $blogModel = new Blog;
@@ -123,7 +123,7 @@ class Blog_AdminController extends App_Controller_Action {
         $form->compose();
         // Get blog content
         $blogRow = $blogModel->findByPK($this->_request->getParam ('id'));
-        if($blogRow){        
+        if($blogRow){
         $i18nBlog = $blogRow->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
         $formData = $blogRow->toArray();
         foreach($i18nBlog as $row) {
@@ -162,7 +162,7 @@ class Blog_AdminController extends App_Controller_Action {
                         foreach($moduleLangs as $lang) {
                             if (isset($postParams['i18n_blog'][$lang['id']])) {
                                 $blogI18nModel = new I18n_Blog;
-                                $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'], 'blog_id = ?' => $blogModel->getId()));                                
+                                $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'], 'blog_id = ?' => $blogModel->getId()));
 								$blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
 								$blogI18nModel->setLangId($lang['id']);
                                 $blogI18nModel->setBlogId($blogModel->getId());
