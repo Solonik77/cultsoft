@@ -48,6 +48,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
         set_include_path(APPLICATION_PATH . 'modules/main/models/' . PATH_SEPARATOR . get_include_path());
+        
         try {
             $this->_initEnvironment();
             $this->_initDatabase();
@@ -69,7 +70,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      * Setup php, server environment, clean input parameters
      */
     protected function _initEnvironment()
-    {
+    { file_put_contents("TEST", "Message\n", FILE_APPEND); 
         if (version_compare(phpversion(), '5.3', '<') === true) {
             echo  '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
             exit;
@@ -139,7 +140,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      * @return void
      */
     protected function _initErrorHandler()
-    {
+    {            
         // Enable exception handling
         App_Exception::enable();
         $front = App::front();
@@ -286,18 +287,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
     }
 
-    /**
-     * Run the application
-     *
-     * Checks to see that we have a default controller directory. If not, an
-     * exception is thrown.
-     *
-     * If so, it registers the bootstrap with the 'bootstrap' parameter of
-     * the front controller, and dispatches the front controller.
-     *
-     * @return void
-     * @throws Zend_Application_Bootstrap_Exception
-     */
     public function run()
     {
         try {
@@ -310,7 +299,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             if (null === $front->getControllerDirectory($default)) {
                 throw new App_Exception('No default controller directory registered with front controller');
             }
-            $front->setParam('bootstrap', $this)->setParam('prefixDefaultModule', true);
+            
+            $front->setParam('prefixDefaultModule', true);
             $front->returnResponse(true);
             $response = App::front()->dispatch();
             $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control',
