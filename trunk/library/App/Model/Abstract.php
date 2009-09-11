@@ -2,8 +2,8 @@
 
 abstract class App_Model_Abstract {
     protected $_table;
-    private $_columns = array();
-    private $_attributes = array();
+    protected $_columns = array();
+    protected $_attributes = array();
 
     public function __construct()
     {
