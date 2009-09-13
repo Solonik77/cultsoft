@@ -1,25 +1,26 @@
 <?php
 /**
- * Application process control file, loaded by the front controller.
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
-
-require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
+* Application process control file, loaded by the front controller.
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
 require_once(LIBRARY_PATH . 'app.php');
+require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
 require_once(LIBRARY_PATH . '/App/UTF8.php');
+require_once(LIBRARY_PATH . '/App/Exception.php');
+require_once(LIBRARY_PATH . '/App/Loader.php');
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected $_language_identificator;
 
     /**
-     * Constructor
-     *
-     * @param Zend_Application $ |Zend_Application_Bootstrap_Bootstrapper $application
-     * @return void
-     */
+    * Constructor
+    *
+    * @param Zend_Application $ |Zend_Application_Bootstrap_Bootstrapper $application
+    * @return void
+    */
     public function __construct($application)
     {
         define('TIME_NOW', time());
@@ -31,11 +32,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             define('SERVER_UTF8', false);
         }
         parent::__construct($application);
-        
+        $this->_initErrorHandler();
+        App_Loader::init();
         $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->setDefaultAutoloader(array('App', 'autoload'));        
-        $autoloader->setFallbackAutoloader(TRUE);       
-        
+        $autoloader->setDefaultAutoloader(array('App_Loader', 'autoload'));
+        $autoloader->setFallbackAutoloader(true);
+
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
         $this->_initConfiguration();
         $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) AND isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
@@ -47,9 +49,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-        $this->_initErrorHandler();
+
         set_include_path(APPLICATION_PATH . 'modules/main/models/' . PATH_SEPARATOR . get_include_path());
-        
+
         try {
             $this->_initEnvironment();
             $this->_initDatabase();
@@ -68,12 +70,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Setup php, server environment, clean input parameters
-     */
+    * Setup php, server environment, clean input parameters
+    */
     protected function _initEnvironment()
     {
         if (version_compare(phpversion(), '5.3', '<') === true) {
-            echo  '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
+            echo '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
             exit;
         }
 
@@ -91,8 +93,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Load system configuration
-     */
+    * Load system configuration
+    */
     protected function _initConfiguration()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
@@ -105,9 +107,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         App::addConfig($options);
     }
 
-    /*
-     * Website language and locale setup
-     */
+    /**
+    * Website language and locale setup
+    */
     protected function _initInternationalization()
     {
         if (function_exists('date_default_timezone_set')) {
@@ -136,12 +138,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Setup system error handler
-     *
-     * @return void
-     */
+    * Setup system error handler
+    *
+    * @return void
+    */
     protected function _initErrorHandler()
-    {            
+    {
         // Enable exception handling
         App_Exception::enable();
         $front = App::front();
@@ -156,10 +158,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * * Database connection setup
-     *
-     * @return void
-     */
+    * * Database connection setup
+    *
+    * @return void
+    */
     protected function _initDatabase()
     {
         try {
@@ -183,20 +185,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Zend Date setup
-     *
-     * @return void
-     */
+    * Zend Date setup
+    *
+    * @return void
+    */
     protected function _initDate()
     {
         Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache') , 'format_type' => 'php'));
     }
 
     /**
-     * PHP Session handler setup
-     *
-     * @return void
-     */
+    * PHP Session handler setup
+    *
+    * @return void
+    */
     protected function _initSession()
     {
         Zend_Session::setOptions(array(
@@ -206,36 +208,36 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 'gc_divisor' => 5000,
                 'name' => "zfsession",
                 'use_only_cookies' => 1
-        ));
+                ));
         Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         Zend_Session::start();
     }
 
     /**
-     * View and Layout setup
-     */
+    * View and Layout setup
+    */
     protected function _initView()
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
 
     /**
-     * Setup URI routes
-     *
-     * @return void
-     */
+    * Setup URI routes
+    *
+    * @return void
+    */
     protected function _initRoutes()
     {
         // Change default router
         App::front()->getRouter()->addRoute('default',
-        new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator)));
+            new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator)));
         // Add multilingual route
         App::front()->getRouter()->addRoute('default_multilingual',
-        new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
+            new Zend_Controller_Router_Route(':requestLang/:module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         // Admin panel route
         App::front()->getRouter()->addRoute('backoffice',
-        new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*',
-        array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
+            new Zend_Controller_Router_Route(App::config()->backoffice_path . '/:requestLang/:module/:controller/:action/*',
+                array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'requestLang' => $this->_language_identificator), array('requestLang' => '\w{2}')));
         App::front()->registerPlugin(new App_Controller_Plugin_Language());
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
@@ -244,10 +246,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Member access setup
-     *
-     * @return void
-     */
+    * Member access setup
+    *
+    * @return void
+    */
     protected function _initAccess()
     {
         App_Member::getInstance();
@@ -255,25 +257,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     /**
-     * Init default application mailer
-     *
-     * @return void
-     */
+    * Init default application mailer
+    *
+    * @return void
+    */
     protected function _initApplicationMailer()
     {
         App_Mail::setDefaultTransport(App::config()->mail->toArray());
     }
 
     /**
-     * ZendDebug panel
-     *
-     * @return void
-     */
+    * ZendDebug panel
+    *
+    * @return void
+    */
     protected function _initDebug()
     {
         if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(
-            array('plugins' => array('Auth' => array('user' => 'email', 'role' => 'role_id'),
+                    array('plugins' => array('Auth' => array('user' => 'email', 'role' => 'role_id'),
                             'Text',
                             'Variables' ,
                             'Database' => array('adapter' => array('standard' => App::db())) ,
@@ -300,7 +302,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             if (null === $front->getControllerDirectory($default)) {
                 throw new App_Exception('No default controller directory registered with front controller');
             }
-            
+
             $front->setParam('prefixDefaultModule', true);
             $front->returnResponse(true);
             $response = App::front()->dispatch();
@@ -324,12 +326,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     case 'gzip':
                         // Compress output using gzip
                         $response->setBody(
-                        gzencode($response->getBody(), $level));
+                            gzencode($response->getBody(), $level));
                         break;
                     case 'deflate':
                         // Compress output using zlib(HTTP deflate)
                         $response->setBody(
-                        gzdeflate($response->getBody(), $level));
+                            gzdeflate($response->getBody(), $level));
                         break;
                 }
                 // This header must be sent with compressed content to prevent
@@ -342,9 +344,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }
-            
+
             $response->sendResponse();
-            App::autoload();
+            App_Loader::cacheAutoload();
             exit;
         }
         catch(Exception $e) {
