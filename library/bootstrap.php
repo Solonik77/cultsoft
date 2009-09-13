@@ -6,8 +6,11 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
+
 require_once(LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
 require_once(LIBRARY_PATH . 'app.php');
+require_once(LIBRARY_PATH . '/App/UTF8.php');
+
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected $_language_identificator;
 

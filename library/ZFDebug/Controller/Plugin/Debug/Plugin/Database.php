@@ -10,11 +10,6 @@
  * @version $Id: Database.php 97 2009-06-25 13:08:56Z gugakfugl $
  */
 
-/**
- *
- * @see Zend_Db_Table_Abstract
- */
-require_once 'Zend/Db/Table/Abstract.php';
 
 /**
  *
