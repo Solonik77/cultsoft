@@ -22,14 +22,14 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
             if ((!touch($cacheFile)) || (!chmod($cacheFile, 0777)) || @(!file_put_contents($cacheFile, '<?php ' . "\n"))) {
                 trigger_error('Failed to initialize file ' . $cacheFile, E_USER_ERROR);
             }
-        }elseif (!is_writable($cacheFile)) {
+        } elseif (!is_writable($cacheFile)) {
             trigger_error('File ' . $cacheFile . ' is not writable.', E_USER_ERROR);
         }
         if (!file_exists($cacheFileList)) {
             if (!file_put_contents($cacheFileList, '<?php return array();' . "\n")) {
                 trigger_error('Failed to initialize file ' . $cacheFileList, E_USER_ERROR);
             }
-        }elseif (!is_writable($cacheFileList)) {
+        } elseif (!is_writable($cacheFileList)) {
             trigger_error('File ' . $cacheFileList . ' is not writable.', E_USER_ERROR);
         }
 
@@ -52,7 +52,9 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
 
         if ((!in_array($file, self::$loadedFiles))) {
             include $file;
-            self::$loadedFiles[] = $file;
+            if (substr($file, 0, 4) == 'App' . DIRECTORY_SEPARATOR) {
+                self::$loadedFiles[] = $file;
+            }
         } else {
             return;
         }
