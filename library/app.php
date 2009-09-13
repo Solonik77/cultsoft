@@ -1,17 +1,16 @@
 <?php
 /**
- * BASE APPLICATION
- * Provides Zend application-specific helper functions.
- *
- * $Id$
- *
- * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
- */
+* BASE APPLICATION
+* Provides Zend application-specific helper functions.
+*
+* $Id$
+*
+* @author Denysenko Dmytro
+* @copyright (c) 2009 CultSoft
+* @license http://cultsoft.org.ua/engine/license.html
+*/
 final class App {
     const CHARSET = 'UTF-8';
-    private static $loadedFiles = array();
     // Application front controller object
     protected static $front = null;
     // Application config object
@@ -26,8 +25,8 @@ final class App {
     protected static $base_uri = '';
 
     /**
-     * Return application configuration
-     */
+    * Return application configuration
+    */
     public static function config()
     {
         if (App::$config instanceof Zend_Config) {
@@ -38,24 +37,24 @@ final class App {
     }
 
     /**
-     * Front controller instance
-     */
+    * Front controller instance
+    */
     public static function front()
     {
         return Zend_Controller_Front::getInstance();
     }
 
     /**
-     * Return Database object
-     */
+    * Return Database object
+    */
     public static function db()
     {
         return App::$db;
     }
 
     /**
-     * Zend logger
-     */
+    * Zend logger
+    */
     public static function log($message, $type = 1)
     {
         if ($type <= App::config()->system_log_threshold) {
@@ -65,16 +64,16 @@ final class App {
     }
 
     /**
-     * Get system locale information
-     */
+    * Get system locale information
+    */
     public static function i18n()
     {
         return App::$i18n;
     }
 
     /**
-     * Set configuration
-     */
+    * Set configuration
+    */
     public static function addConfig(Zend_Config $object)
     {
         if (App::$config === null) {
@@ -85,8 +84,8 @@ final class App {
     }
 
     /**
-     * Set logger
-     */
+    * Set logger
+    */
     public static function setLog(Zend_Log $object)
     {
         if (App::$log === null) {
@@ -94,9 +93,9 @@ final class App {
         }
     }
 
-    /*
-     * Set App Internationalization object
-     */
+    /**
+    * Set App Internationalization object
+    */
     public static function setI18N(App_I18n $object)
     {
         if (App::$i18n === null) {
@@ -105,8 +104,8 @@ final class App {
     }
 
     /**
-     * Set database object
-     */
+    * Set database object
+    */
     public static function setDb($object)
     {
         if (App::$db === null) {
@@ -115,8 +114,8 @@ final class App {
     }
 
     /**
-     * Set locale object
-     */
+    * Set locale object
+    */
     public static function setLocale($object)
     {
         if (App::$locale === null) {
@@ -125,23 +124,23 @@ final class App {
     }
 
     /**
-     * Translator object
-     */
+    * Translator object
+    */
     public function translate()
     {
         return App::$i18n;
     }
 
     /**
-     * Base URL, with or without the index page.
-     *
-     * If protocol(and core.site_protocol) and core.site_domain are both empty,
-     * then
-     *
-     * @param boolean $ include the index page
-     * @param boolean $ non-default protocol
-     * @return string
-     */
+    * Base URL, with or without the index page.
+    *
+    * If protocol(and core.site_protocol) and core.site_domain are both empty,
+    * then
+    *
+    * @param boolean $ include the index page
+    * @param boolean $ non-default protocol
+    * @return string
+    */
     public static function baseUri($index = false, $protocol = false)
     {
         if (! empty(app::$base_uri)) {
@@ -164,72 +163,37 @@ final class App {
     }
 
     /**
-     * Is Platform running on CLI?
-     */
+    * Is Platform running on CLI?
+    */
     public static function isCli()
     {
         return (PHP_SAPI === 'cli');
     }
 
     /**
-     * Is Platform running on Windows?
-     */
+    * Is Platform running on Windows?
+    */
     public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }
-    
+
     public static function autoload($className = null)
     {
-            $cacheFile =  VAR_PATH. 'cache/system/__autoload.php';
-            $cacheFileList =  VAR_PATH. 'cache/system/__autoload_list.php';
-            $mode = 0644;
-            if (!file_exists($cacheFile)) {
-                if ((!touch($cacheFile))
-                    || (!chmod($cacheFile, $mode))
-                    || @(!file_put_contents($cacheFile, '<?php' . "\n"))
-                    ) {
-                    trigger_error('Failed to initialize file ' . $cacheFile, E_USER_ERROR);
-                }
-            }
-            elseif (!is_writable($cacheFile)) {
-                trigger_error('File ' . $cacheFile . ' is not writable.', E_USER_ERROR);
-            } else
-            if ((!touch($cacheFileList))
-                    || (!chmod($cacheFileList, $mode))
-                    || @(!file_put_contents($cacheFileList, '<?php' . "\n"))
-                    )
-            {
-             trigger_error('Failed to initialize file ' . $cacheFileList, E_USER_ERROR);
-            }  elseif (!is_writable($cacheFileList)) {
-                trigger_error('File ' . $cacheFileList . ' is not writable.', E_USER_ERROR);
-            }
-            
-            if($className === null)
-            {
-            if(count(self::$loadedFiles) > 0){
-            $body = "return array(\n";
-            foreach(self::$loadedFiles as $class)
-            $body .= "'$class',\n";
-            }
-            $body .= ");\n";
-            file_put_contents($cacheFileList, $body, FILE_APPEND);            
-            }
-            
         if (!empty($className)) {
             $path = explode('_', $className);
             $filename = array_pop($path);
             $file = (empty($path) ? '' : implode('/', $path) . '/') . $filename . '.php';
             self::$loadedFiles[] = $className;
-            
-            include $file;      
-        }    
+
+            include $file;
+        }
     }
 }
 
 /**
- * Translator function
- */
+* Translator function
+*/
 function __($text = '', $print = false)
 {
     if ($print == true) {
