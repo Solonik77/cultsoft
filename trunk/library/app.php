@@ -11,6 +11,7 @@
  */
 final class App {
     const CHARSET = 'UTF-8';
+    private static $loadedFiles = array();
     // Application front controller object
     protected static $front = null;
     // Application config object
@@ -176,6 +177,53 @@ final class App {
     public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
+    }
+    
+    public static function autoload($className = null)
+    {
+            $cacheFile =  VAR_PATH. 'cache/system/__autoload.php';
+            $cacheFileList =  VAR_PATH. 'cache/system/__autoload_list.php';
+            $mode = 0644;
+            if (!file_exists($cacheFile)) {
+                if ((!touch($cacheFile))
+                    || (!chmod($cacheFile, $mode))
+                    || @(!file_put_contents($cacheFile, '<?php' . "\n"))
+                    ) {
+                    trigger_error('Failed to initialize file ' . $cacheFile, E_USER_ERROR);
+                }
+            }
+            elseif (!is_writable($cacheFile)) {
+                trigger_error('File ' . $cacheFile . ' is not writable.', E_USER_ERROR);
+            } else
+            if ((!touch($cacheFileList))
+                    || (!chmod($cacheFileList, $mode))
+                    || @(!file_put_contents($cacheFileList, '<?php' . "\n"))
+                    )
+            {
+             trigger_error('Failed to initialize file ' . $cacheFileList, E_USER_ERROR);
+            }  elseif (!is_writable($cacheFileList)) {
+                trigger_error('File ' . $cacheFileList . ' is not writable.', E_USER_ERROR);
+            }
+            
+            if($className === null)
+            {
+            if(count(self::$loadedFiles) > 0){
+            $body = "return array(\n";
+            foreach(self::$loadedFiles as $class)
+            $body .= "'$class',\n";
+            }
+            $body .= ");\n";
+            file_put_contents($cacheFileList, $body, FILE_APPEND);            
+            }
+            
+        if (!empty($className)) {
+            $path = explode('_', $className);
+            $filename = array_pop($path);
+            $file = (empty($path) ? '' : implode('/', $path) . '/') . $filename . '.php';
+            self::$loadedFiles[] = $className;
+            
+            include $file;      
+        }    
     }
 }
 

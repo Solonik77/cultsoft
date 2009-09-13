@@ -28,13 +28,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             define('SERVER_UTF8', false);
         }
         parent::__construct($application);
+        
         $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('App_');
-        $autoloader->registerNamespace('Vendor_');
-        if ('development' === APPLICATION_ENV) {
-            $autoloader->registerNamespace('ZFDebug_');
-        }
-        $autoloader->setFallbackAutoloader(TRUE);
+        $autoloader->setDefaultAutoloader(array('App', 'autoload'));        
+        $autoloader->setFallbackAutoloader(TRUE);       
+        
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
         $this->_initConfiguration();
         $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) AND isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
@@ -341,7 +339,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }
+            
             $response->sendResponse();
+            App::autoload();
             exit;
         }
         catch(Exception $e) {
