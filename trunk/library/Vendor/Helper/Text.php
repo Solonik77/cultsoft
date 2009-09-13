@@ -1,5 +1,4 @@
 <?php
-require_once LIBRARY_PATH . 'App/UTF8.php';
 /**
 * Text helper class.
 *
