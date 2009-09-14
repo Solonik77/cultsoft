@@ -7,7 +7,7 @@
 * @license http://cultsoft.org.ua/engine/license.html
 */
 class App_Loader implements Zend_Loader_Autoloader_Interface {
-    const CACHE_ENABLED = TRUE;
+    const CACHE_ENABLED = FALSE;
     private static $loadedFiles = array();
     private static $filesInCache = array();
     private static $cacheFileList = array();
@@ -31,9 +31,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
         $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         self::_securityCheck($file);
         include $file;
-        if(substr($class, 0 , 4) == "App_")
-        self::$loadedFiles[] = $file;
-        
+        self::$loadedFiles[] = $file;        
         if (!class_exists($class, false) && !interface_exists($class, false)) {
             require_once 'App/Exception.php';
             throw new App_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
