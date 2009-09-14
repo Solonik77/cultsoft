@@ -7,7 +7,7 @@
 * @license http://cultsoft.org.ua/engine/license.html
 */
 class App_Loader implements Zend_Loader_Autoloader_Interface {
-    const CACHE_ENABLED = false;
+    const CACHE_ENABLED = TRUE;
     private static $loadedFiles = array();
     private static $filesInCache = array();
     private static $cacheFileList = array();
@@ -15,7 +15,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
 
     public static function init()
     {
-        $cacheFile = VAR_PATH . 'cache/system/autoload_cached_code.php';
+        self::$cacheFile = $cacheFile = VAR_PATH . 'cache/system/autoload_cached_code.php';
         $cacheFileList = VAR_PATH . 'cache/system/autoloader_file_list.php';
         $mode = 0644;
         if (!file_exists($cacheFile)) {
@@ -34,7 +34,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
         }
 
         if (self::CACHE_ENABLED and file_exists($cacheFile)) {
-            include $cacheFile;
+            include_once $cacheFile;
         }
         if (file_exists($cacheFileList) and self::CACHE_ENABLED) {
             self::$loadedFiles = self::$cacheFileList = include VAR_PATH . 'cache/system/autoloader_file_list.php';
@@ -50,11 +50,14 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
         $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         self::_securityCheck($file);
 
-        if ((!in_array($file, self::$loadedFiles))) {
-            include $file;
-            if (substr($file, 0, 4) == 'App' . DIRECTORY_SEPARATOR) {
+        if (!in_array($file, self::$loadedFiles)) {
+                include $file;       
+            if(substr($file, 0, 4) == 'App' . DIRECTORY_SEPARATOR OR substr($file, 0, 5) == 'Zend' . DIRECTORY_SEPARATOR)
+            {            
+                
                 self::$loadedFiles[] = $file;
             }
+            
         } else {
             return;
         }
@@ -67,7 +70,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
 
     public static function cacheAutoload()
     {
-        if (self::CACHE_ENABLED and (count(self::$cacheFileList) == 0 or (count(self::$loadedFiles) > self::$cacheFileList))) {
+        if (self::CACHE_ENABLED and (count(self::$cacheFileList) == 0)) {
             $i = 0;
             $body = "<?php
             return array(\n";
@@ -80,6 +83,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
             file_put_contents(VAR_PATH . 'cache/system/autoloader_file_list.php', $body);
 
             $contents = array(- 1 => "\n\n// autoloaded at " . time() . "\n\n");
+            self::$loadedFiles = array_unique(self::$loadedFiles);
             foreach (self::$loadedFiles as $key => $file) {
                 $contents[$key] = str_replace(array('require_once ', 'include_once '), '//', @trim(file_get_contents($file, true)));
                 if (empty($contents[$key])) {
@@ -91,8 +95,11 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
                     $contents[$key] = substr_replace($contents[$key], "\n", - 2);
                 }
             }
-            // append to cache file
-            if (!@file_put_contents(VAR_PATH . 'cache/system/autoload_cached_code.php', $contents, FILE_APPEND)) {
+            touch(self::$cacheFile);
+            chmod(self::$cacheFile, 0777);
+            file_put_contents(self::$cacheFile, '<?php ' . "\n");
+            if (!@file_put_contents(VAR_PATH . 'cache/system/autoload_cached_code.php', $contents, FILE_APPEND))
+            {
                 trigger_error('Failed to put contents to file ' . $cacheFile, E_USER_ERROR);
             }
         }
