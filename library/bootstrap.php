@@ -32,14 +32,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             define('SERVER_UTF8', false);
         }
         parent::__construct($application);
-        $this->_initErrorHandler();
         App_Loader::init();
+        $this->_initErrorHandler();
+        $this->_initConfiguration();
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setDefaultAutoloader(array('App_Loader', 'autoload'));
-        $autoloader->setFallbackAutoloader(true);
+        $autoloader->setFallbackAutoloader(TRUE);
 
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
-        $this->_initConfiguration();
+        
 
         /*
         $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) AND isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
@@ -294,7 +295,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function run()
     {
-        try {
+        try {            
             $front = App::front();
             $front->setdefaultModule('main');
             $front->setModuleControllerDirectoryName('controllers');
@@ -345,10 +346,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
-            }
-
+            }            
             $response->sendResponse();
             App_Loader::cacheAutoload();
+            
             exit;
         }
         catch(Exception $e) {
