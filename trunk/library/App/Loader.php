@@ -14,30 +14,11 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
     private static $cacheFile;
 
     public static function init()
-    {
-        self::$cacheFile = $cacheFile = VAR_PATH . 'cache/system/autoload_cached_code.php';
-        $cacheFileList = VAR_PATH . 'cache/system/autoloader_file_list.php';
-        $mode = 0644;
-        if (!file_exists($cacheFile)) {
-            if ((!touch($cacheFile)) || (!chmod($cacheFile, 0777)) || @(!file_put_contents($cacheFile, '<?php ' . "\n"))) {
-                trigger_error('Failed to initialize file ' . $cacheFile, E_USER_ERROR);
-            }
-        } elseif (!is_writable($cacheFile)) {
-            trigger_error('File ' . $cacheFile . ' is not writable.', E_USER_ERROR);
-        }
-        if (!file_exists($cacheFileList)) {
-            if (!file_put_contents($cacheFileList, '<?php return array();' . "\n")) {
-                trigger_error('Failed to initialize file ' . $cacheFileList, E_USER_ERROR);
-            }
-        } elseif (!is_writable($cacheFileList)) {
-            trigger_error('File ' . $cacheFileList . ' is not writable.', E_USER_ERROR);
-        }
-
-        if (self::CACHE_ENABLED and file_exists($cacheFile)) {
-            include_once $cacheFile;
-        }
-        if (file_exists($cacheFileList) and self::CACHE_ENABLED) {
-            self::$loadedFiles = self::$cacheFileList = include VAR_PATH . 'cache/system/autoloader_file_list.php';
+    {        
+        clearstatcache();
+        self::$cacheFile = VAR_PATH . 'cache/system/autoload_cached_code.php';
+        if (self::CACHE_ENABLED and file_exists(self::$cacheFile)) {
+            include_once self::$cacheFile;
         }
     }
 
@@ -49,19 +30,10 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
         // autodiscover the path from the class name
         $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         self::_securityCheck($file);
-
-        if (!in_array($file, self::$loadedFiles)) {
-                include $file;       
-            if(substr($file, 0, 4) == 'App' . DIRECTORY_SEPARATOR OR substr($file, 0, 5) == 'Zend' . DIRECTORY_SEPARATOR)
-            {            
-                
-                self::$loadedFiles[] = $file;
-            }
-            
-        } else {
-            return;
-        }
-
+        include $file;
+        if(substr($class, 0 , 4) == "App_")
+        self::$loadedFiles[] = $file;
+        
         if (!class_exists($class, false) && !interface_exists($class, false)) {
             require_once 'App/Exception.php';
             throw new App_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
@@ -69,19 +41,13 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
     }
 
     public static function cacheAutoload()
-    {
-        if (self::CACHE_ENABLED and (count(self::$cacheFileList) == 0)) {
-            $i = 0;
-            $body = "<?php
-            return array(\n";
-            foreach(self::$loadedFiles as $class) {
-                $body .= "$i => '$class',\n";
-                $i++;
-            }
-
-            $body .= ");\n";
-            file_put_contents(VAR_PATH . 'cache/system/autoloader_file_list.php', $body);
-
+    {        
+        if (self::CACHE_ENABLED AND !file_exists(self::$cacheFile))
+        {
+            touch(self::$cacheFile);
+            chmod(self::$cacheFile, 0777);
+            file_put_contents(self::$cacheFile, '<?php ' . "\n");
+            
             $contents = array(- 1 => "\n\n// autoloaded at " . time() . "\n\n");
             self::$loadedFiles = array_unique(self::$loadedFiles);
             foreach (self::$loadedFiles as $key => $file) {
@@ -95,9 +61,6 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
                     $contents[$key] = substr_replace($contents[$key], "\n", - 2);
                 }
             }
-            touch(self::$cacheFile);
-            chmod(self::$cacheFile, 0777);
-            file_put_contents(self::$cacheFile, '<?php ' . "\n");
             if (!@file_put_contents(VAR_PATH . 'cache/system/autoload_cached_code.php', $contents, FILE_APPEND))
             {
                 trigger_error('Failed to put contents to file ' . $cacheFile, E_USER_ERROR);
