@@ -62,8 +62,7 @@
  + Первый бета-релиз
  */
 namespace Vendor\Helper\Text;
-use Vendor\Helper;
-class Typo extends Text {
+class Typo {
     const PRINATABLE = 0x1;
     const ALPHA = 0x2;
     const LAT = 0x4;
