@@ -28,7 +28,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
             return;
         }
         // autodiscover the path from the class name
-        $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        $file = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $class) . '.php';
         self::_securityCheck($file);
         include $file;
         self::$loadedFiles[] = $file;        
