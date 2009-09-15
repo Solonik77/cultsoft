@@ -61,7 +61,7 @@
  0.9
  + Первый бета-релиз
  */
-namespace Vendor\Helper\Text;
+namespace Vendor\Helper\Text {
 class Typo {
     const PRINATABLE = 0x1;
     const ALPHA = 0x2;
@@ -1366,4 +1366,4 @@ function unichr($c)
     }
 }
 
-?>
+}

@@ -8,7 +8,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Valid {
     /**
      * Validate email, commonly used characters only
@@ -271,3 +271,4 @@ class Valid {
         return (bool) preg_match('/^#?+[0-9a-f]{3}(?:[0-9a-f]{3})?$/iD', $str);
     }
 } // End valid
+}

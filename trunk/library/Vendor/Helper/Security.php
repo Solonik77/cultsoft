@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper{
 class Security {
     /**
      * Sanitize a string with the xss_clean method.
@@ -46,3 +46,4 @@ class Security {
         return str_replace(array('<?' , '?>'), array('&lt;?' , '?&gt;'), $str);
     }
 } // End security
+}

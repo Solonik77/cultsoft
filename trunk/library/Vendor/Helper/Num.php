@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Num {
     /**
      * Round a number to the nearest nth
@@ -25,3 +25,4 @@ class Num {
         return round($number / $nearest) * $nearest;
     }
 } // End num
+}

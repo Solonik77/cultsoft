@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Download {
     /**
      * Force a download of a file to the user's browser. This function is
@@ -78,3 +78,4 @@ class Download {
         }
     }
 } // End download
+}

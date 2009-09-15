@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Format {
     /**
      * Formats a phone number according to the specified format.
@@ -71,3 +71,4 @@ class Format {
         return $file_size;
     }
 } // End format
+}

@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Date {
     /**
      * Converts a UNIX timestamp to DOS format.
@@ -369,3 +369,4 @@ class Date {
         return preg_replace('#[ 0:-]#', '', $date) === '';
     }
 } // End date
+}

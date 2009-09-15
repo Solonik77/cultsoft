@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Inflector {
     // Cached inflections
     protected static $cache = array();
@@ -153,3 +153,4 @@ class Inflector {
         return preg_replace('/[_-]+/', ' ', trim($str));
     }
 } // End inflector
+}
