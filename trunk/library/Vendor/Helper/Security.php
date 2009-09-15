@@ -11,7 +11,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Security {
+namespace Vendor\Helper;
+class Security {
     /**
      * Sanitize a string with the xss_clean method.
      *

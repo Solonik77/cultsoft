@@ -11,7 +11,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Num {
+namespace Vendor\Helper;
+class Num {
     /**
      * Round a number to the nearest nth
      *

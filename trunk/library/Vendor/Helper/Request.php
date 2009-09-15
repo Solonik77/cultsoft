@@ -11,7 +11,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Request {
+namespace Vendor\Helper;
+class Request {
     // Possible HTTP methods
     protected static $http_methods = array('get' , 'head' , 'options' , 'post' , 'put' , 'delete');
     // Content types from client's HTTP Accept request header(array)
@@ -28,9 +29,9 @@ class Vendor_Helper_Request {
         if (! empty($_SERVER['HTTP_REFERER'])) {
             // Set referrer
             $ref = $_SERVER['HTTP_REFERER'];
-            if (strpos($ref, Vendor_Helper_url::base(false)) === 0) {
+            if (strpos($ref, Vendor\Helper\url::base(false)) === 0) {
                 // Remove the base URL from the referrer
-                $ref = substr($ref, strlen(Vendor_Helper_url::base(false)));
+                $ref = substr($ref, strlen(Vendor\Helper\url::base(false)));
             }
         }
         return isset($ref) ? $ref : $default;
@@ -73,7 +74,7 @@ class Vendor_Helper_Request {
     public static function method()
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
-        if (! in_array($method, Vendor_Helper_Request::$http_methods))
+        if (! in_array($method, Vendor\Helper\Request::$http_methods))
         throw new App_Exception('Unknown request method: ' . $method);
         return $method;
     }
@@ -87,10 +88,10 @@ class Vendor_Helper_Request {
      */
     public static function accepts($type = null, $explicit_check = false)
     {
-        Vendor_Helper_Request::parse_accept_header();
+        Vendor\Helper\Request::parse_accept_header();
         if ($type === null)
-        return Vendor_Helper_Request::$accept_types;
-        return (Vendor_Helper_Request::accepts_at_quality($type, $explicit_check) > 0);
+        return Vendor\Helper\Request::$accept_types;
+        return (Vendor\Helper\Request::accepts_at_quality($type, $explicit_check) > 0);
     }
 
     /**
@@ -110,7 +111,7 @@ class Vendor_Helper_Request {
         $preferred = false;
         // Load q values for all given content types
         foreach(array_unique($types) as $type) {
-            $mime_types[$type] = Vendor_Helper_Request::accepts_at_quality($type, $explicit_check);
+            $mime_types[$type] = Vendor\Helper\Request::accepts_at_quality($type, $explicit_check);
         }
         // Look for the highest q value
         foreach($mime_types as $type => $q) {
@@ -131,7 +132,7 @@ class Vendor_Helper_Request {
      */
     public static function accepts_at_quality($type = null, $explicit_check = false)
     {
-        Vendor_Helper_Request::parse_accept_header();
+        Vendor\Helper\Request::parse_accept_header();
         // Normalize type
         $type = strtolower((string) $type);
         // General content type(e.g. "jpg")
@@ -140,7 +141,7 @@ class Vendor_Helper_Request {
             $q = 0;
             // Look up relevant mime types
             foreach((array) App::config('mimes.' . $type) as $type) {
-                $q2 = Vendor_Helper_Request::accepts_at_quality($type, $explicit_check);
+                $q2 = Vendor\Helper\Request::accepts_at_quality($type, $explicit_check);
                 $q = ($q2 > $q) ? $q2 : $q;
             }
             return $q;
@@ -148,14 +149,14 @@ class Vendor_Helper_Request {
         // Content type with subtype given(e.g. "image/jpg")
         $type = explode('/', $type, 2);
         // Exact match
-        if (isset(Vendor_Helper_Request::$accept_types[$type[0]][$type[1]]))
-        return Vendor_Helper_Request::$accept_types[$type[0]][$type[1]];
+        if (isset(Vendor\Helper\Request::$accept_types[$type[0]][$type[1]]))
+        return Vendor\Helper\Request::$accept_types[$type[0]][$type[1]];
         // Wildcard match(if not checking explicitly)
-        if ($explicit_check === false and isset(Vendor_Helper_Request::$accept_types[$type[0]]['*']))
-        return Vendor_Helper_Request::$accept_types[$type[0]]['*'];
+        if ($explicit_check === false and isset(Vendor\Helper\Request::$accept_types[$type[0]]['*']))
+        return Vendor\Helper\Request::$accept_types[$type[0]]['*'];
         // Catch-all wildcard match(if not checking explicitly)
-        if ($explicit_check === false and isset(Vendor_Helper_Request::$accept_types['*']['*']))
-        return Vendor_Helper_Request::$accept_types['*']['*'];
+        if ($explicit_check === false and isset(Vendor\Helper\Request::$accept_types['*']['*']))
+        return Vendor\Helper\Request::$accept_types['*']['*'];
         // Content type not accepted
         return 0;
     }
@@ -168,14 +169,14 @@ class Vendor_Helper_Request {
     protected static function parse_accept_header()
     {
         // Run this function just once
-        if (Vendor_Helper_Request::$accept_types !== null)
+        if (Vendor\Helper\Request::$accept_types !== null)
         return;
         // Initialize accept_types array
-        Vendor_Helper_Request::$accept_types = array();
+        Vendor\Helper\Request::$accept_types = array();
         // No HTTP Accept header found
         if (empty($_SERVER['HTTP_ACCEPT'])) {
             // Accept everything
-            Vendor_Helper_Request::$accept_types['*']['*'] = 1;
+            Vendor\Helper\Request::$accept_types['*']['*'] = 1;
             return;
         }
         // Remove linebreaks and parse the HTTP Accept header
@@ -190,8 +191,8 @@ class Vendor_Helper_Request {
             // Assume a default quality factor of 1 if no custom q value found
             $q = (isset($accept_entry[1]) and preg_match('~\bq\s*+=\s*+([.0-9]+)~', $accept_entry[1], $match)) ? (float) $match[1] : 1;
             // Populate accept_types array
-            if (! isset(Vendor_Helper_Request::$accept_types[$type[0]][$type[1]]) or $q > Vendor_Helper_Request::$accept_types[$type[0]][$type[1]]) {
-                Vendor_Helper_Request::$accept_types[$type[0]][$type[1]] = $q;
+            if (! isset(Vendor\Helper\Request::$accept_types[$type[0]][$type[1]]) or $q > Vendor\Helper\Request::$accept_types[$type[0]][$type[1]]) {
+                Vendor\Helper\Request::$accept_types[$type[0]][$type[1]] = $q;
             }
         }
     }

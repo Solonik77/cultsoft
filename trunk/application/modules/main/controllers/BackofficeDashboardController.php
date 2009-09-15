@@ -28,11 +28,11 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
         $this->view->image_adapter = $sys_info->getImageAdapter();
         $this->view->image_adapter_version = $sys_info->getImageAdapterVersion();
         $this->view->apache_rewrite = $sys_info->isServerModuleAvailable('mod_rewrite');
-        $this->view->free_disk_space = Vendor_Helper_Format::size($sys_info->getFreeDiskSpace());
+        $this->view->free_disk_space = Vendor\Helper\Format::size($sys_info->getFreeDiskSpace());
         $this->view->safe_mode = $sys_info->isSafeMode();
         $this->view->memory_limit = $sys_info->getMemoryLimit();
         $this->view->disable_functions = $sys_info->getPHPDisabledFunctions();
-        $this->view->max_upload = Vendor_Helper_Format::size($sys_info->getMaxUploadFilezie());
+        $this->view->max_upload = Vendor\Helper\Format::size($sys_info->getMaxUploadFilezie());
         $this->view->output_buffering = $sys_info->isOutputBufferingOn();
         $this->view->file_uploads = $sys_info->isFileUploadsOn();
         $this->view->xml_ext = $sys_info->isPHPExtensionLoded('xml');

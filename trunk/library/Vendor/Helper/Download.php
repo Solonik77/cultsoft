@@ -11,7 +11,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Download {
+namespace Vendor\Helper;
+class Download {
     /**
      * Force a download of a file to the user's browser. This function is
      * binary-safe and will work with any MIME type that Kohana is aware of.
