@@ -8,8 +8,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-require_once('Vendor/Helper/Date.php');
-
+use Vendor\Helper;
 class App_Member {
     // Member singleton
     protected static $instance = null;
