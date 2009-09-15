@@ -14,9 +14,9 @@ $next = App::front()->getRequest()->getBaseUrl() . '?' . http_build_query(array_
 ?>
 <table class="app_calendar">
 	<tr class="controls">
-		<td class="prev"><?php echo vendor_helper_html::anchor($prev, '&laquo;') ?></td>
+		<td class="prev"><?php echo Vendor\Helper\Html::anchor($prev, '&laquo;') ?></td>
 		<td class="title" colspan="5"><?php echo strftime('%B %Y', mktime(0, 0, 0, $this->month, 1, $this->year)) ?></td>
-		<td class="next"><?php echo vendor_helper_html::anchor($next, '&raquo;') ?></td>
+		<td class="next"><?php echo Vendor\Helper\Html::anchor($next, '&raquo;') ?></td>
 	</tr>
 	<tr>
 	<?php foreach ($days as $day): ?>

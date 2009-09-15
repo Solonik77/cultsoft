@@ -11,7 +11,8 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-class Vendor_Helper_Text {
+namespace Vendor\Helper;
+class Text {
     /**
     * Limits a phrase to a given number of words.
     *

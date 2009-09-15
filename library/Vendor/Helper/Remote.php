@@ -11,10 +11,11 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Remote {
+namespace Vendor\Helper;
+class Remote {
     public static function status($url)
     {
-        if (! Vendor_Helper_Valid::url($url, 'http'))
+        if (! Vendor\Helper\Valid::url($url, 'http'))
         return false;
         // Get the hostname and path
         $url = parse_url($url);

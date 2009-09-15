@@ -11,7 +11,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_arr {
+Vendor\Helper;
+class Arr {
     /**
      * Return a callback array from a string, eg: limit[10,20] would become
      * array('limit', array('10', '20'))
@@ -126,7 +127,7 @@ class Vendor_Helper_arr {
     {
         foreach($array as $key => $val) {
             // Map the callback to the key
-            $array[$key] = is_array($val) ? Vendor_Helper_arr::map_recursive($callback, $val) : call_user_func($callback, $val);
+            $array[$key] = is_array($val) ? Vendor\Helper\arr::map_recursive($callback, $val) : call_user_func($callback, $val);
         }
         return $array;
     }
@@ -174,7 +175,7 @@ class Vendor_Helper_arr {
                 if (isset($result[$key])) {
                     if (is_array($val)) {
                         // Arrays are merged recursively
-                        $result[$key] = Vendor_Helper_arr::merge($result[$key], $val);
+                        $result[$key] = Vendor\Helper\arr::merge($result[$key], $val);
                     } elseif (is_int($key)) {
                         // Indexed arrays are appended
                         array_push($result, $val);
@@ -244,7 +245,7 @@ class Vendor_Helper_arr {
         foreach($array as $key => $value) {
             if (is_array($value)) {
                 // Convert the array to an object
-                $value = Vendor_Helper_arr::to_object($value, $class);
+                $value = Vendor\Helper\arr::to_object($value, $class);
             }
             // Add the value to the object
             $object-> {

@@ -12,7 +12,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Html {
+namespace Vendor\Helper;
+class Html {
     // Enable or disable automatic setting of target="_blank"
     public static $windowed_urls = false;
 
@@ -44,7 +45,7 @@ class Vendor_Helper_Html {
     }
 
     /**
-     * Perform a Vendor_Helper_Html::specialchars() with additional URL specific encoding.
+     * Perform a Vendor\Helper\Html::specialchars() with additional URL specific encoding.
      *
      * @param string $ string to convert
      * @param boolean $ encode existing entities
@@ -52,7 +53,7 @@ class Vendor_Helper_Html {
      */
     public static function specialurlencode($str, $double_encode = true)
     {
-        return str_replace(' ', '%20', Vendor_Helper_Html::specialchars($str, $double_encode));
+        return str_replace(' ', '%20', Vendor\Helper\Html::specialchars($str, $double_encode));
     }
 
     /**
@@ -74,14 +75,14 @@ class Vendor_Helper_Html {
         } elseif (strpos($uri, '://') === false) {
             $site_url = url::site($uri, $protocol);
         } else {
-            if (Vendor_Helper_Html::$windowed_urls === true and empty($attributes['target'])) {
+            if (Vendor\Helper\Html::$windowed_urls === true and empty($attributes['target'])) {
                 $attributes['target'] = '_blank';
             }
             $site_url = $uri;
         }
         return // Parsed URL
-        '<a href="' . Vendor_Helper_Html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
-        (is_array($attributes) ? Vendor_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
+        '<a href="' . Vendor\Helper\Html::specialurlencode($site_url, false) . '"' . // Attributes empty? Use an empty string
+        (is_array($attributes) ? Vendor\Helper\Html::attributes($attributes) : '') . '>' . // Title empty? Use the parsed URL
         (($title === null) ? $site_url : $title) . '</a>';
     }
 
@@ -97,8 +98,8 @@ class Vendor_Helper_Html {
     public static function file_anchor($file, $title = null, $attributes = null, $protocol = null)
     {
         return // Base URL + URI = full URL
-        '<a href="' . Vendor_Helper_Html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
-        (is_array($attributes) ? Vendor_Helper_Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
+        '<a href="' . Vendor\Helper\Html::specialurlencode(url::base(false, $protocol) . $file, false) . '"' . // Attributes empty? Use an empty string
+        (is_array($attributes) ? Vendor\Helper\Html::attributes($attributes) : '') . '>' . // Title empty? Use the filename part of the URI
         (($title === null) ? end(explode('/', $file)) : $title) . '</a>';
     }
 
@@ -113,7 +114,7 @@ class Vendor_Helper_Html {
      */
     public static function panchor($protocol, $uri, $title = null, $attributes = false)
     {
-        return Vendor_Helper_Html::anchor($uri, $title, $attributes, $protocol);
+        return Vendor\Helper\Html::anchor($uri, $title, $attributes, $protocol);
     }
 
     /**
@@ -127,7 +128,7 @@ class Vendor_Helper_Html {
         $anchors = array();
         foreach($array as $link => $title) {
             // Create list of anchors
-            $anchors[] = Vendor_Helper_Html::anchor($link, $title);
+            $anchors[] = Vendor\Helper\Html::anchor($link, $title);
         }
         return $anchors;
     }
@@ -182,11 +183,11 @@ class Vendor_Helper_Html {
             $params = '';
         }
         // Obfuscate email address
-        $safe = Vendor_Helper_Html::email($email);
+        $safe = Vendor\Helper\Html::email($email);
         // Title defaults to the encoded email address
         empty($title) and $title = $safe;
         // Parse attributes
-        empty($attributes) or $attributes = Vendor_Helper_Html::attributes($attributes);
+        empty($attributes) or $attributes = Vendor\Helper\Html::attributes($attributes);
         // Encoded start of the href="" is a static encoded version of 'mailto:'
         return '<a href="&#109;&#097;&#105;&#108;&#116;&#111;&#058;' . $safe . $params . '"' . $attributes . '>' . $title . '</a>';
     }
@@ -202,7 +203,7 @@ class Vendor_Helper_Html {
         empty($segments) and $segments = Router::$segments;
         $array = array();
         while ($segment = array_pop($segments)) {
-            $array[] = Vendor_Helper_Html::anchor(// Complete URI for the URL
+            $array[] = Vendor\Helper\Html::anchor(// Complete URI for the URL
             implode('/', $segments) . '/' . $segment, // Title for the current segment
             ucwords(inflector::humanize($segment)));
         }
@@ -223,7 +224,7 @@ class Vendor_Helper_Html {
             $tags = array();
             foreach($tag as $t => $v) {
                 // Build each tag and add it to the array
-                $tags[] = Vendor_Helper_Html::meta($t, $v);
+                $tags[] = Vendor\Helper\Html::meta($t, $v);
             }
             // Return all of the tags as a string
             return implode("\n", $tags);
@@ -243,7 +244,7 @@ class Vendor_Helper_Html {
      */
     public static function stylesheet($style, $media = false, $index = false)
     {
-        return Vendor_Helper_Html::link($style, 'stylesheet', 'text/css', $media, $index);
+        return Vendor\Helper\Html::link($style, 'stylesheet', 'text/css', $media, $index);
     }
 
     /**
@@ -264,7 +265,7 @@ class Vendor_Helper_Html {
                 $_rel = is_array($rel) ? array_shift($rel) : $rel;
                 $_type = is_array($type) ? array_shift($type) : $type;
                 $_media = is_array($media) ? array_shift($media) : $media;
-                $compiled .= Vendor_Helper_Html::link($_href, $_rel, $_type, $_media, $index);
+                $compiled .= Vendor\Helper\Html::link($_href, $_rel, $_type, $_media, $index);
             }
         } else {
             if (strpos($href, '://') === false) {
@@ -276,7 +277,7 @@ class Vendor_Helper_Html {
                 // Add the media type to the attributes
                 $attr['media'] = $media;
             }
-            $compiled = '<link' . Vendor_Helper_Html::attributes($attr) . ' />';
+            $compiled = '<link' . Vendor\Helper\Html::attributes($attr) . ' />';
         }
         return $compiled . "\n";
     }
@@ -293,7 +294,7 @@ class Vendor_Helper_Html {
         $compiled = '';
         if (is_array($script)) {
             foreach($script as $name) {
-                $compiled .= Vendor_Helper_Html::script($name, $index);
+                $compiled .= Vendor\Helper\Html::script($name, $index);
             }
         } else {
             if (strpos($script, '://') === false) {
@@ -327,7 +328,7 @@ class Vendor_Helper_Html {
             // Make the src attribute into an absolute URL
             $attributes['src'] = url::base($index) . $attributes['src'];
         }
-        return '<img' . Vendor_Helper_Html::attributes($attributes) . ' />';
+        return '<img' . Vendor\Helper\Html::attributes($attributes) . ' />';
     }
 
     /**
@@ -344,7 +345,7 @@ class Vendor_Helper_Html {
         return ' ' . $attrs;
         $compiled = '';
         foreach($attrs as $key => $val) {
-            $compiled .= ' ' . $key . '="' . Vendor_Helper_Html::specialchars($val) . '"';
+            $compiled .= ' ' . $key . '="' . Vendor\Helper\Html::specialchars($val) . '"';
         }
         return $compiled;
     }

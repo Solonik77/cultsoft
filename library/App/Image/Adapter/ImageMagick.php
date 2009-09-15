@@ -47,7 +47,7 @@ class App_Image_Adapter_ImageMagick extends App_Image_Adapter {
         // Copy the image to the temporary file
         copy($image, $this->tmp_image);
         // Quality change is done last
-        $quality = (int) Vendor_Helper_Arr::remove('quality', $actions);
+        $quality = (int) Vendor\Helper\Arr::remove('quality', $actions);
         // Use 95 for the default quality
         empty($quality) and $quality = 95;
         // All calls to these will need to be escaped, so do it now

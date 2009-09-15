@@ -8,7 +8,8 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-class Vendor_Helper_Valid {
+namespace Vendor\Helper;
+class Valid {
     /**
      * Validate email, commonly used characters only
      *
