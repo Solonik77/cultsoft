@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Expires {
     /**
      * Sets the amount of time before a page expires
@@ -79,3 +79,4 @@ class Expires {
         return true;
     }
 } // End expires
+}

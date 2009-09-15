@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-Vendor\Helper;
+Vendor\Helper {
 class Arr {
     /**
      * Return a callback array from a string, eg: limit[10,20] would become
@@ -254,3 +254,4 @@ class Arr {
         return $object;
     }
 } // End arr
+}

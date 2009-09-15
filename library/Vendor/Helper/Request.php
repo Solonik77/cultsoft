@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Request {
     // Possible HTTP methods
     protected static $http_methods = array('get' , 'head' , 'options' , 'post' , 'put' , 'delete');
@@ -197,3 +197,4 @@ class Request {
         }
     }
 } // End request
+}

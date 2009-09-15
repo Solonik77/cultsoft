@@ -12,7 +12,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Html {
     // Enable or disable automatic setting of target="_blank"
     public static $windowed_urls = false;
@@ -351,3 +351,4 @@ class Html {
     }
 }
 // End html
+}

@@ -11,7 +11,7 @@
 * @copyright (c) 2009 CultSoft
 * @license http://cultsoft.org.ua/engine/license.html
 */
-namespace Vendor\Helper;
+namespace Vendor\Helper{
 class Text {
     /**
     * Limits a phrase to a given number of words.
@@ -384,3 +384,4 @@ class Text {
         return $var;
     }
 } // End text
+}

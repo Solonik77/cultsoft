@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Cookie {
     /**
      * Sets a cookie with the given parameters.
@@ -74,3 +74,4 @@ class Cookie {
         return Vendor\Helper\Cookie::set($name, '', - 86400, $path, $domain, false, false);
     }
 } // End cookie
+}

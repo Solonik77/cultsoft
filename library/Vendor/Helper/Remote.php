@@ -11,7 +11,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper {
 class Remote {
     public static function status($url)
     {
@@ -50,3 +50,4 @@ class Remote {
         return isset($response) ? $response : false;
     }
 } // End remote
+}

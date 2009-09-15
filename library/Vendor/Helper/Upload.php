@@ -12,7 +12,7 @@
  * @copyright (c) 2009 CultSoft
  * @license http://cultsoft.org.ua/engine/license.html
  */
-namespace Vendor\Helper;
+namespace Vendor\Helper{
 class Upload {
     /**
      * Save an uploaded file to a new location.
@@ -139,3 +139,4 @@ class Upload {
         return ($file['size'] <= $size);
     }
 } // End upload
+}
