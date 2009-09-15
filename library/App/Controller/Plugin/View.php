@@ -126,9 +126,6 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
 
     private function _loadBackofficeTemplateResources()
     {
-        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/backoffice/css/styles.css');
-        $this->_view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/smoothness/jquery.ui.css');
-        $this->_view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/ui.js');
     }
 
     private function _declareDefaultVars()
