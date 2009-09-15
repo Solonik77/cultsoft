@@ -22,6 +22,18 @@ echo $this->headTitle()?>
 <?
 /*
 
+
+                    <p class=''><?php
+$this->navigation()->breadcrumbs()->setSeparator(' » ');
+echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
+<?php
+echo $this->messages();
+
+?> <?php
+echo $this->layout()->content?>
+
+
+
 <?php echo $this->render($this->sidebarBlocks)?>
 
 
@@ -194,14 +206,7 @@ echo __($this->pageDescription)?></span>
 				<div class="title title-spacing">
 					<h2>Overlays</h2>
 					Lorem ipsum dolor sic amet.
-                    <p class=''><?php
-$this->navigation()->breadcrumbs()->setSeparator(' » ');
-echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
-<?php
-echo $this->messages();
 
-?> <?php
-echo $this->layout()->content?>
 				</div>
 				<div class="clearfix"></div>
 			</div>
