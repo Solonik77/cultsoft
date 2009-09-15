@@ -349,4 +349,5 @@ class Html {
         }
         return $compiled;
     }
-} // End html
+}
+// End html
