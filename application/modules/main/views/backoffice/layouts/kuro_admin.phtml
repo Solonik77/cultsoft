@@ -1,0 +1,384 @@
+<?php
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+echo $this->doctype();
+
+?>
+<html>
+<head>
+<?php
+echo $this->headTitle()?>
+<?php echo $this->headMeta()?>
+
+<?php echo $this->headLink()?>
+
+<?php echo $this->headStyle()?>
+
+<?php echo $this->headScript()?>
+
+<?php echo $this->inlineScript()?>
+
+</head>
+<body>
+<div id="header">
+<h1><a href="#"><img src="<?php
+echo $this->tplIMG?>logo.png"
+	width="400" height="100" alt="KuroAdmin"></a></h1>
+<div id="global_nav">
+<ul>
+	<li><?php
+	echo __('Welcome')?> <a
+		href="<?php
+		echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php
+		echo $this->member->getField('first_name') . ' ' . $this->member->getField('last_name')?></a></li>
+	<li><a
+		href="<?php
+		echo $this->url(array('module' => 'main', 'controller' => 'index', 'action' => 'index'))?>"><?php echo __('Go to homepage')?></a></li>
+	<li><a
+		href="<?php
+		echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'settings'))?>"><?php echo __('Settings')?></a></li>
+	<li class="last"><a
+		href="<?php
+		echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'logout'))?>"><?php echo __('Log Out')?></a></li>
+</ul>
+</div>
+</div>
+<div id='navTopMenu'><?php
+echo $this->navigation()->menu($this->topMenu)?></div>
+<div id="main">
+<div
+	style="border-top: 0px none; border-bottom: 0px none; padding: 0pt; overflow: visible; position: relative; background-position: 0px -6px;"
+	id="title" class="round hasCorners">
+<div class="bottomContainer"
+	style="overflow: hidden; width: 100%; font-size: 1px; position: absolute; padding-left: 0px; padding-right: 0px; height: 5px; bottom: -5px; left: 0px;">
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; bottom: 0pt; right: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 4px; left: 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 4px; left: 1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 4px; left: 2px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.5; top: 3px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 0px; left: 4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 1px; left: 4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 2px; left: 4px;"></div>
+</div>
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; bottom: 0pt; left: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 4px; background-position: -4px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 4px; left: 4px; background-position: -4px -48px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 3px; background-position: -3px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 4px; left: 3px; background-position: -3px -48px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 2px; background-position: -2px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 4px; left: 2px; background-position: -2px -48px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 0px; left: 1px; background-position: -1px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.5; top: 3px; left: 1px; background-position: -1px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 0px; left: 0px; background-position: 0px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 1px; left: 0px; background-position: 0px -48px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 2px; left: 0px; background-position: 0px -48px;"></div>
+</div>
+<div class="hasBackgroundColor"
+	style="border-bottom: 0px solid rgb(51, 51, 51); overflow: hidden; position: relative; font-size: 1px; background-color: rgb(30, 30, 30); background-repeat: repeat; height: 5px; margin-left: 5px; margin-right: 5px; background-position: -5px -42px;"></div>
+</div>
+<div class="topContainer"
+	style="overflow: hidden; width: 100%; font-size: 1px; position: absolute; padding-left: 0px; padding-right: 0px; height: 5px; top: -5px; left: 0px;">
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; top: 0pt; right: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 0px; background-position: -1590px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 0px; left: 0px; background-position: -1590px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 1px; background-position: -1591px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 0px; left: 1px; background-position: -1591px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 2px; background-position: -1592px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 0px; left: 2px; background-position: -1592px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 2px; left: 3px; background-position: -1593px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.5; top: 1px; left: 3px; background-position: -1593px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 4px; left: 4px; background-position: -1594px -4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 3px; left: 4px; background-position: -1594px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 2px; left: 4px; background-position: -1594px -2px;"></div>
+</div>
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; top: 0pt; left: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 4px; background-position: -4px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 0px; left: 4px; background-position: -4px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 3px; background-position: -3px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 0px; left: 3px; background-position: -3px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 4px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 1px; left: 2px; background-position: -2px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 0px; left: 2px; background-position: -2px 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); top: 2px; left: 1px; background-position: -1px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.5; top: 1px; left: 1px; background-position: -1px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.94949; top: 4px; left: 0px; background-position: 0px -4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.740778; top: 3px; left: 0px; background-position: 0px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(30, 30, 30); opacity: 0.291288; top: 2px; left: 0px; background-position: 0px -2px;"></div>
+</div>
+<div class="hasBackgroundColor"
+	style="border-top: 0px solid rgb(51, 51, 51); overflow: hidden; position: relative; font-size: 1px; background-color: rgb(30, 30, 30); background-repeat: repeat; height: 5px; margin-left: 5px; margin-right: 5px;"></div>
+</div>
+<div class="hasBackgroundColor content_container"
+	style="margin: 0pt; padding: 15px; overflow: visible;">
+<div
+	style="position: relative; float: left; width: 100%; margin-top: -5px; margin-bottom: -5px;">
+<h1><?php
+echo __($this->pageTitle)?></h1>
+<span class="right"><?php
+echo __($this->pageDescription)?></span></div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div id="content">
+<div id="content-container">
+<div
+	style="border-top: 0px none; border-bottom: 0px none; padding: 0pt; overflow: visible; position: relative; background-position: 0px -5px;"
+	class="box round hasCorners">
+<div class="bottomContainer"
+	style="overflow: hidden; width: 100%; font-size: 1px; position: absolute; padding-left: 1px; padding-right: 1px; height: 5px; bottom: -5px; left: -1px;">
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; bottom: 0pt; right: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 3px; left: 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 4px; left: 0px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 3px; left: 1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 4px; left: 1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 2px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 2px; left: 2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 3px; left: 2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 4px; left: 2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 0px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 1px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 2px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.5; top: 3px; left: 3px;"></div>
+<div
+	style="overflow: hidden; height: 0px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); top: 0px; left: 4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 0px; left: 4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 1px; left: 4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 2px; left: 4px;"></div>
+</div>
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; bottom: 0pt; left: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 4px; background-position: -3px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 3px; left: 4px; background-position: -3px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 4px; left: 4px; background-position: -3px -331px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 3px; background-position: -2px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 3px; left: 3px; background-position: -2px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 4px; left: 3px; background-position: -2px -331px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 2px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 0px; left: 2px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 2px; left: 2px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 3px; left: 2px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 4px; left: 2px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 0px; left: 1px; background-position: 0px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 1px; left: 1px; background-position: 0px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 2px; left: 1px; background-position: 0px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.5; top: 3px; left: 1px; background-position: 0px -331px;"></div>
+<div
+	style="overflow: hidden; height: 0px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); top: 0px; left: 0px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 0px; left: 0px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 1px; left: 0px; background-position: -1px -331px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 2px; left: 0px; background-position: -1px -331px;"></div>
+</div>
+<div class="hasBackgroundColor"
+	style="border-bottom: 1px solid rgb(228, 228, 228); overflow: hidden; position: relative; font-size: 1px; background-color: rgb(255, 255, 255); background-repeat: repeat; height: 4px; margin-left: 4px; margin-right: 4px; background-position: -4px -326px;"></div>
+</div>
+<div class="topContainer"
+	style="overflow: hidden; width: 100%; font-size: 1px; position: absolute; padding-left: 1px; padding-right: 1px; height: 5px; top: -5px; left: -1px;">
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; top: 0pt; right: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 2px; left: 0px; background-position: -1279px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 1px; left: 0px; background-position: -1279px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 0px; left: 0px; background-position: -1279px -1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 2px; left: 1px; background-position: -1280px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 1px; left: 1px; background-position: -1280px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 0px; left: 1px; background-position: -1280px -1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 2px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 3px; left: 2px; background-position: -1281px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 2px; left: 2px; background-position: -1281px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 1px; left: 2px; background-position: -1281px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 0px; left: 2px; background-position: -1281px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 4px; left: 3px; background-position: -1282px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 3px; left: 3px; background-position: -1282px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 2px; left: 3px; background-position: -1282px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.5; top: 1px; left: 3px; background-position: -1282px 0px;"></div>
+<div
+	style="overflow: hidden; height: 0px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); top: 5px; left: 4px; background-position: -1283px -4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 4px; left: 4px; background-position: -1283px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 3px; left: 4px; background-position: -1283px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 2px; left: 4px; background-position: -1283px -1px;"></div>
+</div>
+<div
+	style="overflow: hidden; height: 5px; width: 5px; position: absolute; font-size: 1px; top: 0pt; left: 0pt;">
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 2px; left: 4px; background-position: -3px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 1px; left: 4px; background-position: -3px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 0px; left: 4px; background-position: -3px -1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 3px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 2px; left: 3px; background-position: -2px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 1px; left: 3px; background-position: -2px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 0px; left: 3px; background-position: -2px -1px;"></div>
+<div class="hasBackgroundColor"
+	style="overflow: hidden; height: 2px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(255, 255, 255); top: 3px; left: 2px; background-position: -1px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 2px; left: 2px; background-position: -1px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 1px; left: 2px; background-position: -1px 0px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 0px; left: 2px; background-position: -1px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(253, 253, 253); top: 4px; left: 1px; background-position: 0px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(246, 246, 246); top: 3px; left: 1px; background-position: 0px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(232, 232, 232); top: 2px; left: 1px; background-position: 0px -1px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.5; top: 1px; left: 1px; background-position: 0px 0px;"></div>
+<div
+	style="overflow: hidden; height: 0px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); top: 5px; left: 0px; background-position: -1px -4px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.94949; top: 4px; left: 0px; background-position: -1px -3px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.740778; top: 3px; left: 0px; background-position: -1px -2px;"></div>
+<div
+	style="overflow: hidden; height: 1px; width: 1px; position: absolute; font-size: 1px; background-color: rgb(228, 228, 228); opacity: 0.291288; top: 2px; left: 0px; background-position: -1px -1px;"></div>
+</div>
+<div class="hasBackgroundColor"
+	style="border-top: 1px solid rgb(228, 228, 228); overflow: hidden; position: relative; font-size: 1px; background-color: rgb(255, 255, 255); background-repeat: repeat; height: 4px; margin-left: 4px; margin-right: 4px;"></div>
+</div>
+<div class="hasBackgroundColor content_container"
+	style="margin: 0pt; padding: 15px; overflow: visible;">
+<div
+	style="position: relative; float: left; width: 100%; margin-top: -4px; margin-bottom: -4px;">
+
+<p class=''><?php
+$this->navigation()->breadcrumbs()->setSeparator(' » ');
+echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
+<?php
+echo $this->messages();
+
+?> <?php
+echo $this->layout()->content?></div>
+<div style="clear: both;"></div>
+</div>
+</div>
+
+
+</div>
+</div>
+<div id="sidebar">
+<div class="side-box">
+<h3>Search</h3>
+<p>Here you can have a search box for the page.</p>
+<form id="search" method="post" action="#"><input id="search-text"
+	name="keywords" value="" type="text"> <input id="search-btn"
+	value="submit" src="<?php
+echo $this->tplIMG?>search-button.gif"
+	alt="Go" type="image"></form>
+</div>
+
+<?php
+echo $this->render($this->sidebarBlocks)?></div>
+</div>
+<div id="footer">
+<p class="left">&copy; Copyright <?php
+echo $this->projectTitle?> 2009</p>
+<p class="right"><?php
+echo $this->navigation()->menu($this->footerMenu)?></p>
+</div>
+</body>
+</html>
