@@ -209,7 +209,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 'name' => "zfsession",
                 'use_only_cookies' => 1
                 ));
-        if(App::config()->session_type == 'db'){
+        if(App::config()->session_save_handler == 'db'){
             Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         }
         Zend_Session::start();
