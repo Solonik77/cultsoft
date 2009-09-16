@@ -14,18 +14,13 @@ echo $this->headTitle()?>
 <?php echo $this->headStyle()?>
 
 <?php echo $this->headScript()?>
-<link href="/static/system/backoffice/css/style.css" rel="stylesheet" media="all" />
-<script type="text/javascript" src="/static/system/clientscripts/superfish.js"></script>
-<script type="text/javascript" src="/static/system/clientscripts/tooltip.js"></script>
-<script type="text/javascript" src="/static/system/clientscripts/tablesorter.js"></script>
-<script type="text/javascript" src="/static/system/clientscripts/tablesorter-pager.js"></script>
-<script type="text/javascript" src="/static/system/clientscripts/cookie.js"></script>
-<script type="text/javascript" src="/static/system/clientscripts/custom.js"></script>
+
+<script type="text/javascript" src="<?php echo App::baseUri()?>static/system/clientscripts/custom.js"></script>
 <!--[if IE 6]>
-	<link href="css/ie6.css" rel="stylesheet" media="all" />	
+	<link href="<?php echo App::baseUri()?>static/system/css/ie6.css" rel="stylesheet" media="all" />
 	<![endif]-->
 <!--[if IE 7]>
-	<link href="css/ie7.css" rel="stylesheet" media="all" />
+	<link href="<?php echo App::baseUri()?>static/system/css/ie7.css" rel="stylesheet" media="all" />
 	<![endif]-->
 <?php echo $this->inlineScript()?>
 </head>
