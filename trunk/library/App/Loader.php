@@ -3,8 +3,8 @@
 * Classes Autoloader
 *
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
+
+
 */
 class App_Loader implements Zend_Loader_Autoloader_Interface {
     const CACHE_ENABLED = FALSE;

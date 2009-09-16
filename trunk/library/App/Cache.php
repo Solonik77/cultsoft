@@ -3,8 +3,8 @@
  * Provide simple sinleton interface to Zend_Cache different backends and internal system information.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class App_Cache {
     protected static $instance;
