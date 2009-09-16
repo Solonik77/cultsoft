@@ -1428,7 +1428,7 @@ a:hover, .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited
 }
 #header #sitename a.logo {
 	color:#fff;
-	background:url('/static/images/logo.png') no-repeat;
+	background:url('images/logo.png') no-repeat;
 	text-shadow:1px 1px 0 #000
 }
 #header #top-menu a:hover, #header #sitename a.logo:hover {
