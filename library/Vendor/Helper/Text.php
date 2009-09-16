@@ -8,8 +8,8 @@
 * @copyright (c) 2007-2008 Kohana Team
 * @license http://kohanaphp.com/license.html*
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
+
+
 */
 namespace Vendor\Helper{
 class Text {
@@ -354,12 +354,12 @@ class Text {
     public static function fancy_url($var, $lower = true, $punkt = true)
     {
         $var = iconv("UTF-8", "WINDOWS-1251", $var);
-        $NpjLettersFrom = "אבגדהוחטךכלםמןנסעףפצû³";
+        $NpjLettersFrom = "";
         $NpjLettersTo = "abvgdeziklmnoprstufcyi";
-        $NpjBiLetters = array ("י" => "j", "¸" => "yo", "ז" => "zh", "ץ" => "x", "ק" => "ch", "ר" => "sh", "ש" => "shh", "‎" => "ye", "‏" => "yu", "ÿ" => "ya", "ת" => "", "ü" => "", "¿" => "yi", "÷" => "ye");
+        $NpjBiLetters = array ("" => "j", "" => "yo", "" => "zh", "" => "x", "" => "ch", "" => "sh", "" => "shh", "" => "ye", "" => "yu", "" => "ya", "" => "", "" => "", "" => "yi", "" => "ye");
 
-        $NpjCaps = "ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÛÝÞ‗¯×²";
-        $NpjSmall = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשüתû‎‏ÿ¿÷³";
+        $NpjCaps = "Å¨‗¯";
+        $NpjSmall = "";
 
         $var = str_replace(".php", "", $var);
         $var = trim(strip_tags($var));

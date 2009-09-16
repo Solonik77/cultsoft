@@ -3,8 +3,8 @@
  * Profile controller. This controller used for authorization and user profile information pages.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class Main_ProfileController extends App_Controller_Action {
     /**

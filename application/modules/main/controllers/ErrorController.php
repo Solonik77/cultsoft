@@ -5,8 +5,8 @@
  *                information pages in development environment and simple warnings in production.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class Main_ErrorController extends App_Controller_Action {
     public function errorAction()

@@ -3,8 +3,8 @@
  * View Helper
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 /**
  * App_View_Helper_HeadLink

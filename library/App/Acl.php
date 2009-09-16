@@ -3,8 +3,8 @@
  * Default access control list for application.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class App_Acl extends Zend_Acl {
     // ACL singleton

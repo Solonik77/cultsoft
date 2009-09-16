@@ -4,8 +4,8 @@
  *
  * @package Calendar
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class App_Calendar_Event extends App_Event_Observer {
     // Boolean conditions

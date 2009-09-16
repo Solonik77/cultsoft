@@ -6,8 +6,8 @@
 * $Id$
 *
 * @author Denysenko Dmytro
-* @copyright (c) 2009 CultSoft
-* @license http://cultsoft.org.ua/engine/license.html
+
+
 */
 final class App {
     const CHARSET = 'UTF-8';

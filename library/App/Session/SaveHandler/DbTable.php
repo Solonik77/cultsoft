@@ -3,8 +3,8 @@
  * DB Session handler.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 /**
  *

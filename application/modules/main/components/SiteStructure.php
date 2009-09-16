@@ -3,8 +3,8 @@
  * Website navigation menus
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class Main_Component_SiteStructure {
     public function __construct()

@@ -4,8 +4,8 @@
  * This is dashboard controller.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class Main_BackofficeDashboardController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;

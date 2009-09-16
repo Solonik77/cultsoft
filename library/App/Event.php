@@ -5,8 +5,8 @@
  * process event-specific data. By default, Kohana has several system events.
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  * @author Kohana Team
  * @copyright (c) 2007 Kohana Team
  * @license http://kohanaphp.com/license.html

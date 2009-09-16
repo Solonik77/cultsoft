@@ -3,8 +3,8 @@
  * Website Language translation and locale configuration
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 class App_I18n {
     protected $_request;

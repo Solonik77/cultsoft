@@ -3,8 +3,8 @@
  * APPLICATION FRONT CONTROLLER FILE
  *
  * @author Denysenko Dmytro
- * @copyright (c) 2009 CultSoft
- * @license http://cultsoft.org.ua/engine/license.html
+ 
+ 
  */
 $pathinfo = pathinfo ( __FILE__ );
 define ( 'DS', DIRECTORY_SEPARATOR );
