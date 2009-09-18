@@ -26,49 +26,35 @@ echo $this->headTitle()?>
 </head>
 <body>
 <div id="header">
-  <div id="top-menu"> <a href="#" title="My account">My account</a> | <a href="#" title="Settings">Settings</a> | <a href="#" title="Contact us">Contact us</a> <span>Logged in as <a href="#" title="Logged in as admin">admin</a></span> | <a href="#" title="Edit profile">Edit profile</a> | <a href="#" title="Logout">Logout</a> </div>
+  <div id="top-menu"> 
+  <a href="<?php	echo $this->url(array('module' => 'main', 'controller' => 'index', 'action' => 'index'))?>"><?php echo __('Go to homepage')?></a>
+  |  <a href="<?php	echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'settings'))?>"><?php echo __('Settings')?></a>
+  | <span><?php echo __('Logged in as')?> <a href="<?php	echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php echo $this->member->getField('first_name') . ' ' . $this->member->getField('last_name')?></a></span>
+  | <a href="<?php	echo $this->url(array('profile_id' => $this->member->getId()), 'view_profile')?>"><?php echo __('Profile')?></a>
+  | <a href="<?php	echo $this->url(array('module' => 'main', 'controller' => 'profile', 'action' => 'logout'))?>"><?php echo __('Log Out')?></a>
+
+        </div>
   <div id="sitename"> <a href="index.html" class="logo float-left" title="Admintasia">Admintasia</a>
     <div class="button float-right"> <a href="#" id="dialog_link" class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>Open Dialog</a> <a href="#" id="login_dialog" class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-image"></span>Open Login Box</a> </div>
   </div>
-  <ul id="navigation" class="sf-navbar">
-    <li> <a href="index.html">Dashboard</a></li>
-    <li> <a href="#">Dummy menu</a>
-      <ul>
-        <li> <a href="#">Menu item 1</a>
-          <ul>
-            <li><a href="#">Subitem 1</a></li>
-            <li><a href="#">Subitem 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li> <a href="#">Layout Options</a>
-      <ul>
-        <li> <a href="three-columns-layout.html">Three columns</a> </li>
-        <li> <a href="two-column-layout.html">Two columns</a> </li>
-        <li> <a href="three-column-small-layout.html">One big, two small</a> </li>
-      </ul>
-    </li>
-    <li> <a href="#">Available components</a>
-      <ul>
-        <li> <a href="accordion.html">Accordion</a> </li>
-        <li> <a href="tabs.html">Tabs</a> </li>
-        <li> <a href="overlays.html">Overlays</a> </li>
-      </ul>
-    </li>
-  </ul>
+  <?php echo $this->navigation()->menu($this->topMenu)->setUlClass('sf-navbar')?>
 </div>
 <div id="page-wrapper">
   <div id="main-wrapper">
     <div id="main-content">
-      <div class="title title-spacing">
-        <h2>Overlays</h2>
-        Lorem ipsum dolor sic amet. </div>
+        <p>
+            <?php
+            $this->navigation()->breadcrumbs()->setSeparator(' » ');
+            echo $this->navigation()->breadcrumbs($this->topMenu)?></p>
+        <p><?php echo $this->messages()?></p>
+        
+        <?php echo $this->layout()->content?>
       <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
   </div>
   <div id="sidebar">
+  <?php echo $this->render($this->sidebarBlocks)?>
     <div class="side-col ui-sortable">
       <div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
         <div class="portlet-header ui-widget-header">Theme Switcher</div>
@@ -136,7 +122,7 @@ echo $this->headTitle()?>
 </div>
 <div class="clearfix"></div>
 <div id="footer">
-  <div id="menu"> <a href="#" title="Home">Home</a> <a href="#" title="Administration">Administration</a> <a href="#" title="Settings">Settings</a> <a href="#" title="Contact">Contact</a> </div>
-  Copyright &copy; 2009 - Horia Simon (WebDesignChimera.com) </div>
+  <div id="menu"> <?php echo $this->navigation()->menu($this->footerMenu)?> </div>
+  Copyright &copy; <?php echo date('Y')?> <?php echo $this->projectTitle?> </div>
 </body>
 </html>
