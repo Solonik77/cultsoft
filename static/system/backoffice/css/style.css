@@ -184,7 +184,7 @@ input, button, textarea, select {
 .ui-icon-carat-1-ne {
 	background-position: -16px 0
 }
-.ui-icon-carat-1-e, #navigation li ul .ui-icon-carat-1-s {
+.ui-icon-carat-1-e, .sf-navbar li ul .ui-icon-carat-1-s {
 	background-position: -32px 0
 }
 .ui-icon-carat-1-se {
@@ -1058,41 +1058,41 @@ button {
 	margin-right:242px;
 	padding:10px 10px 10px
 }
-#navigation li {
+.sf-navbar li {
 	float:left;
 	position:relative
 }
-#navigation li a {
+.sf-navbar li a {
 	display:block;
 	height:38px;
 	line-height:38px;
 	padding:0 8px
 }
-#navigation li.sfHover a, #navigation li.sfHover2 a {
+.sf-navbar li.sfHover a, .sf-navbar li.sfHover2 a {
 	padding:0 7px
 }
-#navigation li ul {
+.sf-navbar li ul {
 	width:185px;
 	padding:5px;
 	left:-1px;
 	position:absolute;
 	z-index:999
 }
-#navigation li ul li {
+.sf-navbar li ul li {
 	float:none;
 	position:relative;
 	z-index:999
 }
-#navigation li ul li.sfHover, #navigation li ul li.sfHover2 {
+.sf-navbar li ul li.sfHover, .sf-navbar li ul li.sfHover2 {
 	margin:0;
 	border-left:0;
 	border-right:0
 }
-#navigation li ul li ul {
+.sf-navbar li ul li ul {
 	left:185px;
 	top:0
 }
-#navigation .ui-icon-carat-1-s {
+.sf-navbar .ui-icon-carat-1-s {
 	float:right;
 	margin:12px 0 0 0
 }
@@ -1284,7 +1284,7 @@ body {
 	font-family:Arial, Verdan, Sans-Serif;
 	font-size:75%
 }
-#navigation li a, .portlet-header, .ui-datepicker-title, .page-title h1, .ui-widget-header, .hastable thead td, .hastable thead th, #page-wrapper .other-box h3 {
+.sf-navbar li a, .portlet-header, .ui-datepicker-title, .page-title h1, .ui-widget-header, .hastable thead td, .hastable thead th, #page-wrapper .other-box h3 {
 	text-shadow:0 1px 0 #fff
 }
 .ui-corner-tl {
@@ -1434,39 +1434,39 @@ a:hover, .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited
 #header #top-menu a:hover, #header #sitename a.logo:hover {
 	color:#b7cbdf
 }
-#navigation li a {
+.sf-navbar li a {
 	color:#454545;
 	font-weight:bold;
 	border-right:#d0d0d0 solid 1px;
 	border-left:#f7f7f7 solid 1px
 }
-#navigation li.sfHover, #navigation li.sfHover2 {
+.sf-navbar li.sfHover, .sf-navbar li.sfHover2 {
 	background:#fff;
 	border-left:#b2b2b2 solid 1px;
 	border-right:#b2b2b2 solid 1px
 }
-#navigation li ul {
+.sf-navbar li ul {
 	background:#fff;
 	border:#b2b2b2 solid 1px
 }
-#navigation li ul li {
+.sf-navbar li ul li {
 	border-bottom:#ccc dotted 1px;
 	background:#f0f0f0
 }
-#navigation li ul li a {
+.sf-navbar li ul li a {
 	color:#7c7c7c
 }
-#navigation li ul li a:hover {
+.sf-navbar li ul li a:hover {
 	color:#696969;
 	background:#f7f7f7
 }
-#navigation li ul li.sfHover, #navigation li ul li.sfHover2 {
+.sf-navbar li ul li.sfHover, .sf-navbar li ul li.sfHover2 {
 	background:#e0e0e0
 }
-#navigation li ul li.sfHover a {
+.sf-navbar li ul li.sfHover a {
 	color:#333
 }
-#navigation li ul li ul li a:hover {
+.sf-navbar li ul li ul li a:hover {
 	color:#000
 }
 #page-wrapper #main-wrapper #main-content .page-title .other {

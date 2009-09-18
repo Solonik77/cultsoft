@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	// Navigation menu
 
-	$('ul#navigation').superfish({ 
+	$('ul.sf-navbar').superfish({ 
 		delay:       1000,
 		animation:   {opacity:'show',height:'show'},
 		speed:       'fast',
@@ -10,7 +10,7 @@ $(document).ready(function() {
 		dropShadows: false
 	});
 	
-	$('ul#navigation li').hover(function(){
+	$('ul.sf-navbar li').hover(function(){
 		$(this).addClass('sfHover2');
 	},
 	function(){
