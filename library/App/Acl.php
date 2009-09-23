@@ -3,8 +3,8 @@
  * Default access control list for application.
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Acl extends Zend_Acl {
     // ACL singleton
@@ -46,8 +46,8 @@ class App_Acl extends Zend_Acl {
             }
         }
     }
-    
-     private function __clone()
+
+    private function __clone()
     {
     }
 

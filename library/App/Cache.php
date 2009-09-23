@@ -3,8 +3,8 @@
  * Provide simple sinleton interface to Zend_Cache different backends and internal system information.
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Cache {
     protected static $instance;
@@ -31,7 +31,7 @@ class App_Cache {
             return App_Cache::$instance->$instanceId();
         }
     }
-    
+
     private function __clone()
     {
     }

@@ -3,8 +3,8 @@
  * Base Application action controller
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 abstract class App_Controller_Action extends Zend_Controller_Action {
     // Zend_ACL Instance

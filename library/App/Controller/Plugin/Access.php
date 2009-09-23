@@ -4,8 +4,8 @@
  * Provide access to controller by ACL rules check
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
     // Zend_ACL Instance

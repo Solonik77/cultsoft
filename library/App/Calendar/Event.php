@@ -4,8 +4,8 @@
  *
  * @package Calendar
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Calendar_Event extends App_Event_Observer {
     // Boolean conditions

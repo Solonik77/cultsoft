@@ -4,8 +4,8 @@
  * $Id$
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 require_once 'Vendor/Helper/Html.php';
 class App_Exception extends Zend_Exception {

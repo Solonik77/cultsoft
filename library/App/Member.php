@@ -5,8 +5,8 @@
  * $Id$
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 use Vendor\Helper;
 class App_Member {
@@ -24,7 +24,7 @@ class App_Member {
         }
         return App_Member::$instance;
     }
-    
+
     private function __clone()
     {
     }

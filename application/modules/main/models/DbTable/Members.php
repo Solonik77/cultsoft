@@ -3,8 +3,8 @@
  * Member database model
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class Main_DbTable_Members extends App_Db_Table_Abstract {
     protected $_primary = 'id';

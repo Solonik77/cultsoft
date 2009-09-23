@@ -3,8 +3,8 @@
  * View Helper
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 /**
  * App_View_Helper_HeadScript

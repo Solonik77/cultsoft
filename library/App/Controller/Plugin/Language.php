@@ -3,8 +3,8 @@
  * Setting website language and locale settings for request
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
     /**
