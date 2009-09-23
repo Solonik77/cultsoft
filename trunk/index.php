@@ -26,5 +26,5 @@ define ( 'LIBRARY_PATH', DOC_ROOT . 'library' . DS );
  */
 require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
-$application = new Zend_Application ( APPLICATION_ENV, array ('bootstrap' => array ('path' => LIBRARY_PATH . 'bootstrap.php' ) ) );
+$application = new Zend_Application ( APPLICATION_ENV, array ('bootstrap' => array ('path' => LIBRARY_PATH . 'Bootstrap.php' ) ) );
 $application->run ();
