@@ -5,8 +5,8 @@
  * $Id$
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Mail {
     // Zend_Mail instance

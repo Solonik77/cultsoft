@@ -1,34 +1,34 @@
 <?php
 /**
-* Text helper class.
-*
-* $Id: text.php 4329 2009-05-06 15:53:27Z Geert $
-*
-* @author Kohana Team
-* @copyright (c) 2007-2008 Kohana Team
-* @license http://kohanaphp.com/license.html*
-* @author Denysenko Dmytro
+ * Text helper class.
+ *
+ * $Id: text.php 4329 2009-05-06 15:53:27Z Geert $
+ *
+ * @author Kohana Team
+ * @copyright (c) 2007-2008 Kohana Team
+ * @license http://kohanaphp.com/license.html*
+ * @author Denysenko Dmytro
 
 
-*/
+ */
 namespace Vendor\Helper{
 class Text {
     /**
-    * Limits a phrase to a given number of words.
-    *
-    * @param string $ phrase to limit words of
-    * @param integer $ number of words to limit to
-    * @param string $ end character or entity
-    * @return string
-    */
+     * Limits a phrase to a given number of words.
+     *
+     * @param string $ phrase to limit words of
+     * @param integer $ number of words to limit to
+     * @param string $ end character or entity
+     * @return string
+     */
     public static function limit_words($str, $limit = 100, $end_char = null)
     {
         $limit = (int) $limit;
         $end_char = ($end_char === null) ? '&#8230;' : $end_char;
         if (trim($str) === '')
-            return $str;
+        return $str;
         if ($limit <= 0)
-            return $end_char;
+        return $end_char;
         preg_match('/^\s*+(?:\S++\s*+){1,' . $limit . '}/u', $str, $matches);
         // Only attach the end character if the matched string is shorter
         // than the starting string.
@@ -36,22 +36,22 @@ class Text {
     }
 
     /**
-    * Limits a phrase to a given number of characters.
-    *
-    * @param string $ phrase to limit characters of
-    * @param integer $ number of characters to limit to
-    * @param string $ end character or entity
-    * @param boolean $ enable or disable the preservation of words while limiting
-    * @return string
-    */
+     * Limits a phrase to a given number of characters.
+     *
+     * @param string $ phrase to limit characters of
+     * @param integer $ number of characters to limit to
+     * @param string $ end character or entity
+     * @param boolean $ enable or disable the preservation of words while limiting
+     * @return string
+     */
     public static function limit_chars($str, $limit = 100, $end_char = null, $preserve_words = false)
     {
         $end_char = ($end_char === null) ? '&#8230;' : $end_char;
         $limit = (int) $limit;
         if (trim($str) === '' or App_Utf8::strlen($str) <= $limit)
-            return $str;
+        return $str;
         if ($limit <= 0)
-            return $end_char;
+        return $end_char;
         if ($preserve_words == false) {
             return rtrim(App_Utf8::substr($str, 0, $limit)) . $end_char;
         }
@@ -60,11 +60,11 @@ class Text {
     }
 
     /**
-    * Alternates between two or more strings.
-    *
-    * @param string $ strings to alternate between
-    * @return string
-    */
+     * Alternates between two or more strings.
+     *
+     * @param string $ strings to alternate between
+     * @return string
+     */
     public static function alternate()
     {
         static $i;
@@ -77,18 +77,18 @@ class Text {
     }
 
     /**
-    * Generates a random string of a given type and length.
-    *
-    * @param string $ a type of pool, or a string of characters to use as the pool
-    * @param integer $ length of string to return
-    * @return string
-    * @tutorial alnum     alpha-numeric characters
-    * @tutorial alpha     alphabetical characters
-    * @tutorial hexdec    hexadecimal characters, 0-9 plus a-f
-    * @tutorial numeric   digit characters, 0-9
-    * @tutorial nozero    digit characters, 1-9
-    * @tutorial distinct  clearly distinct alpha-numeric characters
-    */
+     * Generates a random string of a given type and length.
+     *
+     * @param string $ a type of pool, or a string of characters to use as the pool
+     * @param integer $ length of string to return
+     * @return string
+     * @tutorial alnum     alpha-numeric characters
+     * @tutorial alpha     alphabetical characters
+     * @tutorial hexdec    hexadecimal characters, 0-9 plus a-f
+     * @tutorial numeric   digit characters, 0-9
+     * @tutorial nozero    digit characters, 1-9
+     * @tutorial distinct  clearly distinct alpha-numeric characters
+     */
     public static function random($type = 'alnum', $length = 8)
     {
         $utf8 = false;
@@ -139,25 +139,25 @@ class Text {
     }
 
     /**
-    * Reduces multiple slashes in a string to single slashes.
-    *
-    * @param string $ string to reduce slashes of
-    * @return string
-    */
+     * Reduces multiple slashes in a string to single slashes.
+     *
+     * @param string $ string to reduce slashes of
+     * @return string
+     */
     public static function reduce_slashes($str)
     {
         return preg_replace('#(?<!:)//+#', '/', $str);
     }
 
     /**
-    * Replaces the given words with a string.
-    *
-    * @param string $ phrase to replace words in
-    * @param array $ words to replace
-    * @param string $ replacement string
-    * @param boolean $ replace words across word boundries(space, period, etc)
-    * @return string
-    */
+     * Replaces the given words with a string.
+     *
+     * @param string $ phrase to replace words in
+     * @param array $ words to replace
+     * @param string $ replacement string
+     * @param boolean $ replace words across word boundries(space, period, etc)
+     * @return string
+     */
     public static function censor($str, $badwords, $replacement = '#', $replace_partial_words = true)
     {
         foreach((array) $badwords as $key => $badword) {
@@ -177,11 +177,11 @@ class Text {
     }
 
     /**
-    * Finds the text that is similar between a set of words.
-    *
-    * @param array $ words to find similar text of
-    * @return string
-    */
+     * Finds the text that is similar between a set of words.
+     *
+     * @param array $ words to find similar text of
+     * @return string
+     */
     public static function similar(array $words)
     {
         // First word is the word to match against
@@ -190,7 +190,7 @@ class Text {
             foreach($words as $w) {
                 // Once a difference is found, break out of the loops
                 if (! isset($w[$i]) or $w[$i] !== $word[$i])
-                    break 2;
+                break 2;
             }
         }
         // Return the similar text
@@ -198,11 +198,11 @@ class Text {
     }
 
     /**
-    * Converts text email addresses and anchors into links.
-    *
-    * @param string $ text to auto link
-    * @return string
-    */
+     * Converts text email addresses and anchors into links.
+     *
+     * @param string $ text to auto link
+     * @return string
+     */
     public static function auto_link($text)
     {
         // Auto link emails first to prevent problems with "www.domain.com@example.com"
@@ -210,11 +210,11 @@ class Text {
     }
 
     /**
-    * Converts text anchors into links.
-    *
-    * @param string $ text to auto link
-    * @return string
-    */
+     * Converts text anchors into links.
+     *
+     * @param string $ text to auto link
+     * @return string
+     */
     public static function auto_link_urls($text)
     {
         // Finds all http/https/ftp/ftps links that are not part of an existing html anchor
@@ -235,18 +235,18 @@ class Text {
     }
 
     /**
-    * Converts text email addresses into links.
-    *
-    * @param string $ text to auto link
-    * @return string
-    */
+     * Converts text email addresses into links.
+     *
+     * @param string $ text to auto link
+     * @return string
+     */
     public static function auto_link_emails($text)
     {
         // Finds all email addresses that are not part of an existing html mailto anchor
         // Note: The "58;" negative lookbehind prevents matching of existing encoded html mailto anchors
         // The html entity for a colon(:) is &#58; or &#058; or &#0058; etc.
         if (preg_match_all('~\b(?<!href="mailto:|">|58;)(?!\.)[-+_a-z0-9.]++(?<!\.)@(?![-.])[-a-z0-9.]+(?<!\.)\.[a-z]{2,6}\b~i',
-                $text, $matches)) {
+        $text, $matches)) {
             foreach($matches[0] as $match) {
                 // Replace each email with an encoded mailto
                 $text = str_replace($match, html::mailto($match), $text);
@@ -256,17 +256,17 @@ class Text {
     }
 
     /**
-    * Automatically applies <p> and <br /> markup to text. Basically nl2br() on steroids.
-    *
-    * @param string $ subject
-    * @param boolean $ convert single linebreaks to <br />
-    * @return string
-    */
+     * Automatically applies <p> and <br /> markup to text. Basically nl2br() on steroids.
+     *
+     * @param string $ subject
+     * @param boolean $ convert single linebreaks to <br />
+     * @return string
+     */
     public static function auto_p($str, $br = true)
     {
         // Trim whitespace
         if (($str = trim($str)) === '')
-            return '';
+        return '';
         // Standardize newlines
         $str = str_replace(array("\r\n" , "\r"), "\n", $str);
         // Trim whitespace on each line
@@ -297,17 +297,17 @@ class Text {
     }
 
     /**
-    * Returns human readable sizes.
-    *
-    * @see Based on original functions written by:
-    * @see Aidan Lister: http://aidanlister.com/repos/v/function.size_readable.php
-    * @see Quentin Zervaas: http://www.phpriot.com/d/code/strings/filesize-format/
-    * @param integer $ size in bytes
-    * @param string $ a definitive unit
-    * @param string $ the return string format
-    * @param boolean $ whether to use SI prefixes or IEC
-    * @return string
-    */
+     * Returns human readable sizes.
+     *
+     * @see Based on original functions written by:
+     * @see Aidan Lister: http://aidanlister.com/repos/v/function.size_readable.php
+     * @see Quentin Zervaas: http://www.phpriot.com/d/code/strings/filesize-format/
+     * @param integer $ size in bytes
+     * @param string $ a definitive unit
+     * @param string $ the return string format
+     * @param boolean $ whether to use SI prefixes or IEC
+     * @return string
+     */
     public static function bytes($bytes, $force_unit = null, $format = null, $si = true)
     {
         // Format string
@@ -329,12 +329,12 @@ class Text {
     }
 
     /**
-    * Prevents widow words by inserting a non-breaking space between the last two words.
-    *
-    * @see http://www.shauninman.com/archive/2006/08/22/widont_wordpress_plugin
-    * @param string $ string to remove widows from
-    * @return string
-    */
+     * Prevents widow words by inserting a non-breaking space between the last two words.
+     *
+     * @see http://www.shauninman.com/archive/2006/08/22/widont_wordpress_plugin
+     * @param string $ string to remove widows from
+     * @return string
+     */
     public static function widont($str)
     {
         $str = rtrim($str);
@@ -346,11 +346,11 @@ class Text {
     }
 
     /**
-    * Create fancy_url from string.
-    *
-    * @param string $
-    * @return string
-    */
+     * Create fancy_url from string.
+     *
+     * @param string $
+     * @return string
+     */
     public static function fancy_url($var, $lower = true, $punkt = true)
     {
         $var = iconv("UTF-8", "WINDOWS-1251", $var);

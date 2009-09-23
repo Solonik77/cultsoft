@@ -3,8 +3,8 @@
  * App_Db_Table
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  * @category Zend
  * @package Zend_Db
  * @subpackage Abstract

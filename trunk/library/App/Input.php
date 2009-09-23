@@ -5,8 +5,8 @@
  * $Id$
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class App_Input {
     // Enable or disable automatic XSS cleaning
@@ -34,7 +34,7 @@ class App_Input {
         }
         return App_Input::$instance;
     }
-    
+
     private function __clone()
     {
     }

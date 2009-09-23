@@ -3,8 +3,8 @@
  * Kohana event subject. Uses the SPL observer pattern.
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  * @author Kohana Team
  * @copyright (c) 2007-2008 Kohana Team
  * @license http://kohanaphp.com/license.html

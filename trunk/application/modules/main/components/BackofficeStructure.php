@@ -3,8 +3,8 @@
  * Backoffice navigation
  *
  * @author Denysenko Dmytro
- 
- 
+
+
  */
 class Main_Component_BackofficeStructure {
     public function __construct()
