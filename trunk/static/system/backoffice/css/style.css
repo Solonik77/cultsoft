@@ -2034,24 +2034,30 @@ form li span {
 	float: left
 }
 
-input.text,input.file,textarea.textarea,select.select {
+input.text,input.file,textarea.textarea,select.select,
+#main-content form input, #main-content form textarea,
+#main-content form select
+{
 	color: #333;
 	margin: 0;
 	padding: 4px
 }
 
-input.text,textarea.textarea {
+input.text,textarea.textarea,
+#main-content form input, #main-content form textarea
+{
 	border-top: 1px solid #7c7c7c;
 	border-left: 1px solid #c3c3c3;
 	border-right: 1px solid #c3c3c3;
 	border-bottom: 1px solid #ddd
 }
 
-select.select {
+select.select, #main-content form select
+{
 	padding: 1px 5px 0 0
 }
 
-input.checkbox,input.radio {
+input.checkbox,input.radio{
 	display: block;
 	margin: 4px 0 0 0;
 	padding: 0;
@@ -2110,7 +2116,117 @@ input.btTxt {
 	width: auto;
 	overflow: visible
 }
+#main-content form fieldset
+{
+	border: #DDD 1px solid;
+	margin: 10px 0;
+	padding: 10px;
+}
+#main-content form fieldset legend
+{
+	font-weight: bold;
+}
+#main-content fieldset {
+	padding: 14px;
+	background-color: #FFFDFB;
+	border: 1px solid #FFF4E6;
+}
+#main-content fieldset legend {
+	font-weight: bold;
+	padding: 6px;
+}
+#main-content form input[type=radio], #main-content form input[type=checkbox] {
+	border: none;
+}
+#main-content textarea {
+	margin-bottom: 6px;
+	width: 90%;
+}
+#main-content input {
+	color: #000000;
+}
+#main-content input[type=text], #main-content input[type=password], #main-content input[type=file] {
+	width:90%;
+}
+#main-content input[type=text], #main-content input[type=password], #main-content input[type=file], div.input_field input, #main-content textarea, #main-content select {
+	background-color: #fff;
+	background-image: url(../images/bg_input.png);
+	background-repeat: repeat-x;
+	border-bottom-color: #E1E1E1;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #C1C1C1;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-radius: 3px;
+	border-right-color: #C1C1C1;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #858585;
+	border-top-style: solid;
+	border-top-width: 1px;
+	khtml-border-radius: 3px;
+	margin: 2px 0px;
+	moz-border-radius: 3px;
+	padding: 5px 8px;
+	webkit-border-radius: 3px;
+}
+#main-content input[type=submit], #main-content input[type=reset], #main-content input.button, #main-content input.submit {
+	background-color: #D4D0C8;
+	border-bottom-color: #333333;
+	border-bottom-style: double;
+	border-bottom-width: 3px;
+	border-left-color: #CCCCCC;
+	border-left-style: double;
+	border-left-width: 3px;
+	border-radius: 3px;
+	border-right-color: #333333;
+	border-right-style: double;
+	border-right-width: 3px;
+	border-top-color: #CCCCCC;
+	border-top-style: double;
+	border-top-width: 3px;
+	cursor: hand;
+	cursor: pointer;
+	khtml-border-radius: 3px;
+	margin: 2px 0px;
+	moz-border-radius: 3px;
+	padding: 5px 8px;
+	webkit-border-radius: 3px;
+}
+#main-content input.button:hover, #main-content input[type=text]:hover, #main-content input[type=password]:hover, #main-content input[type=file]:hover, div.input_field input:hover, input.button:focus, #main-content input[type=text]:focus, #main-content input[type=password]:focus, #main-content input[type=file]:focus, div.input_field input:focus, #main-content texarea:hover, #main-content texarea:focus, #main-content select:hover, #main-content select:focus {
+	border-bottom-color: #EDC67C;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #DB991E;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #EDC67C;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #DB991E;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+label:hover {
+	cursor: hand;
+	cursor: pointer;
+}
 
+/* Zend Form Styling */
+
+	
+	dl.zend_form dd ul.errors {
+		list-style: none;
+		color:#FF0000;
+		padding: 0;
+		margin: 0;
+	}
+	
+	dl.zend_form label
+	{
+	display:block;
+	}
 form li.buttons {
 	clear: both;
 	padding-top: 10px
@@ -2229,7 +2345,19 @@ form span.req {
 .hastable table a.btn span.ui-icon {
 	left: 0.1em
 }
-
+#main-content table.clean_text
+{
+	width: 80%;
+}
+#main-content table.clean_text th,
+#main-content table.clean_text th
+{
+padding: 4px;
+}
+#main-content table.clean_text th
+{
+	font-weight: bold;
+}
 #pager {
 	padding: 15px
 }
