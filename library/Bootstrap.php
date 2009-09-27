@@ -3,19 +3,12 @@
  * Application process control file, loaded by the front controller.
  *
  * @author Denysenko Dmytro
-
-
  */
 if(version_compare(phpversion(), '5.3', '<') === true){
     echo '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
-    exit();
+    exit;
 }
-require_once (LIBRARY_PATH . 'App.php');
-require_once (LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
-require_once (LIBRARY_PATH . '/App/Input.php');
-require_once (LIBRARY_PATH . '/App/Utf8.php');
-require_once (LIBRARY_PATH . '/App/Exception.php');
-require_once (LIBRARY_PATH . '/App/Loader.php');
+require_once LIBRARY_PATH . '/App/Loader.php';
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected $_language_identificator;
@@ -27,7 +20,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * @return void
      */
     public function __construct($application)
-    {
+    {        
         define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
@@ -37,22 +30,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         else{
             define('SERVER_UTF8', false);
         }
-        parent::__construct($application);
         App_Loader::init();
+        parent::__construct($application);
         $this->_initErrorHandler();
         $this->_initConfiguration();
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->setDefaultAutoloader(array('App_Loader' , 'autoload'));
-        $autoloader->setFallbackAutoloader(TRUE);
-        Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
-        $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
-        if(file_exists($classFileIncCache)){
-            include_once $classFileIncCache;			
-        }
-        Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
-        // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
-        $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         try{
             $this->_initEnvironment();
             $this->_initDatabase();
@@ -95,9 +76,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initConfiguration()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-        if('development' === APPLICATION_ENV and file_exists(VAR_PATH . 'configuration_development.ini')){
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'configuration_development.ini', null));
-        }
         if(file_exists(VAR_PATH . 'cache/configs/settings.ini')){
             $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
         }

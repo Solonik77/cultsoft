@@ -4,22 +4,41 @@
  *
  * @author Denysenko Dmytro
  */
-require_once 'Zend/Loader/Autoloader/Interface.php';
-require_once 'Zend/Loader/Autoloader/Resource.php';
+require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Interface.php';
+require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Resource.php';
+require_once LIBRARY_PATH . 'Zend/Loader/Autoloader.php';
+require_once LIBRARY_PATH . 'App.php';
+require_once LIBRARY_PATH . 'App/Input.php';
+require_once LIBRARY_PATH . 'App/Utf8.php';
+require_once LIBRARY_PATH . 'App/Exception.php';
+
 class App_Loader implements Zend_Loader_Autoloader_Interface {
     const CACHE_ENABLED = FALSE;
-    private static $filesInCache = array();
-    private static $cacheFileList = array();
+    private static $baseIncludedFiles = array();
     private static $cacheFile;
 
     public static function init()
-    {
-        clearstatcache();
-        self::$cacheFile = VAR_PATH . 'cache/system/code/autoloaded.php';
+    {   
+        clearstatcache();     
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->setDefaultAutoloader(array('App_Loader' , 'autoload'));
+        $autoloader->setFallbackAutoloader(TRUE);
+        Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
+        $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
+        if(file_exists($classFileIncCache)){
+            require_once $classFileIncCache;			
+        }
+        Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
+        // Resource autoload
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
+        $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
+
+        self::$baseIncludedFiles = get_included_files();
+        
+        self::$cacheFile = VAR_PATH . 'cache/system/autoloaded_code.php';
         if (self::CACHE_ENABLED and file_exists(self::$cacheFile)) {
-            set_include_path('./');
             include_once self::$cacheFile;
-            
+            set_include_path('./');
         }
     }
 
@@ -46,15 +65,14 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
             file_put_contents(self::$cacheFile, '<?php ' . "\n");
 
             $contents = array(- 1 => "\n\n// autoloaded at " . time() . "\n\n");
-            $loadedFiles = array_unique(get_included_files());
-			
+            $loadedFiles = get_included_files();	
             foreach ($loadedFiles as $key => $file) {
-        if(!strpos($file,'Zend'.DIRECTORY_SEPARATOR.'Loa') AND
+        if(!in_array($file, self::$baseIncludedFiles) AND !strpos($file,'Zend'.DIRECTORY_SEPARATOR.'Loa') AND
          !strpos($file,'Zend'.DIRECTORY_SEPARATOR.'App') AND
 		 strpos($file,'Zend'.DIRECTORY_SEPARATOR))
 		{           
             
-                $contents[$key] =  trim(str_replace("require_once 'Zend/", "// require_once 'Zend/", file_get_contents($file)));
+                $contents[$key] =  trim(str_replace(array("Zend_Loader::loadClass(","require_once 'Zend/", "require_once('Zend/"), array("App_Loader::loadClass(","// require_once 'Zend/", "// require_once('Zend/" ), file_get_contents($file)));
 				if (empty($contents[$key])) {
                     trigger_error('Failed to load contents from file ' . $file, E_USER_ERROR);
                 }
@@ -64,11 +82,12 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
                     $contents[$key] = substr_replace($contents[$key], "\n", - 2);
                 }
             }
+           } 
             if (!@file_put_contents( self::$cacheFile, $contents, FILE_APPEND))
             {
                 trigger_error('Failed to put contents to file ' . self::$cacheFile, E_USER_ERROR);
             }
-            }
+            
         }
     }
 
