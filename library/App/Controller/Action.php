@@ -47,14 +47,12 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
             $this->view->navigation($container);
         }
         $module = ucfirst(strtolower($request->getParam('module')));
-        // Resource autoload
+        if($module != 'Main'){
+		// Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . strtolower($module) , 'namespace' => $module));
         $resourceLoader->addResourceTypes(
         array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-        $module = strtolower($module);
-        if ($module != 'main') {
-            set_include_path(APPLICATION_PATH . 'modules/' . $module . '/models/' . PATH_SEPARATOR . get_include_path());
-        }
+		}
 
         if ($this->getRequest()->isXmlHttpRequest()) {
             Zend_Layout::disableLayout();

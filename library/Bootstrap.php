@@ -28,16 +28,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function __construct($application)
     {
         define('TIME_NOW', time())
+        
+        
+        
         ;
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
             mb_internal_encoding('UTF-8');
-            define('SERVER_UTF8', true)
-            ;
+            define('SERVER_UTF8', true);
         }
         else{
-            define('SERVER_UTF8', false)
-            ;
+            define('SERVER_UTF8', false);
         }
         parent::__construct($application);
         App_Loader::init();
@@ -55,7 +56,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-        set_include_path(APPLICATION_PATH . 'modules/main/models/' . PATH_SEPARATOR . get_include_path());
         try{
             $this->_initEnvironment();
             $this->_initDatabase();
@@ -67,7 +67,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $this->_initView();
             $this->_initApplicationMailer();
             $this->_initDebug();
-        } catch(Exception $e){
+        }
+        catch(Exception $e){
             throw new App_Exception($e->getMessage());
         }
     }
@@ -174,9 +175,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
             App::db()->query("SET NAMES 'utf8'");
-            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix)
-            ;
-        } catch(Zend_Db_Adapter_Exception $e){
+            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
+        }
+        catch(Zend_Db_Adapter_Exception $e){
             throw new App_Exception($e->getMessage());
         }
     }
@@ -184,8 +185,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Zend Date setup
      *
-  * @return void
-  */
+     * @return void
+     */
     protected function _initDate()
     {
         Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache') , 'format_type' => 'php'));
@@ -230,8 +231,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
-        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path)
-        ;
+        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path);
     }
 
     /**
@@ -271,56 +271,57 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         try{
             $front = App::front();
-           $front->setdefaultModule('main');
-           $front->setModuleControllerDirectoryName('controllers');
-           $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
-           $front->setRequest(new App_Controller_Request_Http());
-           $default = $front->getDefaultModule();
-           if(null === $front->getControllerDirectory($default)){
-               throw new App_Exception('No default controller directory registered with front controller');
-           }
-           $front->setParam('prefixDefaultModule', true);
-           $front->returnResponse(true);
-           $response = App::front()->dispatch();
-           $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=UTF-8');
-           if($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and (int) ini_get('zlib.output_compression') === 0){
-               if($level < 1 or $level > 9){
-                   // Normalize the level to be an integer between 1 and 9. This
-                   // step must be done to prevent gzencode from triggering an error
-                   $level = max(1, min($level, 9));
-               }
-               if(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false){
-                   $compress = 'gzip';
-               }
-               elseif(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') !== false){
-                   $compress = 'deflate';
-               }
-           }
-           if(isset($compress) and $level > 0){
-               switch($compress){
-                   case 'gzip':
-                       // Compress output using gzip
-                       $response->setBody(gzencode($response->getBody(), $level));
-                       break;
-                   case 'deflate':
-                       // Compress output using zlib(HTTP deflate)
-                       $response->setBody(gzdeflate($response->getBody(), $level));
-                       break;
-               }
-               // This header must be sent with compressed content to prevent
-               // browser caches from breaking
-               $response->setHeader('Vary', 'Accept-Encoding');
-               // Send the content encoding header
-               $response->setHeader('Content-Encoding', $compress);
-               // Sending Content-Length in CGI can result in unexpected behavior
-               if(stripos(PHP_SAPI, 'cgi') === false){
-                   $response->setHeader('Content-Length', strlen($response->getBody()));
-               }
-           }
-           $response->sendResponse();
-        App_Loader::cacheAutoload();
-        exit();
-        } catch(Exception $e){
+            $front->setdefaultModule('main');
+            $front->setModuleControllerDirectoryName('controllers');
+            $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
+            $front->setRequest(new App_Controller_Request_Http());
+            $default = $front->getDefaultModule();
+            if(null === $front->getControllerDirectory($default)){
+                throw new App_Exception('No default controller directory registered with front controller');
+            }
+            $front->setParam('prefixDefaultModule', true);
+            $front->returnResponse(true);
+            $response = App::front()->dispatch();
+            $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=UTF-8');
+            if($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and (int) ini_get('zlib.output_compression') === 0){
+                if($level < 1 or $level > 9){
+                    // Normalize the level to be an integer between 1 and 9. This
+                    // step must be done to prevent gzencode from triggering an error
+                    $level = max(1, min($level, 9));
+                }
+                if(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false){
+                    $compress = 'gzip';
+                }
+                elseif(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') !== false){
+                    $compress = 'deflate';
+                }
+            }
+            if(isset($compress) and $level > 0){
+                switch($compress){
+                    case 'gzip':
+                        // Compress output using gzip
+                        $response->setBody(gzencode($response->getBody(), $level));
+                        break;
+                    case 'deflate':
+                        // Compress output using zlib(HTTP deflate)
+                        $response->setBody(gzdeflate($response->getBody(), $level));
+                        break;
+                }
+                // This header must be sent with compressed content to prevent
+                // browser caches from breaking
+                $response->setHeader('Vary', 'Accept-Encoding');
+                // Send the content encoding header
+                $response->setHeader('Content-Encoding', $compress);
+                // Sending Content-Length in CGI can result in unexpected behavior
+                if(stripos(PHP_SAPI, 'cgi') === false){
+                    $response->setHeader('Content-Length', strlen($response->getBody()));
+                }
+            }
+            $response->sendResponse();
+            App_Loader::cacheAutoload();
+            exit();
+        }
+        catch(Exception $e){
             throw new App_Exception($e->getMessage());
         }
     }

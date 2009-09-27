@@ -43,7 +43,7 @@ class Blog_AdminController extends App_Controller_Action {
      */
     public function manageBlogsAction()
     {
-        $blogModel = new Blog;
+        $blogModel = new Blog_Model_Blog;
         $this->view->pageDescription = 'Manage blogs.';
         $this->view->blogTypes = $blogModel->getBlogTypes();
         $this->view->blogsDataGrid = $blogModel->loadBlogs($this->_request->getParam('sort-by'),
@@ -57,7 +57,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle ($this->view->pageDescription);
-        $blogModel = new Blog;
+        $blogModel = new Blog_Model_Blog;
         $form = new Blog_Form_Blog;
         $form->setBlogTypes($blogModel->getBlogTypes());
         $form->compose();
@@ -88,7 +88,7 @@ class Blog_AdminController extends App_Controller_Action {
                     if (count($moduleLangs) > 0) {
                         foreach($moduleLangs as $lang) {
                             if (isset($postParams['i18n_blog'][$lang['id']])) {
-                                $blogI18nModel = new I18n_Blog;
+                                $blogI18nModel = new Blog_Model_I18n_Blog;
                                 $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                 $blogI18nModel->setLangId($lang['id']);
                                 $blogI18nModel->setBlogId($blogModel->getId());
@@ -118,7 +118,7 @@ class Blog_AdminController extends App_Controller_Action {
     {
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle ($this->view->pageDescription);
-        $blogModel = new Blog;
+        $blogModel = new Blog_Model_Blog;
         $form = new Blog_Form_Blog;
         $form->setIsUpdate(true);
         $form->setBlogTypes($blogModel->getBlogTypes());
@@ -164,7 +164,7 @@ class Blog_AdminController extends App_Controller_Action {
                         if (count($moduleLangs) > 0) {
                             foreach($moduleLangs as $lang) {
                                 if (isset($postParams['i18n_blog'][$lang['id']])) {
-                                    $blogI18nModel = new I18n_Blog;
+                                    $blogI18nModel = new Blog_Model_I18n_Blog;
                                     $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'], 'blog_id = ?' => $blogModel->getId()));
                                     $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                     $blogI18nModel->setLangId($lang['id']);
@@ -196,7 +196,7 @@ class Blog_AdminController extends App_Controller_Action {
      */
     public function deleteBlogAction()
     {
-        $blogModel = new Blog;
+        $blogModel = new Blog_Model_Blog;
         $blogRow = $blogModel->findByPK($this->_request->getParam ('id', 0));
         if (!$blogRow) {
             throw new App_Exception('Page not found');

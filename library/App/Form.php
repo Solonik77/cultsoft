@@ -19,7 +19,7 @@ class App_Form extends Zend_Form {
         parent::__construct($options);
         $this->addPrefixPath('App_Form_Element', 'App/Form/Element/', 'element');
         $this->setMethod('post');
-        $this->decoratorSpan = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'label')));
+        $this->decoratorSpan = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'span')));
     }
 
     /**

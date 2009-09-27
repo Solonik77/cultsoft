@@ -1935,6 +1935,7 @@ table.grid {
 	border-right-color: #D0D0D0;
 	border-bottom-color: #D0D0D0;
 	border-left-color: #D0D0D0;
+	width: 95%;
 }
 table.grid caption {
 	background-color: #C8DAF2;
