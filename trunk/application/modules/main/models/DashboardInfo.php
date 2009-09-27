@@ -11,6 +11,11 @@ class Main_Model_DashboardInfo {
     {
         return phpversion();
     }
+	
+	public function getAppVersion()
+	{
+		return App::getVersion();
+	}
 
     public function getPhpServerAPI()
     {

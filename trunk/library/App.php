@@ -11,6 +11,7 @@
  */
 final class App
 {
+    const VERSION = '0.0.0';
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
@@ -179,15 +180,9 @@ final class App
         return DIRECTORY_SEPARATOR === '\\';
     }
 
-    public static function autoload($className = null)
+    public static function getVersion()
     {
-        if(! empty($className)){
-            $path = explode('_', $className);
-            $filename = array_pop($path);
-            $file = (empty($path) ? '' : implode('/', $path) . '/') . $filename . '.php';
-            self::$loadedFiles[] = $className;
-            include $file;
-        }
+        return self::VERSION;
     }
 }
 
