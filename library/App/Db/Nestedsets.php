@@ -11,11 +11,7 @@
  * @version $Id: Nestedset.php 2008-06-06
  * @see http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
  */
-/**
- *
- * @see Zend_Db_Table
- */
-require_once 'App/Db/Table/Abstract.php';
+
 /**
  * Class for SQL Nested set interface.
  *
