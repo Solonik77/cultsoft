@@ -12,6 +12,7 @@ if(version_compare(phpversion(), '5.3', '<') === true){
 }
 require_once (LIBRARY_PATH . 'App.php');
 require_once (LIBRARY_PATH . 'Zend/Loader/Autoloader.php');
+require_once (LIBRARY_PATH . '/App/Input.php');
 require_once (LIBRARY_PATH . '/App/Utf8.php');
 require_once (LIBRARY_PATH . '/App/Exception.php');
 require_once (LIBRARY_PATH . '/App/Loader.php');
@@ -27,11 +28,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function __construct($application)
     {
-        define('TIME_NOW', time())
-        
-        
-        
-        ;
+        define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
             mb_internal_encoding('UTF-8');
@@ -50,7 +47,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
         $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
         if(file_exists($classFileIncCache)){
-            include_once $classFileIncCache;
+            //include_once $classFileIncCache;			
         }
         Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
         // Resource autoload
@@ -317,8 +314,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }
-            $response->sendResponse();
-            App_Loader::cacheAutoload();
+			
+			App_Loader::cacheAutoload();
+            $response->sendResponse();            
             exit();
         }
         catch(Exception $e){

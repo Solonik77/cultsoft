@@ -9,10 +9,7 @@
  * @package Zend_Db
  * @subpackage Abstract
  */
-/**
- * Zend_Db_Table
- */
-require_once 'Zend/Db/Table/Abstract.php';
+
 abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     private $_cache;
 
