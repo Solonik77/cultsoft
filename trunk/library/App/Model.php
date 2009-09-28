@@ -1,6 +1,6 @@
 <?php
 
-abstract class App_Model_Abstract {
+abstract class App_Model {
     protected $_table;
     protected $_columns = array();
     protected $_attributes = array();
