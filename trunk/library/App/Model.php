@@ -2,6 +2,7 @@
 
 abstract class App_Model {
     protected $_table;
+    protected $_dbRow;
     protected $_columns = array();
     protected $_attributes = array();
 
@@ -124,23 +125,24 @@ abstract class App_Model {
 
     public function findByPK($id)
     {
-        $row = $this->getDbTable()->fetchRow('id = ' . (int) $id);
+        $this->_dbRow = $this->getDbTable()->fetchRow('id = ' . (int) $id);
 
-        if (!is_object($row)) {
+        if (!is_object($this->_dbRow)) {
             return null;
         }
-        $this->setAttributes($row->toArray());
-        return $row;
+        
+        $this->setAttributes($this->_dbRow->toArray());
+        return $this;
     }
 
     public function findByCondition($condition)
     {
-        $row = $this->getDbTable()->fetchRow($condition);
-        if (!is_object($row)) {
+        $this->_dbRow = $this->getDbTable()->fetchRow($condition);
+        if (!is_object($this->_dbRow)) {
             return null;
         }
-        $this->setAttributes($row->toArray());
-        return $row;
+        $this->setAttributes($this->_dbRow->toArray());
+        return $this;
     }
 
     public function setId($id)
@@ -149,6 +151,11 @@ abstract class App_Model {
             $this->id = $id;
         }
     }
+    
+    public function getDbRow()
+    {
+        return $this->_dbRow;
+    }    
 
     public function __call($name, $args)
     {
