@@ -5,6 +5,7 @@
 class Blog_Model_Blog extends App_Model
 {
     protected $_table = 'Blog_DbTable_Blog';
+    protected $i18n_blog;
 
     public function __construct ()
     {
@@ -131,5 +132,10 @@ class Blog_Model_Blog extends App_Model
     public function getTable ()
     {
         return $this->_table;
+    }
+
+    public function getI18nBlog()
+    {
+        return $this->i18n_blog;
     }
 }
