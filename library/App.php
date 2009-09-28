@@ -6,8 +6,6 @@
  * $Id$
  *
  * @author Denysenko Dmytro
-
-
  */
 final class App
 {

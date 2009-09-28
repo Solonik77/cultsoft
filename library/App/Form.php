@@ -3,8 +3,6 @@
  * Application Forms Class
  *
  * @author Denysenko Dmytro
-
-
  */
 class App_Form extends Zend_Form {
     public $decoratorSpan;

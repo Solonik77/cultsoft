@@ -4,8 +4,6 @@
  * from STATIC_PATH folders
  *
  * @author Denysenko Dmytro
-
-
  */
 class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
     private $_isBackofficeController = false;

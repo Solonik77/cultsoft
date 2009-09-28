@@ -37,6 +37,7 @@ class App_Loader
     public static function init()
     {
         clearstatcache();
+        set_include_path(APPLICATION_PATH . 'modules/main/library/' . PATH_SEPARATOR . get_include_path());
         self::$cacheFile = VAR_PATH . 'cache/system/autoloaded_code.php';
         if(self::CACHE_ENABLED and file_exists(self::$cacheFile)){
             include_once self::$cacheFile;

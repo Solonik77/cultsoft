@@ -3,8 +3,6 @@
  * Website navigation menus
  *
  * @author Denysenko Dmytro
-
-
  */
 class Main_Component_SiteStructure {
     public function __construct()

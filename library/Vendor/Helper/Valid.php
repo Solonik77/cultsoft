@@ -5,8 +5,6 @@
  * $Id$
  *
  * @author Denysenko Dmytro
-
-
  */
 namespace Vendor\Helper {
     class Valid {
