@@ -6,12 +6,13 @@
  */
 if(version_compare(phpversion(), '5.3', '<') === true){
     echo '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
-    exit;
+    exit();
 }
-require_once LIBRARY_PATH . '/App/Loader.php';
+require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
 {
     private $_language_identificator;
+
     /**
      * Constructor
      *
@@ -19,14 +20,17 @@ final class Bootstrap
      */
     public function __construct()
     {   
-        define('TIME_NOW', time());
+        define('TIME_NOW', time())
+        ;
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
             mb_internal_encoding('UTF-8');
-            define('SERVER_UTF8', true);
+            define('SERVER_UTF8', true)
+            ;
         }
         else{
-            define('SERVER_UTF8', false);
+            define('SERVER_UTF8', false)
+            ;
         }
         App_Loader::init();
         $this->_initErrorHandler();
@@ -147,7 +151,8 @@ final class Bootstrap
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
             App::db()->query("SET NAMES 'utf8'");
-            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
+            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix)
+            ;
         }
         catch(Zend_Db_Adapter_Exception $e){
             throw new App_Exception($e->getMessage());
@@ -203,7 +208,8 @@ final class Bootstrap
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
-        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path);
+        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path)
+        ;
     }
 
     /**
@@ -289,9 +295,8 @@ final class Bootstrap
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }
-			
-			App_Loader::cacheAutoload();
-            $response->sendResponse();            
+            App_Loader::cacheAutoload();
+            $response->sendResponse();
             exit();
         }
         catch(Exception $e){
