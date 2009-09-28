@@ -2,9 +2,7 @@
 /**
  * APPLICATION FRONT CONTROLLER FILE
  *
- * @author Denysenko Dmytro
- 
- 
+ * @author Denysenko Dmytro 
  */
 $pathinfo = pathinfo ( __FILE__ );
 define ( 'DS', DIRECTORY_SEPARATOR );
@@ -21,10 +19,6 @@ define ( 'APPLICATION_PATH', DOC_ROOT . 'application' . DS );
 defined ( 'APPLICATION_ENV' ) || define ( 'APPLICATION_ENV', getenv ( 'APPLICATION_ENV' ) );
 define ( 'LIBRARY_PATH', DOC_ROOT . 'library' . DS );
 @set_include_path ( LIBRARY_PATH . PATH_SEPARATOR . './' );
-/**
- * * Zend_Application
- */
-require_once 'Zend/Application.php';
-// Create application, bootstrap, and run
-$application = new Zend_Application ( APPLICATION_ENV, array ('bootstrap' => array ('path' => LIBRARY_PATH . 'Bootstrap.php' ) ) );
-$application->run ();
+require_once LIBRARY_PATH . 'Bootstrap.php';
+$bootstrap = new Bootstrap();
+$bootstrap->run();
