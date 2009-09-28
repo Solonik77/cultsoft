@@ -123,10 +123,10 @@ class Blog_AdminController extends App_Controller_Action {
         $form->setCurrentBlogType($blogModel->getType());
         $form->compose();
         // Get blog content
-        $blogRow = $blogModel->findByPK($this->_request->getParam ('id'));
-        if ($blogRow) {
-            $i18nBlog = $blogRow->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
-            $formData = $blogRow->toArray();
+        $blogModel->findByPK($this->_request->getParam ('id'));
+        if ($blogModel->getDbRow()) {
+            $i18nBlog = $blogModel->getDbRow()->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
+            $formData = $blogModel->getDbRow()->toArray();
             foreach($i18nBlog as $row) {
                 $formData['lang_' . $row['lang_id']] = $row;
             }
@@ -195,8 +195,8 @@ class Blog_AdminController extends App_Controller_Action {
     public function deleteBlogAction()
     {
         $blogModel = new Blog_Model_Blog;
-        $blogRow = $blogModel->findByPK($this->_request->getParam ('id', 0));
-        if (!$blogRow) {
+        $blogModel->findByPK($this->_request->getParam ('id', 0));
+        if (!$blogModel->getDbRow()) {
             throw new App_Exception('Page not found');
         } else {
             if ($blogModel->delete()) {
