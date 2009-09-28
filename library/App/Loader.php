@@ -8,6 +8,7 @@ require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Interface.php';
 require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Resource.php';
 require_once LIBRARY_PATH . 'Zend/Loader/Autoloader.php';
 require_once LIBRARY_PATH . 'Zend/Config.php';
+require_once LIBRARY_PATH . 'Zend/Loader/PluginLoader.php';
 require_once LIBRARY_PATH . 'App.php';
 require_once LIBRARY_PATH . 'App/Input.php';
 require_once LIBRARY_PATH . 'App/Utf8.php';
@@ -21,26 +22,28 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
     public static function init()
     {   
         clearstatcache();       
+      
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setDefaultAutoloader(array('App_Loader' , 'autoload'));
         $autoloader->setFallbackAutoloader(TRUE);
         Zend_Controller_Action_HelperBroker::addPrefix('App_Controller_Action_Helper');
-        $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
+        $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php'; 
         if(file_exists($classFileIncCache)){
-            require_once $classFileIncCache;			
+            require_once $classFileIncCache;
         }
         Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
         // Resource autoload
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/main' , 'namespace' => 'Main'));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-
-        self::$baseIncludedFiles = get_included_files();
         
+        self::$baseIncludedFiles = get_included_files();        
         self::$cacheFile = VAR_PATH . 'cache/system/autoloaded_code.php';
         if (self::CACHE_ENABLED and file_exists(self::$cacheFile)) {
             include_once self::$cacheFile;
-            set_include_path('./');
+            //set_include_path('./');
         }
+
+        
     }
 
     public function autoload($class)
@@ -84,7 +87,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
                 }
                 
                 $class = str_replace(array(LIBRARY_PATH, DIRECTORY_SEPARATOR, '.php'), array('', '_', ''), $file);
-                $contents[$key] = "if(!class_exists('" . $class . "') OR !interface_exists('" . $class . "')):\n" . $contents[$key]  . "\n endif; \n";
+                $contents[$key] = "if(!class_exists('" . $class . "') || !interface_exists('" . $class . "')){\n" . $contents[$key]  . "\n } \n";
             }
            } 
             if (!@file_put_contents( self::$cacheFile, $contents, FILE_APPEND))
