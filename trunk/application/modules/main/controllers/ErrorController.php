@@ -5,8 +5,6 @@
  *                information pages in development environment and simple warnings in production.
  *
  * @author Denysenko Dmytro
-
-
  */
 class Main_ErrorController extends App_Controller_Action {
     public function errorAction()

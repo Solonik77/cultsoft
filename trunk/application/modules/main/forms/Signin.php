@@ -3,8 +3,6 @@
  * Global website email forms.
  *
  * @author Denysenko Dmytro
-
-
  */
 class Main_Form_Signin extends App_Form {
     /**

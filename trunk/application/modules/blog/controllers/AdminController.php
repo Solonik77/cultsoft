@@ -3,8 +3,6 @@
  * Admin blog
  *
  * @author Denysenko Dmytro
-
-
  */
 class Blog_AdminController extends App_Controller_Action {
     CONST BACKOFFICE_CONTROLLER = true;

@@ -3,8 +3,6 @@
  * Website Language translation and locale configuration
  *
  * @author Denysenko Dmytro
-
-
  */
 class App_I18n {
     protected $_request;

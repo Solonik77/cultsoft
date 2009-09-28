@@ -5,8 +5,6 @@
  * $Id$
  *
  * @author Denysenko Dmytro
-
-
  */
 class App_Input {
     // Enable or disable automatic XSS cleaning

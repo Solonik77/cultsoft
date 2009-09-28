@@ -2,7 +2,7 @@
 /**
  * APPLICATION FRONT CONTROLLER FILE
  *
- * @author Denysenko Dmytro 
+ * @author Denysenko Dmytro
  */
 $pathinfo = pathinfo ( __FILE__ );
 define ( 'DS', DIRECTORY_SEPARATOR );

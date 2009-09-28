@@ -5,8 +5,6 @@
  * $Id$
  *
  * @author Denysenko Dmytro
-
-
  */
 use Vendor\Helper;
 class App_Member {

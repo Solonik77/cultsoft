@@ -3,8 +3,6 @@
  * Profile controller. This controller used for authorization and user profile information pages.
  *
  * @author Denysenko Dmytro
-
-
  */
 class Main_ProfileController extends App_Controller_Action {
     /**
