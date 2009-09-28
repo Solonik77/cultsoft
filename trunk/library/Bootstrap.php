@@ -20,17 +20,14 @@ final class Bootstrap
      */
     public function __construct()
     {   
-        define('TIME_NOW', time())
-        ;
+        define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
             mb_internal_encoding('UTF-8');
-            define('SERVER_UTF8', true)
-            ;
+            define('SERVER_UTF8', true);
         }
         else{
-            define('SERVER_UTF8', false)
-            ;
+            define('SERVER_UTF8', false);
         }
         App_Loader::init();
         $this->_initErrorHandler();
@@ -151,8 +148,7 @@ final class Bootstrap
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
             App::db()->query("SET NAMES 'utf8'");
-            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix)
-            ;
+            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
         }
         catch(Zend_Db_Adapter_Exception $e){
             throw new App_Exception($e->getMessage());
@@ -208,8 +204,7 @@ final class Bootstrap
         $router = App::front()->getRouter();
         $config = new Zend_Config_Ini(VAR_PATH . 'cache/configs/routes.ini', null);
         $router->addConfig($config);
-        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path)
-        ;
+        defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path);
     }
 
     /**

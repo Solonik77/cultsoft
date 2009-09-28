@@ -36,7 +36,6 @@ class App_Loader
 
     public static function init()
     {
-        self::$cacheFile = VAR_PATH . 'cache/system/autoloaded_code.php';
         clearstatcache();
         self::$cacheFile = VAR_PATH . 'cache/system/autoloaded_code.php';
         if(self::CACHE_ENABLED and file_exists(self::$cacheFile)){
