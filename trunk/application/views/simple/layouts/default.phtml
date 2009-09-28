@@ -138,7 +138,7 @@ echo $this->inlineScript()?>
       </div>
     </div>
     <div class="box">
-      <h2> <a href="#" id="toggle-ajax" class="hidden"><img src="img/ajax-loader.gif" id="loading" alt="Loading" /> Ajax Content </a> </h2>
+      <h2> <a href="#" id="toggle-ajax" class="hidden"><?php echo \vendor\helper\html::tplImage('ajax-loader.gif')?> Ajax Content </a> </h2>
       <div class="block" id="ajax-content"> Content loaded dynamically </div>
     </div>
     <div class="box menu">
@@ -213,6 +213,7 @@ echo $this->inlineScript()?>
     <div class="box">
       <h2> <a href="#" id="toggle-accordion">Accordion</a> </h2>
       <div class="block" id="accordion">
+	  <?php echo $this->layout()->content ?>
         <div id="accordion">
           <h3 class="toggler atStart">Design Process</h3>
           <div class="element atStart">
@@ -522,14 +523,14 @@ echo $this->inlineScript()?>
           <h3> <a href="#">Article Heading</a> </h3>
           <h4>Subheading</h4>
           <p class="meta">Vancouver, BC — Wednesday, 23 April 2008</p>
-          <a href="#" class="image"> <img src="img/photo_60x60.jpg" width="60" height="60" alt="photo" /> </a>
+          <a href="#" class="image"><?php echo \vendor\helper\html::tplImage('photo_60x60.jpg')?></a>
           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <a href="#">Visit site.</a></p>
         </div>
         <div class="article">
           <h3> <a href="#">Article Heading</a> </h3>
           <h4>Subheading</h4>
           <p class="meta">Vancouver, BC — Wednesday, 23 April 2008</p>
-          <a href="#" class="image"> <img src="img/photo_60x60.jpg" width="60" height="60" alt="photo" /> </a>
+          <a href="#" class="image"> <?php echo \vendor\helper\html::tplImage('photo_60x60.jpg')?>o" /> </a>
           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <a href="#">Visit site.</a></p>
         </div>
         <div class="article">
@@ -538,7 +539,7 @@ echo $this->inlineScript()?>
           <h3>Heading 3</h3>
           <h4>Heading 4</h4>
           <p class="meta">Vancouver, BC — Wednesday, 23 April 2008</p>
-          <a href="#" class="image"> <img src="img/photo_60x60.jpg" width="60" height="60" alt="photo" /> </a>
+          <a href="#" class="image"> <?php echo \vendor\helper\html::tplImage('photo_60x60.jpg')?>o" /> </a>
           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <a href="#">Visit site.</a></p>
           <h5>Heading 5</h5>
           <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
