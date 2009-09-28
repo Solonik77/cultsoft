@@ -49,7 +49,6 @@ class App_Form extends Zend_Form {
     {
         $name = $this->filterName($name, true);
         if (('0' !== $name) && empty($name)) {
-            require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
         }
         return $this->setAttrib('name', $name);
