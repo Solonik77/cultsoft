@@ -154,6 +154,10 @@ abstract class App_Model {
     
     public function getDbRow()
     {
+        if(!$this->_dbRow instanceof Zend_Db_Table_Row)
+        {
+            throw new App_Exception("Getting invalid table row");
+        }
         return $this->_dbRow;
     }    
 
