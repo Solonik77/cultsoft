@@ -7,6 +7,7 @@
 require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Interface.php';
 require_once LIBRARY_PATH . 'Zend/Loader/Autoloader/Resource.php';
 require_once LIBRARY_PATH . 'Zend/Loader/Autoloader.php';
+require_once LIBRARY_PATH . 'Zend/Config.php';
 require_once LIBRARY_PATH . 'App.php';
 require_once LIBRARY_PATH . 'App/Input.php';
 require_once LIBRARY_PATH . 'App/Utf8.php';
@@ -19,7 +20,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
 
     public static function init()
     {   
-        clearstatcache();     
+        clearstatcache();       
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setDefaultAutoloader(array('App_Loader' , 'autoload'));
         $autoloader->setFallbackAutoloader(TRUE);
@@ -72,7 +73,7 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
 		 strpos($file,'Zend'.DIRECTORY_SEPARATOR))
 		{           
             
-                $contents[$key] =  trim(str_replace(array("Zend_Loader::loadClass(","require_once 'Zend/", "require_once('Zend/"), array("App_Loader::loadClass(","// require_once 'Zend/", "// require_once('Zend/" ), file_get_contents($file)));
+                $contents[$key] = trim(str_replace(array("Zend_Loader::loadClass(","require_once 'Zend/", "require_once('Zend/"), array("App_Loader::loadClass(","// require_once 'Zend/", "// require_once('Zend/" ), file_get_contents($file)));
 				if (empty($contents[$key])) {
                     trigger_error('Failed to load contents from file ' . $file, E_USER_ERROR);
                 }
@@ -81,6 +82,9 @@ class App_Loader implements Zend_Loader_Autoloader_Interface {
                 if ('?>' === substr($contents[$key], - 2)) {
                     $contents[$key] = substr_replace($contents[$key], "\n", - 2);
                 }
+                
+                $class = str_replace(array(LIBRARY_PATH, DIRECTORY_SEPARATOR, '.php'), array('', '_', ''), $file);
+                $contents[$key] = "if(!class_exists('" . $class . "') OR !interface_exists('" . $class . "')):\n" . $contents[$key]  . "\n endif; \n";
             }
            } 
             if (!@file_put_contents( self::$cacheFile, $contents, FILE_APPEND))

@@ -9,18 +9,16 @@ if(version_compare(phpversion(), '5.3', '<') === true){
     exit;
 }
 require_once LIBRARY_PATH . '/App/Loader.php';
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+final class Bootstrap
 {
-    protected $_language_identificator;
-
+    private $_language_identificator;
     /**
      * Constructor
      *
-     * @param Zend_Application $ |Zend_Application_Bootstrap_Bootstrapper $application
      * @return void
      */
-    public function __construct($application)
-    {        
+    public function __construct()
+    {   
         define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
@@ -31,7 +29,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             define('SERVER_UTF8', false);
         }
         App_Loader::init();
-        parent::__construct($application);
         $this->_initErrorHandler();
         $this->_initConfiguration();
         try{
@@ -54,7 +51,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Setup php, server environment, clean input parameters
      */
-    protected function _initEnvironment()
+    private function _initEnvironment()
     {
         App_Utf8::clean_globals();
         App_Input::instance();
@@ -73,7 +70,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Load system configuration
      */
-    protected function _initConfiguration()
+    private function _initConfiguration()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
         if(file_exists(VAR_PATH . 'cache/configs/settings.ini')){
@@ -85,7 +82,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Website language and locale setup
      */
-    protected function _initInternationalization()
+    private function _initInternationalization()
     {
         if(function_exists('date_default_timezone_set')){
             $timezone = App::config()->project->timezone;
@@ -115,7 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initErrorHandler()
+    private function _initErrorHandler()
     {
         // Enable exception handling
         App_Exception::enable();
@@ -135,7 +132,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initDatabase()
+    private function _initDatabase()
     {
         try{
             $config = App::config()->database->toArray();
@@ -162,7 +159,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initDate()
+    private function _initDate()
     {
         Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache') , 'format_type' => 'php'));
     }
@@ -172,7 +169,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initSession()
+    private function _initSession()
     {
         Zend_Session::setOptions(array('remember_me_seconds' => intval(App::config()->remember_me_seconds) , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
         if(App::config()->session_save_handler == 'db'){
@@ -184,7 +181,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * View and Layout setup
      */
-    protected function _initView()
+    private function _initView()
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
@@ -194,7 +191,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initRoutes()
+    private function _initRoutes()
     {
         // Change default router
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator)));
@@ -214,7 +211,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initAccess()
+    private function _initAccess()
     {
         App_Member::getInstance();
         App::front()->registerPlugin(new App_Controller_Plugin_Access());
@@ -225,7 +222,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initApplicationMailer()
+    private function _initApplicationMailer()
     {
         App_Mail::setDefaultTransport(App::config()->mail->toArray());
     }
@@ -235,7 +232,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    protected function _initDebug()
+    private function _initDebug()
     {
         if('development' === APPLICATION_ENV){
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Auth' => array('user' => 'email' , 'role' => 'role_id') , 'Text' , 'Variables' , 'Database' => array('adapter' => array('standard' => App::db())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Html' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
