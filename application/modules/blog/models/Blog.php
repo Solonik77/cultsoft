@@ -2,7 +2,7 @@
 /**
  * Blog model
  */
-class Blog_Model_Blog extends App_Model_Abstract
+class Blog_Model_Blog extends App_Model
 {
     protected $_table = 'Blog_DbTable_Blog';
 
