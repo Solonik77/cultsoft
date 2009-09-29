@@ -31,9 +31,6 @@ class App_I18n {
     public function setTranslator(Zend_Translate $object)
     {
         $this->translator = $object;
-        Zend_Validate_Abstract::setDefaultTranslator($this->translator);
-        Zend_Form::setDefaultTranslator($this->translator);
-        Zend_Controller_Router_Route::setDefaultTranslator($this->translator);
     }
 
     /**
