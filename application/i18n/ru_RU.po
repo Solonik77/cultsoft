@@ -17,38 +17,303 @@ msgstr ""
 msgid "Test text"
 msgstr "Тестовый текст"
 
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/blog/forms/Blog.php:18
-msgid "name"
-msgstr "имя"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:14
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:29
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/controllers/BackofficeDashboardController.php:13
-msgid "Dashboard"
-msgstr "Рабочая панель"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:16
-msgid "Settings"
-msgstr "Настройки"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:19
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:29
-msgid "Blog"
-msgstr "Блог"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:21
-msgid "Manage blogs"
-msgstr "Управление блогами"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/components/BackofficeStructure.php:22
-msgid "Create blog"
-msgstr "Создание блога"
-
-#: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/controllers/BackofficeDashboardController.php:14
-msgid "Fast access links, statistics, system information"
-msgstr ""
-
 #: d:/Programs/WebServers/home/cult.dev/www/application/modules/main/controllers/ProfileController.php:29
 msgid "You are already logged."
 msgstr "Вы уже авторизованы"
 
+msgid "Control panel"
+msgstr "Панель управления"
+
+msgid "Dashboard"
+msgstr "Рабочая панель"
+
+msgid "Welcome!"
+msgstr "Добро пожаловать!"
+
+msgid "Orders"
+msgstr "Заказы"
+
+msgid "Wrong login or password"
+msgstr "Неверный логин или пароль"
+
+msgid "Wrong email or password"
+msgstr "Неверный электронный адрес или пароль"
+
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+msgid "Login"
+msgstr "Логин"
+
+msgid "E-mail"
+msgstr "Электронный адрес"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Enter"
+msgstr "Войти"
+
+msgid "Login page"
+msgstr "Вход в систему"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Personal blog"
+msgstr "Персональный блог"
+
+msgid "Collaborative blog (community)"
+msgstr "Коллективный блог (сообщество)"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Create new blog"
+msgstr "Создание нового блога"
+
+msgid "Create blog"
+msgstr "Создание блога"
+
+msgid "Blogs"
+msgstr "Блоги"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Manage blogs"
+msgstr "Управление блогами"
+
+msgid "Value is required and can't be empty"
+msgstr "Значение не должно быть пустым"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Admin blogs"
+msgstr "Уравление блогами"
+
+msgid "Created"
+msgstr "Создано"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Fancy url"
+msgstr "Псевдоним для URL-адреса"
+
+msgid "No blogs here"
+msgstr "Не заведено ещё ни одного блога"
+
+msgid "available"
+msgstr "доступно"
+
+msgid "unavailable"
+msgstr "недоступно"
+
+msgid "Operating system"
+msgstr "Операционная система"
+
+msgid "Zend Framework version"
+msgstr "Версия Zend Framework"
+
+msgid "Database adapter"
+msgstr "Адаптер базы данных"
+
+msgid "Database server version"
+msgstr "Версия сервера базы данных"
+
+msgid "Safe mode"
+msgstr "Безопасный режим"
+
+msgid "Free disk space"
+msgstr "Свободно на диске"
+
+msgid "Disable functions"
+msgstr "Отключенные функции PHP"
+
+msgid "Image adapter component"
+msgstr "Работа и изображениями"
+
+msgid "Version"
+msgstr "версия"
+
+msgid "Memory limit"
+msgstr "Ограничение ОЗУ"
+
+msgid "Welcome"
+msgstr "Привет"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Log Out"
+msgstr "Выйти"
+
+msgid "Go to homepage"
+msgstr "Перейти на сайт"
+
+msgid "Edit blog"
+msgstr "Редактирование блога"
+
+msgid "Changes for blog successfully saved"
+msgstr "Изменения информации блога успешно сохранены"
+
+msgid "New blog successfully created"
+msgstr "Новый блог создан"
+
+msgid "Error editing blog"
+msgstr "Ошибка при удалении блога"
+
+msgid "Blog deleted successfully"
+msgstr "Блог удалён"
+
+msgid "Create, edit, delete posts. Manage communities."
+msgstr "Создание, редактирование, удаление постов. Управление сообществами."
+
+msgid "Sort table data by field"
+msgstr "Сортировать данные таблицы по полю "
+
+msgid "Next"
+msgstr "Следующие"
+
+msgid "Prev"
+msgstr "Предыдущие"
+
+msgid "off"
+msgstr "отключен"
+
+msgid notAlnum
+msgstr "Введенное значение "%value%" неправильное. Разрешены только латинские символы и цифры"
+
+msgid stringEmpty
+msgstr "Поле не может быть пустым. Заполните его, пожалуйста"
+
+msgid notAlpha 
+msgstr "Введите в это поле только латинские символы"
+
+msgid invalid
+msgstr "%value% неправильный EAN-13 штрих-код"
+
+msgid invalidLength 
+msgstr "Неправильное значение "%value%". Введите 13 символов
+
+msgid notBetween
+msgstr "%value%" не находится между "%min%" и "%max%", включительно
+
+msgid notBetweenStrict
+msgstr "%value%" не находится строго между "%min%" и "%max%"
+
+msgid ccnumLength
+msgstr "%value%" должно быть численным значением от 13 до 19 цифр длинной
+
+msgid ccnumChecksum
+msgstr "Подсчёт контрольной суммы неудался. Значение "%value%" неверно
+
+msgid dateNotYYYY-MM-DD
+msgstr "%value%" не подходит под формат год-месяц-день(напр. 2008-11-03)
+
+msgid dateInvalid
+msgstr "%value%" - неверная дата
+
+msgid dateFalseFormat
+msgstr "%value%" - не подходит по формату
+
+msgid notDigits 
+msgstr "Значение "%value%" неправильное. Введите только цифры
+
+msgid emailAddressInvalid
+msgstr "%value%" неправильный адрес електронной почты. Введите его в формате имя@домен
+
+msgid emailAddressInvalidHostname
+msgstr "%hostname%" неверный домен для адреса "%value%"
+
+msgid emailAddressInvalidMxRecord 
+msgstr "Домен "%hostname%" не имеет MX-записи об адресе "%value%"
+
+msgid emailAddressDotAtom
+msgstr "%localPart%" не соответствует формату dot-atom
+
+msgid emailAddressQuotedString
+msgstr "%localPart%" не соответствует формату указанной строки
+
+msgid emailAddressInvalidLocalPart
+msgstr "%localPart%" не правильное имя для адреса "%value%", вводите адрес вида имя@домен
+
+msgid notFloat
+msgstr "%value%" не является дробным числом
+
+msgid notGreaterThan
+msgstr "%value%" не превышает "%min%"
+
+msgid notHex
+msgstr "%value%" содержит в себе не только шестнадцатеричные символы
+
+msgid hostnameIpAddressNotAllowed
+msgstr "%value%" - это IP-адрес, но IP-адреса не разрешены 
+
+msgid hostnameUnknownTld
+msgstr "%value%" - это DNS имя хоста, но оно не дожно быть из TLD-списка
+
+msgid hostnameDashCharacter
+msgstr "%value%" - это DNS имя хоста, но знак "-" находится в неправильном месте
+
+msgid hostnameInvalidHostnameSchema
+msgstr "%value%" - это DNS имя хоста, но оно не соответствует TLD для TLD "%tld%"
+
+msgid hostnameUndecipherableTld
+msgstr "%value%" - это DNS имя хоста. Не удаётся извлечь TLD часть
+
+msgid hostnameInvalidHostname
+msgstr "%value%" - не соответствует ожидаемой структуре для DNS имени хоста
+
+msgid hostnameInvalidLocalName
+msgstr "%value%" - адрес является недопустимым локальным сетевым адресом
+
+msgid hostnameLocalNameNotAllowed
+msgstr "%value%" - адрес является сетевым расположением, но локальные сетевые адреса не разрешены
+
+msgid notSame 
+msgstr "Значения не совпадают
+
+msgid missingToken
+msgstr "Не было введено значения для проверки на идентичность
+
+notInArray
+msgstr "%value%" не найдено в перечисленных допустимых значениях
+
+msgid notInt
+msgstr "%value%" не является целочисленным значением
+
+msgid notIpAddress
+msgstr %value%" не является правильным IP-адресом
+
+msgid notLessThan
+msgstr %value%" не меньше, чем "%max%"
+
+msgid isEmpty
+msgstr "Введённое значение пустое, заполните поле, пожалуйста
+
+msgid regexNotMatch
+msgstr Значение "%value%" не подходит под шаблон регулярного выражения "%pattern%"
+
+msgid stringLengthTooShort
+msgstr Длина введённого значения "%value%", меньше чем %min% симв.
+
+msgid stringLengthTooLong
+msgstr Длина введённого значения "%value%", больше чем %max% симв.
