@@ -18,7 +18,7 @@ final class App
     // Database object
     protected static $db = null;
     // I18n Object
-    public static $i18n = array();
+    public static $i18n = NULL;
     // Logger
     protected static $log = null;
     // Base URI
@@ -66,9 +66,9 @@ final class App
     /**
      * Get system locale information
      */
-    public static function i18n($module = 'main')
+    public static function i18n()
     {
-        return App::$i18n[$module];
+        return App::$i18n;
     }
 
     /**
@@ -98,8 +98,8 @@ final class App
      */
     public static function setI18N(App_I18n $object)
     {
-        if(count(App::$i18n) == 0){
-            App::$i18n['main'] = $object;
+        if(App::$i18n === NULL){
+            App::$i18n = $object;
         }
     }
 
@@ -189,11 +189,5 @@ final class App
  */
 function __($text = '', $locale = null)
 {
-   $result = App::i18n()->getTranslator()->_($text, $locale);
-   $module = App::front()->getRequest()->getParam('module');
-    if($result == $text AND $module AND $module != 'main'){
-     $result = App::i18n($module)->getTranslator()->_($text, $locale);
-    }
-    
-    return $result;
+    return App::i18n()->getTranslator()->_($text, $locale);
 }
