@@ -187,11 +187,7 @@ final class App
 /**
  * Translator function
  */
-function __($text = '', $print = false)
+function __($text = '', $locale = null)
 {
-    if($print == true){
-        echo App::i18n()->getTranslator()->_($text);
-    } else{
-        return App::i18n()->getTranslator()->_($text);
-    }
+    return App::i18n()->getTranslator()->_($text, $locale);
 }
