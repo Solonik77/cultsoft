@@ -44,5 +44,13 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
         App::i18n()->setLocale(new Zend_Locale($request_lang));
         App::front()->setParam('requestLang', $request_lang);
         App::front()->setParam('requestLangId', $request_lang_id);
+        $module = App::front()->getRequest()->getParam('module');
+        if($module != 'main'){           
+            $i18n = new App_I18n();
+            $i18n->setLocale(new Zend_Locale($request_lang));
+            App::$i18n[$module] = $i18n;
+            $translate = new Zend_Translate('gettext', APPLICATION_PATH . 'modules/' . $module . '/i18n/', $site_locale, array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
+            App::i18n($module)->setTranslator($translate);
+        }
     }
 }

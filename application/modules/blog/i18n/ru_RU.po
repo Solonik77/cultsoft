@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Engine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-29 11:25+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Dmytro Denysenko <naposhtu@gmail.com>\n"
+"Language-Team: Engine Developers <naposhtu@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: d:/Programs/WebServers/home/cult.dev/www/application\n"
+
+msgid "Search blog"
+msgstr "Найти блог"
+
