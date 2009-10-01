@@ -4,7 +4,7 @@
  *
  * @author Denysenko Dmytro
  */
-abstract class App_Collection_Abstract implements Iterator, ArrayAccess, Countable
+abstract class App_Collection_Abstract implements Countable, Iterator, SeekableIterator, ArrayAccess
 {
     const SORT_ORDER_ASC    = 'ASC';
     const SORT_ORDER_DESC   = 'DESC';
