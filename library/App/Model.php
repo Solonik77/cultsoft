@@ -1,5 +1,10 @@
 <?php
-abstract class App_Model
+/**
+ * Model
+ *
+ * @author Denysenko Dmytro
+ */
+class App_Model
 {
     protected $_table;
     protected $_dbRow;
