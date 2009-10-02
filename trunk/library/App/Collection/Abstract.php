@@ -34,7 +34,7 @@ abstract class App_Collection_Abstract implements Countable, SeekableIterator, A
 	 *
 	 * @return  void
 	 */
-	abstract public function __construct();
+	abstract public function __construct($resource);
 
 	/**
 	 * Result destruction cleans up all open result sets.
