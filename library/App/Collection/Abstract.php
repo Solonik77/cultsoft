@@ -130,5 +130,49 @@ abstract class App_Collection_Abstract implements Countable, SeekableIterator, A
      */
     public function offsetUnset($offset)
     {
+    }
+    
+        /**
+     * Retireve count of collection loaded items
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $this->load();
+        return count($this->_items);
+    }
+    
+        /**
+     * Return the current element.
+     * Similar to the current() function for arrays in PHP
+     * Required by interface Iterator.
+     *
+     */
+    public function current()
+    {
+        if ($this->valid() === false) {
+            return null;
+        }
+        
+        return;
+    }
+    
+        /**
+     * Take the Iterator to position $position
+     * Required by interface SeekableIterator.
+     *
+     * @param int $position the position to seek to
+     */
+    public function seek($position)
+    {
+        $position = (int) $position;
+        if ($position < 0 || $position >= $this->_count) {
+            require_once 'Zend/Db/Table/Rowset/Exception.php';
+            throw new Zend_Db_Table_Rowset_Exception("Illegal index $position");
+        }
+        $this->_pointer = $position;
+        return $this;
+    }
 
 }
