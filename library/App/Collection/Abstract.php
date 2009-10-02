@@ -29,6 +29,8 @@ abstract class App_Collection_Abstract implements Countable, SeekableIterator, A
      */
     protected $_count;
     
+     protected $_isCollectionLoaded;
+    
     	/**
 	 * Sets the total number of rows and stores the result locally.
 	 *
@@ -173,6 +175,45 @@ abstract class App_Collection_Abstract implements Countable, SeekableIterator, A
         }
         $this->_pointer = $position;
         return $this;
+    }
+    
+
+    /**
+     * Retrieve collection loading status
+     *
+     * @return bool
+     */
+    public function isLoaded()
+    {
+        return $this->_isCollectionLoaded;
+    }
+
+    /**
+     * Set collection loading status flag
+     *
+     * @param boolean $flag
+     */
+    protected function _setIsLoaded($flag = true)
+    {
+        $this->_isCollectionLoaded = (bool) $flag;
+        return $this;
+    }
+    
+   /**
+     * Clear collection
+     */
+    public function clear()
+    {
+        $this->_setIsLoaded(false);
+        $this->_items = array();
+        return $this;
+    }
+    
+    public function each($obj_method, $args=array())
+    {
+        foreach ($args->_items as $k => $item) {
+            $args->_items[$k] = call_user_func($obj_method, $item);
+        }
     }
 
 }
