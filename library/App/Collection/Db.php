@@ -11,7 +11,7 @@ class App_Collection_Db extends App_Collection_Abstract
 	 *
 	 * @return  void
 	 */
-	public function __construct()
+	public function __construct($table)
     {
     }
 
