@@ -9,12 +9,14 @@
  * @package Zend_Db
  * @subpackage Abstract
  */
-
-abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
+abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
+{
     private $_cache;
 
     public function __construct($config = array())
     {
+        $config['rowClass'] = 'App_Collection_Db_Table_Row';
+        $config['rowsetClass'] = 'App_Collection_Db_Table_Rowset';
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
     }
@@ -34,13 +36,14 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     {
         $request = App::front()->getRequest();
         $module = ($request) ? $request->getModuleName() : 'Main_';
-        if (! $this->_name) {
+        if(! $this->_name){
             $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Main_DbTable_' , ucfirst(strtolower($module)) . '_DbTable_'), '', get_class($this)));
-        } else
-        if (strpos($this->_name, '.')) {
-            list ($this->_schema, $this->_name) = explode('.', $this->_name);
-            $this->_name = App::config()->database->table_prefix . $this->_name;
         }
+        else 
+            if(strpos($this->_name, '.')){
+                list ($this->_schema, $this->_name) = explode('.', $this->_name);
+                $this->_name = App::config()->database->table_prefix . $this->_name;
+            }
         parent::_setupTableName();
     }
 
