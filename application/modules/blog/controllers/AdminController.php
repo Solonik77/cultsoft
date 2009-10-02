@@ -24,8 +24,9 @@ class Blog_AdminController extends App_Controller_Action
      */
     public function indexAction()
     {
-        $blogModel = new Blog_Model_Blog();
-        $test = $blogModel->findByPk(1)->with('Blog_DbTable_I18n_Blog')->getI18nBlog();
+        $blogModel = new Blog_Model_BlogTest;
+        $blogModel = new Blog_Model_Blog();        
+        $test = $blogModel->findByPk(1);
         $searchBlogFrom = new Blog_Form_Simple_Search_Blog();
         if($this->_request->isPost()){
             $formData = $this->_request->getPost();

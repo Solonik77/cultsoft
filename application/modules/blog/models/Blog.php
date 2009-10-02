@@ -105,13 +105,7 @@ class Blog_Model_Blog extends App_Model
     {
         return $this->date_updated;
     }
-    /**
-     * @return the $date_created
-     */
-    public function getDateCreated ()
-    {
-        return $this->date_created;
-    }
+
     /**
      * @return the $fancy_url
      */

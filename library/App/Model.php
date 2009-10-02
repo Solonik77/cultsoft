@@ -158,7 +158,7 @@ class App_Model
 
     public function getDbRow()
     {
-        if(! $this->_dbRow instanceof Zend_Db_Table_Row){
+        if(! $this->_dbRow instanceof App_Collection_Db_Table_Row){
             throw new App_Exception("Getting invalid table row in class " . __CLASS__);
         }
         return $this->_dbRow;
