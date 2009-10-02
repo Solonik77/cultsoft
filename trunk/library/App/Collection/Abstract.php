@@ -32,11 +32,9 @@ abstract class App_Collection_Abstract implements Countable, SeekableIterator, A
     	/**
 	 * Sets the total number of rows and stores the result locally.
 	 *
-	 * @param   mixed   $result query result
-	 * @param   boolean $return_objects True for results as objects, false for arrays
 	 * @return  void
 	 */
-	abstract public function __construct($result, $sql, $link, $return_objects);
+	abstract public function __construct();
 
 	/**
 	 * Result destruction cleans up all open result sets.
