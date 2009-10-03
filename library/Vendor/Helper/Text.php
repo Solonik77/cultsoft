@@ -9,8 +9,7 @@
  * @license http://kohanaphp.com/license.html*
  * @author Denysenko Dmytro
  */
-namespace Vendor\Helper{
-class Text {
+class Vendor_Helper_Text {
     /**
      * Limits a phrase to a given number of words.
      *
@@ -204,7 +203,7 @@ class Text {
     public static function auto_link($text)
     {
         // Auto link emails first to prevent problems with "www.domain.com@example.com"
-        return text::auto_link_urls(text::auto_link_emails($text));
+        return self::auto_link_urls(self::auto_link_emails($text));
     }
 
     /**
@@ -382,4 +381,3 @@ class Text {
         return $var;
     }
 } // End text
-}

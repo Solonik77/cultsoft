@@ -58,7 +58,7 @@ class App_Image_Adapter_GD extends App_Image_Adapter {
         // Create the GD image resource
         $this->tmp_image = $create($image['file']);
         // Get the quality setting from the actions
-        $quality = Vendor\Helper\Arr::remove('quality', $actions);
+        $quality = Vendor_Helper_Arr::remove('quality', $actions);
         if ($status = $this->execute($actions)) {
             // Prevent the alpha from being lost
             imagealphablending($this->tmp_image, true);

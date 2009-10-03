@@ -7,11 +7,11 @@ class Blog_Model_Blog extends App_Model
     protected $_table = 'Blog_DbTable_Blog';
     protected $i18n_blog;
 
-    public function __construct ()
+    public function __construct()
     {
         parent::__construct();
     }
-    public function loadBlogs ($sortByField = 'id', $sortOrder = 'asc')
+    public function loadBlogs($sortByField = 'id', $sortOrder = 'asc')
     {
         $sortOrder = strtoupper((($sortOrder === 'asc') ? $sortOrder : 'desc'));
         $cols = array();
@@ -31,77 +31,77 @@ class Blog_Model_Blog extends App_Model
         $paginator->setCurrentPageNumber(App::front()->getRequest()->getParam('page', 1));
         return $paginator;
     }
-    public function getBlogTypes ()
+    public function getBlogTypes()
     {
         return array('private' => 'Personal blog' , 'collaborative' => 'Collaborative blog (community)');
     }
     /**
      * @param $type the $type to set
      */
-    public function setType ($type)
+    public function setType($type)
     {
         $this->_attributes['type'] = $this->type = $type;
     }
     /**
      * @param $member_id the $member_id to set
      */
-    public function setMemberId ($member_id)
+    public function setMemberId($member_id)
     {
         $this->_attributes['member_id'] = $this->member_id = $member_id;
     }
     /**
      * @param $date_updated the $date_updated to set
      */
-    public function setDateUpdated ($date_updated)
+    public function setDateUpdated($date_updated)
     {
         $this->_attributes['date_updated'] = $this->date_updated = $date_updated;
     }
     /**
      * @param $date_created the $date_created to set
      */
-    public function setDateCreated ($date_created)
+    public function setDateCreated($date_created)
     {
         $this->_attributes['date_created'] = $this->date_created = $date_created;
     }
     /**
      * @param $fancy_url the $fancy_url to set
      */
-    public function setFancyUrl ($fancy_url)
+    public function setFancyUrl($fancy_url)
     {
         $this->_attributes['fancy_url'] = $this->fancy_url = $fancy_url;
     }
     /**
      * @param $id the $id to set
      */
-    public function setId ($id)
+    public function setId($id)
     {
         $this->_attributes['id'] = $this->id = $id;
     }
     /**
      * @param $_table the $_table to set
      */
-    public function setTable ($_table)
+    public function setTable($_table)
     {
         $this->_table = $_table;
     }
     /**
      * @return the $type
      */
-    public function getType ()
+    public function getType()
     {
         return $this->type;
     }
     /**
      * @return the $member_id
      */
-    public function getMemberId ()
+    public function getMemberId()
     {
         return $this->member_id;
     }
     /**
      * @return the $date_updated
      */
-    public function getDateUpdated ()
+    public function getDateUpdated()
     {
         return $this->date_updated;
     }
@@ -109,21 +109,21 @@ class Blog_Model_Blog extends App_Model
     /**
      * @return the $fancy_url
      */
-    public function getFancyUrl ()
+    public function getFancyUrl()
     {
         return $this->fancy_url;
     }
     /**
      * @return the $id
      */
-    public function getId ()
+    public function getId()
     {
         return $this->id;
     }
     /**
      * @return the $_table
      */
-    public function getTable ()
+    public function getTable()
     {
         return $this->_table;
     }

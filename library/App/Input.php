@@ -217,7 +217,7 @@ class App_Input {
         if ($comma = strrpos($this->ip_address, ',') !== false) {
             $this->ip_address = substr($this->ip_address, $comma + 1);
         }
-        if (! Vendor\Helper\Valid::ip($this->ip_address)) {
+        if (! Vendor_Helper_Valid::ip($this->ip_address)) {
             // Use an empty IP
             $this->ip_address = '0.0.0.0';
         }
