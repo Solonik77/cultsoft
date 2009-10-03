@@ -10,8 +10,7 @@
  * @license http://kohanaphp.com/license.html*
  * @author Denysenko Dmytro
  */
-namespace Vendor\Helper{
-class Upload {
+class Vendor_Helper_Upload {
     /**
      * Save an uploaded file to a new location.
      *
@@ -137,4 +136,3 @@ class Upload {
         return ($file['size'] <= $size);
     }
 } // End upload
-}

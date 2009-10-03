@@ -74,13 +74,13 @@ class Blog_AdminController extends App_Controller_Action
             }
             else{
                 $blogModel->setMemberId(App_Member::getInstance()->getId());
-                $blogModel->setDateUpdated(Vendor\Helper\Date::now());
-                $blogModel->setDateCreated(Vendor\Helper\Date::now());
+                $blogModel->setDateUpdated(Vendor_Helper_Date::now());
+                $blogModel->setDateCreated(Vendor_Helper_Date::now());
                 if(null == ($fancy_url = $postParams['fancy_url'])){
                     $firstLangKey = current(array_keys($postParams['i18n_blog']));
                     $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
                 }
-                $blogModel->setFancyUrl(Vendor\Helper\Text::fancy_url($fancy_url));
+                $blogModel->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                 $blogModel->setType($postParams['type']);
                 // Saving new blog
                 if($blogModel->save()){
@@ -151,12 +151,12 @@ class Blog_AdminController extends App_Controller_Action
                 }
                 else{
                     $blogModel->setAttributes($postParams);
-                    $blogModel->setDateUpdated(Vendor\Helper\Date::now());
+                    $blogModel->setDateUpdated(Vendor_Helper_Date::now());
                     if(null == ($fancy_url = $postParams['fancy_url'])){
                         $firstLangKey = current(array_keys($postParams['i18n_blog']));
                         $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
                     }
-                    $blogModel->setFancyUrl(Vendor\Helper\Text::fancy_url($fancy_url));
+                    $blogModel->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                     $blogModel->setType($postParams['type']);
                     // Saving new blog
                     if($blogModel->save()){

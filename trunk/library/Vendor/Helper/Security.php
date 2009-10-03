@@ -9,8 +9,7 @@
  * @license http://kohanaphp.com/license.html*
  * @author Denysenko Dmytro
  */
-namespace Vendor\Helper{
-class Security {
+class Vendor_Helper_Security {
     /**
      * Sanitize a string with the xss_clean method.
      *
@@ -44,4 +43,3 @@ class Security {
         return str_replace(array('<?' , '?>'), array('&lt;?' , '?&gt;'), $str);
     }
 } // End security
-}

@@ -9,18 +9,17 @@
  * @license http://kohanaphp.com/license.html*
  * @author Denysenko Dmytro
  */
-namespace Vendor\Helper {
-    class Num {
-        /**
-         * Round a number to the nearest nth
-         *
-         * @param integer $ number to round
-         * @param integer $ number to round to
-         * @return integer
-         */
-        public static function round($number, $nearest = 5)
-        {
-            return round($number / $nearest) * $nearest;
-        }
-    } // End num
-}
+
+class Vendor_Helper_Num {
+    /**
+     * Round a number to the nearest nth
+     *
+     * @param integer $ number to round
+     * @param integer $ number to round to
+     * @return integer
+     */
+    public static function round($number, $nearest = 5)
+    {
+        return round($number / $nearest) * $nearest;
+    }
+} // End num
