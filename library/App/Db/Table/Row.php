@@ -1,5 +1,5 @@
 <?php
-class App_Collection_Db_Table_Row extends Zend_Db_Table_Row_Abstract
+class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
 {
 
     public function __call($name, $args)
