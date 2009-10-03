@@ -1,5 +1,5 @@
 <?php
-class Main_Model_SettingsService {
+class Main_Model_Settings {
     private $db;
 
     public function __construct()
@@ -12,7 +12,7 @@ class Main_Model_SettingsService {
 
     public function getSettings($where = '1 = 1')
     {
-        $settings = new Main_DbTable_Settings;
+        $settings = new Main_Model_DbTable_Settings;
         $select = $settings->select();
         if($where) {
             $select->where($where);
