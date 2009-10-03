@@ -85,7 +85,7 @@ class Blog_AdminController extends App_Controller_Action
                     if(count($moduleLangs) > 0){
                         foreach($moduleLangs as $lang){
                             if(isset($postParams['i18n_blog'][$lang['id']])){
-                                $blogI18nModel = new Blog_Model_DbTable_I18n_Blog
+                                $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
                                 $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                 $blogI18nModel->setLangId($lang['id']);
                                 $blogI18nModel->setBlogId($blogModel->getId());
@@ -125,7 +125,7 @@ class Blog_AdminController extends App_Controller_Action
         // Get blog content
         $blogModel->find($this->_request->getParam('id'));
         if($blogModel){
-            $i18nBlog = $blogModel->findDependentRowset('Blog_DbTable_I18n_Blog')->toArray();
+            $i18nBlog = $blogModel->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
             $formData = $blogModel->toArray();
             foreach($i18nBlog as $row){
                 $formData['lang_' . $row['lang_id']] = $row;
@@ -161,7 +161,7 @@ class Blog_AdminController extends App_Controller_Action
                         if(count($moduleLangs) > 0){
                             foreach($moduleLangs as $lang){
                                 if(isset($postParams['i18n_blog'][$lang['id']])){
-                                    $blogI18nModel = new Blog_Model_DbTable_I18n_Blog
+                                    $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
                                     $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $blogModel->getId()));
                                     $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                     $blogI18nModel->setLangId($lang['id']);

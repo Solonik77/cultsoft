@@ -43,7 +43,7 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
 
     public function settingsAction()
     {
-        $model = new Main_Model_SettingsService();
+        $model = new Main_Model_Settings();
         $settings = $model->getSettings()->toArray();
         $form = new Main_Form_Backoffice_Settings();
         $form->setFields($settings)->compose();
