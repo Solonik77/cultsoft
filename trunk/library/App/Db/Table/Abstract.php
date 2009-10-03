@@ -15,8 +15,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
     public function __construct($config = array())
     {
-        $config['rowClass'] = 'App_Collection_Db_Table_Row';
-        $config['rowsetClass'] = 'App_Collection_Db_Table_Rowset';
+        $config['rowClass'] = 'App_Db_Table_Row';
+        $config['rowsetClass'] = 'App_Db_Table_Rowset';
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
     }
