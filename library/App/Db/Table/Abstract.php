@@ -173,7 +173,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             try{
                 App::db()->beginTransaction();
             foreach($this->_defaultRowset as $class){
-                    $class->save();
+             $class->save();
             } 
              App::db()->commit();
              return true;
