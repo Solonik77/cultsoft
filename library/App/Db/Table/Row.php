@@ -42,22 +42,12 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
         return $this->_data;
     }
     
-    public function __get($name)
-    {
-        if(isset($this->_data[$name])){
-            return $this->_data[$name];
-        }
-        else{
-            throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
-        }
-    }
-    
-     public function setAttributes($array)
+    public function setAttributes($array)
     {
         $row = $this->_data;
         foreach($row as $key => $value){
             if($key != 'id' AND isset($array[$key])){
-                $this->$key = $value;
+                $this->$key = $array[$key];
             }
         }
     }

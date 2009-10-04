@@ -158,7 +158,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     $result = array();
     
         foreach($row->getData() as $key => $value){
-            if(isset($array[$key])){
+            if($key != 'id' AND isset($array[$key])){
                $method = 'set' . Zend_Filter::filterStatic($key, 'Word_UnderscoreToCamelCase');
                $row->$method($array[$key]);
             }
