@@ -17,6 +17,6 @@ class Main_Model_Settings {
         if($where) {
             $select->where($where);
         }
-        return $settings->fetchAll($select);
+        return $settings->fetchAll($select)->getCollection();
     }
 }

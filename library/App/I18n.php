@@ -56,7 +56,7 @@ class App_I18n {
         $cache = App_Cache::getInstance('permCache');
         if (! $site_languages = $cache->load('website_languages')) {
             $site_languages = new Main_Model_DbTable_Site_Languages();
-            $site_languages = $site_languages->fetchAll()->toArray();
+            $site_languages = $site_languages->fetchAll()->getCollection()->toArray();
             if (count($site_languages) > 0) {
                 $cache->save($site_languages);
             }
@@ -105,7 +105,7 @@ class App_I18n {
     {
         $module = ($module) ? $module : App::front()->getRequest()->getModuleName();
         $siteLanguages = $this->getSiteLanguages();
-        $model = new Main_Model_SettingsService;
+        $model = new Main_Model_Settings;
         $config = current($model->getSettings("module = '" . $module . "' AND setting_key = 'allowed_languages'")->toArray());
         $config = explode(',', $config['setting_value']);
 

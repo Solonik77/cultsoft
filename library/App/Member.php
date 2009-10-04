@@ -57,8 +57,7 @@ class App_Member {
      */
     private function loadMember($id)
     {
-        $data = $this->_model->getDataByID($id);
-        $data = (object) $data->toArray();
+        $data = (object) $this->_model->find($id)->getCollection()->getFirstItem()->toArray();
         $roles = $this->getAcl()->getRoles();
         foreach($roles as $role) {
             if ($role['id'] === $data->role_id) {

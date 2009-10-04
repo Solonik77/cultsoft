@@ -9,8 +9,8 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
                 return $this->$attribute;
             }
             else{
-                if(array_key_exists($attribute, $this->_columns)){
-                    $this->$attribute = $this->_attributes[$attribute] = $args[0];
+                if(array_key_exists($attribute, $this->_data)){
+                    $this->$attribute = $this->_data[$attribute] = $args[0];
                 }
                 else{
                     throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
@@ -31,10 +31,26 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
             return false;
         }
     }
+    
+    public function getAttributes()
+    {
+        return array_keys($this->_data);
+    }
+    
+     public function getData()
+    {
+        return $this->_data;
+    }
+    
+    public function setData($data)
+    {
+        return $this->_data = $data;
+    }
+    
 
     public function __set($name, $value)
     {
-        $this->$name = $value;
+        $this->$name = $this->_data[$name] = $value;
     }
 
     public function __get($name)
@@ -44,6 +60,24 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
         }
         else{
             throw new App_Exception('Property "' . get_class($this) . '.' . $name . '" is not defined');
+        }
+    }
+    
+     public function setAttributes($array)
+    {
+        $row = $this->_data;
+        $result = array();    
+        foreach($row as $key => $value){
+            if($key != 'id' AND isset($array[$key])){
+                $this->_data[$key] = $array[$key];
+            }
+        }
+    }
+    
+    public function setId($id)
+    {
+        if(!isset($this->_data['id'])){
+            $this->id = $this->_data['id'] = $id;
         }
     }
 }

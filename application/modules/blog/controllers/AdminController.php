@@ -60,8 +60,7 @@ class Blog_AdminController extends App_Controller_Action
         $form->setBlogTypes($blogModel->getBlogTypes());
         $form->compose();
         if($this->_request->isPost()){
-            $postParams = $this->_request->getPost('blog');
-            $blogModel->setAttributes($postParams);
+            $postParams = $this->_request->getPost('blog');            
             $formData = $this->_request->getPost();
             $form->populate($formData);
             if(! $form->isValid($formData)){
@@ -70,15 +69,16 @@ class Blog_AdminController extends App_Controller_Action
                 return $this->render();
             }
             else{
-                $blogModel->setMemberId(App_Member::getInstance()->getId());
-                $blogModel->setDateUpdated(Vendor_Helper_Date::now());
-                $blogModel->setDateCreated(Vendor_Helper_Date::now());
+                $currentBlog->setAttributes($postParams);
+                $currentBlog->setMemberId(App_Member::getInstance()->getId());
+                $currentBlog->setDateUpdated(Vendor_Helper_Date::now());
+                $currentBlog->setDateCreated(Vendor_Helper_Date::now());
                 if(null == ($fancy_url = $postParams['fancy_url'])){
                     $firstLangKey = current(array_keys($postParams['i18n_blog']));
                     $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
                 }
-                $blogModel->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
-                $blogModel->setType($postParams['type']);
+                $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
+                $currentBlog->setType($postParams['type']);
                 // Saving new blog
                 if($blogModel->save()){
                     $moduleLangs = App::i18n()->getModuleLanguages();
@@ -117,16 +117,17 @@ class Blog_AdminController extends App_Controller_Action
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle($this->view->pageDescription);
         $blogModel = new Blog_Model_DbTable_Blog();
-        $form = new Blog_Form_Blog();
-        $form->setIsUpdate(true);
-        $form->setBlogTypes($blogModel->getBlogTypes());
-        $form->setCurrentBlogType($blogModel->getType());
-        $form->compose();
         // Get blog content
         $blogModel->find($this->_request->getParam('id'));
+        $currentBlog = $blogModel->getCollection()->getFirstItem();
+        $form = new Blog_Form_Blog();        
+        $form->setIsUpdate(true);
+        $form->setBlogTypes($blogModel->getBlogTypes());      
+        $form->setCurrentBlogType($currentBlog->getType());
+        $form->compose();
         if($blogModel){
-            $i18nBlog = $blogModel->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
-            $formData = $blogModel->toArray();
+            $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
+            $formData = $currentBlog->toArray();
             foreach($i18nBlog as $row){
                 $formData['lang_' . $row['lang_id']] = $row;
             }
@@ -147,14 +148,14 @@ class Blog_AdminController extends App_Controller_Action
                     return $this->render();
                 }
                 else{
-                    $blogModel->setAttributes($postParams);
-                    $blogModel->setDateUpdated(Vendor_Helper_Date::now());
+                    $currentBlog->setAttributes($postParams);
+                    $currentBlog->setDateUpdated(Vendor_Helper_Date::now());
                     if(null == ($fancy_url = $postParams['fancy_url'])){
                         $firstLangKey = current(array_keys($postParams['i18n_blog']));
                         $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
                     }
-                    $blogModel->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
-                    $blogModel->setType($postParams['type']);
+                    $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
+                    $currentBlog->setType($postParams['type']);
                     // Saving new blog
                     if($blogModel->save()){
                         $moduleLangs = App::i18n()->getModuleLanguages();
