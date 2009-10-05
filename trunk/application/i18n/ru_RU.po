@@ -60,11 +60,6 @@ msgstr "Вход в систему"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Personal blog"
-msgstr "Персональный блог"
-
-msgid "Collaborative blog (community)"
-msgstr "Коллективный блог (сообщество)"
 
 msgid "Title"
 msgstr "Заголовок"
@@ -75,32 +70,12 @@ msgstr "Описание"
 msgid "Type"
 msgstr "Тип"
 
-msgid "Create new blog"
-msgstr "Создание нового блога"
-
-msgid "Create blog"
-msgstr "Создание блога"
-
-msgid "Blogs"
-msgstr "Блоги"
-
-msgid "Blog"
-msgstr "Блог"
-
-msgid "Manage blogs"
-msgstr "Управление блогами"
-
-msgid "Value is required and can't be empty"
-msgstr "Значение не должно быть пустым"
 
 msgid "English"
 msgstr "Английский"
 
 msgid "Russian"
 msgstr "Русский"
-
-msgid "Admin blogs"
-msgstr "Уравление блогами"
 
 msgid "Created"
 msgstr "Создано"
@@ -116,9 +91,6 @@ msgstr "Действия"
 
 msgid "Fancy url"
 msgstr "Псевдоним для URL-адреса"
-
-msgid "No blogs here"
-msgstr "Не заведено ещё ни одного блога"
 
 msgid "available"
 msgstr "доступно"
@@ -167,24 +139,6 @@ msgstr "Выйти"
 
 msgid "Go to homepage"
 msgstr "Перейти на сайт"
-
-msgid "Edit blog"
-msgstr "Редактирование блога"
-
-msgid "Changes for blog successfully saved"
-msgstr "Изменения информации блога успешно сохранены"
-
-msgid "New blog successfully created"
-msgstr "Новый блог создан"
-
-msgid "Error editing blog"
-msgstr "Ошибка при удалении блога"
-
-msgid "Blog deleted successfully"
-msgstr "Блог удалён"
-
-msgid "Create, edit, delete posts. Manage communities."
-msgstr "Создание, редактирование, удаление постов. Управление сообществами."
 
 msgid "Sort table data by field"
 msgstr "Сортировать данные таблицы по полю "

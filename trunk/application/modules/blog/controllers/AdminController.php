@@ -87,11 +87,11 @@ class Blog_AdminController extends App_Controller_Action
                         foreach($moduleLangs as $lang){
                             if(isset($postParams['i18n_blog'][$lang['id']])){
                                 $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
-                                $blogI18nModel = $blogI18nModel->createRow();
-                                $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
-                                $blogI18nModel->setLangId($lang['id']);
-                                $blogI18nModel->setBlogId($currentBlog->getId());
-                                $blogI18nModel->save();
+                                $currentBlogI18n = $blogI18nModel->createRow();
+                                $currentBlogI18n->setAttributes($postParams['i18n_blog'][$lang['id']]);
+                                $currentBlogI18n->setLangId($lang['id']);
+                                $currentBlogI18n->setBlogId($currentBlog->getId());
+                                $currentBlogI18n->save();
                             }
                         }
                     }
@@ -165,11 +165,11 @@ class Blog_AdminController extends App_Controller_Action
                             foreach($moduleLangs as $lang){
                                 if(isset($postParams['i18n_blog'][$lang['id']])){
                                     $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
-                                    $blogI18nModel = $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $currentBlog->getId()))->current();
-                                    $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
-                                    $blogI18nModel->setLangId($lang['id']);
-                                    $blogI18nModel->setBlogId($currentBlog->getId());
-                                    $blogI18nModel->save();
+                                    $currentBlogI18n = $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $currentBlog->getId()))->current();
+                                    $currentBlogI18n->setAttributes($postParams['i18n_blog'][$lang['id']]);
+                                    $currentBlogI18n->setLangId($lang['id']);
+                                    $currentBlogI18n->setBlogId($currentBlog->getId());
+                                    $currentBlogI18n->save();
                                 }
                             }
                         }
