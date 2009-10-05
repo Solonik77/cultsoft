@@ -61,7 +61,7 @@ class Blog_AdminController extends App_Controller_Action
         $form->setBlogTypes($blogModel->getBlogTypes());
         $form->compose();
         if($this->_request->isPost()){
-            $postParams = $this->_request->getPost('blog');            
+            $postParams = $this->_request->getPost('blog');
             $formData = $this->_request->getPost();
             $form->populate($formData);
             if(! $form->isValid($formData)){
@@ -123,12 +123,12 @@ class Blog_AdminController extends App_Controller_Action
         $blogModel->find($this->_request->getParam('id'));
         $currentBlog = $blogModel->getCollection()->getFirstItem();
         if($currentBlog){
-            $form = new Blog_Form_Blog();        
+            $form = new Blog_Form_Blog();
             $form->setIsUpdate(true);
-            $form->setBlogTypes($blogModel->getBlogTypes());      
+            $form->setBlogTypes($blogModel->getBlogTypes());
             $form->setCurrentBlogType($currentBlog->getType());
             $form->compose();
-        
+
             $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
             $formData = $currentBlog->toArray();
             foreach($i18nBlog as $row){

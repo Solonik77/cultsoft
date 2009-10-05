@@ -8,12 +8,12 @@ class Blog_Model_DbTable_Blog extends App_Db_Table_Abstract {
     protected $_primary = 'id';
     protected $_dependentTables = array('Blog_Model_DbTable_I18n_Blog');
     protected $_moduleTables = array('blog', 'i18n_blog', 'members', 'blog_members');
-    
+
     public function getBlogTypes()
     {
         return array('private' => 'Personal blog' , 'collaborative' => 'Collaborative blog (community)');
     }
-    
+
     public function loadBlogs($sortByField = 'id', $sortOrder = 'asc')
     {
         $sortOrder = strtoupper((($sortOrder === 'asc') ? $sortOrder : 'desc'));
