@@ -46,12 +46,12 @@ abstract class App_Controller_Action extends Zend_Controller_Action {
         }
         $module = ucfirst(strtolower($request->getParam('module')));
         if($module != 'Main'){
-		set_include_path(APPLICATION_PATH . 'modules/' . strtolower($module) . '/library/' . PATH_SEPARATOR . get_include_path());
-        // Resource autoload
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . strtolower($module) , 'namespace' => $module));
-        $resourceLoader->addResourceTypes(
-        array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
-		}
+            set_include_path(APPLICATION_PATH . 'modules/' . strtolower($module) . '/library/' . PATH_SEPARATOR . get_include_path());
+            // Resource autoload
+            $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => APPLICATION_PATH . 'modules/' . strtolower($module) , 'namespace' => $module));
+            $resourceLoader->addResourceTypes(
+            array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
+        }
 
         if ($this->getRequest()->isXmlHttpRequest()) {
             Zend_Layout::disableLayout();

@@ -31,17 +31,17 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
             return false;
         }
     }
-    
+
     public function getAttributes()
     {
         return array_keys($this->_data);
     }
-    
-     public function getData()
+
+    public function getData()
     {
         return $this->_data;
     }
-    
+
     public function setAttributes($array)
     {
         $row = $this->_data;
@@ -51,14 +51,14 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
             }
         }
     }
-    
+
     public function setId($id)
     {
         if(!isset($this->_data['id'])){
             $this->id = $id;
         }
     }
-    
+
     protected function _refresh()
     {
         $where = $this->_getWhereQuery();

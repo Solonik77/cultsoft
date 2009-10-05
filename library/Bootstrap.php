@@ -19,7 +19,7 @@ final class Bootstrap
      * @return void
      */
     public function __construct()
-    {   
+    {
         define('TIME_NOW', time());
         // SERVER_UTF8 ? use mb_* functions : use non-native functions
         if(extension_loaded('mbstring')){
