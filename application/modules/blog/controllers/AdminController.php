@@ -122,12 +122,13 @@ class Blog_AdminController extends App_Controller_Action
         // Get blog content
         $blogModel->find($this->_request->getParam('id'));
         $currentBlog = $blogModel->getCollection()->getFirstItem();
-        $form = new Blog_Form_Blog();        
-        $form->setIsUpdate(true);
-        $form->setBlogTypes($blogModel->getBlogTypes());      
-        $form->setCurrentBlogType($currentBlog->getType());
-        $form->compose();
-        if($blogModel){
+        if($currentBlog){
+            $form = new Blog_Form_Blog();        
+            $form->setIsUpdate(true);
+            $form->setBlogTypes($blogModel->getBlogTypes());      
+            $form->setCurrentBlogType($currentBlog->getType());
+            $form->compose();
+        
             $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
             $formData = $currentBlog->toArray();
             foreach($i18nBlog as $row){
@@ -200,7 +201,7 @@ class Blog_AdminController extends App_Controller_Action
     {
         $blogModel = new Blog_Model_DbTable_Blog();
         $blogModel->find($this->_request->getParam('id', 0));
-        if(! $blogModel){
+        if(! $blogModel->getCollection()->getFirstItem()){
             throw new App_Exception('Page not found');
         }
         else{
