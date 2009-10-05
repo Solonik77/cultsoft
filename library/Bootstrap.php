@@ -244,7 +244,7 @@ final class Bootstrap
     {
         try{
             $front = App::front();
-            $front->setdefaultModule('main');
+            $front->setDefaultModule('main');
             $front->setModuleControllerDirectoryName('controllers');
             $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
             $front->setRequest(new App_Controller_Request_Http());
