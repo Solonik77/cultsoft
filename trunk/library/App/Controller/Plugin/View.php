@@ -53,9 +53,8 @@ class App_Controller_Plugin_View extends Zend_Controller_Plugin_Abstract {
         $this->_view->strictVars(true);
         $this->_view->setScriptPath($this->_templatePath);
         $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/scripts/');
-        if ($this->_isBackofficeController and App::front()->getRequest()->getModuleName() != 'system') {
-            $this->_view->addScriptPath(APPLICATION_PATH . 'modules/main/views/scripts/');
-            if (App::front()->getRequest()->getModuleName() != 'system') {
+        if ($this->_isBackofficeController and App::front()->getRequest()->getModuleName() != 'main') {
+            if (App::front()->getRequest()->getModuleName() != 'main') {
                 $this->_view->addScriptPath(APPLICATION_PATH . 'modules/' . App::front()->getRequest()->getModuleName() . '/views/backoffice/');
             }
         }
