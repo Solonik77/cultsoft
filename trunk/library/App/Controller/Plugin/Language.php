@@ -39,13 +39,13 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 
         Zend_Translate::setCache(App_Cache::getInstance('File'));
         $translate = new Zend_Translate('gettext', APPLICATION_PATH . 'i18n/', $site_locale, array('scan' => Zend_Translate::LOCALE_FILENAME , 'disableNotices' => true));
-        App::i18n()->setTranslator($translate);        
+        App::i18n()->setTranslator($translate);
         Zend_Locale::setDefault($site_locale);
         App::i18n()->setLocale(new Zend_Locale($request_lang));
         App::front()->setParam('requestLang', $request_lang);
         App::front()->setParam('requestLangId', $request_lang_id);
         $module = App::front()->getRequest()->getParam('module');
-        if($module != 'main'){           
+        if($module != 'main'){
             App::i18n()->getTranslator()->addTranslation(APPLICATION_PATH . 'modules/' . $module . '/i18n/');
         }
     }

@@ -40,11 +40,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         if(! $this->_name){
             $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Main_Model_DbTable_' , ucfirst(strtolower($module)) . '_Model_DbTable_'), '', get_class($this)));
         }
-        else 
-            if(strpos($this->_name, '.')){
-                list ($this->_schema, $this->_name) = explode('.', $this->_name);
-                $this->_name = App::config()->database->table_prefix . $this->_name;
-            }
+        else
+        if(strpos($this->_name, '.')){
+            list ($this->_schema, $this->_name) = explode('.', $this->_name);
+            $this->_name = App::config()->database->table_prefix . $this->_name;
+        }
         parent::_setupTableName();
     }
 
@@ -57,8 +57,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         parent::init();
     }
-    
-        /**
+
+    /**
      * Fetches rows by primary key.  The argument specifies one or more primary
      * key value(s).  To find multiple rows by primary key, the argument must
      * be an array.
@@ -81,18 +81,18 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         $this->_defaultRowset = parent::find($arguments);
         return $this;
     }
-    
+
     public function findByCondition($where = null, $order = null)
     {
         return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
     }
-    
+
     public function findAllByCondition($where = null, $order = null, $count = null, $offset = null)
     {
         return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);
     }
-    
-        /**
+
+    /**
      * Fetches all rows.
      *
      * Honors the Zend_Db_Adapter fetch mode.
@@ -104,11 +104,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
      */
     public function fetchAll($where = null, $order = null, $count = null, $offset = null)
-    {        
-        return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);    
+    {
+        return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);
     }
-    
-        /**
+
+    /**
      * Fetches one row in an object of type Zend_Db_Table_Row_Abstract,
      * or returns null if no row matches the specified criteria.
      *
@@ -119,10 +119,10 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function fetchRow($where = null, $order = null)
     {
         return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
-        
+
     }
-    
-        /**
+
+    /**
      * Deletes existing rows.
      *
      * @param  array|string $where SQL WHERE clause(s).
@@ -134,11 +134,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         {
             $where = $this->getAdapter()->quoteInto('id = ?', $this->getCollection()->current()->getId());
         }
-        
+
         return parent::delete($where);
     }
-    
-        /**
+
+    /**
      * Returns an instance of a Zend_Db_Table_Select object.
      *
      * @param bool $withFromPart Whether or not to include the from part of the select based on the table
@@ -148,52 +148,52 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         return parent::select($withFromPart)->setIntegrityCheck(false);
     }
-    
+
     /*
-        * Collection of Db Table rows
-        * @return Zend Db Table Rowset 
-        */
+     * Collection of Db Table rows
+     * @return Zend Db Table Rowset
+     */
     public function getCollection()
     {
-      if($this->_defaultRowset instanceof App_Db_Table_Rowset){     
-        return $this->_defaultRowset;
-      } else {
-       throw new App_Exception('Default collection rowset must be App_Db_Table_Rowset object.');
-      }
+        if($this->_defaultRowset instanceof App_Db_Table_Rowset){
+            return $this->_defaultRowset;
+        } else {
+            throw new App_Exception('Default collection rowset must be App_Db_Table_Rowset object.');
+        }
     }
-    
+
     public function setAttributes($array)
     {
-    $row = $this->getCollection()->current();
-    $result = array();
-    
+        $row = $this->getCollection()->current();
+        $result = array();
+
         foreach($row->getData() as $key => $value){
             if($key != 'id' AND isset($array[$key])){
-               $method = 'set' . Zend_Filter::filterStatic($key, 'Word_UnderscoreToCamelCase');
-               $row->$method($array[$key]);
+                $method = 'set' . Zend_Filter::filterStatic($key, 'Word_UnderscoreToCamelCase');
+                $row->$method($array[$key]);
             }
         }
         return $this;
     }
-    
+
     public function save()
     {
         if(count($this->_defaultRowset) > 0){
             $data = array();
             try{
                 App::db()->beginTransaction();
-            foreach($this->_defaultRowset as $class){
-             $class->save();
-            } 
-             App::db()->commit();
-             return true;
-                
-            }            
+                foreach($this->_defaultRowset as $class){
+                    $class->save();
+                }
+                App::db()->commit();
+                return true;
+
+            }
             catch(Exception $e){
-                App::db()->rollBack();      
+                App::db()->rollBack();
                 App::log($e->getMessage(), 3);
                 return false;
             }
-        }    
+        }
     }
 }

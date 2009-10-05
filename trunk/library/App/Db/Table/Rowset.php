@@ -12,9 +12,9 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
         if ($this->valid() === false) {
             return null;
         }
-        return $this->rewind()->current();            
+        return $this->rewind()->current();
     }
-    
+
     /**
      * Retrieve collection last item
      *
@@ -24,11 +24,11 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
     {
         if ($this->valid() === false) {
             return null;
-        }        
+        }
         return $this->getRow($this->count() - 1);
     }
-    
-        /**
+
+    /**
      * Retrieve collection items
      *
      * @return DB  rowset
@@ -37,11 +37,11 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
     {
         return $this;
     }
-    
+
     public function getCollection()
     {
         return $this;
     }
-    
-    
+
+
 }
