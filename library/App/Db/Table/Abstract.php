@@ -82,6 +82,16 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         return $this;
     }
     
+    public function findByCondition($where = null, $order = null)
+    {
+        return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
+    }
+    
+    public function findAllByCondition($where = null, $order = null, $count = null, $offset = null)
+    {
+        return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);
+    }
+    
         /**
      * Fetches all rows.
      *

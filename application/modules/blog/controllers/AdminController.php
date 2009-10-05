@@ -56,6 +56,7 @@ class Blog_AdminController extends App_Controller_Action
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle($this->view->pageDescription);
         $blogModel = new Blog_Model_DbTable_Blog();
+        $currentBlog = $blogModel->createRow();
         $form = new Blog_Form_Blog();
         $form->setBlogTypes($blogModel->getBlogTypes());
         $form->compose();
@@ -80,15 +81,16 @@ class Blog_AdminController extends App_Controller_Action
                 $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                 $currentBlog->setType($postParams['type']);
                 // Saving new blog
-                if($blogModel->save()){
+                if($currentBlog->save()){
                     $moduleLangs = App::i18n()->getModuleLanguages();
                     if(count($moduleLangs) > 0){
                         foreach($moduleLangs as $lang){
                             if(isset($postParams['i18n_blog'][$lang['id']])){
                                 $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
+                                $blogI18nModel = $blogI18nModel->createRow();
                                 $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                 $blogI18nModel->setLangId($lang['id']);
-                                $blogI18nModel->setBlogId($blogModel->getId());
+                                $blogI18nModel->setBlogId($currentBlog->getId());
                                 $blogI18nModel->save();
                             }
                         }
@@ -156,17 +158,17 @@ class Blog_AdminController extends App_Controller_Action
                     }
                     $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                     $currentBlog->setType($postParams['type']);
-                    // Saving new blog
-                    if($blogModel->save()){
+                    // Update blog
+                    if($currentBlog->save()){
                         $moduleLangs = App::i18n()->getModuleLanguages();
                         if(count($moduleLangs) > 0){
                             foreach($moduleLangs as $lang){
                                 if(isset($postParams['i18n_blog'][$lang['id']])){
                                     $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
-                                    $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $blogModel->getId()));
+                                    $blogI18nModel = $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $currentBlog->getId()))->current();
                                     $blogI18nModel->setAttributes($postParams['i18n_blog'][$lang['id']]);
                                     $blogI18nModel->setLangId($lang['id']);
-                                    $blogI18nModel->setBlogId($blogModel->getId());
+                                    $blogI18nModel->setBlogId($currentBlog->getId());
                                     $blogI18nModel->save();
                                 }
                             }
