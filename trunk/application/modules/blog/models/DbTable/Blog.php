@@ -7,6 +7,7 @@
 class Blog_Model_DbTable_Blog extends App_Db_Table_Abstract {
     protected $_primary = 'id';
     protected $_dependentTables = array('Blog_Model_DbTable_I18n_Blog');
+    protected $_moduleTables = array('blog', 'i18n_blog', 'members', 'blog_members');
     
     public function getBlogTypes()
     {
@@ -24,9 +25,9 @@ class Blog_Model_DbTable_Blog extends App_Db_Table_Abstract {
             $sortByField = (string) $fields[0];
         }
         $select = $this->select()->setIntegrityCheck(false);
-        $select->from(DB_TABLE_PREFIX . 'blog', $cols['blog']);
-        $select->join(DB_TABLE_PREFIX . 'i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id', $cols['i18n_blog']);
-        $select->join(DB_TABLE_PREFIX . 'members', DB_TABLE_PREFIX . 'members.id = ' . DB_TABLE_PREFIX . 'blog.member_id', array('first_name' , 'last_name'));
+        $select->from('blog', $cols['blog']);
+        $select->join('i18n_blog', DB_TABLE_PREFIX . 'blog.id = ' . DB_TABLE_PREFIX . 'i18n_blog.blog_id', $cols['i18n_blog']);
+        $select->join('members', DB_TABLE_PREFIX . 'members.id = ' . DB_TABLE_PREFIX . 'blog.member_id', array('first_name' , 'last_name'));
         $select->where(DB_TABLE_PREFIX . 'i18n_blog.lang_id = ?', App::front()->getParam('requestLangId'))->order($sortByField . ' ' . $sortOrder);
         $paginator = Zend_Paginator::factory($select);
         $paginator->setItemCountPerPage(App::config()->items_per_page);
