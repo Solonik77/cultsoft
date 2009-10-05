@@ -146,7 +146,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
      */
     public function select($withFromPart = self::SELECT_WITHOUT_FROM_PART)
     {
-        return parent::select($withFromPart)->setIntegrityCheck(false);
+        $select = new App_Db_Table_Select($this);
+        if ($withFromPart == self::SELECT_WITH_FROM_PART) {
+            $select->from($this->info(self::NAME), Zend_Db_Table_Select::SQL_WILDCARD, $this->info(self::SCHEMA));
+        }
+        return $select->setIntegrityCheck(false);
     }
 
     /*
