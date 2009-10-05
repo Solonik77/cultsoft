@@ -1284,10 +1284,14 @@ button {
 #footer {
 	padding: 30px 0 50px;
 	text-align: center;
-	font-size: 0.9em
+	font-size: 0.9em;
 }
 #footer #menu {
 	padding: 0 0 30px
+}
+#footer #menu .footer_nav li
+{
+    display: inline;
 }
 #footer #menu a {
 	margin: 0 5px
