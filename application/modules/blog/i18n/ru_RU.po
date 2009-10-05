@@ -16,3 +16,51 @@ msgstr ""
 msgid "Search blog"
 msgstr "Найти блог"
 
+msgid "Edit blog"
+msgstr "Редактирование блога"
+
+msgid "Changes for blog successfully saved"
+msgstr "Изменения информации блога успешно сохранены"
+
+msgid "New blog successfully created"
+msgstr "Новый блог создан"
+
+msgid "Error editing blog"
+msgstr "Ошибка при редактировании информации блога"
+
+msgid "Blog deleted successfully"
+msgstr "Блог удалён"
+
+msgid "Create, edit, delete posts. Manage communities."
+msgstr "Создание, редактирование, удаление постов. Управление сообществами."
+
+msgid "Error in creation new blog"
+msgstr "Найти блог"
+
+msgid "Personal blog"
+msgstr "Персональный блог"
+
+msgid "Collaborative blog (community)"
+msgstr "Коллективный блог (сообщество)"
+
+msgid "Create new blog"
+msgstr "Создание нового блога"
+
+msgid "Create blog"
+msgstr "Создание блога"
+
+msgid "Blogs"
+msgstr "Блоги"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Manage blogs"
+msgstr "Управление блогами"
+
+msgid "Admin blogs"
+msgstr "Уравление блогами"
+
+msgid "No blogs here"
+msgstr "Не заведено ещё ни одного блога"
+
