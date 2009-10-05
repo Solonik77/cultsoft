@@ -58,4 +58,19 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
             $this->id = $id;
         }
     }
+    
+    protected function _refresh()
+    {
+        $where = $this->_getWhereQuery();
+        $row = $this->_getTable()->fetchRow($where)->getCollection()->current();
+
+        if (null === $row) {
+            require_once 'Zend/Db/Table/Row/Exception.php';
+            throw new Zend_Db_Table_Row_Exception('Cannot refresh row as parent is missing');
+        }
+
+        $this->_data = $row->toArray();
+        $this->_cleanData = $this->_data;
+        $this->_modifiedFields = array();
+    }
 }

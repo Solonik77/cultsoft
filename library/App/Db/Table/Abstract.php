@@ -180,11 +180,10 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
                 
             }            
             catch(Exception $e){
-                App::db()->rollBack();
+                App::db()->rollBack();      
                 App::log($e->getMessage(), 3);
                 return false;
             }
-        }
-    
+        }    
     }
 }
