@@ -29,6 +29,7 @@ final class Bootstrap
         else{
             define('SERVER_UTF8', false);
         }
+
         App_Loader::init();
         $this->_initErrorHandler();
         $this->_initConfiguration();
@@ -73,14 +74,10 @@ final class Bootstrap
      */
     private function _initConfiguration()
     {
-        if(file_exists(VAR_PATH . 'configuration.ini')) {
-            $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-            if(file_exists(VAR_PATH . 'cache/configs/settings.ini')){
+        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
+        if(file_exists(VAR_PATH . 'cache/configs/settings.ini')){
                 $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
-            }
-        }
-        else {        
-        }
+        }        
         App::addConfig($options);
     }
 
