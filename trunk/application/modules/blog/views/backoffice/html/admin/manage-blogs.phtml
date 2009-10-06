@@ -22,17 +22,17 @@ echo __('Create new blog')?></a></p>
 			class="<?php
     echo $this->cycle(array("odd" , "even"))->next()?>">
 			<td><?php
-			echo $blog->id?></td>
+			echo $blog->getId()?></td>
 			<td><?php
-			echo $blog->title?></td>
+			echo $blog->getTitle()?></td>
 			<td><?php
-			echo date("Y-t-d", strtotime($blog->date_created))?></td>
-			<td><?php echo __($this->blogTypes[$blog->type])?></td>
-			<td><?php echo $blog->first_name?> <?php echo $blog->last_name?></td>
+			echo date("Y-t-d", strtotime($blog->getDateCreated()))?></td>
+			<td><?php echo __($this->blogTypes[$blog->getType()])?></td>
+			<td><?php echo $blog->getFirstName()?> <?php echo $blog->getLastName()?></td>
 			<td><a
-				href="<?=$this->url(array('action' => 'update-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Edit')?></a>
+				href="<?php echo $this->url(array('action' => 'update-blog' , 'id' => $blog->getId(), 'page' => null))?>"><?php echo __('Edit')?></a>
 			<a
-				href="<?=$this->url(array('action' => 'delete-blog' , 'id' => $blog->id, 'page' => null))?>"><?=__('Delete')?></a>
+				href="<?php echo $this->url(array('action' => 'delete-blog' , 'id' => $blog->getId(), 'page' => null))?>"><?php echo __('Delete')?></a>
 			</td>
 		</tr>
 		<?php
