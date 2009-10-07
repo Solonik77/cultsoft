@@ -4,9 +4,9 @@
  *
  * @author Denysenko Dmytro
  */
-if(version_compare(phpversion(), '5.3', '<') === true){
-    echo '<h3>Whoops, it looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.3.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
-    exit();
+if(version_compare(phpversion(), '5.2', '<') === true){
+    echo '<h3>It looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.2.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
+    exit;
 }
 require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
