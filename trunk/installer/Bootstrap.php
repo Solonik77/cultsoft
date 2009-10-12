@@ -6,6 +6,7 @@
  */
 define('INSTALLER_RUN', TRUE);
 define('TIME_NOW', time());
+@set_include_path(INSTALLER_PATH . PATH_SEPARATOR . get_include_path());
 require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
 {
