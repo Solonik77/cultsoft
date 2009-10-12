@@ -4,36 +4,33 @@
  *
  * @author Denysenko Dmytro
  */
-if(version_compare(phpversion(), '5.2', '<') === true){
+if (version_compare(phpversion(), '5.2', '<') === true) {
     echo '<h3>It looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.2.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
-    exit;
+    exit();
+}
+define('TIME_NOW', time());
+// SERVER_UTF8 ? use mb_* functions : use non-native functions
+if (extension_loaded('mbstring')) {
+    mb_internal_encoding('UTF-8');
+    define('SERVER_UTF8', true);
+} else {
+    define('SERVER_UTF8', false);
 }
 require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
 {
     private $_language_identificator;
-
     /**
      * Constructor
      *
      * @return void
      */
-    public function __construct()
+    public function __construct ()
     {
-        define('TIME_NOW', time());
-        // SERVER_UTF8 ? use mb_* functions : use non-native functions
-        if(extension_loaded('mbstring')){
-            mb_internal_encoding('UTF-8');
-            define('SERVER_UTF8', true);
-        }
-        else{
-            define('SERVER_UTF8', false);
-        }
-
         App_Loader::init();
         $this->_initErrorHandler();
         $this->_initConfiguration();
-        try{
+        try {
             $this->_initEnvironment();
             $this->_initDatabase();
             $this->_initInternationalization();
@@ -44,49 +41,44 @@ final class Bootstrap
             $this->_initView();
             $this->_initApplicationMailer();
             $this->_initDebug();
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
-
     /**
      * Setup php, server environment, clean input parameters
      */
-    private function _initEnvironment()
+    private function _initEnvironment ()
     {
         App_Utf8::clean_globals();
         App_Input::instance();
         ini_set('log_errors', true);
-        if('development' === APPLICATION_ENV){
+        if ('development' === APPLICATION_ENV) {
             ini_set('display_errors', true);
             error_reporting(E_ALL & ~ E_STRICT);
-        }
-        else{
+        } else {
             ini_set('display_errors', false);
             error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
         }
         umask(0);
     }
-
     /**
      * Load system configuration
      */
-    private function _initConfiguration()
+    private function _initConfiguration ()
     {
         $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
-        if(file_exists(VAR_PATH . 'cache/configs/settings.ini')){
-                $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
-        }        
+        if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
+        }
         App::addConfig($options);
     }
-
     /**
      * Website language and locale setup
      */
-    private function _initInternationalization()
+    private function _initInternationalization ()
     {
-        if(function_exists('date_default_timezone_set')){
+        if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->project->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
@@ -96,8 +88,8 @@ final class Bootstrap
         $languages = $i18n->getSiteLanguages();
         $default_request_lang = 'en';
         $default_site_locale = 'en_US';
-        foreach($languages as $lang){
-            if($lang['is_active'] and $lang['is_default'] > 0){
+        foreach ($languages as $lang) {
+            if ($lang['is_active'] and $lang['is_default'] > 0) {
                 $default_request_lang = $lang['request_lang'];
                 $default_site_locale = $lang['locale'];
                 break;
@@ -108,13 +100,12 @@ final class Bootstrap
         App::setI18N($i18n);
         $this->_language_identificator = $default_request_lang;
     }
-
     /**
      * Setup system error handler
      *
      * @return void
      */
-    private function _initErrorHandler()
+    private function _initErrorHandler ()
     {
         // Enable exception handling
         App_Exception::enable();
@@ -122,21 +113,20 @@ final class Bootstrap
         $front->throwExceptions(false);
         $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'main' , 'controller' => 'error' , 'action' => 'error')));
         $logger = new Zend_Log();
-        if('development' === APPLICATION_ENV){
+        if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
         $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/system_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
-
     /**
      * * Database connection setup
      *
      * @return void
      */
-    private function _initDatabase()
+    private function _initDatabase ()
     {
-        try{
+        try {
             $config = App::config()->database->toArray();
             $config['persistent'] = false;
             $config['charset'] = 'utf8';
@@ -150,50 +140,45 @@ final class Bootstrap
             App::db()->getConnection();
             App::db()->query("SET NAMES 'utf8'");
             defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
-        }
-        catch(Zend_Db_Adapter_Exception $e){
+        } catch (Zend_Db_Adapter_Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }
-
     /**
      * Zend Date setup
      *
      * @return void
      */
-    private function _initDate()
+    private function _initDate ()
     {
         Zend_Date::setOptions(array('cache' => App_Cache::getInstance('permCache') , 'format_type' => 'php'));
     }
-
     /**
      * PHP Session handler setup
      *
      * @return void
      */
-    private function _initSession()
+    private function _initSession ()
     {
         Zend_Session::setOptions(array('remember_me_seconds' => intval(App::config()->remember_me_seconds) , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
-        if(App::config()->session_save_handler == 'db'){
+        if (App::config()->session_save_handler == 'db') {
             Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         }
         Zend_Session::start();
     }
-
     /**
      * View and Layout setup
      */
-    private function _initView()
+    private function _initView ()
     {
         App::front()->registerPlugin(new App_Controller_Plugin_View());
     }
-
     /**
      * Setup URI routes
      *
      * @return void
      */
-    private function _initRoutes()
+    private function _initRoutes ()
     {
         // Change default router
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'main' , 'controller' => 'index' , 'action' => 'index' , 'requestLang' => $this->_language_identificator)));
@@ -207,71 +192,66 @@ final class Bootstrap
         $router->addConfig($config);
         defined('BACKOFFICE_PATH') or define('BACKOFFICE_PATH', App::config()->backoffice_path);
     }
-
     /**
      * Member access setup
      *
      * @return void
      */
-    private function _initAccess()
+    private function _initAccess ()
     {
         App_Member::getInstance();
         App::front()->registerPlugin(new App_Controller_Plugin_Access());
     }
-
     /**
      * Init default application mailer
      *
      * @return void
      */
-    private function _initApplicationMailer()
+    private function _initApplicationMailer ()
     {
         App_Mail::setDefaultTransport(App::config()->mail->toArray());
     }
-
     /**
      * ZendDebug panel
      *
      * @return void
      */
-    private function _initDebug()
+    private function _initDebug ()
     {
-        if('development' === APPLICATION_ENV){
+        if ('development' === APPLICATION_ENV) {
             App::front()->registerPlugin(new ZFDebug_Controller_Plugin_Debug(array('plugins' => array('Auth' => array('user' => 'email' , 'role' => 'role_id') , 'Text' , 'Variables' , 'Database' => array('adapter' => array('standard' => App::db())) , 'File' => array('basePath' => APPLICATION_PATH) , 'Memory' , 'Html' , 'Time' , 'Registry' , 'Cache' => array('backend' => App_Cache::getInstance('File')->getBackend()) , 'Exception'))));
         }
     }
-
-    public function run()
+    public function run ()
     {
-        try{
+        try {
             $front = App::front();
             $front->setDefaultModule('main');
             $front->setModuleControllerDirectoryName('controllers');
             $front->addModuleDirectory(APPLICATION_PATH . 'modules' . DIRECTORY_SEPARATOR);
             $front->setRequest(new App_Controller_Request_Http());
             $default = $front->getDefaultModule();
-            if(null === $front->getControllerDirectory($default)){
+            if (null === $front->getControllerDirectory($default)) {
                 throw new App_Exception('No default controller directory registered with front controller');
             }
             $front->setParam('prefixDefaultModule', true);
             $front->returnResponse(true);
             $response = App::front()->dispatch();
             $response->setHeader('Expires', 'Sat, 13 Apr 1985 00:30:00 GMT')->setHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')->setHeader('Cache-Control', 'no-cache, must-revalidate')->setHeader('Cache-Control', 'post-check=0,pre-check=0')->setHeader('Cache-Control', 'max-age=0')->setHeader('Pragma', 'no-cache')->setHeader('Content-type', 'text/html; charset=UTF-8');
-            if($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and (int) ini_get('zlib.output_compression') === 0){
-                if($level < 1 or $level > 9){
+            if ($level = 9 and ini_get('output_handler') !== 'ob_gzhandler' and (int) ini_get('zlib.output_compression') === 0) {
+                if ($level < 1 or $level > 9) {
                     // Normalize the level to be an integer between 1 and 9. This
                     // step must be done to prevent gzencode from triggering an error
                     $level = max(1, min($level, 9));
                 }
-                if(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false){
+                if (stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) {
                     $compress = 'gzip';
-                }
-                elseif(stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') !== false){
+                } elseif (stripos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') !== false) {
                     $compress = 'deflate';
                 }
             }
-            if(isset($compress) and $level > 0){
-                switch($compress){
+            if (isset($compress) and $level > 0) {
+                switch ($compress) {
                     case 'gzip':
                         // Compress output using gzip
                         $response->setBody(gzencode($response->getBody(), $level));
@@ -287,15 +267,14 @@ final class Bootstrap
                 // Send the content encoding header
                 $response->setHeader('Content-Encoding', $compress);
                 // Sending Content-Length in CGI can result in unexpected behavior
-                if(stripos(PHP_SAPI, 'cgi') === false){
+                if (stripos(PHP_SAPI, 'cgi') === false) {
                     $response->setHeader('Content-Length', strlen($response->getBody()));
                 }
             }
             App_Loader::cacheAutoload();
             $response->sendResponse();
             exit();
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             throw new App_Exception($e->getMessage());
         }
     }

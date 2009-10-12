@@ -132,8 +132,7 @@ class App_Exception extends Zend_Exception {
             include APPLICATION_PATH . 'modules/main/views/scripts/error.phtml';
             // Display the contents of the output buffer
             echo ob_get_clean();
-
-            return true;
+            exit;
         }
         catch (Exception $e) {
             // Clean the output buffer if one exists
