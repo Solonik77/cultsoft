@@ -23,10 +23,10 @@ define('INSTALLER_PATH', DOC_ROOT . 'installer' . DS);
 define('LIBRARY_PATH', DOC_ROOT . 'library' . DS);
 @set_include_path (LIBRARY_PATH . PATH_SEPARATOR . './');
 if(!file_exists(VAR_PATH . 'configuration.ini') AND file_exists(INSTALLER_PATH . 'Bootstrap.php'))
-{ 
+{
     $bootstrap = INSTALLER_PATH . 'Bootstrap.php';
 } else {
-    $bootstrap = LIBRARY_PATH . 'Bootstrap.php'; 
+    $bootstrap = LIBRARY_PATH . 'Bootstrap.php';
 }
 require_once $bootstrap;
 $bootstrap = new Bootstrap;
