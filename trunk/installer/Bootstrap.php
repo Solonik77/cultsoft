@@ -12,7 +12,7 @@ final class Bootstrap
 {
     public function __construct ()
     {
-       
+         
         App_Loader::init();
         $this->_initErrorHandler();
         $this->_initRoutes();
@@ -58,16 +58,16 @@ final class Bootstrap
     {
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'install' , 'controller' => 'index' , 'action' => 'index')));
     }
-    
+
     /**
      * Layout setup
      */
     private function _initLayout()
     {
-      $layout = Zend_Layout::startMvc(array('layoutPath' => INSTALLER_PATH . 'views/layouts/' , 'layout' => 'installer' , 'mvcSuccessfulActionOnly' => FALSE));
-      $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+        $layout = Zend_Layout::startMvc(array('layoutPath' => INSTALLER_PATH . 'views/layouts/' , 'layout' => 'installer' , 'mvcSuccessfulActionOnly' => FALSE));
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
     }
-    
+
     public function run()
     {
         try {
