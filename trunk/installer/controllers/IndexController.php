@@ -1,9 +1,23 @@
 <?php
+class Install_IndexController extends Zend_Controller_Action
+{
 
-class Install_IndexController extends Zend_Controller_Action {
-   
-    public function indexAction()
+    public function init()
     {
+        $pages = new Install_Component_Structure();
+        $this->view->headTitle('Engine installer');        
+        $this->view->sideNavigationMenu = new Zend_Navigation($pages->getMenu());
+    }
 
+   public function indexAction()
+    {
+        $this->view->pageTitle = 'Pre-installation Check';
+        $this->view->pageDescription = '';
+    }
+
+    public function licenseAction()
+    {
+        $this->view->pageTitle = 'License';
+        $this->view->pageDescription = '';
     }
 }
