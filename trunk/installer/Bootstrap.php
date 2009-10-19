@@ -16,7 +16,7 @@ final class Bootstrap
         App_Loader::init();
         $this->_initErrorHandler();
         $this->_initRoutes();
-        $this->_initLayout();
+        $this->_initView();
         $this->_initDebug();
     }
     /**
@@ -30,7 +30,7 @@ final class Bootstrap
         App_Exception::enable();
         $front = App::front();
         $front->throwExceptions(false);
-        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'installer' , 'controller' => 'error' , 'action' => 'error')));
+        $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array('module' => 'install' , 'controller' => 'error' , 'action' => 'error')));
         $logger = new Zend_Log();
         if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
@@ -62,13 +62,31 @@ final class Bootstrap
     /**
      * Layout setup
      */
-    private function _initLayout()
+    private function _initView()
     {
         $layout = Zend_Layout::startMvc(array('layoutPath' => INSTALLER_PATH . 'views/layouts/' , 'layout' => 'installer' , 'mvcSuccessfulActionOnly' => FALSE));
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $view = new Zend_View(array('encoding' => 'UTF-8'));
+        $view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
+        $view->addFilterPath('App/View/Filter', 'App_View_Filter');
+        // Enable JQuery support
+        $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
+        $view->jQuery()->enable();
+        $view->jQuery()->uiEnable();
+        $view->headTitle()->setSeparator(' « ');        
         $view->strictVars(true);
-        $view->setScriptPath(INSTALLER_PATH . 'views/scripts/');        
+        // Set global content type to html with UTF-8 charset
+        $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+        // Set default reset.css file. Clear all CSS rules.
+        $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/reset.css');
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/minmax.js');
+        // Add latest Jquery library to html header.
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery.js');
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/swfobject.js');
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
+        $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
+        $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/installer.css');
+        $view->setScriptPath(INSTALLER_PATH . 'views/scripts/');                
         $viewRenderer->setView($view)->setViewBasePathSpec(INSTALLER_PATH . 'views/scripts/');
         $viewRenderer->setViewScriptPathSpec(':controller/:action.:suffix');
         $viewRenderer->setViewScriptPathNoControllerSpec(':action.:suffix');
@@ -79,7 +97,7 @@ final class Bootstrap
     {
         try {
             $front = App::front();
-            $front->setDefaultModule('installer');
+            $front->setDefaultModule('install');
             $front->setControllerDirectory(INSTALLER_PATH . 'controllers');
             $default = $front->getDefaultModule();
             if (null === $front->getControllerDirectory($default)) {

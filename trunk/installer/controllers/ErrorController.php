@@ -6,7 +6,7 @@
  *
  * @author Denysenko Dmytro
  */
-class Installer_ErrorController extends Zend_Controller_Action {
+class Install_ErrorController extends Zend_Controller_Action {
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
