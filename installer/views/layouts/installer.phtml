@@ -19,6 +19,16 @@ echo $this->doctype();
 <base href="<?php echo App::baseUri()?>" />
 </head>
 <body>
-<?php echo $this->layout()->content ?>
+<div class="container_16">
+  <div class="grid_16">
+    <h1 id="branding">Engine Install</h1>
+  </div>
+  <div class="clear"></div>
+  <div class="grid_4">&nbsp;</div>
+  <div class="grid_12">
+        <?php echo $this->layout()->content ?>
+   </div>
+  <div class="clear"></div>
+</div>
 </body>
 </html>

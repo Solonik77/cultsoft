@@ -1,7 +1,6 @@
 <?php
 /**
  * Setting Zend View and Layout to load views
- * from STATIC_PATH folders
  *
  * @author Denysenko Dmytro
  */
