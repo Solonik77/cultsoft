@@ -65,8 +65,23 @@ AddDefaultCharset UTF-8
 </IfModule>
 
 <IfModule mod_rewrite.c>
+### Query string exploits
     RewriteEngine On
     RewriteBase /
+    RewriteCond %{QUERY_STRING} \.\.\/    [NC,OR]
+    RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]
+    RewriteCond %{QUERY_STRING} tag\=     [NC,OR]
+    RewriteCond %{QUERY_STRING} ftp\:     [NC,OR]
+    RewriteCond %{QUERY_STRING} http\:    [NC,OR]
+    RewriteCond %{QUERY_STRING} https\:   [NC,OR]
+    RewriteCond %{QUERY_STRING} mosConfig [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|'|"|;|\?|\*).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(%22|%27|%3C|%3E|%5C|%7B|%7C).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(globals|encode|config|localhost|loopback).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|drop).* [NC]
+
+    RewriteRule ^(.*)$ - [F,L]
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
     RewriteCond %{REQUEST_URI} !^/(static|js)/
     RewriteRule ^(core|application|test|var) - [F,L]
