@@ -66,6 +66,13 @@ final class Bootstrap
     {
         $layout = Zend_Layout::startMvc(array('layoutPath' => INSTALLER_PATH . 'views/layouts/' , 'layout' => 'installer' , 'mvcSuccessfulActionOnly' => FALSE));
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+        $view = new Zend_View(array('encoding' => 'UTF-8'));
+        $view->strictVars(true);
+        $view->setScriptPath(INSTALLER_PATH . 'views/scripts/');        
+        $viewRenderer->setView($view)->setViewBasePathSpec(INSTALLER_PATH . 'views/scripts/');
+        $viewRenderer->setViewScriptPathSpec(':controller/:action.:suffix');
+        $viewRenderer->setViewScriptPathNoControllerSpec(':action.:suffix');
+        $viewRenderer->setViewSuffix('phtml');
     }
 
     public function run()
