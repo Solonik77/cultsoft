@@ -1,18 +1,18 @@
 <?php
-
 class Install_Component_Structure
 {
+
     public function __construct()
     {
     }
-    
-    public function getMenu()
+
+    public function getSequence()
     {
-        return array(array('module' => 'install' , 'controller' => 'index' , 'action' => 'index' , 'label' => 'Pre-installation check',
-                'pages' => array(
-        array('module' => 'install' , 'controller' => 'index' , 'action' => 'license' , 'label' => 'License'),
-        )
-        )
-        );
+       $sequence = array(
+       array( 'controller' => 'index' , 'action' => 'index' , 'label' => 'Pre-installation check'),
+       array( 'controller' => 'index' , 'action' => 'license' , 'label' => 'License'),
+       array( 'controller' => 'index' , 'action' => 'index' , 'label' => 'Pre-installation check')
+       );
+       return $sequence;
     }
 }
