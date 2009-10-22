@@ -70,6 +70,7 @@ final class Bootstrap
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $view = new Zend_View(array('encoding' => 'UTF-8'));
         $view->addHelperPath(LIBRARY_PATH . 'App/View/Helper/', 'App_View_Helper');
+        $view->addHelperPath(INSTALLER_PATH . 'views/helpers/', 'Install_View_Helper');
         $view->addFilterPath('App/View/Filter', 'App_View_Filter');
         // Enable JQuery support
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
