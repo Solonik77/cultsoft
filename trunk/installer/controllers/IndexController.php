@@ -6,7 +6,7 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $pages = new Install_Component_Structure();
         $this->view->headTitle('Engine installer');        
-        $this->view->sideNavigationMenu = $pages->getSequence();
+        $this->view->sideNavigationMenu = new Zend_Navigation($pages->getSequence());
     }
 
    public function indexAction()
