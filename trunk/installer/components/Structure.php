@@ -10,8 +10,7 @@ class Install_Component_Structure
     {
        $sequence = array(
        array( 'controller' => 'index' , 'action' => 'index' , 'label' => 'Pre-installation check'),
-       array( 'controller' => 'index' , 'action' => 'license' , 'label' => 'License'),
-       array( 'controller' => 'index' , 'action' => 'index' , 'label' => 'Pre-installation check')
+       array( 'controller' => 'index' , 'action' => 'license' , 'label' => 'License')
        );
        return $sequence;
     }
