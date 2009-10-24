@@ -485,6 +485,10 @@ form label.required {
 	background-repeat: no-repeat;
 	padding-left: 20px;   
 }
+ul.navigation li.active
+{
+   font-weight: bold;
+}
 p.expl {
 	color:#7f7f7f;
 	font-size:1.3em;
