@@ -13,7 +13,7 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Pre-installation Check';
         $this->view->pageDescription = '';
-        $sys_info = new Main_Model_DashboardInfo;
+        $sys_info = new Main_Model_SystemInfo;
         $this->view->engine_version = $sys_info->getAppVersion();
         $this->view->php_version = $sys_info->getPhpVersion();
         $this->view->php_sapi = $sys_info->getPhpServerAPI();
