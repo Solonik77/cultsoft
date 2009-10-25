@@ -4,9 +4,11 @@
  *
  * @author Denysenko Dmytro
  */
-class App_Form extends Zend_Form {
+class App_Form extends Zend_Form
+{
     public $decoratorSpan;
     protected $_isUpdate = false;
+
     /**
      * Contructor
      *
@@ -17,7 +19,7 @@ class App_Form extends Zend_Form {
         parent::__construct($options);
         $this->addPrefixPath('App_Form_Element', 'App/Form/Element/', 'element');
         $this->setMethod('post');
-        $this->decoratorSpan = array('ViewHelper', 'Errors', array(array('data' => 'HtmlTag'), array('tag' => 'span')));
+        $this->decoratorSpan = array('ViewHelper' , 'Errors' , array(array('data' => 'HtmlTag') , array('tag' => 'span')));
     }
 
     /**
@@ -29,10 +31,8 @@ class App_Form extends Zend_Form {
     public function setAction($action)
     {
         $request = App::front()->getRequest();
-        if (empty($action)) {
+        if(empty($action)){
             $action = App::baseUri() . trim($request->getRequestUri(), '/') . '/';
-        }
-        if (Zend_Registry::get('BACKOFFICE_CONTROLLER')) {
         }
         return parent::setAction($action);
     }
@@ -46,7 +46,7 @@ class App_Form extends Zend_Form {
     public function setName($name)
     {
         $name = $this->filterName($name, true);
-        if (('0' !== $name) && empty($name)) {
+        if(('0' !== $name) && empty($name)){
             throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
         }
         return $this->setAttrib('name', $name);
