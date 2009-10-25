@@ -58,7 +58,7 @@ final class Bootstrap
      */
     private function _initRoutes ()
     {
-        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:controller/:action/*', array('module' => 'install' , 'controller' => 'index' , 'action' => 'index')));
+        App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:action/', array('module' => 'install' , 'controller' => 'index' , 'action' => 'index')));
     }
 
     /**
