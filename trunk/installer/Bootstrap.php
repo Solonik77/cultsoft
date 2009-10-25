@@ -17,6 +17,7 @@ final class Bootstrap
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => INSTALLER_PATH, 'namespace' => 'Install'));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
+        $this->_initEnvironment();
         $this->_initRoutes();
         $this->_initView();
         $this->_initDebug();
@@ -40,6 +41,26 @@ final class Bootstrap
         $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/installer_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
+    
+        /**
+     * Setup php, server environment, clean input parameters
+     */
+    private function _initEnvironment()
+    {
+        App_Utf8::clean_globals();
+        App_Input::instance();
+        ini_set('log_errors', true);
+        if ('development' === APPLICATION_ENV) {
+            ini_set('display_errors', true);
+            error_reporting(E_ALL & ~ E_STRICT);
+        } else {
+            ini_set('display_errors', false);
+            error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
+        }
+        @date_default_timezone_set(@date_default_timezone_get());
+        umask(0);
+    }
+    
     /**
      * ZendDebug panel
      *

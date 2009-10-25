@@ -4,8 +4,6 @@ class Install_Form_Base extends App_Form
 
     function __construct($options = null)
     {
-        parent::__construct($options);
-        $this->addElement($this->createElement('submit', 'next')->setLabel('Next'));
-        
+        parent::__construct($options);        
     }
 }
