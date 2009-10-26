@@ -1,12 +1,28 @@
 <?php
 class Install_IndexController extends Zend_Controller_Action
 {
-
+    private $_session;
+    
     public function init()
     {
+        
         $pages = new Install_Component_Structure();
         $this->view->headTitle('Engine installer');
         $this->view->sideNavigationMenu = new Zend_Navigation($pages->getSequence());
+        $this->_session = new Zend_Session_Namespace('Installer_Session');
+        $actions = $this->_session->actions;
+        foreach($pages->getSequence() as $action){
+        if(!isset($actions[$action['action']])){            
+           $actions[$action['action']] = 0;
+           }
+        }
+        unset($actions['index']);
+        $this->_session->actions = $actions;
+        $action = $this->_request->getActionName();
+        if($action != 'index' AND $actions[$action] === 0)
+        {
+            $this->_redirect('install');
+        }
     }
 
     public function indexAction()
@@ -22,11 +38,17 @@ class Install_IndexController extends Zend_Controller_Action
         if($this->_request->isPost()){
             $form->populate($this->_request->getPost());            
             if($form->isValid($this->_request->getPost()) != TRUE){
+                unset($this->_session->actions);
                 // Errors in input data
                 $this->view->form = $form->compose();
                 return $this->render();
             }
             else{
+                 if($this->_request->getParam('agree') < 1)
+                 {
+                    $this->_redirect('install');
+                 }
+                 $this->_session->actions['pre-installation-check'] = 1;
                  $this->_redirect('install/pre-installation-check');
             }
         }
@@ -59,6 +81,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->os_version = $sys_info->getOsVersion();
         $this->view->form = new Install_Form_Base();
         $this->view->form->setAction('install/config');
+        $this->_session->actions['config'] = 1;
     }
 
     public function configAction()
@@ -67,6 +90,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageDescription = '';
         $this->view->form = new Install_Form_Config();
         $this->view->form->setAction('install/create-admin');
+        $this->_session->actions['create-admin'] = 1;
     }
 
     public function createAdminAction()
@@ -75,6 +99,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageDescription = '';
         $this->view->form = new Install_Form_Administrator();
         $this->view->form->setAction('install/modules');
+        $this->_session->actions['modules'] = 1;
     }
 
     public function modulesAction()
@@ -83,6 +108,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageDescription = '';
         $this->view->form = new Install_Form_Modules();
         $this->view->form->setAction('install/finish');
+        $this->_session->actions['finish'] = 1;
     }
 
     public function finishAction()
