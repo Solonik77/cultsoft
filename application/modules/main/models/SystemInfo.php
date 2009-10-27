@@ -85,6 +85,11 @@ class Main_Model_SystemInfo {
     {
         return (bool) (@ini_get('safe_mode') == 1);
     }
+    
+    public function getsafeMode()
+    {
+        $this->isSafeMode();    
+    }
 
     public function getMemoryLimit()
     {
@@ -106,10 +111,19 @@ class Main_Model_SystemInfo {
     {
         return (@ini_get('output_buffering')) ? true : false;
     }
+    
+    public function getoutputBuffering()
+    {
+        return $this->isOutputBufferingOn();
+    }
 
     public function isFileUploadsOn()
     {
         return (@ini_get('file_uploads')) ? true : false;
+    }
+    
+    public function getFileUploads(){
+        return $this->isFileUploadsOn();
     }
 
     public function isPHPFunctionExist($function)
@@ -125,5 +139,22 @@ class Main_Model_SystemInfo {
     public function getOsVersion()
     {
         return @php_uname('s') . ' ' . @php_uname('r');
+    }
+    
+    public function getRequirements()
+    {
+        return array(
+        'phpVersion' => 5.2,
+        'fileUploads' => TRUE,
+        'outputBuffering' => FALSE,
+        'safeMode' => FALSE,
+        'memoryLimit' => FALSE,
+        'iconv',
+        'xml',
+        'zlib',
+        'gettext',
+        'pdo',
+        'pdo_mysql'
+        );    
     }
 }
