@@ -61,27 +61,35 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Pre-installation Check';
         $this->view->pageDescription = '';
-        $sys_info = new Main_Model_SystemInfo();
-        $this->view->engine_version = $sys_info->getAppVersion();
-        $this->view->php_version = $sys_info->getPhpVersion();
-        $this->view->php_sapi = $sys_info->getPhpServerAPI();
-        $this->view->zf_version = $sys_info->getZfVersion();
-        $this->view->apache_rewrite = $sys_info->isServerModuleAvailable('mod_rewrite');
-        $this->view->free_disk_space = $sys_info->getFreeDiskSpace();
-        $this->view->safe_mode = $sys_info->isSafeMode();
-        $this->view->memory_limit = $sys_info->getMemoryLimit();
-        $this->view->disable_functions = $sys_info->getPHPDisabledFunctions();
-        $this->view->max_upload = $sys_info->getMaxUploadFilezie();
-        $this->view->output_buffering = $sys_info->isOutputBufferingOn();
-        $this->view->file_uploads = $sys_info->isFileUploadsOn();
-        $this->view->xml_ext = $sys_info->isPHPExtensionLoded('xml');
-        $this->view->zlib_ext = $sys_info->isPHPExtensionLoded('zlib');
-        $this->view->mbstring_ext = $sys_info->isPHPExtensionLoded('mbstring');
-        $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
-        $this->view->os_version = $sys_info->getOsVersion();
-        $this->view->form = new Install_Form_Base();
-        $this->view->form->setAction('install/config');
-        $this->_session->actions['config'] = 1;
+        $sysInfo = new Main_Model_SystemInfo();
+        $this->view->engine_version = $sysInfo->getAppVersion();
+        $this->view->php_version = $sysInfo->getPhpVersion();
+        $this->view->php_sapi = $sysInfo->getPhpServerAPI();
+        $this->view->zf_version = $sysInfo->getZfVersion();
+        $this->view->apache_rewrite = $sysInfo->isServerModuleAvailable('mod_rewrite');
+        $this->view->free_disk_space = $sysInfo->getFreeDiskSpace();
+        $this->view->safe_mode = $sysInfo->isSafeMode();
+        $this->view->memory_limit = $sysInfo->getMemoryLimit();
+        $this->view->disable_functions = $sysInfo->getPHPDisabledFunctions();
+        $this->view->max_upload = $sysInfo->getMaxUploadFilezie();
+        $this->view->output_buffering = $sysInfo->isOutputBufferingOn();
+        $this->view->file_uploads = $sysInfo->isFileUploadsOn();
+        $this->view->xml_ext = $sysInfo->isPHPExtensionLoded('xml');
+        $this->view->zlib_ext = $sysInfo->isPHPExtensionLoded('zlib');
+        $this->view->mbstring_ext = $sysInfo->isPHPExtensionLoded('mbstring');
+        $this->view->iconv_func = $sysInfo->isPHPFunctionExist('iconv');
+        $this->view->os_version = $sysInfo->getOsVersion();
+        $form = new Install_Form_PreInstallationCheck;
+        $form->setSystemRequirementsValues($sysInfo->getRequirements());        
+        $form->setModel($sysInfo);        
+        if($this->_request->isPost()){
+            if($form->isValid($this->_request->getPost()))
+            {
+            $this->_session->actions['config'] = 1;
+            }
+        }
+        $this->view->form = $form->compose();
+        
     }
 
     public function configAction()
