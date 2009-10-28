@@ -79,17 +79,15 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->mbstring_ext = $sysInfo->isPHPExtensionLoded('mbstring');
         $this->view->iconv_func = $sysInfo->isPHPFunctionExist('iconv');
         $this->view->os_version = $sysInfo->getOsVersion();
-        $form = new Install_Form_PreInstallationCheck;
-        $form->setSystemRequirementsValues($sysInfo->getRequirements());        
-        $form->setModel($sysInfo);        
+        $form = new Install_Form_PreInstallationCheck;    
+        $form->setModel($sysInfo);
+        $this->view->form = $form->compose();
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost()))
-            {
-            $this->_session->actions['config'] = 1;
+            {            
+                $this->_session->actions['config'] = 1;
             }
-        }
-        $this->view->form = $form->compose();
-        
+        }       
     }
 
     public function configAction()
