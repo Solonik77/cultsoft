@@ -6,6 +6,13 @@
  */
 define('INSTALLER_RUN', TRUE);
 define('TIME_NOW', time());
+// SERVER_UTF8 ? use mb_* functions : use non-native functions
+if (extension_loaded('mbstring')) {
+    mb_internal_encoding('UTF-8');
+    define('SERVER_UTF8', true);
+} else {
+    define('SERVER_UTF8', false);
+}
 @set_include_path(INSTALLER_PATH . PATH_SEPARATOR . get_include_path());
 require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
@@ -19,6 +26,7 @@ final class Bootstrap
         $this->_initErrorHandler();
         $this->_initEnvironment();
         $this->_initRoutes();
+        $this->_initSession();
         $this->_initView();
         $this->_initDebug();
     }
@@ -80,6 +88,17 @@ final class Bootstrap
     private function _initRoutes ()
     {
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:action/', array('module' => 'install' , 'controller' => 'index' , 'action' => 'index')));
+    }
+    
+    /**
+     * PHP Session handler setup
+     *
+     * @return void
+     */
+    private function _initSession ()
+    {
+        Zend_Session::setOptions(array('remember_me_seconds' => 8500 , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
+        Zend_Session::start();
     }
 
     /**

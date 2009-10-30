@@ -36,18 +36,15 @@ class Install_IndexController extends Zend_Controller_Action
         }
 
         if($this->_request->isPost()){
+            $this->view->form = $form->compose();
             $form->populate($this->_request->getPost());            
             if($form->isValid($this->_request->getPost()) != TRUE){
                 unset($this->_session->actions);
-                // Errors in input data
-                $this->view->form = $form->compose();
+                // Errors in input data                
                 return $this->render();
             }
             else{
-                 if($this->_request->getParam('agree') < 1)
-                 {
-                    $this->_redirect('install');
-                 }
+                 $this->_redirect('install');                 
                  $this->_session->actions['pre-installation-check'] = 1;
                  $this->_redirect('install/pre-installation-check');
             }
