@@ -25,7 +25,7 @@ class Install_Form_License extends App_Form
             $license->setValue($this->_license)->setRequired(true);
             $this->addElement($license);
         }
-        $this->addElement($this->createElement('checkbox', 'agree')->setLabel('I agree to the above terms and conditions.')->setRequired(true)->addValidator('Between', false, array(1,5)));
+        $this->addElement($this->createElement('checkbox', 'agree')->setLabel('I agree to the above terms and conditions.')->setRequired(true)->addValidator('Between', false, array(1,2, 'messages' => 'You must agree to the following license agreement')));
         $this->addElement($this->createElement('submit', 'next')->setLabel('Continue'));
         return $this;
     }

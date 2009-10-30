@@ -44,7 +44,6 @@ class Install_IndexController extends Zend_Controller_Action
                 return $this->render();
             }
             else{
-                 $this->_redirect('install');                 
                  $this->_session->actions['pre-installation-check'] = 1;
                  $this->_redirect('install/pre-installation-check');
             }
@@ -83,6 +82,7 @@ class Install_IndexController extends Zend_Controller_Action
             if($form->isValid($this->_request->getPost()))
             {            
                 $this->_session->actions['config'] = 1;
+                $this->_redirect('install/config');
             }
         }       
     }
