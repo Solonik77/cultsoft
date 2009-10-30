@@ -1,1 +1,14 @@
+<?php
+foreach($this->check_php_extentions as $ext):
+?>
+    <p><?php echo $ext['fancy_name']?>
+    <?php if(!$ext['no_hault']){?> 
+        <?php if($ext['_ok']): ?>passed<?php else: ?>failed<?php endif; ?>
+    <?php }else {?>
+        <?php if($ext['_ok']): ?>passed<?php else: ?>failed<?php endif; ?>
+    <?php } ?></p>
+<?php
+endforeach;
+?>
+
 <?php echo $this->form?>

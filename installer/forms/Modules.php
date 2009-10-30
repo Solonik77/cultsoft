@@ -6,6 +6,6 @@ class Install_Form_Modules extends App_Form
     {
         parent::__construct($options);
         $this->addElement($this->createElement('submit', 'next')->setLabel('Next'));
-        
+
     }
 }

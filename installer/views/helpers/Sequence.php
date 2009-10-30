@@ -25,11 +25,11 @@ class Install_View_Helper_Sequence extends Zend_View_Helper_Navigation_Menu {
         $attribs = array('id' => $page->getId(),
             'title' => $title,
             'class' => $page->getClass()
-            );
+        );
         $element = 'span';
 
         return '<' . $element . $this->_htmlAttribs($attribs) . '>'
-         . $this->view->escape($label)
-         . '</' . $element . '>';
+        . $this->view->escape($label)
+        . '</' . $element . '>';
     }
 }

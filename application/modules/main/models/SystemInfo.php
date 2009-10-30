@@ -1,6 +1,7 @@
 <?php
 class Main_Model_SystemInfo {
     private $db;
+    private $errors = array();
 
     public function __construct()
     {
@@ -85,7 +86,7 @@ class Main_Model_SystemInfo {
     {
         return (bool) (@ini_get('safe_mode') == 1);
     }
-    
+
 
     public function getMemoryLimit()
     {
@@ -107,12 +108,12 @@ class Main_Model_SystemInfo {
     {
         return (@ini_get('output_buffering')) ? true : false;
     }
-    
+
     public function isFileUploadsOn()
     {
         return (@ini_get('file_uploads')) ? true : false;
     }
-    
+
     public function isPHPFunctionExist($function)
     {
         return (@function_exists($function)) ? true : false;
@@ -127,5 +128,71 @@ class Main_Model_SystemInfo {
     {
         return @php_uname('s') . ' ' . @php_uname('r');
     }
-  
+
+    public function getRequiredExtensions()
+    {
+        return  array(
+
+        array( 'fancy_name'		=> "DOM XML Handling",
+	   'extension_name'	=> "libxml2",
+	   'helpurl'		=> "http://www.php.net/manual/en/dom.setup.php",
+	   'testfor'		=> 'dom',
+	   'no_hault'		=> false ),
+
+        array( 'fancy_name'		=> "GD Library",
+	   'extension_name'	=> "gd",
+	   'helpurl'		=> "http://www.php.net/manual/en/image.setup.php",
+	   'testfor'		=> 'gd',
+	   'no_hault'		=> true ),
+
+
+        array( 'fancy_name'		=> "Reflection Class",
+	   'extension_name'	=> "Reflection",
+	   'helpurl'		=> "http://uk2.php.net/manual/en/language.oop5.reflection.php",
+	   'testfor'		=> 'Reflection',
+	   'no_hault'		=> false ),
+        );
+    }
+
+    public function checkPHPExtentions()
+    {
+        $extensions    = get_loaded_extensions();
+        $extensionsOK  = TRUE;
+        $extensionData = array();
+        $requiredExtensions = $this->getRequiredExtensions();
+        if ( is_array( $requiredExtensions ) )
+        {
+            foreach( $requiredExtensions as $data )
+            {
+                if ( ! in_array( $data['testfor'], $extensions ) )
+                {
+                    //-----------------------------------------
+                    // Added 'no_hault' key which will show a
+                    // warning but not prohibit installation
+                    //-----------------------------------------
+                    	
+                    if( $data['no_hault'] )
+                    {
+                        $data['_ok']	= 1;		// Anything but true or false
+                        $extensionsOK	= 1;		// Anything but true or false
+                    }
+                    else
+                    {
+                        $extensionsOK = FALSE;
+                    }
+                }
+                else
+                {
+                    $data['_ok'] = TRUE;
+                }
+
+                $extensionData[] = $data;
+            }
+        }
+        return  $extensionData;
+    }
+    public function isValidFilesystem()
+    {
+        return TRUE;
+    }
 }
