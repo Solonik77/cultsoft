@@ -173,8 +173,8 @@ class Main_Model_SystemInfo {
                     	
                     if( $data['no_hault'] )
                     {
-                        $data['_ok']	= 1;		// Anything but true or false
-                        $extensionsOK	= 1;		// Anything but true or false
+                        $data['_ok']	= 1;
+                        $extensionsOK	= 1;
                     }
                     else
                     {
