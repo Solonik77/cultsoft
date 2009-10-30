@@ -49,8 +49,8 @@ final class Bootstrap
         $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/installer_log_" . date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
-    
-        /**
+
+    /**
      * Setup php, server environment, clean input parameters
      */
     private function _initEnvironment()
@@ -68,7 +68,7 @@ final class Bootstrap
         @date_default_timezone_set(@date_default_timezone_get());
         umask(0);
     }
-    
+
     /**
      * ZendDebug panel
      *
@@ -89,7 +89,7 @@ final class Bootstrap
     {
         App::front()->getRouter()->addRoute('default', new Zend_Controller_Router_Route(':module/:action/', array('module' => 'install' , 'controller' => 'index' , 'action' => 'index')));
     }
-    
+
     /**
      * PHP Session handler setup
      *
@@ -116,7 +116,7 @@ final class Bootstrap
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $view->jQuery()->enable();
         $view->jQuery()->uiEnable();
-        $view->headTitle()->setSeparator(' « ');        
+        $view->headTitle()->setSeparator(' « ');
         $view->strictVars(true);
         // Set global content type to html with UTF-8 charset
         $view->getHelper('HeadMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
@@ -129,7 +129,7 @@ final class Bootstrap
         $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/jquery/pngfix.js');
         $view->getHelper('HeadScript')->appendFile(App::baseUri() . 'static/system/clientscripts/init_global.js');
         $view->getHelper('HeadLink')->appendStylesheet(App::baseUri() . 'static/system/css/installer.css');
-        $view->setScriptPath(INSTALLER_PATH . 'views/scripts/');                
+        $view->setScriptPath(INSTALLER_PATH . 'views/scripts/');
         $viewRenderer->setView($view)->setViewBasePathSpec(INSTALLER_PATH . 'views/scripts/');
         $viewRenderer->setViewScriptPathSpec(':controller/:action.:suffix');
         $viewRenderer->setViewScriptPathNoControllerSpec(':action.:suffix');
