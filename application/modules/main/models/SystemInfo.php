@@ -1,5 +1,6 @@
 <?php
-class Main_Model_SystemInfo {
+class Main_Model_SystemInfo
+{
     private $db;
     private $errors = array();
 
@@ -11,6 +12,16 @@ class Main_Model_SystemInfo {
     public function getPhpVersion()
     {
         return phpversion();
+    }
+
+    public function getRequiredPhpVersion()
+    {
+        return '5.2.4';
+    }
+
+    public function getRequiredMySQLVersion()
+    {
+        return '4.1.0';
     }
 
     public function getAppVersion()
@@ -35,7 +46,7 @@ class Main_Model_SystemInfo {
 
     public function getSqlVersion()
     {
-        switch ($this->getSqlAdapter()) {
+        switch($this->getSqlAdapter()){
             default:
                 return $this->db->fetchOne('SELECT VERSION()');
                 break;
@@ -49,15 +60,16 @@ class Main_Model_SystemInfo {
 
     public function getImageAdapterVersion()
     {
-        switch ($this->getImageAdapter()) {
+        switch($this->getImageAdapter()){
             default:
                 ob_start();
                 phpinfo(8);
                 $module_info = ob_get_contents();
                 ob_end_clean();
-                if (preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches)) {
+                if(preg_match("/\bgd\s+version\b[^\d\n\r]+?([\d\.]+)/i", $module_info, $matches)){
                     $gdversion = $matches[1];
-                } else {
+                }
+                else{
                     $gdversion = 0;
                 }
                 return $gdversion;
@@ -68,8 +80,8 @@ class Main_Model_SystemInfo {
     public function isServerModuleAvailable($module)
     {
         $return = false;
-        if (function_exists('apache_get_modules')) {
-            if (in_array($module, apache_get_modules())) {
+        if(function_exists('apache_get_modules')){
+            if(in_array($module, apache_get_modules())){
                 $return = true;
             }
         }
@@ -86,7 +98,6 @@ class Main_Model_SystemInfo {
     {
         return (bool) (@ini_get('safe_mode') == 1);
     }
-
 
     public function getMemoryLimit()
     {
@@ -129,70 +140,48 @@ class Main_Model_SystemInfo {
         return @php_uname('s') . ' ' . @php_uname('r');
     }
 
-    public function getRequiredExtensions()
+    public function getRequiredPHPExtensions()
     {
-        return  array(
-
-        array( 'fancy_name'		=> "DOM XML Handling",
-	   'extension_name'	=> "libxml2",
-	   'helpurl'		=> "http://www.php.net/manual/en/dom.setup.php",
-	   'testfor'		=> 'dom',
-	   'no_hault'		=> false ),
-
-        array( 'fancy_name'		=> "GD Library",
-	   'extension_name'	=> "gd",
-	   'helpurl'		=> "http://www.php.net/manual/en/image.setup.php",
-	   'testfor'		=> 'gd',
-	   'no_hault'		=> true ),
-
-
-        array( 'fancy_name'		=> "Reflection Class",
-	   'extension_name'	=> "Reflection",
-	   'helpurl'		=> "http://uk2.php.net/manual/en/language.oop5.reflection.php",
-	   'testfor'		=> 'Reflection',
-	   'no_hault'		=> false ),
-        );
+        return array(array('fancy_name' => "Iconv" , 'extension_name' => "iconv" , 'ext_web_url' => "http://www.php.net/manual/en/dom.setup.php" , 'check_extension' => 'iconv' , 'hault' => TRUE) , array('fancy_name' => "PDO" , 'extension_name' => "PDO" , 'ext_web_url' => "http://www.php.net/manual/en/dom.setup.php" , 'check_extension' => 'PDO' , 'hault' => TRUE) , array('fancy_name' => "PDO MySQL" , 'extension_name' => "iconv" , 'ext_web_url' => "http://www.php.net/manual/en/dom.setup.php" , 'check_extension' => 'pdo_mysql' , 'hault' => TRUE) , array('fancy_name' => "SimpleXML Handling" , 'extension_name' => "SimpleXML" , 'ext_web_url' => "http://www.php.net/manual/en/dom.setup.php" , 'check_extension' => 'SimpleXML' , 'hault' => false) , array('fancy_name' => "Gettext" , 'extension_name' => "gettext" , 'ext_web_url' => "http://php.net/manual/en/book.gettext.php" , 'check_extension' => 'gettext' , 'hault' => false) , array('fancy_name' => "GD Library" , 'extension_name' => "gd" , 'ext_web_url' => "http://www.php.net/manual/en/image.setup.php" , 'check_extension' => 'gd' , 'hault' => true) , array('fancy_name' => "Reflection Class" , 'extension_name' => "Reflection" , 'ext_web_url' => "http://uk2.php.net/manual/en/language.oop5.reflection.php" , 'check_extension' => 'Reflection' , 'hault' => true));
     }
 
-    public function checkPHPExtentions()
+    public function checkRequiredPHPextensions()
     {
-        $extensions    = get_loaded_extensions();
-        $extensionsOK  = TRUE;
+        $extensions = get_loaded_extensions();
         $extensionData = array();
-        $requiredExtensions = $this->getRequiredExtensions();
-        if ( is_array( $requiredExtensions ) )
-        {
-            foreach( $requiredExtensions as $data )
-            {
-                if ( ! in_array( $data['testfor'], $extensions ) )
-                {
-                    //-----------------------------------------
-                    // Added 'no_hault' key which will show a
-                    // warning but not prohibit installation
-                    //-----------------------------------------
-                    	
-                    if( $data['no_hault'] )
-                    {
-                        $data['_ok']	= 1;
-                        $extensionsOK	= 1;
-                    }
-                    else
-                    {
-                        $extensionsOK = FALSE;
-                    }
+        $requiredExtensions = $this->getRequiredPHPExtensions();
+        if(is_array($requiredExtensions)){
+            foreach($requiredExtensions as $data){
+                if(! in_array($data['check_extension'], $extensions)){
+                    $data['status'] = FALSE;
                 }
-                else
-                {
-                    $data['_ok'] = TRUE;
+                else{
+                    $data['status'] = TRUE;
                 }
-
                 $extensionData[] = $data;
             }
         }
-        return  $extensionData;
+        return $extensionData;
     }
-    public function isValidFilesystem()
+
+    public function getWritableSystemDirectories()
     {
-        return TRUE;
+        return array(VAR_PATH , VAR_PATH . 'cache/system/' , VAR_PATH . 'cache/configs/', VAR_PATH . 'indexes/', VAR_PATH . 'logs/', VAR_PATH . 'session/', VAR_PATH . 'cache/system/', STATIC_PATH . 'uploads/');
+    }
+
+    public function checkWritableSystemDirectories()
+    {
+        $directories = $this->getWritableSystemDirectories();
+        $dirsData = array();
+        foreach($directories as $dir){
+            $dir = str_replace('\\', '/' , $dir);
+            if(is_dir($dir) AND is_writable($dir))
+            {
+            $dirsData[] = array('path' => $dir, 'is_writable' => TRUE);
+            } else {
+            $dirsData[] = array('path' => $dir, 'is_writable' => FALSE);    
+            }        
+        }
+        return $dirsData;
     }
 }

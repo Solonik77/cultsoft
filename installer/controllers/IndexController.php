@@ -5,22 +5,20 @@ class Install_IndexController extends Zend_Controller_Action
 
     public function init()
     {
-
         $pages = new Install_Component_Structure();
         $this->view->headTitle('Engine installer');
         $this->view->sideNavigationMenu = new Zend_Navigation($pages->getSequence());
         $this->_session = new Zend_Session_Namespace('Installer_Session');
         $actions = $this->_session->actions;
         foreach($pages->getSequence() as $action){
-            if(!isset($actions[$action['action']])){
+            if(! isset($actions[$action['action']])){
                 $actions[$action['action']] = 0;
             }
         }
         unset($actions['index']);
         $this->_session->actions = $actions;
         $action = $this->_request->getActionName();
-        if($action != 'index' AND $actions[$action] === 0)
-        {
+        if($action != 'index' and $actions[$action] === 0){
             $this->_redirect('install');
         }
     }
@@ -34,7 +32,6 @@ class Install_IndexController extends Zend_Controller_Action
         if(file_exists($fileLicense) and is_readable($fileLicense)){
             $form->setLicenseContent(file_get_contents($fileLicense));
         }
-
         if($this->_request->isPost()){
             $this->view->form = $form->compose();
             $form->populate($this->_request->getPost());
@@ -57,12 +54,33 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Pre-installation Check';
         $this->view->pageDescription = '';
-        $this->view->form = new Install_Form_Base;
+        $hasError = FALSE;
+        $this->view->form = new Install_Form_Base();
         $sysInfo = new Main_Model_SystemInfo();
-        $this->view->check_php_extentions = $sysInfo->checkPHPExtentions();
+        $this->view->sysInfo = $sysInfo;
+        if(version_compare($sysInfo->getPhpVersion(), $sysInfo->getRequiredPhpVersion()) < 0){
+            $hasError = TRUE;
+        }
+        $this->view->check_php_extensions = $sysInfo->checkRequiredPHPExtensions();
+        $this->view->check_filesystem = $sysInfo->checkWritableSystemDirectories();
+        if(! $hasError){
+            foreach($this->view->check_php_extensions as $ext){
+                if(! $ext['status'] and $ext['hault']){
+                    $hasError = TRUE;
+                    break;
+                }
+            }
+        }
+        if(! $hasError){
+            foreach($this->view->check_filesystem as $dir){
+                if(! $dir['is_writable']){
+                    $hasError = TRUE;
+                    break;
+                }
+            }
+        }
         if($this->_request->isPost()){
-            if($this->view->form->isValid($this->_request->getPost()) AND $sysInfo->isValidFilesystem())
-            {
+            if($this->view->form->isValid($this->_request->getPost()) and $hasError === FALSE){
                 $this->_session->actions['config'] = 1;
                 $this->_redirect('install/config');
             }
