@@ -97,7 +97,9 @@ final class Bootstrap
      */
     private function _initSession ()
     {
-        Zend_Session::setOptions(array('remember_me_seconds' => 8500 , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
+        if(is_dir(VAR_PATH . "session") AND is_writeable(VAR_PATH . "session")){
+            Zend_Session::setOptions(array('remember_me_seconds' => 8500 , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
+        }
         Zend_Session::start();
     }
 
