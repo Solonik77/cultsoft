@@ -21,10 +21,12 @@ class Install_View_Helper_Sequence extends Zend_View_Helper_Navigation_Menu {
                 $title = $t->translate($title);
             }
         }
+        $urlId = end(explode('/' , $page->getHref()));
+        $urlId = (empty($urlId)) ? 'index' : $urlId;
         // get attribs for element
         $attribs = array('id' => $page->getId(),
             'title' => $title,
-            'class' => $page->getClass()
+            'class' => $page->getClass()        
         );
         $element = 'span';
 
