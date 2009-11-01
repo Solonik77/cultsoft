@@ -91,14 +91,30 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Base Configuration';
         $this->view->pageDescription = '';
-        $this->view->form = $form = new Install_Form_Config();        
+        $form = new Install_Form_Config();        
         if($this->_request->isPost()){
         $form->populate($this->_request->getPost());
         if($form->isValid($this->_request->getPost())) {
+            
+            $config = new Zend_Config(array(), true);
+            $config->production = array();
+            $config->production->database = array();
+            $config->production->database->adapter = "pdo_mysql";
+            $config->production->database->host = $_POST['db_server'];
+            $config->production->database->username = $_POST['db_username'];
+            $config->production->database->password = $_POST['db_password'];
+            $config->production->database->dbname = $_POST['db_name'];
+            $config->production->database->table_prefix = $_POST['db_table_prefix'] . "_";
+            $config->production->backoffice_path = $_POST['admin_path'];
+            $config->production->session_save_handler = "file";
+            $writer = new Zend_Config_Writer_Ini();
+            $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
+            $writer->write();
             $this->_session->actions['modules'] = 1;
             $this->_redirect('install/modules');
             }
         }
+        $this->view->form = $form;
     }
 
     public function modulesAction()
