@@ -91,18 +91,14 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Base Configuration';
         $this->view->pageDescription = '';
-        $this->view->form = new Install_Form_Config();
-        $this->view->form->setAction('install/create-admin');
-        $this->_session->actions['create-admin'] = 1;
-    }
-
-    public function createAdminAction()
-    {
-        $this->view->pageTitle = 'Create admin account';
-        $this->view->pageDescription = '';
-        $this->view->form = new Install_Form_Administrator();
-        $this->view->form->setAction('install/modules');
-        $this->_session->actions['modules'] = 1;
+        $this->view->form = $form = new Install_Form_Config();        
+        if($this->_request->isPost()){
+        $form->populate($this->_request->getPost());
+        if($form->isValid($this->_request->getPost())) {
+            $this->_session->actions['modules'] = 1;
+            $this->_redirect('install/modules');
+            }
+        }
     }
 
     public function modulesAction()
