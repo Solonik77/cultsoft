@@ -107,11 +107,20 @@ class Install_IndexController extends Zend_Controller_Action
             $config->configuration->database->table_prefix = $_POST['db_table_prefix'] . "_";
             $config->configuration->backoffice_path = $_POST['admin_path'];
             $config->configuration->session_save_handler = "file";
+            try{
+                $db = Zend_Db::factory(App_Utf8::strtoupper($config->configuration->database->adapter), $config->configuration->database);
+                $db->getConnection();
+                $db->query("SET NAMES 'utf8'");
+            }  catch (Zend_Db_Adapter_Exception $e) {
+                throw new App_Exception($e->getMessage());
+            }
+            /*
             $writer = new Zend_Config_Writer_Ini();
             $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
             $writer->write();
             $this->_session->actions['modules'] = 1;
             $this->_redirect('install/modules');
+            */
             }
         }
         $this->view->form = $form;
