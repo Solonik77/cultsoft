@@ -91,6 +91,7 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Base Configuration';
         $this->view->pageDescription = '';
+        $this->view->errors = array();
         $form = new Install_Form_Config();        
         if($this->_request->isPost()){
         $form->populate($this->_request->getPost());
@@ -112,15 +113,15 @@ class Install_IndexController extends Zend_Controller_Action
                 $db->getConnection();
                 $db->query("SET NAMES 'utf8'");
             }  catch (Zend_Db_Adapter_Exception $e) {
-                throw new App_Exception($e->getMessage());
+                $this->view->errors[] = $e->getMessage();
             }
-            /*
-            $writer = new Zend_Config_Writer_Ini();
-            $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
-            $writer->write();
-            $this->_session->actions['modules'] = 1;
-            $this->_redirect('install/modules');
-            */
+                if(count($this->view->errors) == 0){           
+                    $writer = new Zend_Config_Writer_Ini();
+                    $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
+                    $writer->write();
+                    $this->_session->actions['modules'] = 1;
+                    $this->_redirect('install/modules');            
+                }
             }
         }
         $this->view->form = $form;
