@@ -67,9 +67,9 @@ final class Bootstrap
      */
     private function _initConfiguration ()
     {
-        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
+        $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', 'configuration', true);
         if (file_exists(VAR_PATH . 'cache/configs/settings.ini')) {
-            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', null));
+            $options->merge(new Zend_Config_Ini(VAR_PATH . 'cache/configs/settings.ini', 'settings'));
         }
         App::addConfig($options);
     }
