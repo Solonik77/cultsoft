@@ -97,16 +97,16 @@ class Install_IndexController extends Zend_Controller_Action
         if($form->isValid($this->_request->getPost())) {
             
             $config = new Zend_Config(array(), true);
-            $config->production = array();
-            $config->production->database = array();
-            $config->production->database->adapter = "pdo_mysql";
-            $config->production->database->host = $_POST['db_server'];
-            $config->production->database->username = $_POST['db_username'];
-            $config->production->database->password = $_POST['db_password'];
-            $config->production->database->dbname = $_POST['db_name'];
-            $config->production->database->table_prefix = $_POST['db_table_prefix'] . "_";
-            $config->production->backoffice_path = $_POST['admin_path'];
-            $config->production->session_save_handler = "file";
+            $config->configuration = array();
+            $config->configuration->database = array();
+            $config->configuration->database->adapter = "pdo_mysql";
+            $config->configuration->database->host = $_POST['db_server'];
+            $config->configuration->database->username = $_POST['db_username'];
+            $config->configuration->database->password = $_POST['db_password'];
+            $config->configuration->database->dbname = $_POST['db_name'];
+            $config->configuration->database->table_prefix = $_POST['db_table_prefix'] . "_";
+            $config->configuration->backoffice_path = $_POST['admin_path'];
+            $config->configuration->session_save_handler = "file";
             $writer = new Zend_Config_Writer_Ini();
             $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
             $writer->write();
