@@ -12,11 +12,11 @@ Server version : 5.1.35-community
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-/*Table structure for table `prefix_blog` */
+/*Table structure for table `blog` */
 
-DROP TABLE IF EXISTS `prefix_blog`;
+DROP TABLE IF EXISTS `blog`;
 
-CREATE TABLE `prefix_blog` (
+CREATE TABLE `blog` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fancy_url` varchar(100) DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -26,13 +26,13 @@ CREATE TABLE `prefix_blog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog` */
+/*Data for the table `blog` */
 
-/*Table structure for table `prefix_blog_comments` */
+/*Table structure for table `blog_comments` */
 
-DROP TABLE IF EXISTS `prefix_blog_comments`;
+DROP TABLE IF EXISTS `blog_comments`;
 
-CREATE TABLE `prefix_blog_comments` (
+CREATE TABLE `blog_comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned DEFAULT NULL,
   `author` tinytext,
@@ -48,13 +48,13 @@ CREATE TABLE `prefix_blog_comments` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_comments` */
+/*Data for the table `blog_comments` */
 
-/*Table structure for table `prefix_blog_member` */
+/*Table structure for table `blog_member` */
 
-DROP TABLE IF EXISTS `prefix_blog_member`;
+DROP TABLE IF EXISTS `blog_member`;
 
-CREATE TABLE `prefix_blog_member` (
+CREATE TABLE `blog_member` (
   `blog_id` int(11) unsigned NOT NULL,
   `member_id` int(11) unsigned DEFAULT NULL,
   `is_moderator` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -65,13 +65,13 @@ CREATE TABLE `prefix_blog_member` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_member` */
+/*Data for the table `blog_member` */
 
-/*Table structure for table `prefix_blog_posts` */
+/*Table structure for table `blog_posts` */
 
-DROP TABLE IF EXISTS `prefix_blog_posts`;
+DROP TABLE IF EXISTS `blog_posts`;
 
-CREATE TABLE `prefix_blog_posts` (
+CREATE TABLE `blog_posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) unsigned DEFAULT NULL,
   `member_id` int(11) unsigned DEFAULT NULL,
@@ -81,13 +81,13 @@ CREATE TABLE `prefix_blog_posts` (
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_blog_posts` */
+/*Data for the table `blog_posts` */
 
-/*Table structure for table `prefix_i18n_blog` */
+/*Table structure for table `i18n_blog` */
 
-DROP TABLE IF EXISTS `prefix_i18n_blog`;
+DROP TABLE IF EXISTS `i18n_blog`;
 
-CREATE TABLE `prefix_i18n_blog` (
+CREATE TABLE `i18n_blog` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -98,13 +98,13 @@ CREATE TABLE `prefix_i18n_blog` (
   KEY `blog_id` (`blog_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_i18n_blog` */
+/*Data for the table `i18n_blog` */
 
-/*Table structure for table `prefix_i18n_blog_posts` */
+/*Table structure for table `i18n_blog_posts` */
 
-DROP TABLE IF EXISTS `prefix_i18n_blog_posts`;
+DROP TABLE IF EXISTS `i18n_blog_posts`;
 
-CREATE TABLE `prefix_i18n_blog_posts` (
+CREATE TABLE `i18n_blog_posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `prefix_i18n_blog_posts` (
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `prefix_i18n_blog_posts` */
+/*Data for the table `i18n_blog_posts` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
