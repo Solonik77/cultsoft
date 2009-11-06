@@ -17,6 +17,6 @@ class Install_Form_Modules extends App_Form
 
     public function setModulesInfo($moulesInfo)
     {
-        $this->_moulesInfo = moulesInfo;
+        $this->_moulesInfo = $moulesInfo;
     }
 }
