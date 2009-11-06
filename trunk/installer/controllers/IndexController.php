@@ -103,7 +103,7 @@ class Install_IndexController extends Zend_Controller_Action
                 $mainConfig->database->username = $_POST['db_username'];
                 $mainConfig->database->password = $_POST['db_password'];
                 $mainConfig->database->dbname = $_POST['db_name'];
-                $mainConfig->database->table_prefix = $_POST['db_table_prefix'] . "_";
+                $mainConfig->database->table_prefix = $tablePrefix = $_POST['db_table_prefix'] . "_";
                 $mainConfig->backoffice_path = $_POST['admin_path'];
                 try{
                     $db = Zend_Db::factory(App_Utf8::strtoupper($mainConfig->database->adapter), $mainConfig->database);
@@ -165,8 +165,18 @@ class Install_IndexController extends Zend_Controller_Action
                     $settings->encryption->default->cipher = MCRYPT_RIJNDAEL_128;
                     $writer->setConfig($settings)->setFilename(VAR_PATH . 'cache/configs/settings.ini');
                     $writer->write();
-                    $this->_session->actions['modules'] = 1;
-                    $this->_redirect('install/modules');
+                    $sqlFile = APPLICATION_PATH . 'modules/main/sql/mysql.sql';
+
+                    $sqlData = file_get_contents($sqlFile);
+                    $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'INSERT INTO `'), array('DROP TABLE IF EXISTS `' . $tablePrefix . '_' , 'CREATE TABLE `' . $tablePrefix . '_' , 'INSERT INTO `' . $tablePrefix . '_'), $sqlData);
+                    try{
+                        $db->exec($sqlData);
+                        $this->_session->actions['modules'] = 1;
+                        $this->_redirect('install/modules');
+                    }
+                    catch(Exception $e){
+                        throw new App_Exception($e->getMessage());
+                    }
                 }
             }
         }
