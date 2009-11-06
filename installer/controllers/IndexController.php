@@ -103,12 +103,15 @@ class Install_IndexController extends Zend_Controller_Action
                 $mainConfig->database->username = $_POST['db_username'];
                 $mainConfig->database->password = $_POST['db_password'];
                 $mainConfig->database->dbname = $_POST['db_name'];
+                $mainConfig->database->dbname = $_POST['db_name'];
+                $mainConfig->database->adapterNamespace = 'App_Db_Adapter';
                 $mainConfig->database->table_prefix = $tablePrefix = $_POST['db_table_prefix'] . "_";
                 $mainConfig->backoffice_path = $_POST['admin_path'];
                 try{
                     $db = Zend_Db::factory(App_Utf8::strtoupper($mainConfig->database->adapter), $mainConfig->database);
                     $db->getConnection();
                     $db->query("SET NAMES 'utf8'");
+                    unset($mainConfig->database->adapterNamespace);
                 }
                 catch(Zend_Db_Adapter_Exception $e){
                     $this->view->errors[] = "Error in database connection params: " . $e->getMessage();
@@ -170,7 +173,7 @@ class Install_IndexController extends Zend_Controller_Action
                     $sqlData = file_get_contents($sqlFile);
                     $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'INSERT INTO `'), array('DROP TABLE IF EXISTS `' . $tablePrefix . '_' , 'CREATE TABLE `' . $tablePrefix . '_' , 'INSERT INTO `' . $tablePrefix . '_'), $sqlData);
                     try{
-                        $db->exec($sqlData);
+                        $db->multi_query($sqlData);
                         $this->_session->actions['modules'] = 1;
                         $this->_redirect('install/modules');
                     }

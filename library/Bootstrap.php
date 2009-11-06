@@ -128,6 +128,7 @@ final class Bootstrap
     {
         try {
             $config = App::config()->database->toArray();
+            $config['adapterNamespace'] = 'App_Db_Adapter';
             $config['persistent'] = false;
             $config['charset'] = 'utf8';
             $config['driver_options'] = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION , PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
