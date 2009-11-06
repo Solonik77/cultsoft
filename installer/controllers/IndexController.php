@@ -98,18 +98,17 @@ class Install_IndexController extends Zend_Controller_Action
         if($form->isValid($this->_request->getPost())) {
             
             $config = new Zend_Config(array(), true);
-            $config->configuration = array();
-            $config->configuration->database = array();
-            $config->configuration->database->adapter = "pdo_mysql";
-            $config->configuration->database->host = $_POST['db_server'];
-            $config->configuration->database->username = $_POST['db_username'];
-            $config->configuration->database->password = $_POST['db_password'];
-            $config->configuration->database->dbname = $_POST['db_name'];
-            $config->configuration->database->table_prefix = $_POST['db_table_prefix'] . "_";
-            $config->configuration->backoffice_path = $_POST['admin_path'];
-            $config->configuration->session_save_handler = "file";
+            $config->database = array();
+            $config->database->adapter = "pdo_mysql";
+            $config->database->host = $_POST['db_server'];
+            $config->database->username = $_POST['db_username'];
+            $config->database->password = $_POST['db_password'];
+            $config->database->dbname = $_POST['db_name'];
+            $config->database->table_prefix = $_POST['db_table_prefix'] . "_";
+            $config->backoffice_path = $_POST['admin_path'];
+            $config->session_save_handler = "file";
             try{
-                $db = Zend_Db::factory(App_Utf8::strtoupper($config->configuration->database->adapter), $config->configuration->database);
+                $db = Zend_Db::factory(App_Utf8::strtoupper($config->database->adapter), $config->database);
                 $db->getConnection();
                 $db->query("SET NAMES 'utf8'");
             }  catch (Zend_Db_Adapter_Exception $e) {
@@ -118,7 +117,7 @@ class Install_IndexController extends Zend_Controller_Action
                 if(count($this->view->errors) == 0){           
                     $writer = new Zend_Config_Writer_Ini();
                     $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
-                    $this->setRenderWithoutSections(true);
+                    $writer->setRenderWithoutSections(true);
                     $writer->write();
                     $this->_session->actions['modules'] = 1;
                     $this->_redirect('install/modules');            
