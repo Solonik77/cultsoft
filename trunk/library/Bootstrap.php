@@ -160,7 +160,7 @@ final class Bootstrap
      */
     private function _initSession ()
     {
-        Zend_Session::setOptions(array('remember_me_seconds' => intval(App::config()->remember_me_seconds) , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 1));
+        Zend_Session::setOptions(array('remember_me_seconds' => intval(App::config()->remember_me_seconds) , 'save_path' => VAR_PATH . "session" , 'gc_probability' => 1 , 'gc_divisor' => 5000 , 'name' => "zfsession" , 'use_only_cookies' => 0));
         if (App::config()->session_save_handler == 'db') {
             Zend_Session::setSaveHandler(new App_Session_SaveHandler_DbTable(array('name' => DB_TABLE_PREFIX . 'session' , 'primary' => 'id' , 'modifiedColumn' => 'modified' , 'dataColumn' => 'data' , 'lifetimeColumn' => 'lifetime')));
         }
