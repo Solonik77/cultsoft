@@ -193,8 +193,10 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Install modules';
         $this->view->pageDescription = '';
-        $this->view->form = new Install_Form_Modules();
-        $this->view->form->setAction('install/finish');
+        $sysInfo = new Main_Model_SystemInfo();
+        $form = new Install_Form_Modules();
+        $form->setModulesInfo($sysInfo->getModuleInfo());
+        $this->view->form =$form->compose();
         $this->_session->actions['finish'] = 1;
     }
 

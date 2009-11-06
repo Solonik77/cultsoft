@@ -142,15 +142,7 @@ class Main_Model_SystemInfo
 
     public function getRequiredPHPExtensions()
     {
-        return array(
-        array('fancy_name' => "Iconv" , 'extension_name' => "iconv" , 'ext_web_url' => "http://php.net/manual/en/book.iconv.php" , 'check_extension' => 'iconv' , 'hault' => TRUE) ,
-        array('fancy_name' => "Mcrypt" , 'extension_name' => "mcrypt" , 'ext_web_url' => "http://php.net/manual/en/book.mcrypt.php" , 'check_extension' => 'mcrypt' , 'hault' => TRUE) ,
-        array('fancy_name' => "PDO" , 'extension_name' => "PDO" , 'ext_web_url' => "http://php.net/manual/en/book.pdo.php" , 'check_extension' => 'PDO' , 'hault' => TRUE) ,
-        array('fancy_name' => "PDO MySQL" , 'extension_name' => "iconv" , 'ext_web_url' => "http://php.net/manual/en/ref.pdo-mysql.php" , 'check_extension' => 'pdo_mysql' , 'hault' => TRUE) ,
-        array('fancy_name' => "SimpleXML Handling" , 'extension_name' => "SimpleXML" , 'ext_web_url' => "http://php.net/manual/en/book.simplexml.php" , 'check_extension' => 'SimpleXML' , 'hault' => false) ,
-        array('fancy_name' => "Gettext" , 'extension_name' => "gettext" , 'ext_web_url' => "http://php.net/manual/en/book.gettext.php" , 'check_extension' => 'gettext' , 'hault' => false) ,
-        array('fancy_name' => "GD Library" , 'extension_name' => "gd" , 'ext_web_url' => "http://www.php.net/manual/en/image.setup.php" , 'check_extension' => 'gd' , 'hault' => true) ,
-        array('fancy_name' => "Reflection Class" , 'extension_name' => "Reflection" , 'ext_web_url' => "http://uk2.php.net/manual/en/language.oop5.reflection.php" , 'check_extension' => 'Reflection' , 'hault' => true));
+        return array(array('fancy_name' => "Iconv" , 'extension_name' => "iconv" , 'ext_web_url' => "http://php.net/manual/en/book.iconv.php" , 'check_extension' => 'iconv' , 'hault' => TRUE) , array('fancy_name' => "Mcrypt" , 'extension_name' => "mcrypt" , 'ext_web_url' => "http://php.net/manual/en/book.mcrypt.php" , 'check_extension' => 'mcrypt' , 'hault' => TRUE) , array('fancy_name' => "PDO" , 'extension_name' => "PDO" , 'ext_web_url' => "http://php.net/manual/en/book.pdo.php" , 'check_extension' => 'PDO' , 'hault' => TRUE) , array('fancy_name' => "PDO MySQL" , 'extension_name' => "iconv" , 'ext_web_url' => "http://php.net/manual/en/ref.pdo-mysql.php" , 'check_extension' => 'pdo_mysql' , 'hault' => TRUE) , array('fancy_name' => "SimpleXML Handling" , 'extension_name' => "SimpleXML" , 'ext_web_url' => "http://php.net/manual/en/book.simplexml.php" , 'check_extension' => 'SimpleXML' , 'hault' => false) , array('fancy_name' => "Gettext" , 'extension_name' => "gettext" , 'ext_web_url' => "http://php.net/manual/en/book.gettext.php" , 'check_extension' => 'gettext' , 'hault' => false) , array('fancy_name' => "GD Library" , 'extension_name' => "gd" , 'ext_web_url' => "http://www.php.net/manual/en/image.setup.php" , 'check_extension' => 'gd' , 'hault' => true) , array('fancy_name' => "Reflection Class" , 'extension_name' => "Reflection" , 'ext_web_url' => "http://uk2.php.net/manual/en/language.oop5.reflection.php" , 'check_extension' => 'Reflection' , 'hault' => true));
     }
 
     public function checkRequiredPHPextensions()
@@ -174,7 +166,12 @@ class Main_Model_SystemInfo
 
     public function getWritableSystemDirectories()
     {
-        return array(VAR_PATH , VAR_PATH . 'cache/system/' , VAR_PATH . 'cache/configs/', VAR_PATH . 'indexes/', VAR_PATH . 'logs/', VAR_PATH . 'session/', VAR_PATH . 'cache/system/', STATIC_PATH . 'uploads/');
+        return array(VAR_PATH , VAR_PATH . 'cache/system/' , VAR_PATH . 'cache/configs/' , VAR_PATH . 'indexes/' , VAR_PATH . 'logs/' , VAR_PATH . 'session/' , VAR_PATH . 'cache/system/' , STATIC_PATH . 'uploads/');
+    }
+
+    public function getModuleInfo($module = null)
+    {
+        return array();
     }
 
     public function checkWritableSystemDirectories()
@@ -182,13 +179,13 @@ class Main_Model_SystemInfo
         $directories = $this->getWritableSystemDirectories();
         $dirsData = array();
         foreach($directories as $dir){
-            $dir = str_replace('\\', '/' , $dir);
-            if(is_dir($dir) AND is_writable($dir))
-            {
-            $dirsData[] = array('path' => $dir, 'is_writable' => TRUE);
-            } else {
-            $dirsData[] = array('path' => $dir, 'is_writable' => FALSE);    
-            }        
+            $dir = str_replace('\\', '/', $dir);
+            if(is_dir($dir) and is_writable($dir)){
+                $dirsData[] = array('path' => $dir , 'is_writable' => TRUE);
+            }
+            else{
+                $dirsData[] = array('path' => $dir , 'is_writable' => FALSE);
+            }
         }
         return $dirsData;
     }
