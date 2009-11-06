@@ -113,11 +113,12 @@ class Install_IndexController extends Zend_Controller_Action
                 $db->getConnection();
                 $db->query("SET NAMES 'utf8'");
             }  catch (Zend_Db_Adapter_Exception $e) {
-                $this->view->errors[] = $e->getMessage();
+                $this->view->errors[] = "Error in database connection params: ".$e->getMessage();
             }
                 if(count($this->view->errors) == 0){           
                     $writer = new Zend_Config_Writer_Ini();
                     $writer->setConfig($config)->setFilename(VAR_PATH . 'initial.configuration.ini');
+                    $this->setRenderWithoutSections(true);
                     $writer->write();
                     $this->_session->actions['modules'] = 1;
                     $this->_redirect('install/modules');            
