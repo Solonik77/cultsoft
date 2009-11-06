@@ -169,9 +169,8 @@ class Install_IndexController extends Zend_Controller_Action
                     $writer->setConfig($settings)->setFilename(VAR_PATH . 'cache/configs/settings.ini');
                     $writer->write();
                     $sqlFile = APPLICATION_PATH . 'modules/main/sql/mysql.sql';
-
                     $sqlData = file_get_contents($sqlFile);
-                    $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'INSERT INTO `'), array('DROP TABLE IF EXISTS `' . $tablePrefix . '_' , 'CREATE TABLE `' . $tablePrefix . '_' , 'INSERT INTO `' . $tablePrefix . '_'), $sqlData);
+                    $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);
                     try{
                         $db->multi_query($sqlData);
                         $this->_session->actions['modules'] = 1;
