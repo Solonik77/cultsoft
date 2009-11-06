@@ -64,6 +64,7 @@ DROP TABLE IF EXISTS `members`;
 
 CREATE TABLE `members` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `login` varchar(64) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `role_id` smallint(1) DEFAULT NULL,
@@ -74,7 +75,7 @@ CREATE TABLE `members` (
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `members` */
 
