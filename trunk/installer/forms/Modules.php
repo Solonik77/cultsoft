@@ -11,7 +11,7 @@ class Install_Form_Modules extends App_Form
 
     public function compose()
     {
-        print_r($this->_moulesInfo); die;
+
         $this->addElement($this->createElement('submit', 'next')->setLabel('Next'));
         return $this;
     }
