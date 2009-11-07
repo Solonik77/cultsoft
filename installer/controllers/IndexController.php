@@ -171,7 +171,7 @@ class Install_IndexController extends Zend_Controller_Action
                     App::addConfig($settings);
                     $encrypt = new App_Encrypt($settings->encryption->default->toArray());
                     $adminData = array('login' => $_POST['admin_login'] , 'email' => $_POST['admin_email'] , 'password' => $encrypt->encode($_POST['admin_password']) , 'role_id' => 1 , 'is_active' => 1 , 'date_registered' => new Zend_Db_Expr('NOW()'));
-                    $sqlFile = APPLICATION_PATH . 'modules/main/sql/mysql.sql';
+                    $sqlFile = APPLICATION_PATH . 'modules/main/data/mysql/mysql.sql';
                     $sqlData = file_get_contents($sqlFile);
                     $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);
                     try{
