@@ -171,7 +171,21 @@ class Main_Model_SystemInfo
 
     public function getModuleInfo($module = null)
     {
-        return array();
+        $dirModules = glob(APPLICATION_PATH . 'modules/*', GLOB_ONLYDIR);
+        $info = array();
+        foreach($dirModules as $fileInfo){
+            $key = end(explode('/', $fileInfo));
+            $fileInfo .= '/data/information.php';
+            if(file_exists($fileInfo) and is_readable($fileInfo)){                
+                $info[$key] = include ($fileInfo);
+            }
+        }
+        if($module){
+            return $info[$module];
+        }
+        else{
+            return $info;
+        }
     }
 
     public function checkWritableSystemDirectories()
