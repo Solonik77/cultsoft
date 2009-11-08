@@ -17,7 +17,7 @@ if (extension_loaded('mbstring')) {
 require_once LIBRARY_PATH . 'App/Loader.php';
 final class Bootstrap
 {
-    public function __construct ()
+    public function __construct()
     {
          
         App_Loader::init();
@@ -25,6 +25,8 @@ final class Bootstrap
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
         $this->_initErrorHandler();
         $this->_initEnvironment();
+        $this->_initConfiguration();
+        $this->_initDatabase();
         $this->_initRoutes();
         $this->_initSession();
         $this->_initView();
@@ -68,7 +70,40 @@ final class Bootstrap
         @date_default_timezone_set(@date_default_timezone_get());
         umask(0);
     }
+    
+    private function _initConfiguration ()
+    {
+        if (file_exists(VAR_PATH . 'initial.configuration.ini')) {
+        $options = new Zend_Config_Ini(VAR_PATH . 'initial.configuration.ini', null, true);
+        App::addConfig($options);
+        } elseif(file_exists(VAR_PATH . 'configuration.ini')){
+            $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
+            App::addConfig($options);
+        } 
+    }
 
+    /**
+     * * Database connection setup
+     *
+     * @return void
+     */
+    private function _initDatabase ()
+    {
+        try {
+            $config = App::config()->database->toArray();
+            $config['adapterNamespace'] = 'App_Db_Adapter';
+            $config['persistent'] = false;
+            $config['charset'] = 'utf8';
+            $config['driver_options'] = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION , PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
+            App::setDb(Zend_Db::factory(App_Utf8::strtoupper($config['adapter']), $config));
+            App::db()->getConnection();
+            App::db()->query("SET NAMES 'utf8'");
+            defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
+        } catch (Zend_Db_Adapter_Exception $e) {
+            throw new App_Exception($e->getMessage());
+        }
+    }   
+    
     /**
      * ZendDebug panel
      *
