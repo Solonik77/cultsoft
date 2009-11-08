@@ -171,7 +171,7 @@ class Install_IndexController extends Zend_Controller_Action
                     App::addConfig($settings);
                     $encrypt = new App_Encrypt($settings->encryption->default->toArray());
                     $adminData = array('login' => $_POST['admin_login'] , 'email' => $_POST['admin_email'] , 'password' => $encrypt->encode($_POST['admin_password']) , 'role_id' => 1 , 'is_active' => 1 , 'date_registered' => new Zend_Db_Expr('NOW()'));
-                    $sqlFile = APPLICATION_PATH . 'modules/main/data/mysql/mysql.sql';
+                    $sqlFile = APPLICATION_PATH . 'modules/main/data/sql/mysql.sql';
                     $sqlData = file_get_contents($sqlFile);
                     $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);
                     try{
@@ -194,17 +194,38 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageTitle = 'Install modules';
         $this->view->pageDescription = '';
         $sysInfo = new Main_Model_SystemInfo();
+        $modulesInfo = $sysInfo->getModuleInfo();
         $form = new Install_Form_Modules();
-        $form->setModulesInfo($sysInfo->getModuleInfo());
-        $this->view->form =$form->compose();
-        
-        $this->_session->actions['finish'] = 1;
+        $form->setModulesInfo($modulesInfo);
+        $form->compose();
+        if(isset($_POST['modules'])){
+            $form->populate($this->_request->getPost());
+            if($form->isValid($this->_request->getPost())){
+                try{
+                    $tablePrefix = DB_TABLE_PREFIX;
+                    foreach($modulesInfo as $module => $info){
+                        if(isset($_POST['modules'][$module]) and $_POST['modules'][$module] > 0){
+                            $sqlFile = APPLICATION_PATH . 'modules/' . $module . '/data/sql/mysql.sql';
+                            $sqlData = file_get_contents($sqlFile);
+                            $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);
+                            App::db()->multi_query($sqlData);
+                        }
+                    }
+                    @rename(VAR_PATH . 'initial.configuration.ini', VAR_PATH . 'configuration.ini');
+                    $this->_session->actions['finish'] = 1;
+                    $this->_redirect('install/finish');
+                }
+                catch(Exception $e){
+                    throw new App_Exception($e->getMessage());
+                }
+            }
+        }
+        $this->view->form = $form;
     }
 
     public function finishAction()
     {
         $this->view->pageTitle = 'Finish installation';
         $this->view->pageDescription = '';
-        $this->view->form = new Install_Form_Finish();
     }
 }
