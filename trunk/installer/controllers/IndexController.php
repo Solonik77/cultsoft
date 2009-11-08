@@ -211,7 +211,6 @@ class Install_IndexController extends Zend_Controller_Action
                             App::db()->multi_query($sqlData);
                         }
                     }
-                    @rename(VAR_PATH . 'initial.configuration.ini', VAR_PATH . 'configuration.ini');
                     $this->_session->actions['finish'] = 1;
                     $this->_redirect('install/finish');
                 }
@@ -227,5 +226,18 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Finish installation';
         $this->view->pageDescription = '';
+        $form = new Install_Form_Finish();
+        if($this->_request->isPost()){
+            if($form->isValid($this->_request->getPost())){
+                @rename(VAR_PATH . 'initial.configuration.ini', VAR_PATH . 'configuration.ini');
+                if($_POST['redirect_to'] === 'Go to backend'){
+                    $this->_redirect('admin');
+                }
+                else{
+                    $this->_redirect('admin');
+                }
+            }
+        }
+        $this->view->form = $form;
     }
 }
