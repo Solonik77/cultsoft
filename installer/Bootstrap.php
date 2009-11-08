@@ -26,7 +26,6 @@ final class Bootstrap
         $this->_initErrorHandler();
         $this->_initEnvironment();
         $this->_initConfiguration();
-        $this->_initDatabase();
         $this->_initRoutes();
         $this->_initSession();
         $this->_initView();
@@ -76,9 +75,11 @@ final class Bootstrap
         if (file_exists(VAR_PATH . 'initial.configuration.ini')) {
         $options = new Zend_Config_Ini(VAR_PATH . 'initial.configuration.ini', null, true);
         App::addConfig($options);
+        $this->_initDatabase();
         } elseif(file_exists(VAR_PATH . 'configuration.ini')){
             $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
             App::addConfig($options);
+            $this->_initDatabase();
         } 
     }
 
