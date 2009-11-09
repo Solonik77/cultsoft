@@ -1,15 +1,11 @@
 <?php
 /**
- * Global website email forms.
+ * Authorization form
  *
  * @author Denysenko Dmytro
  */
 class Main_Form_Signin extends App_Form {
-    /**
-     * Contructor
-     *
-     * @return Zend_Form object
-     */
+
     public function __construct($options = null)
     {
         parent::__construct($options);

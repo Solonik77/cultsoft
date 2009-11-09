@@ -1,14 +1,15 @@
 <?php
 /**
- * Backoffice navigation
+ * Backoffice navigation component
  *
  * @author Denysenko Dmytro
  */
 class Main_Component_BackofficeStructure {
-    public function __construct()
-    {
-    }
 
+    /*
+     * getTopMenu
+     * @return array
+     */
     public function getTopMenu()
     {
         return array(array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Dashboard'),
@@ -23,7 +24,10 @@ class Main_Component_BackofficeStructure {
         )),
         );
     }
-
+    /*
+     * getFooterMenu
+     * @return array
+     */
     public function getFooterMenu()
     {
         return array(array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'method' => 'index' , 'label' => __('Dashboard')) , array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog')));

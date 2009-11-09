@@ -1,5 +1,7 @@
 <?php
-
+/*
+ *  Update system configuration form
+ */
 class Main_Form_Backoffice_Settings extends App_Form {
     public function __construct($options = array())
     {

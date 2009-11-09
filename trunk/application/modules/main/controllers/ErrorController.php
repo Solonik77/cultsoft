@@ -28,7 +28,9 @@ class Main_ErrorController extends App_Controller_Action {
         $this->view->request = $errors->request;
         App::log($errors->exception->getMessage(), Zend_Log::ERR);
     }
-
+    /*
+     * Access deny action
+     */
     public function denyAction()
     {
         $this->getResponse()->setHttpResponseCode(401);

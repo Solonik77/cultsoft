@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin blog
+ * Admin controller for blog
  *
  * @author Denysenko Dmytro
  */
@@ -112,7 +112,7 @@ class Blog_AdminController extends App_Controller_Action
     }
 
     /**
-     * Edit blog
+     * Edit blog data
      */
     public function updateBlogAction()
     {

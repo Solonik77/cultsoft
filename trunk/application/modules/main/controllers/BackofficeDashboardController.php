@@ -14,7 +14,9 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
         $this->view->pageDescription = __('Fast access links, statistics, system information');
         $this->view->headTitle($this->view->pageTitle);
     }
-
+    /*
+     * System information, statistic data
+     */
     public function indexAction()
     {
         $sys_info = new Main_Model_SystemInfo();
@@ -40,7 +42,9 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
         $this->view->iconv_func = $sys_info->isPHPFunctionExist('iconv');
         $this->view->os_version = $sys_info->getOsVersion();
     }
-
+    /*
+     * Edit system configuration action
+     */
     public function settingsAction()
     {
         $model = new Main_Model_Settings();

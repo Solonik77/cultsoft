@@ -1,4 +1,7 @@
 <?php
+/*
+ * Application form for create and update blog data
+ */
 class Blog_Form_Blog extends App_Form {
     private $_currentBlogType = 'private';
     private $_blogTypes = array();

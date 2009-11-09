@@ -1,7 +1,6 @@
 <?php
 /**
  * Index controller.
- * This controller used for front demo and testing pages.
  *
  * @author Denysenko Dmytro
  */
