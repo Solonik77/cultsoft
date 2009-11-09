@@ -56,7 +56,7 @@ final class App
         if (App::$log instanceof Zend_Log) {
             if (App::$config instanceof Zend_Config and $type <= App::config()->system_log_threshold) {
                 App::$log->log($message, $type);
-            } else if(defined('INSTALLER_RUN')) {
+            } else if(defined('INSTALLER_RUN') AND $type <= 4) {
                 App::$log->log($message, $type);
             }
         }
