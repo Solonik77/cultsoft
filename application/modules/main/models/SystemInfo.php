@@ -176,7 +176,7 @@ class Main_Model_SystemInfo
         foreach($dirModules as $fileInfo){
             $key = end(explode('/', $fileInfo));
             $fileInfo .= '/data/information.php';
-            if(file_exists($fileInfo) and is_readable($fileInfo)){                
+            if(file_exists($fileInfo) and is_readable($fileInfo)){
                 $info[$key] = include ($fileInfo);
             }
         }

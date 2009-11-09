@@ -69,18 +69,18 @@ final class Bootstrap
         @date_default_timezone_set(@date_default_timezone_get());
         umask(0);
     }
-    
+
     private function _initConfiguration ()
     {
         if (file_exists(VAR_PATH . 'initial.configuration.ini')) {
-        $options = new Zend_Config_Ini(VAR_PATH . 'initial.configuration.ini', null, true);
-        App::addConfig($options);
-        $this->_initDatabase();
+            $options = new Zend_Config_Ini(VAR_PATH . 'initial.configuration.ini', null, true);
+            App::addConfig($options);
+            $this->_initDatabase();
         } elseif(file_exists(VAR_PATH . 'configuration.ini')){
             $options = new Zend_Config_Ini(VAR_PATH . 'configuration.ini', null, true);
             App::addConfig($options);
             $this->_initDatabase();
-        } 
+        }
     }
 
     /**
@@ -103,8 +103,8 @@ final class Bootstrap
         } catch (Zend_Db_Adapter_Exception $e) {
             throw new App_Exception($e->getMessage());
         }
-    }   
-    
+    }
+
     /**
      * ZendDebug panel
      *
