@@ -3,6 +3,10 @@ class Install_IndexController extends Zend_Controller_Action
 {
     private $_session;
 
+    /**
+     * Init method
+     * Create session data for installer actions
+     */
     public function init()
     {
         $pages = new Install_Component_Structure();
@@ -23,6 +27,9 @@ class Install_IndexController extends Zend_Controller_Action
         }
     }
 
+    /*
+     * License action
+     */
     public function indexAction()
     {
         $this->view->pageTitle = 'License';
@@ -50,6 +57,9 @@ class Install_IndexController extends Zend_Controller_Action
         }
     }
 
+    /*
+     * Pre-installation action
+     */
     public function preInstallationCheckAction()
     {
         $this->view->pageTitle = 'Pre-installation Check';
@@ -87,6 +97,9 @@ class Install_IndexController extends Zend_Controller_Action
         }
     }
 
+    /*
+     * Set configuration action
+     */
     public function configAction()
     {
         $this->view->pageTitle = 'Base Configuration';
@@ -189,6 +202,9 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
+    /*
+     * Install modules action
+     */
     public function modulesAction()
     {
         $this->view->pageTitle = 'Install modules';
@@ -222,6 +238,9 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
+    /*
+     * Finalize installation action
+     */
     public function finishAction()
     {
         $this->view->pageTitle = 'Finish installation';

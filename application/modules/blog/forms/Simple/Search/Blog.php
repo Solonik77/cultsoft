@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * Qiuick search form for collaborative and private blogs
+ */
 class Blog_Form_Simple_Search_Blog extends App_Form {
     public function __construct($options = null)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Blog
+ * Database table: i18n_blog
  *
  * @author Dmytro Denysenko
  */

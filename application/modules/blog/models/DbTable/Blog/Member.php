@@ -1,6 +1,6 @@
 <?php
 /**
- * Blog Member
+ *  Database table: blog_member
  */
 class Blog_Model_DbTable_Blog_Member extends App_Db_Table_Abstract {
     protected $_primary = 'blog_id';
