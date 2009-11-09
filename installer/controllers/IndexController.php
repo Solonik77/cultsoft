@@ -245,15 +245,15 @@ class Install_IndexController extends Zend_Controller_Action
     {
         $this->view->pageTitle = 'Finish installation';
         $this->view->pageDescription = '';
+        @rename(VAR_PATH . 'initial.configuration.ini', VAR_PATH . 'configuration.ini');
         $form = new Install_Form_Finish();
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
-                @rename(VAR_PATH . 'initial.configuration.ini', VAR_PATH . 'configuration.ini');
-                if($_POST['redirect_to'] === 'Go to backend'){
+                if(isset($_POST['redirect_to_backend'])){
                     $this->_redirect('admin');
                 }
                 else{
-                    $this->_redirect('admin');
+                    $this->_redirect('/');
                 }
             }
         }

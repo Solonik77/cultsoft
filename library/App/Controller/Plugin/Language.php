@@ -45,7 +45,7 @@ class App_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
         App::front()->setParam('requestLang', $request_lang);
         App::front()->setParam('requestLangId', $request_lang_id);
         $module = App::front()->getRequest()->getParam('module');
-        if($module != 'main' AND $module != 'system'){
+        if($module != 'main' AND $module != 'system' AND is_dir(APPLICATION_PATH . 'modules/' . $module . '/i18n/')){
             App::i18n()->getTranslator()->addTranslation(APPLICATION_PATH . 'modules/' . $module . '/i18n/');
         }
     }

@@ -5,7 +5,8 @@
  *
  * @author Denysenko Dmytro
  */
-class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
+class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract
+{
     // Zend_ACL Instance
     private $_acl;
 
@@ -19,38 +20,40 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract {
 
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
+        if($request->getModuleName() == 'install' and file_exists(VAR_PATH . 'configuration.ini')){
+            $request->setModuleName('main')->setControllerName('index')->setActionName('index');
+        }
         Zend_Registry::set('member_access', 'ALLOWED');
         Zend_Registry::set('BACKOFFICE_CONTROLLER', false);
         $className = App::front()->getDispatcher()->getControllerClass($request);
-        if (($className) and ! class_exists($className, false)) {
+        if(($className) and ! class_exists($className, false)){
             $fileSpec = App::front()->getDispatcher()->classToFilename($className);
             $dispatchDir = App::front()->getDispatcher()->getDispatchDirectory();
             $test = $dispatchDir . DS . $fileSpec;
-            if (Zend_Loader::isReadable($test)) {
+            if(Zend_Loader::isReadable($test)){
                 include_once $test;
                 $class = new Zend_Reflection_Class($request->getModuleName() . '_' . $request->getControllerName() . 'Controller');
-                if ($class->getConstant('BACKOFFICE_CONTROLLER') === true) {
+                if($class->getConstant('BACKOFFICE_CONTROLLER') === true){
                     Zend_Registry::set('BACKOFFICE_CONTROLLER', true);
                 }
             }
         }
-        if (Zend_Registry::get('BACKOFFICE_CONTROLLER') and ! App_Member::getAuth()->hasIdentity()) {
+        if(Zend_Registry::get('BACKOFFICE_CONTROLLER') and ! App_Member::getAuth()->hasIdentity()){
             $request->setModuleName('main')->setControllerName('profile')->setActionName('signin');
             Zend_Registry::set('member_access', 'NOT_AUTHORIZED');
             return;
         }
         $role = App_Member::getInstance()->getRole();
-
-        if (! $role) {
+        if(! $role){
             $role = 'guest';
         }
         $resource = strtolower($request->getModuleName() . '_' . $request->getControllerName());
-
-        if ($this->_acl->has($resource)) {
-            if (! $this->_acl->isAllowed($role, $resource)) {
+        if($this->_acl->has($resource)){
+            if(! $this->_acl->isAllowed($role, $resource)){
                 Zend_Registry::set('member_access', 'ACCESS_DENY');
                 $request->setModuleName('main')->setControllerName('error')->setActionName('deny');
-            } else {
+            }
+            else{
                 Zend_Registry::set('member_access', 'ALLOWED');
             }
         }
