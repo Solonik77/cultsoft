@@ -83,11 +83,11 @@ CREATE TABLE `blog_posts` (
 
 /*Data for the table `blog_posts` */
 
-/*Table structure for table `i18n_blog` */
+/*Table structure for table `blog_i18n` */
 
-DROP TABLE IF EXISTS `i18n_blog`;
+DROP TABLE IF EXISTS `blog_i18n`;
 
-CREATE TABLE `i18n_blog` (
+CREATE TABLE `blog_i18n` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -98,13 +98,13 @@ CREATE TABLE `i18n_blog` (
   KEY `blog_id` (`blog_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `i18n_blog` */
+/*Data for the table `blog_i18n` */
 
-/*Table structure for table `i18n_blog_posts` */
+/*Table structure for table `blog_posts_i18n` */
 
-DROP TABLE IF EXISTS `i18n_blog_posts`;
+DROP TABLE IF EXISTS `blog_posts_i18n`;
 
-CREATE TABLE `i18n_blog_posts` (
+CREATE TABLE `blog_posts_i18n` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `i18n_blog_posts` (
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `i18n_blog_posts` */
+/*Data for the table `blog_posts_i18n` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -75,8 +75,8 @@ class Blog_AdminController extends App_Controller_Action
                 $currentBlog->setDateUpdated(Vendor_Helper_Date::now());
                 $currentBlog->setDateCreated(Vendor_Helper_Date::now());
                 if(null == ($fancy_url = $postParams['fancy_url'])){
-                    $firstLangKey = current(array_keys($postParams['i18n_blog']));
-                    $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
+                    $firstLangKey = current(array_keys($postParams['blog_i18n']));
+                    $fancy_url = isset($postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['blog_i18n'][$firstLangKey]['title'];
                 }
                 $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                 $currentBlog->setType($postParams['type']);
@@ -85,10 +85,10 @@ class Blog_AdminController extends App_Controller_Action
                     $moduleLangs = App::i18n()->getModuleLanguages();
                     if(count($moduleLangs) > 0){
                         foreach($moduleLangs as $lang){
-                            if(isset($postParams['i18n_blog'][$lang['id']])){
-                                $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
+                            if(isset($postParams['blog_i18n'][$lang['id']])){
+                                $blogI18nModel = new Blog_Model_DbTable_Blog_I18n;
                                 $currentBlogI18n = $blogI18nModel->createRow();
-                                $currentBlogI18n->setAttributes($postParams['i18n_blog'][$lang['id']]);
+                                $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
                                 $currentBlogI18n->setLangId($lang['id']);
                                 $currentBlogI18n->setBlogId($currentBlog->getId());
                                 $currentBlogI18n->save();
@@ -129,7 +129,7 @@ class Blog_AdminController extends App_Controller_Action
             $form->setCurrentBlogType($currentBlog->getType());
             $form->compose();
 
-            $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_I18n_Blog')->toArray();
+            $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_Blog_I18n')->toArray();
             $formData = $currentBlog->toArray();
             foreach($i18nBlog as $row){
                 $formData['lang_' . $row['lang_id']] = $row;
@@ -154,8 +154,8 @@ class Blog_AdminController extends App_Controller_Action
                     $currentBlog->setAttributes($postParams);
                     $currentBlog->setDateUpdated(Vendor_Helper_Date::now());
                     if(null == ($fancy_url = $postParams['fancy_url'])){
-                        $firstLangKey = current(array_keys($postParams['i18n_blog']));
-                        $fancy_url = isset($postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['i18n_blog'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['i18n_blog'][$firstLangKey]['title'];
+                        $firstLangKey = current(array_keys($postParams['blog_i18n']));
+                        $fancy_url = isset($postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['blog_i18n'][$firstLangKey]['title'];
                     }
                     $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                     $currentBlog->setType($postParams['type']);
@@ -164,10 +164,10 @@ class Blog_AdminController extends App_Controller_Action
                         $moduleLangs = App::i18n()->getModuleLanguages();
                         if(count($moduleLangs) > 0){
                             foreach($moduleLangs as $lang){
-                                if(isset($postParams['i18n_blog'][$lang['id']])){
-                                    $blogI18nModel = new Blog_Model_DbTable_I18n_Blog;
+                                if(isset($postParams['blog_i18n'][$lang['id']])){
+                                    $blogI18nModel = new Blog_Model_DbTable_Blog_I18n;
                                     $currentBlogI18n = $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $currentBlog->getId()))->current();
-                                    $currentBlogI18n->setAttributes($postParams['i18n_blog'][$lang['id']]);
+                                    $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
                                     $currentBlogI18n->setLangId($lang['id']);
                                     $currentBlogI18n->setBlogId($currentBlog->getId());
                                     $currentBlogI18n->save();

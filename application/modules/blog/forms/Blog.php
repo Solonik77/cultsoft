@@ -19,7 +19,7 @@ class Blog_Form_Blog extends App_Form {
             foreach($moduleLangs as $lang) {
                 $langForm = new Zend_Form_SubForm;
                 $langForm->setLegend(__($lang['name']));
-                $langForm->setElementsBelongTo('i18n_blog[' . $lang['id'] . ']');
+                $langForm->setElementsBelongTo('blog_i18n[' . $lang['id'] . ']');
                 if ($this->getIsUpdate()) {
                     $langForm->addElement($this->createElement('hidden', 'id'));
                 }
