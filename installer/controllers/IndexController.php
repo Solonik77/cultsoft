@@ -160,7 +160,7 @@ class Install_IndexController extends Zend_Controller_Action
                     $settings->items_per_page = 10;
                     $settings->project = array();
                     $settings->project->template = "simple";
-                    $settings->project->email = "info@example->com";
+                    $settings->project->email = $_POST['admin_email'];
                     $settings->project->timezone = "Europe/Helsinki";
                     $settings->remember_me_seconds = 864000;
                     $settings->mail = array();
@@ -181,9 +181,8 @@ class Install_IndexController extends Zend_Controller_Action
                     $settings->encryption->default->cipher = MCRYPT_RIJNDAEL_128;
                     $writer->setConfig($settings)->setFilename(VAR_PATH . 'cache/configs/settings.ini');
                     $writer->write();
-                    App::addConfig($settings);
-                    $encrypt = new App_Encrypt($settings->encryption->default->toArray());
-                    $adminData = array('login' => $_POST['admin_login'] , 'email' => $_POST['admin_email'] , 'password' => $encrypt->encode($_POST['admin_password']) , 'role_id' => 1 , 'is_active' => 1 , 'date_registered' => new Zend_Db_Expr('NOW()'));
+                    App::addConfig($settings);                    
+                    $adminData = array('login' => $_POST['admin_login'] , 'email' => $_POST['admin_email'] , 'password' => md5(md5($_POST['admin_password'])) , 'role_id' => 1 , 'is_active' => 1 , 'date_registered' => new Zend_Db_Expr('NOW()'));
                     $sqlFile = APPLICATION_PATH . 'modules/main/data/sql/mysql.sql';
                     $sqlData = file_get_contents($sqlFile);
                     $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);

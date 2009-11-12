@@ -36,7 +36,8 @@ class Main_ProfileController extends App_Controller_Action {
                     $this->view->form = $form;
                     return $this->render();
                 } else {
-                    $authAdapter = $this->_getAuthAdapter($formData['member_email'], $formData['member_password']);
+                    $memberPassword = md5(md5($formData['member_password']));
+                    $authAdapter = $this->_getAuthAdapter($formData['member_email'], $memberPassword);
                     $result = App_Member::getAuth()->authenticate($authAdapter);
                     if (! $result->isValid()) {
                         $form->addDecorator('Description', array('escape' => true , 'placement' => 'prepend'));
@@ -76,7 +77,7 @@ class Main_ProfileController extends App_Controller_Action {
      */
     protected function _getAuthAdapter($email, $password)
     {
-        $authAdapter = new Zend_Auth_Adapter_DbTable(App::db(), DB_TABLE_PREFIX . 'members', 'email', 'password', 'MD5(MD5(?))');
+        $authAdapter = new Zend_Auth_Adapter_DbTable(App::db(), DB_TABLE_PREFIX . 'members', 'email', 'password', '?');
         $authAdapter->setIdentity($email)->setCredential($password);
         return $authAdapter;
     }
