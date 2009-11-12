@@ -12,17 +12,23 @@ class Main_Component_BackofficeStructure {
      */
     public function getTopMenu()
     {
-        return array(array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Dashboard'),
+        $data = array();
+        $mainModule = array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'index' , 'label' => __('Dashboard'),
                 'pages' => array(
         array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'action' => 'settings' , 'label' => __('Settings')),
         )
-        ) ,
-        array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog') ,
+        );
+
+        $data[] = $mainModule;
+        
+        $blogModule =  array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog') ,
                 'pages' => array(
         array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'manage-blogs' , 'label' => __('Manage blogs')),
         array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'create-blog' , 'label' => __('Create blog')) ,
-        )),
-        );
+        ));
+        $data[] = $blogModule;
+
+        return $data;
     }
     /*
      * getFooterMenu
@@ -30,6 +36,6 @@ class Main_Component_BackofficeStructure {
      */
     public function getFooterMenu()
     {
-        return array(array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'method' => 'index' , 'label' => __('Dashboard')) , array('module' => 'blog' , 'controller' => 'admin' , 'action' => 'index' , 'label' => __('Blog')));
+        return array(array('module' => 'main' , 'controller' => 'backofficeDashboard' , 'method' => 'index' , 'label' => __('Dashboard')));
     }
 }
