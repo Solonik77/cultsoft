@@ -23,7 +23,7 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract
         if($request->getModuleName() == 'install' and file_exists(VAR_PATH . 'configuration.ini')){
                 $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
                 if(isset($_POST['redirect_to_backend'])){
-                    $redirector->redirect('/admin/');
+                    $redirector->gotoUrl('/admin/');
                 }
                 else{
                     $redirector->gotoUrl(App::baseUri());
