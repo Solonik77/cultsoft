@@ -9,7 +9,7 @@ class Install_Form_Config extends App_Form
         $dbServer = $this->createElement('text', 'db_server', array('maxlength' => 100))->setLabel('Host')->setValue('localhost');
         $dbServer->addValidator('stringLength', false, array(1 , 255))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
         $this->addElement($dbServer);
-        $dbName = $this->createElement('text', 'db_name', array('maxlength' => 100))->setLabel('Database name')->setValue('engine');
+        $dbName = $this->createElement('text', 'db_name', array('maxlength' => 100))->setLabel('Database name')->setValue('dbname');
         $dbName->addValidator('stringLength', false, array(1 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
         $this->addElement($dbName);
         $dbUser = $this->createElement('text', 'db_username', array('maxlength' => 100))->setLabel('Username')->setValue('root');
@@ -30,7 +30,7 @@ class Install_Form_Config extends App_Form
         $adminPath->addValidator('stringLength', false, array(4 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
         $adminPath->setDescription('Value used in site url for access to control pannel: http://example.com/admin/');
         $this->addElement($adminPath);
-        $adminUser = $this->createElement('text', 'admin_login', array('maxlength' => 100))->setLabel('Login');
+        $adminUser = $this->createElement('text', 'admin_login', array('maxlength' => 100))->setLabel('Login')->setValue('admin');
         $adminUser->addValidator('stringLength', false, array(2 , 100))->setRequired(true)->addFilter('stringTrim')->addFilter('StripTags');
         $this->addElement($adminUser);
         $adminPassword = $this->createElement('password', 'admin_password', array('maxlength' => 100))->setLabel('Password');
