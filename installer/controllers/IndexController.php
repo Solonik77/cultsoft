@@ -253,7 +253,7 @@ class Install_IndexController extends Zend_Controller_Action
                     $this->_redirect('admin');
                 }
                 else{
-                    $this->_redirect('/');
+                    $this->_redirect(App::baseUrl());
                 }
             }
         }

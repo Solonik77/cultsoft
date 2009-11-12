@@ -26,7 +26,7 @@ final class App
     /**
      * Return application configuration
      */
-    public static function config ()
+    public static function config()
     {
         if (App::$config instanceof Zend_Config) {
             return App::$config;
@@ -37,21 +37,21 @@ final class App
     /**
      * Front controller instance
      */
-    public static function front ()
+    public static function front()
     {
         return Zend_Controller_Front::getInstance();
     }
     /**
      * Return Database object
      */
-    public static function db ()
+    public static function db()
     {
         return App::$db;
     }
     /**
      * Zend logger
      */
-    public static function log ($message, $type = 1)
+    public static function log($message, $type = 1)
     {
         if (App::$log instanceof Zend_Log) {
             if (App::$config instanceof Zend_Config and $type <= App::config()->system_log_threshold) {
@@ -65,14 +65,14 @@ final class App
     /**
      * Get system locale information
      */
-    public static function i18n ()
+    public static function i18n()
     {
         return App::$i18n;
     }
     /**
      * Set configuration
      */
-    public static function addConfig (Zend_Config $object)
+    public static function addConfig(Zend_Config $object)
     {
         if (App::$config === null) {
             App::$config = $object;
@@ -83,7 +83,7 @@ final class App
     /**
      * Set logger
      */
-    public static function setLog (Zend_Log $object)
+    public static function setLog(Zend_Log $object)
     {
         if (App::$log === null) {
             App::$log = $object;
@@ -92,7 +92,7 @@ final class App
     /**
      * Set App Internationalization object
      */
-    public static function setI18N (App_I18n $object)
+    public static function setI18N(App_I18n $object)
     {
         if (App::$i18n === NULL) {
             App::$i18n = $object;
@@ -101,7 +101,7 @@ final class App
     /**
      * Set database object
      */
-    public static function setDb ($object)
+    public static function setDb($object)
     {
         if (App::$db === null) {
             App::$db = $object;
@@ -110,7 +110,7 @@ final class App
     /**
      * Set locale object
      */
-    public static function setLocale ($object)
+    public static function setLocale($object)
     {
         if (App::$locale === null) {
             App::$locale = $object;
@@ -119,7 +119,7 @@ final class App
     /**
      * Translator object
      */
-    public function translate ()
+    public function translate()
     {
         return App::$i18n;
     }
@@ -133,7 +133,7 @@ final class App
      * @param boolean $ non-default protocol
      * @return string
      */
-    public static function baseUri ($index = false, $protocol = false)
+    public static function baseUri($index = false, $protocol = false)
     {
         if (! empty(app::$base_uri)) {
             return app::$base_uri;
@@ -156,14 +156,14 @@ final class App
     /**
      * Is Platform running on CLI?
      */
-    public static function isCli ()
+    public static function isCli()
     {
         return (PHP_SAPI === 'cli');
     }
     /**
      * Is Platform running on Windows?
      */
-    public static function isWin ()
+    public static function isWin()
     {
         return DIRECTORY_SEPARATOR === '\\';
     }
