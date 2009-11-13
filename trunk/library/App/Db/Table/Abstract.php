@@ -3,8 +3,6 @@
  * App_Db_Table
  *
  * @author Denysenko Dmytro
-
-
  * @category Zend
  * @package Zend_Db
  * @subpackage Abstract
@@ -16,11 +14,28 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
     public function __construct($config = array())
     {
+        $this->preConstruct();
         $config['rowClass'] = 'App_Db_Table_Row';
         $config['rowsetClass'] = 'App_Db_Table_Rowset';
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
+        $this->postConstruct();
     }
+    
+    protected function preConstruct(){}
+    protected function postConstruct(){}
+    
+    protected function preInsert(){}
+    protected function postInsert(){}
+    
+    protected function preUpdate(){}
+    protected function postUpdate(){}
+    
+    protected function preSave(){}
+    protected function postSave(){}
+    
+    protected function preDelete(){}
+    protected function postDelete(){}
 
     /**
      * Initialize table and schema names.
@@ -130,12 +145,15 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
      */
     public function delete($where = NULL)
     {
+        $this->preDelete();
         if($this->getCollection() AND $where === NULL)
         {
             $where = $this->getAdapter()->quoteInto('id = ?', $this->getCollection()->current()->getId());
         }
 
-        return parent::delete($where);
+        $result = parent::delete($where);
+        $this->postDelete();
+        return $result;
     }
 
     /**
@@ -183,19 +201,37 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function save()
     {
         if(count($this->_defaultRowset) > 0){
-            $data = array();
-            try{
-                App::db()->beginTransaction();
+            $data = array();            
+            App::db()->beginTransaction();
+            try{                
+                $this->preSave();
+                $isInsert = false;
                 foreach($this->_defaultRowset as $class){
+                    if($class->getId())
+                    {
+                        $class->preUpdate();
+                    } else {
+                        $isInsert = TRUE;
+                        $class->preInsert();
+                    }
+                    
                     $class->save();
+                    
+                    if(!$isInsert)
+                    {
+                        $class->preUpdate();
+                    } else {
+                        $class->preInsert();
+                    }                 
                 }
                 App::db()->commit();
+                $this->postSave();
                 return true;
 
             }
             catch(Exception $e){
                 App::db()->rollBack();
-                App::log($e->getMessage(), 3);
+                App::log($e->getMessage(), 3);                
                 return false;
             }
         }
