@@ -1,7 +1,22 @@
 <?php
 class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
 {
-
+    /**
+     * Constructor.
+     *
+     * Supported params for $config are:-
+     * - table       = class name or object of type Zend_Db_Table_Abstract
+     * - data        = values of columns in this row.
+     *
+     * @param  array $config OPTIONAL Array of user-specified config options.
+     * @return void
+     * @throws Zend_Db_Table_Row_Exception
+     */
+    public function __construct(array $config = array())
+    {
+        parent:: __construct($config);
+    }
+    
     public function __call($name, $args)
     {
         if(preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore')))){
