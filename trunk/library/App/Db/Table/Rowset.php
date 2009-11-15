@@ -2,6 +2,17 @@
 
 class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
 {
+
+    /**
+     * Constructor.
+     *
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        parent::__construct($config);
+    }
+
     /**
      * Retrieve collection first item
      *

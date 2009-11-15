@@ -11,12 +11,24 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
     protected $_cache;
     protected $_defaultRowset;
+    
+    /**
+     * Classname for row
+     *
+     * @var string
+     */
+    protected $_rowClass = 'App_Db_Table_Row';
+
+    /**
+     * Classname for rowset
+     *
+     * @var string
+     */
+    protected $_rowsetClass = 'App_Db_Table_Rowset';
 
     public function __construct($config = array())
     {
         $this->preConstruct();
-        $config['rowClass'] = 'App_Db_Table_Row';
-        $config['rowsetClass'] = 'App_Db_Table_Rowset';
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
         $this->postConstruct();
@@ -204,11 +216,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             $data = array();            
             App::db()->beginTransaction();
             try{                
-                $this->preSave();
-                $isInsert = false;
+                $this->preSave();                
                 foreach($this->_defaultRowset as $class){
                     if($class->getId())
                     {
+                        $isInsert = false;
                         $class->preUpdate();
                     } else {
                         $isInsert = TRUE;
