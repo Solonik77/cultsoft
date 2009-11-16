@@ -1,14 +1,14 @@
 <?php
 /**
  * Languages
- *
- * @author Denysenko Dmytro
- */
+   *
+    * @author Denysenko Dmytro
+    */
 class Main_Model_DbTable_Site_Languages extends App_Db_Table_Abstract {
     protected $_primary = 'id';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+  public function __construct()
+  {
+      parent::__construct();
+  }
 }

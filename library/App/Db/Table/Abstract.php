@@ -11,7 +11,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
     protected $_cache;
     protected $_defaultRowset;
-    
+
     /**
      * Classname for row
      *
@@ -33,19 +33,19 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         $this->_cache = App_Cache::getInstance();
         $this->postConstruct();
     }
-    
+
     protected function preConstruct(){}
     protected function postConstruct(){}
-    
+
     protected function preInsert(){}
     protected function postInsert(){}
-    
+
     protected function preUpdate(){}
     protected function postUpdate(){}
-    
+
     protected function preSave(){}
     protected function postSave(){}
-    
+
     protected function preDelete(){}
     protected function postDelete(){}
 
@@ -213,10 +213,10 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function save()
     {
         if(count($this->_defaultRowset) > 0){
-            $data = array();            
+            $data = array();
             App::db()->beginTransaction();
-            try{                
-                $this->preSave();                
+            try{
+                $this->preSave();
                 foreach($this->_defaultRowset as $class){
                     if($class->getId())
                     {
@@ -226,15 +226,15 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
                         $isInsert = TRUE;
                         $class->preInsert();
                     }
-                    
+
                     $class->save();
-                    
+
                     if(!$isInsert)
                     {
                         $class->preUpdate();
                     } else {
                         $class->preInsert();
-                    }                 
+                    }
                 }
                 App::db()->commit();
                 $this->postSave();
@@ -243,7 +243,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             }
             catch(Exception $e){
                 App::db()->rollBack();
-                App::log($e->getMessage(), 3);                
+                App::log($e->getMessage(), 3);
                 return false;
             }
         }

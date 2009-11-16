@@ -2,7 +2,7 @@
 
 class App_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 {
-      /**
+    /**
      * Run Multi Query
      *
      * @param string $sql
@@ -21,8 +21,8 @@ class App_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
         return $result;
     }
-    
-        /**
+
+    /**
      * Split multi statement query
      *
      * @param $sql string
