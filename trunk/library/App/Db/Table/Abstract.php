@@ -7,7 +7,7 @@
  * @package Zend_Db
  * @subpackage Abstract
  */
-abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
+abstract class App_Db_Table_Abstract extends Zend_Db_Table
 {
     protected $_cache;
     protected $_defaultRowset;
@@ -27,8 +27,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function __construct($config = array())
     {
         $this->_preConstruct();
-        parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
+        parent::__construct($config);
         $this->_postConstruct();
     }
 
@@ -179,6 +179,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
      */
     public function delete($where = NULL)
     {
+        $result = false;
         $this->_preDelete();
         if($this->getCollection() and $where === NULL){
             foreach($this->getCollection() as $row){
@@ -218,7 +219,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             return $this->_defaultRowset;
         }
         else{
-            throw new App_Exception('Default collection rowset must be App_Db_Table_Rowset object.');
+            throw new App_Exception('Default collection must be App_Db_Table_Rowset object.');
         }
     }
 
@@ -235,6 +236,22 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         return $this;
     }
 
+    public function createCollection()
+    {
+        $rowsetClass = $this->getRowsetClass();
+        if(! class_exists($rowsetClass)){
+            require_once 'Zend/Loader.php';
+            Zend_Loader::loadClass($rowsetClass);
+        }
+        $this->_defaultRowset = new $rowsetClass(array('table' => $this , 'rowClass' => $this->getRowClass() , 'stored' => true));
+        return $this->_defaultRowset;
+    }
+
+    public function createCollectionItem(array $data = array(), $defaultSource = null)
+    {
+        return parent::createRow($data, $defaultSource);
+    }
+    
     public function save()
     {
         if(count($this->_defaultRowset) > 0){

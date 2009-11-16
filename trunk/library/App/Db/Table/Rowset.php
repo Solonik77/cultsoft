@@ -1,5 +1,4 @@
 <?php
-
 class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
 {
 
@@ -20,7 +19,7 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
      */
     public function getFirstItem()
     {
-        if ($this->valid() === false) {
+        if($this->valid() === false){
             return null;
         }
         return $this->rewind()->current();
@@ -33,7 +32,7 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
      */
     public function getLastItem()
     {
-        if ($this->valid() === false) {
+        if($this->valid() === false){
             return null;
         }
         return $this->getRow($this->count() - 1);
@@ -54,5 +53,13 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
         return $this;
     }
 
+    public function addItem(App_Db_Table_Row $row)
+    {
+        $this->addRow($row);
+    }
 
+    public function removeItem($position)
+    {
+        $this->removeRow($position);
+    }
 }
