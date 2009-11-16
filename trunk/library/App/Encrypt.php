@@ -44,7 +44,7 @@ class App_Encrypt {
         if (is_array($config)) {
             // Append the default configuration options
             if(isset(App::config()->encryption->default)){
-              $config += App::config()->encryption->default->toArray();
+                $config += App::config()->encryption->default->toArray();
             }
         } else {
             // Load the default group

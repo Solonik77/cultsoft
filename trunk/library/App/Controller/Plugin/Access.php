@@ -21,13 +21,13 @@ class App_Controller_Plugin_Access extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         if($request->getModuleName() == 'install' and file_exists(VAR_PATH . 'configuration.ini')){
-                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-                if(isset($_POST['redirect_to_backend'])){
-                    $redirector->gotoUrl('/admin/');
-                }
-                else{
-                    $redirector->gotoUrl(App::baseUri());
-                }
+            $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+            if(isset($_POST['redirect_to_backend'])){
+                $redirector->gotoUrl('/admin/');
+            }
+            else{
+                $redirector->gotoUrl(App::baseUri());
+            }
         }
         Zend_Registry::set('member_access', 'ALLOWED');
         Zend_Registry::set('BACKOFFICE_CONTROLLER', false);
