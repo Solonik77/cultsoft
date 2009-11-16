@@ -26,49 +26,49 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
     public function __construct($config = array())
     {
-        $this->preConstruct();
+        $this->_preConstruct();
         parent::__construct($config);
         $this->_cache = App_Cache::getInstance();
-        $this->postConstruct();
+        $this->_postConstruct();
     }
 
-    protected function preConstruct()
+    protected function _preConstruct()
     {
     }
 
-    protected function postConstruct()
+    protected function _postConstruct()
     {
     }
 
-    protected function preInsert()
+    protected function _preInsert()
     {
     }
 
-    protected function postInsert()
+    protected function _postInsert()
     {
     }
 
-    protected function preUpdate()
+    protected function _preUpdate()
     {
     }
 
-    protected function postUpdate()
+    protected function _postUpdate()
     {
     }
 
-    protected function preSave()
+    protected function _preSave()
     {
     }
 
-    protected function postSave()
+    protected function _postSave()
     {
     }
 
-    protected function preDelete()
+    protected function _preDelete()
     {
     }
 
-    protected function postDelete()
+    protected function _postDelete()
     {
     }
 
@@ -179,12 +179,12 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
      */
     public function delete($where = NULL)
     {
-        $this->preDelete();
+        $this->_preDelete();
         if($this->getCollection() and $where === NULL){
             $where = $this->getAdapter()->quoteInto('id = ?', $this->getCollection()->current()->getId());
         }
         $result = parent::delete($where);
-        $this->postDelete();
+        $this->_postDelete();
         return $result;
     }
 
@@ -236,26 +236,26 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             $data = array();
             App::db()->beginTransaction();
             try{
-                $this->preSave();
+                $this->_preSave();
                 foreach($this->_defaultRowset as $class){
                     if($class->getId()){
                         $isInsert = false;
-                        $this->preUpdate();
+                        $this->_preUpdate();
                     }
                     else{
                         $isInsert = true;
-                        $this->preInsert();
+                        $this->_preInsert();
                     }
                     $class->save();
                     if(! $isInsert){
-                        $this->preUpdate();
+                        $this->_preUpdate();
                     }
                     else{
-                        $this->preInsert();
+                        $this->_preInsert();
                     }
                 }
                 App::db()->commit();
-                $this->postSave();
+                $this->_postSave();
                 return true;
             }
             catch(Exception $e){
