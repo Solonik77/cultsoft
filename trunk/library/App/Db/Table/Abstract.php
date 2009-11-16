@@ -181,9 +181,14 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         $this->_preDelete();
         if($this->getCollection() and $where === NULL){
-            $where = $this->getAdapter()->quoteInto('id = ?', $this->getCollection()->current()->getId());
+            foreach($this->getCollection() as $row){
+                $where = $this->getAdapter()->quoteInto('id = ?', $row->getId());
+                $result = parent::delete($where);
+            }
         }
-        $result = parent::delete($where);
+        else{
+            $result = parent::delete($where);
+        }
         $this->_postDelete();
         return $result;
     }
@@ -238,21 +243,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             try{
                 $this->_preSave();
                 foreach($this->_defaultRowset as $class){
-                    if($class->getId()){
-                        $isInsert = false;
-                        $this->_preUpdate();
-                    }
-                    else{
-                        $isInsert = true;
-                        $this->_preInsert();
-                    }
                     $class->save();
-                    if(! $isInsert){
-                        $this->_preUpdate();
-                    }
-                    else{
-                        $this->_preInsert();
-                    }
                 }
                 App::db()->commit();
                 $this->_postSave();
