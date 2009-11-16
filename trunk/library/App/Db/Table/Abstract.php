@@ -11,14 +11,12 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
     protected $_cache;
     protected $_defaultRowset;
-
     /**
      * Classname for row
      *
      * @var string
      */
     protected $_rowClass = 'App_Db_Table_Row';
-
     /**
      * Classname for rowset
      *
@@ -34,20 +32,45 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         $this->postConstruct();
     }
 
-    protected function preConstruct(){}
-    protected function postConstruct(){}
+    protected function preConstruct()
+    {
+    }
 
-    protected function preInsert(){}
-    protected function postInsert(){}
+    protected function postConstruct()
+    {
+    }
 
-    protected function preUpdate(){}
-    protected function postUpdate(){}
+    protected function preInsert()
+    {
+    }
 
-    protected function preSave(){}
-    protected function postSave(){}
+    protected function postInsert()
+    {
+    }
 
-    protected function preDelete(){}
-    protected function postDelete(){}
+    protected function preUpdate()
+    {
+    }
+
+    protected function postUpdate()
+    {
+    }
+
+    protected function preSave()
+    {
+    }
+
+    protected function postSave()
+    {
+    }
+
+    protected function preDelete()
+    {
+    }
+
+    protected function postDelete()
+    {
+    }
 
     /**
      * Initialize table and schema names.
@@ -67,11 +90,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
         if(! $this->_name){
             $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Main_Model_DbTable_' , ucfirst(strtolower($module)) . '_Model_DbTable_'), '', get_class($this)));
         }
-        else
-        if(strpos($this->_name, '.')){
-            list ($this->_schema, $this->_name) = explode('.', $this->_name);
-            $this->_name = App::config()->database->table_prefix . $this->_name;
-        }
+        else 
+            if(strpos($this->_name, '.')){
+                list ($this->_schema, $this->_name) = explode('.', $this->_name);
+                $this->_name = App::config()->database->table_prefix . $this->_name;
+            }
         parent::_setupTableName();
     }
 
@@ -146,7 +169,6 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function fetchRow($where = null, $order = null)
     {
         return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
-
     }
 
     /**
@@ -158,11 +180,9 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function delete($where = NULL)
     {
         $this->preDelete();
-        if($this->getCollection() AND $where === NULL)
-        {
+        if($this->getCollection() and $where === NULL){
             $where = $this->getAdapter()->quoteInto('id = ?', $this->getCollection()->current()->getId());
         }
-
         $result = parent::delete($where);
         $this->postDelete();
         return $result;
@@ -177,7 +197,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function select($withFromPart = self::SELECT_WITHOUT_FROM_PART)
     {
         $select = new App_Db_Table_Select($this);
-        if ($withFromPart == self::SELECT_WITH_FROM_PART) {
+        if($withFromPart == self::SELECT_WITH_FROM_PART){
             $select->from($this->info(self::NAME), Zend_Db_Table_Select::SQL_WILDCARD, $this->info(self::SCHEMA));
         }
         return $select->setIntegrityCheck(false);
@@ -191,7 +211,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         if($this->_defaultRowset instanceof App_Db_Table_Rowset){
             return $this->_defaultRowset;
-        } else {
+        }
+        else{
             throw new App_Exception('Default collection rowset must be App_Db_Table_Rowset object.');
         }
     }
@@ -200,9 +221,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         $row = $this->getCollection()->current();
         $result = array();
-
         foreach($row->getData() as $key => $value){
-            if($key != 'id' AND isset($array[$key])){
+            if($key != 'id' and isset($array[$key])){
                 $method = 'set' . Zend_Filter::filterStatic($key, 'Word_UnderscoreToCamelCase');
                 $row->$method($array[$key]);
             }
@@ -218,28 +238,25 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table_Abstract
             try{
                 $this->preSave();
                 foreach($this->_defaultRowset as $class){
-                    if($class->getId())
-                    {
+                    if($class->getId()){
                         $isInsert = false;
-                        $class->preUpdate();
-                    } else {
-                        $isInsert = TRUE;
-                        $class->preInsert();
+                        $this->preUpdate();
                     }
-
+                    else{
+                        $isInsert = true;
+                        $this->preInsert();
+                    }
                     $class->save();
-
-                    if(!$isInsert)
-                    {
-                        $class->preUpdate();
-                    } else {
-                        $class->preInsert();
+                    if(! $isInsert){
+                        $this->preUpdate();
+                    }
+                    else{
+                        $this->preInsert();
                     }
                 }
                 App::db()->commit();
                 $this->postSave();
                 return true;
-
             }
             catch(Exception $e){
                 App::db()->rollBack();

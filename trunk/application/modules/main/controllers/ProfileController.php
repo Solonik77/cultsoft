@@ -4,7 +4,9 @@
  *
  * @author Denysenko Dmytro
  */
-class Main_ProfileController extends App_Controller_Action {
+class Main_ProfileController extends App_Controller_Action
+{
+
     /**
      * Profile action: index
      * View member information
@@ -25,33 +27,37 @@ class Main_ProfileController extends App_Controller_Action {
      */
     public function signinAction()
     {
-        if (App_Member::isAuth()) {
+        if(App_Member::isAuth()){
             $this->view->form = __('You are already logged.');
-        } else {
+        }
+        else{
             $form = new Main_Form_Signin();
-            if ($this->getRequest()->isPost()) {
+            if($this->getRequest()->isPost()){
                 $formData = $this->_request->getPost();
                 $form->populate($formData);
-                if (! $form->isValid($_POST)) {
+                if(! $form->isValid($_POST)){
                     $this->view->form = $form;
                     return $this->render();
-                } else {
+                }
+                else{
                     $memberPassword = md5(md5($formData['member_password']));
                     $authAdapter = $this->_getAuthAdapter($formData['member_email'], $memberPassword);
                     $result = App_Member::getAuth()->authenticate($authAdapter);
-                    if (! $result->isValid()) {
+                    if(! $result->isValid()){
                         $form->addDecorator('Description', array('escape' => true , 'placement' => 'prepend'));
                         $form->setDescription('Wrong email or password');
                         $this->view->form = $form;
-                    } else {
-                        App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'role_id', 'email')));
-                        if (isset($formData['remember_me'])) {
+                    }
+                    else{
+                        App_Member::getAuth()->getStorage()->write($authAdapter->getResultRowObject(array('id' , 'role_id' , 'email')));
+                        if(isset($formData['remember_me'])){
                             Zend_Session::rememberMe(3600 * 24 * 14);
                         }
                         $this->_redirect('admin');
                     }
                 }
-            } else {
+            }
+            else{
                 $this->view->form = $form;
             }
         }

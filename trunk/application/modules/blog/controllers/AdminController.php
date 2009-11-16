@@ -24,6 +24,13 @@ class Blog_AdminController extends App_Controller_Action
      */
     public function indexAction()
     {
+         $blogModel = new Blog_Model_DbTable_Blog();
+          $blogModel->find(1);
+          $d = $blogModel->getCollection()->getFirstItem();
+          $d->setDateCreated(Vendor_Helper_Date::now());
+          print_r($blogModel->getCollection()->getFirstItem());
+          $blogModel->save();
+         
         $searchBlogFrom = new Blog_Form_Simple_Search_Blog();
         if($this->_request->isPost()){
             $formData = $this->_request->getPost();
