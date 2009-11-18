@@ -62,4 +62,18 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
     {
         $this->removeRow($position);
     }
+    
+    public function getData()
+    {
+      return $this->_data;
+    }
+    
+    public function addRow(App_Db_Table_Row $row)
+    {
+        echo '<br />';
+        print_r($this->getData());
+        echo '<br />';
+        print_r($row->getData());
+        die;
+    }
 }

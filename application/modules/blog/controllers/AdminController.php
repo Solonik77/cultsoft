@@ -25,11 +25,15 @@ class Blog_AdminController extends App_Controller_Action
     public function indexAction()
     {
         $searchBlogFrom = new Blog_Form_Simple_Search_Blog();
+        
         $table = new Blog_Model_DbTable_Blog();
+        $table->find(1);
+        print_r($table->getCollection()->getData());
         $collection = $table->createCollection(); // creates a rowset collection with zero rows
         $row = $table->createCollectionItem(); // creates one row with unset values
         $collection->addItem($row); // adds one row to the rowset
         $collection->save(); // iterates over the set of rows, calling save() on each row
+        
         if($this->_request->isPost()){
             $formData = $this->_request->getPost();
             $searchBlogFrom->populate($formData);
