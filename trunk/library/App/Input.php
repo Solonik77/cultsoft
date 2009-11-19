@@ -114,9 +114,9 @@ class App_Input {
             } else {
                 $_COOKIE = array();
             }
-           // Create a singleton
+            // Create a singleton
             App_Input::$instance = $this;
- App::log('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
+            App::log('Global GET, POST and COOKIE data sanitized', Zend_Log::DEBUG);
         }
     }
 
@@ -147,13 +147,13 @@ class App_Input {
     }
 
     /**
-      * Fetch an item from the $_COOKIE array.
-      *
-      * @param string $ key to find
-      * @param mixed $ default value
-      * @param boolean $ XSS clean the value
-      * @return mixed
-      */
+     * Fetch an item from the $_COOKIE array.
+     *
+     * @param string $ key to find
+     * @param mixed $ default value
+     * @param boolean $ XSS clean the value
+     * @return mixed
+     */
     public function cookie($key = array(), $default = null, $xss_clean = false)
     {
         return $this->search_array($_COOKIE, $key, $default, $xss_clean);

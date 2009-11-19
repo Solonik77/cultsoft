@@ -25,15 +25,20 @@ class Blog_AdminController extends App_Controller_Action
     public function indexAction()
     {
         $searchBlogFrom = new Blog_Form_Simple_Search_Blog();
-        
-        $table = new Blog_Model_DbTable_Blog();
-        $table->find(1);
-        print_r($table->getCollection()->getData());
-        $collection = $table->createCollection(); // creates a rowset collection with zero rows
-        $row = $table->createCollectionItem(); // creates one row with unset values
-        $collection->addItem($row); // adds one row to the rowset
-        $collection->save(); // iterates over the set of rows, calling save() on each row
-        
+        /*
+         $table = new Blog_Model_DbTable_Blog();
+         $table->findAllByCondition(array('member_id = ?' => 1));
+         print_r($table->getCollection()->getData());
+         $collection = $table->createCollection(); // creates a rowset collection with zero rows
+         $row = $table->createCollectionItem(); // creates one row with unset values
+         $row->setMemberId(App_Member::getInstance()->getId());
+         $row->setDateUpdated(Vendor_Helper_Date::now());
+         $row->setDateCreated(Vendor_Helper_Date::now());
+         $row->setType('private');
+         $collection->addItem($row); // adds one row to the rowset
+         $collection->save(); // iterates over the set of rows, calling save() on each row
+         */
+        $i18nCollection = App_Db_Table::collectionFactory('Blog_Model_DbTable_Blog_I18n');
         if($this->_request->isPost()){
             $formData = $this->_request->getPost();
             $searchBlogFrom->populate($formData);
@@ -64,10 +69,10 @@ class Blog_AdminController extends App_Controller_Action
     {
         $this->view->pageDescription = 'Create new blog';
         $this->view->headTitle($this->view->pageDescription);
-        $blogModel = new Blog_Model_DbTable_Blog();
-        $currentBlog = $blogModel->createRow();
+        $blogTable = new Blog_Model_DbTable_Blog();
+        $newBlogRow = $blogTable->createRow();
         $form = new Blog_Form_Blog();
-        $form->setBlogTypes($blogModel->getBlogTypes());
+        $form->setBlogTypes($blogTable->getBlogTypes());
         $form->compose();
         if($this->_request->isPost()){
             $postParams = $this->_request->getPost('blog');
@@ -79,28 +84,29 @@ class Blog_AdminController extends App_Controller_Action
                 return $this->render();
             }
             else{
-                $currentBlog->setAttributes($postParams);
-                $currentBlog->setMemberId(App_Member::getInstance()->getId());
-                $currentBlog->setDateUpdated(Vendor_Helper_Date::now());
-                $currentBlog->setDateCreated(Vendor_Helper_Date::now());
+                $newBlogRow->setAttributes($postParams);
+                $newBlogRow->setMemberId(App_Member::getInstance()->getId());
+                $newBlogRow->setDateUpdated(Vendor_Helper_Date::now());
+                $newBlogRow->setDateCreated(Vendor_Helper_Date::now());
                 if(null == ($fancy_url = $postParams['fancy_url'])){
                     $firstLangKey = current(array_keys($postParams['blog_i18n']));
                     $fancy_url = isset($postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title']) ? $postParams['blog_i18n'][$this->_getDefaultSiteLanguageId()]['title'] : $postParams['blog_i18n'][$firstLangKey]['title'];
                 }
-                $currentBlog->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
-                $currentBlog->setType($postParams['type']);
+                $newBlogRow->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
+                $newBlogRow->setType($postParams['type']);
                 // Saving new blog
-                if($currentBlog->save()){
+                if($newBlogRow->save()){
                     $moduleLangs = App::i18n()->getModuleLanguages();
+                    $i18nCollection = App_Db_Table::collectionFactory('Blog_Model_DbTable_Blog_I18n');
                     if(count($moduleLangs) > 0){
                         foreach($moduleLangs as $lang){
                             if(isset($postParams['blog_i18n'][$lang['id']])){
                                 $blogI18nModel = new Blog_Model_DbTable_Blog_I18n();
-                                $currentBlogI18n = $blogI18nModel->createRow();
-                                $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
-                                $currentBlogI18n->setLangId($lang['id']);
-                                $currentBlogI18n->setBlogId($currentBlog->getId());
-                                $currentBlogI18n->save();
+                                $newBlogRowI18n = $blogI18nModel->createRow();
+                                $newBlogRowI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
+                                $newBlogRowI18n->setLangId($lang['id']);
+                                $newBlogRowI18n->setBlogId($newBlogRow->getId());
+                                $newBlogRowI18n->save();
                             }
                         }
                     }
@@ -127,14 +133,14 @@ class Blog_AdminController extends App_Controller_Action
     {
         $this->view->pageDescription = 'Edit blog';
         $this->view->headTitle($this->view->pageDescription);
-        $blogModel = new Blog_Model_DbTable_Blog();
+        $blogTable = new Blog_Model_DbTable_Blog();
         // Get blog content
-        $blogModel->find($this->_request->getParam('id'));
-        $currentBlog = $blogModel->getCollection()->getFirstItem();
+        $blogTable->find($this->_request->getParam('id'));
+        $currentBlog = $blogTable->getCollection()->getFirstItem();
         if($currentBlog){
             $form = new Blog_Form_Blog();
             $form->setIsUpdate(true);
-            $form->setBlogTypes($blogModel->getBlogTypes());
+            $form->setBlogTypes($blogTable->getBlogTypes());
             $form->setCurrentBlogType($currentBlog->getType());
             $form->compose();
             $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_Blog_I18n')->toArray();
@@ -148,7 +154,7 @@ class Blog_AdminController extends App_Controller_Action
                 $postParams = $this->_request->getPost('blog');
                 if(isset($postParams['delete_blog'])){
                     // Delete blog
-                    if($blogModel->delete()){
+                    if($blogTable->delete()){
                         $this->_helper->messages('Blog deleted successfully', 'success', true);
                         $this->_redirect('blog/admin/manage-blogs');
                     }
@@ -207,13 +213,13 @@ class Blog_AdminController extends App_Controller_Action
      */
     public function deleteBlogAction()
     {
-        $blogModel = new Blog_Model_DbTable_Blog();
-        $blogModel->find($this->_request->getParam('id', 0));
-        if(! $blogModel->getCollection()->getFirstItem()){
+        $blogTable = new Blog_Model_DbTable_Blog();
+        $blogTable->find($this->_request->getParam('id', 0));
+        if(! $blogTable->getCollection()->getFirstItem()){
             throw new App_Exception('Page not found');
         }
         else{
-            if($blogModel->delete()){
+            if($blogTable->delete()){
                 $this->_helper->messages('Blog deleted successfully', 'success', true);
             }
         }
