@@ -90,11 +90,11 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
         if(! $this->_name){
             $this->_name = App::config()->database->table_prefix . strtolower(str_replace(array('Main_Model_DbTable_' , ucfirst(strtolower($module)) . '_Model_DbTable_'), '', get_class($this)));
         }
-        else 
-            if(strpos($this->_name, '.')){
-                list ($this->_schema, $this->_name) = explode('.', $this->_name);
-                $this->_name = App::config()->database->table_prefix . $this->_name;
-            }
+        else
+        if(strpos($this->_name, '.')){
+            list ($this->_schema, $this->_name) = explode('.', $this->_name);
+            $this->_name = App::config()->database->table_prefix . $this->_name;
+        }
         parent::_setupTableName();
     }
 
@@ -244,33 +244,16 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
             Zend_Loader::loadClass($rowsetClass);
         }
         $this->_defaultRowset = new $rowsetClass(array('table' => $this , 'rowClass' => $this->getRowClass() , 'stored' => true));
-        return $this->_defaultRowset;
+        return $this->_defaultRowset->setIsNewCollection(TRUE);
     }
 
     public function createCollectionItem(array $data = array(), $defaultSource = null)
     {
         return parent::createRow($data, $defaultSource);
     }
-    
+
     public function save()
     {
-        if(count($this->_defaultRowset) > 0){
-            $data = array();
-            App::db()->beginTransaction();
-            try{
-                $this->_preSave();
-                foreach($this->_defaultRowset as $class){
-                    $class->save();
-                }
-                App::db()->commit();
-                $this->_postSave();
-                return true;
-            }
-            catch(Exception $e){
-                App::db()->rollBack();
-                App::log($e->getMessage(), 3);
-                return false;
-            }
-        }
+        return $this->_defaultRowset->save();
     }
 }

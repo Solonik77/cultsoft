@@ -4,7 +4,7 @@
  *
  * @author Dmytro Denysenko
  */
-class Blog_Model_DbTable_Blog extends App_Db_Table_Abstract {
+class Blog_Model_DbTable_Blog extends App_Db_Table {
     protected $_primary = 'id';
     protected $_dependentTables = array('Blog_Model_DbTable_Blog_I18n');
     protected $_moduleTables = array('blog', 'blog_i18n', 'members', 'blog_members');
