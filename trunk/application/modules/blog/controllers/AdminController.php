@@ -38,7 +38,12 @@ class Blog_AdminController extends App_Controller_Action
          $collection->addItem($row); // adds one row to the rowset
          $collection->save(); // iterates over the set of rows, calling save() on each row
          */
+         /*
         $i18nCollection = App_Db_Table::collectionFactory('Blog_Model_DbTable_Blog_I18n');
+        $row = $i18nCollection->createItem();
+        $i18nCollection->addItem($row);
+        $i18nCollection->save();
+        */
         if($this->_request->isPost()){
             $formData = $this->_request->getPost();
             $searchBlogFrom->populate($formData);
@@ -101,14 +106,14 @@ class Blog_AdminController extends App_Controller_Action
                     if(count($moduleLangs) > 0){
                         foreach($moduleLangs as $lang){
                             if(isset($postParams['blog_i18n'][$lang['id']])){
-                                $blogI18nModel = new Blog_Model_DbTable_Blog_I18n();
-                                $newBlogRowI18n = $blogI18nModel->createRow();
-                                $newBlogRowI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
-                                $newBlogRowI18n->setLangId($lang['id']);
-                                $newBlogRowI18n->setBlogId($newBlogRow->getId());
-                                $newBlogRowI18n->save();
+                                $newBlogI18nRow = $i18nCollection->createItem();
+                                $newBlogI18nRow->setAttributes($postParams['blog_i18n'][$lang['id']]);
+                                $newBlogI18nRow->setLangId($lang['id']);
+                                $newBlogI18nRow->setBlogId($newBlogRow->getId());
+                                $i18nCollection->addItem($newBlogI18nRow);
                             }
                         }
+                        $i18nCollection->save();
                     }
                     // Set message to view
                     $this->_helper->messages('New blog successfully created', 'success', true);
@@ -143,9 +148,10 @@ class Blog_AdminController extends App_Controller_Action
             $form->setBlogTypes($blogTable->getBlogTypes());
             $form->setCurrentBlogType($currentBlog->getType());
             $form->compose();
-            $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_Blog_I18n')->toArray();
+            $i18nBlog = $currentBlog->findDependentRowset('Blog_Model_DbTable_Blog_I18n');
+            $i18nBlogArray = $i18nBlog->toArray();
             $formData = $currentBlog->toArray();
-            foreach($i18nBlog as $row){
+            foreach($i18nBlogArray as $row){
                 $formData['lang_' . $row['lang_id']] = $row;
             }
             $formData = (! $this->_request->isPost()) ? $formData : $this->_request->getPost();
@@ -177,14 +183,15 @@ class Blog_AdminController extends App_Controller_Action
                     if($currentBlog->save()){
                         $moduleLangs = App::i18n()->getModuleLanguages();
                         if(count($moduleLangs) > 0){
+                        $i18nBlog->rewind();
                             foreach($moduleLangs as $lang){
                                 if(isset($postParams['blog_i18n'][$lang['id']])){
-                                    $blogI18nModel = new Blog_Model_DbTable_Blog_I18n();
-                                    $currentBlogI18n = $blogI18nModel->findByCondition(array('lang_id = ?' => $lang['id'] , 'blog_id = ?' => $currentBlog->getId()))->current();
+                                    $currentBlogI18n = $i18nBlog->current();
                                     $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
                                     $currentBlogI18n->setLangId($lang['id']);
-                                    $currentBlogI18n->setBlogId($currentBlog->getId());
+                                    $currentBlogI18n->setBlogId($currentBlog->getId());                                    
                                     $currentBlogI18n->save();
+                                    $i18nBlog->next();
                                 }
                             }
                         }

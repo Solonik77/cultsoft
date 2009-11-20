@@ -1,6 +1,6 @@
 <?php
 
-class App_Db_Table extends App_Db_Table_Abstract 
+abstract class App_Db_Table extends App_Db_Table_Abstract 
 {
     public function __construct($config = array())
     {
