@@ -113,12 +113,7 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract
             App::db()->beginTransaction();
             try{
                 foreach($this as $key => $class){
-              if(array_key_exists('id', $value) && $value['id'] === NULL){               
-                unset($value['id']);
-                $this->_table->insert($value);
-              } else {
-                $this->_table->update($value);
-              } 
+                    $class->save();
                 }
                 App::db()->commit();
                 return true;
