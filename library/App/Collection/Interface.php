@@ -24,6 +24,10 @@ interface App_Collection_Interface
 
     public function createItem(array $data = array());
 
+    public function reverse();
+
+    public function shuffle();
+
     public function walk($callback, array $args = array());
 
     public function each($obj_method, $args = array());
