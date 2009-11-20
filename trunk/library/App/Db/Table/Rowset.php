@@ -69,6 +69,9 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
 
     public function removeRow($position)
     {
+        if($this->valid() === false){
+            return null;
+        }
         if(isset($this->_data[$position])){
             unset($this->_data[$position]);
             $this->rewind();
@@ -114,6 +117,9 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
 
     public function getRows()
     {
+        if($this->valid() === false){
+            return null;
+        }
         return $this->_rows;
     }
 
@@ -158,6 +164,18 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         foreach($args->_data as $k => $item){
             $args->_data[$k] = call_user_func($obj_method, $item);
         }
+    }
+
+    public function reverse()
+    {
+        $this->_data = array_reverse($this->_data);
+        return $this;
+    }
+
+    public function shuffle()
+    {
+        shuffle($this->_data);
+        return $this;
     }
 
     public function save()
