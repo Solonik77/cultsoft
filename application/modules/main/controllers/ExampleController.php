@@ -29,9 +29,18 @@ class Main_ExampleController extends App_Controller_Action {
          $row->setName("Second item");
          $rowset->addRow($row);
          $rowset->save();
+
+         // Find row by id 
+         $rowset = $table->find(2);
+         Zend_Debug::dump($rowset->getData(), 'Find method');
+
+         // Find one row by condition
+         $rowset = $table->findByCondition(array('id = ?' => 2));
+         Zend_Debug::dump($rowset->getData(), 'findByCondition method');
          
+         // Find rows by condition
          $rowset = $table->findAllByCondition(array('is_active = ?' => 1));
-         Zend_Debug::dump($rowset->getData());
+         Zend_Debug::dump($rowset->getData(), 'findAllByCondition method');
          exit;
     }
 }
