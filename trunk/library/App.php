@@ -3,13 +3,13 @@
  * BASE APPLICATION
  * Provides Zend application-specific helper functions.
  *
- * $Id$
+ * $Id$ 
  *
  * @author Denysenko Dmytro
  */
 final class App
 {
-    const VERSION = '0.0.0';
+    const VERSION = '0.0.1';
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
