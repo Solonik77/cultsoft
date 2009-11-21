@@ -10,7 +10,7 @@
 abstract class App_Db_Table_Abstract extends Zend_Db_Table
 {
     protected $_cache;
-    protected $_defaultRowset;
+    protected $_systemRowset;
     /**
      * Classname for row
      *
@@ -128,18 +128,18 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      */
     public function find($arguments)
     {
-        $this->_defaultRowset = parent::find($arguments);
+        $this->_systemRowset = parent::find($arguments);
         return $this;
     }
 
     public function findByCondition($where = null, $order = null)
     {
-        return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
+        return $this->_systemRowset = parent::fetchAll($where, $order, 1);
     }
 
     public function findAllByCondition($where = null, $order = null, $count = null, $offset = null)
     {
-        return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);
+        return $this->_systemRowset = parent::fetchAll($where, $order, $count, $offset);
     }
 
     /**
@@ -155,7 +155,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      */
     public function fetchAll($where = null, $order = null, $count = null, $offset = null)
     {
-        return $this->_defaultRowset = parent::fetchAll($where, $order, $count, $offset);
+        return $this->_systemRowset = parent::fetchAll($where, $order, $count, $offset);
     }
 
     /**
@@ -168,7 +168,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      */
     public function fetchRow($where = null, $order = null)
     {
-        return $this->_defaultRowset = parent::fetchAll($where, $order, 1);
+        return $this->_systemRowset = parent::fetchAll($where, $order, 1);
     }
 
     /**
@@ -215,8 +215,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      */
     public function getCollection()
     {
-        if($this->_defaultRowset instanceof App_Db_Table_Rowset){
-            return $this->_defaultRowset;
+        if($this->_systemRowset instanceof App_Db_Table_Rowset){
+            return $this->_systemRowset;
         }
         else{
             throw new App_Exception('Default collection must be App_Db_Table_Rowset object.');
@@ -243,8 +243,8 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($rowsetClass);
         }
-        $this->_defaultRowset = new $rowsetClass(array('table' => $this , 'rowClass' => $this->getRowClass() , 'stored' => true));
-        return $this->_defaultRowset->setIsNewCollection(TRUE);
+        $this->_systemRowset = new $rowsetClass(array('table' => $this , 'rowClass' => $this->getRowClass() , 'stored' => true));
+        return $this->_systemRowset->setIsNewCollection(TRUE);
     }
 
     public function createCollectionItem(array $data = array(), $defaultSource = null)
@@ -254,6 +254,6 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
 
     public function save()
     {
-        return $this->_defaultRowset->save();
+        return $this->_systemRowset->save();
     }
 }
