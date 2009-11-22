@@ -15,10 +15,6 @@ class Blog_AdminController extends App_Controller_Action
         $this->view->headTitle(__($this->view->pageTitle));
     }
 
-    public function preDispatch()
-    {
-    }
-
     /**
      * Basic information about blogs
      */
