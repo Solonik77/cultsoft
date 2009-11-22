@@ -167,15 +167,22 @@ class Blog_AdminController extends App_Controller_Action
                                     $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
                                     $currentBlogI18n->setLangId($lang['id']);
                                     $currentBlogI18n->setBlogId($currentBlog->getId());
-                                    $currentBlogI18n->save();
                                     $i18nBlog->next();
                                 }
-                            }
+                            }                            
                         }
-                        // Set message to view
-                        $this->_helper->messages('Changes for blog successfully saved', 'success', true);
-                        // Clear post
-                        $this->_redirect('blog/admin/manage-blogs');
+
+                        if($i18nBlog->save()){
+                            // Set message to view
+                            $this->_helper->messages('Changes for blog successfully saved', 'success', true);
+                            // Clear post
+                            $this->_redirect('blog/admin/manage-blogs');
+                        } else {
+                            // Set message to view
+                            $this->_helper->messages('Error editing blog', 'error', true);
+                            // Clear post
+                            $this->_selfRedirect();                        
+                        }
                     }
                     else{
                         // Set message to view
