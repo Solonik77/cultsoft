@@ -1,7 +1,6 @@
 <?php
-class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_Collection_Interface
-{
-    protected $_isNewCollection = FALSE;
+class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_Collection_Interface {
+    protected $_isNewCollection = false;
 
     /**
      * Constructor.
@@ -13,74 +12,19 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         parent::__construct($config);
     }
 
-    /**
-     * Retrieve collection first item
-     *
-     * @return Zend Db Table Row
-     */
-    public function getFirstItem()
-    {
-        if($this->valid() === false){
-            return null;
-        }
-        return $this->rewind()->current();
-    }
-
-    /**
-     * Retrieve collection last item
-     *
-     * @return Zend Db Table Row
-     */
-    public function getLastItem()
-    {
-        if($this->valid() === false){
-            return null;
-        }
-        return $this->getRow($this->count() - 1);
-    }
-
-    /**
-     * Retrieve collection items
-     *
-     * @return DB  rowset
-     */
-    public function getItems()
-    {
-        return $this;
-    }
-
-    public function getCollection()
-    {
-        return $this;
-    }
-
     public function addItem($row)
     {
-        if(! $row instanceof App_Db_Table_Row){
+        if (! $row instanceof App_Db_Table_Row) {
             throw new App_Exception("Row to add must be instance of App_Db_Table_Row class.");
         }
         $this->addRow($row);
     }
 
-    public function removeItemByKey($position)
+    public function addRow(App_Db_Table_Row $row)
     {
-        $this->removeRow($position);
-    }
-
-    public function removeRow($position)
-    {
-        if($this->valid() === false){
-            return null;
-        }
-        if(isset($this->_data[$position])){
-            unset($this->_data[$position]);
-            $this->rewind();
-        }
-    }
-
-    public function getData()
-    {
-        return $this->_data;
+        $this->_data[] = $row->getData();
+        $this->_count = count($this->_data);
+        $this->_pointer = $this->_count - 1;
     }
 
     public function createItem(array $data = array(), $defaultSource = null)
@@ -93,11 +37,62 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         return $this->_table->createCollectionItem($data, $defaultSource);
     }
 
-    public function addRow(App_Db_Table_Row $row)
+    public function getCollection()
     {
-        $this->_data[] = $row->getData();
-        $this->_count = count($this->_data);
-        $this->_pointer = $this->_count - 1;
+        return $this;
+    }
+
+    /**
+     * Retrieve collection items
+     *
+     * @return DB rowset
+     */
+    public function getItems()
+    {
+        return $this;
+    }
+
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    public function getRows()
+    {
+        if ($this->valid() === false) {
+            return null;
+        }
+        return $this->_rows;
+    }
+
+    /**
+     * Retrieve collection first item
+     *
+     * @return Zend Db Table Row
+     */
+    public function getFirstItem()
+    {
+        if ($this->valid() === false) {
+            return null;
+        }
+        return $this->rewind()->current();
+    }
+
+    /**
+     * Retrieve collection last item
+     *
+     * @return Zend Db Table Row
+     */
+    public function getLastItem()
+    {
+        if ($this->valid() === false) {
+            return null;
+        }
+        return $this->getRow($this->count() - 1);
+    }
+    public function getIsNewCollection()
+    {
+        return $this->_isNewCollection;
     }
 
     public function setIsNewCollection()
@@ -106,30 +101,50 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         $this->_stored = 1;
         $this->_count = 0;
         $this->_pointer = 0;
-        $this->_isNewCollection = TRUE;
+        $this->_isNewCollection = true;
         return $this;
     }
 
-    public function getIsNewCollection()
+    public function removeItemByKey($position)
     {
-        return $this->_isNewCollection;
+        $this->removeRow($position);
     }
 
-    public function getRows()
+    public function removeRow($position)
     {
-        if($this->valid() === false){
+        if ($this->valid() === false) {
             return null;
         }
-        return $this->_rows;
+        if (isset($this->_data[$position])) {
+            unset($this->_data[$position]);
+            $this->rewind();
+        }
     }
 
-    /**
-     * Clear collection
-     */
-    public function clear()
+    public function save()
     {
-        $this->setIsNewCollection();
-        return $this;
+        if (count($this->_data) > 0) {
+            $data = array();
+            App::db()->beginTransaction();
+            try {
+                foreach($this->_data as $key => $value) {
+                    if (array_key_exists('id', $value) && $value['id'] === null) {
+                        unset($value['id']);
+                        $id = $this->_table->insert($value);
+                        $this->_data[$key]['id'] = $id;
+                    } else {
+                        $this->_table->update($value);
+                    }
+                }
+                App::db()->commit();
+                return true;
+            }
+            catch(Exception $e) {
+                App::db()->rollBack();
+                App::log($e->getMessage(), 3);
+                return false;
+            }
+        }
     }
 
     /**
@@ -146,11 +161,10 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
     {
         $results = array();
         $useItemCallback = is_string($callback) && strpos($callback, '::') === false;
-        foreach($this->_data as $id => $item){
-            if($useItemCallback){
+        foreach($this->_data as $id => $item) {
+            if ($useItemCallback) {
                 $cb = array($item , $callback);
-            }
-            else{
+            } else {
                 $cb = $callback;
                 array_unshift($args, $item);
             }
@@ -161,7 +175,7 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
 
     public function each($obj_method, $args = array())
     {
-        foreach($args->_data as $k => $item){
+        foreach($args->_data as $k => $item) {
             $args->_data[$k] = call_user_func($obj_method, $item);
         }
     }
@@ -178,30 +192,12 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         return $this;
     }
 
-    public function save()
+    /**
+     * Clear collection
+     */
+    public function clear()
     {
-        if(count($this->_data) > 0){
-            $data = array();
-            App::db()->beginTransaction();
-            try{
-                foreach($this->_data as $key => $value){
-                    if(array_key_exists('id', $value) && $value['id'] === NULL){
-                        unset($value['id']);
-                        $id = $this->_table->insert($value);
-                        $this->_data[$key]['id'] = $id;
-                    }
-                    else{
-                        $this->_table->update($value);
-                    }
-                }
-                App::db()->commit();
-                return true;
-            }
-            catch(Exception $e){
-                App::db()->rollBack();
-                App::log($e->getMessage(), 3);
-                return false;
-            }
-        }
+        $this->setIsNewCollection();
+        return $this;
     }
 }
