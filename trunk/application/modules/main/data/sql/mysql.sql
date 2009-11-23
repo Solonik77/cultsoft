@@ -169,5 +169,7 @@ CREATE TABLE `site_modules` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert  into `site_modules`(`name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('Core','Main','Main',1,1);
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
