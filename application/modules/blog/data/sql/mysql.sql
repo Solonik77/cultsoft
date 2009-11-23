@@ -118,7 +118,7 @@ CREATE TABLE `blog_posts_i18n` (
 /*Data for the table `blog_posts_i18n` */
 
 
-insert  into `site_modules`(`name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('Blog','Blog','Blog',1,1);
+insert  into `site_modules`(`module`,`name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('blog','Blog','Blog','Blog',1,1);
 insert  into `settings`(`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values ('Blog languages','Languages for blog content','supported_languages','ru,en','blog');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

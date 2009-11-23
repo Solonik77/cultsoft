@@ -209,7 +209,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageTitle = 'Install modules';
         $this->view->pageDescription = '';
         $sysInfo = new Main_Model_SystemInfo();
-        $modulesInfo = $sysInfo->getModuleInfo();
+        $modulesInfo = $sysInfo->getModuleInfoFromDataFile();
         $form = new Install_Form_Modules();
         $form->setModulesInfo($modulesInfo);
         $form->compose();

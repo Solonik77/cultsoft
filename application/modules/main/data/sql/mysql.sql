@@ -160,16 +160,17 @@ insert  into `site_structure`(`id`,`label`,`title`,`module`,`controller`,`action
 DROP TABLE IF EXISTS `site_modules`;
 
 CREATE TABLE `site_modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `short_description` varchar(255) DEFAULT NULL,
-  `long_description` text,
-  `is_active` tinyint(1) DEFAULT NULL,
-  `is_installed` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `module` varchar(255) NOT NULL,    
+    `name` varchar(255) DEFAULT NULL, 
+    `short_description` varchar(255) DEFAULT NULL,       
+    `long_description` text,          
+    `is_active` tinyint(1) DEFAULT NULL,                 
+    `is_installed` tinyint(1) DEFAULT NULL,    
+    PRIMARY KEY (`id`)                
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert  into `site_modules`(`name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('Core','Main','Main',1,1);
+insert  into `site_modules`(`module`, `name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('main','Core','Main module','Main module',1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
