@@ -19,7 +19,7 @@ class Main_BackofficeDashboardController extends App_Controller_Action {
      */
     public function indexAction()
     {
-        $sys_info = new Main_Model_SystemInfo();
+        $sys_info = App::systemInfo();
         $this->view->engine_version = $sys_info->getAppVersion();
         $this->view->php_version = $sys_info->getPhpVersion();
         $this->view->php_sapi = $sys_info->getPhpServerAPI();

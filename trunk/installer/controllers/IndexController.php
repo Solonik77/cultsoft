@@ -66,7 +66,7 @@ class Install_IndexController extends Zend_Controller_Action
         $this->view->pageDescription = '';
         $hasError = FALSE;
         $this->view->form = new Install_Form_Base();
-        $sysInfo = new Main_Model_SystemInfo();
+        $sysInfo = App::systemInfo();
         $this->view->sysInfo = $sysInfo;
         if(version_compare($sysInfo->getPhpVersion(), $sysInfo->getRequiredPhpVersion()) < 0){
             $hasError = TRUE;

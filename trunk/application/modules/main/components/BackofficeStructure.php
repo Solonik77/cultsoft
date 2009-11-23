@@ -8,7 +8,7 @@ class Main_Component_BackofficeStructure {
  private $_systemInfo;
  public function __construct()
  {
-    $this->_systemInfo = new Main_Model_SystemInfo;
+    $this->_systemInfo = App::systemInfo();
     $modulesInfo = $this->_systemInfo->getModulesInfo();
      foreach($modulesInfo as $module => $moduleData){
         if($module != 'main'){
