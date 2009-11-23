@@ -23,6 +23,8 @@ final class App
     protected static $log = null;
     // Base URI
     protected static $base_uri = '';
+    // System info
+    protected static $_systemInfo = '';
     /**
      * Return application configuration
      */
@@ -170,6 +172,14 @@ final class App
     public static function getVersion ()
     {
         return self::VERSION;
+    }
+    
+    public static function systemInfo()
+    {
+        if(!self::$_systemInfo){
+            self::$_systemInfo = new Main_Model_SystemInfo;
+        }
+            return self::$_systemInfo;
     }
 }
 /**
