@@ -189,7 +189,7 @@ class Main_Model_SystemInfo
         }
     }
     
-    public function getModuleInfo($module = null)
+    public function getModulesInfo($module = null)
     {
        if($this->_siteModulesInfo == null){
             $data = $this->db->fetchAll('SELECT * FROM ' . DB_TABLE_PREFIX . 'site_modules');
