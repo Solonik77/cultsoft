@@ -2,23 +2,23 @@
 /**
  * ZFDebug Zend Additions
  *
- * @category ZFDebug
- * @package ZFDebug_Controller
+ * @category   ZFDebug
+ * @package    ZFDebug_Controller
  * @subpackage Plugins
- * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
- * @version $Id: File.php 97 2009-06-25 13:08:56Z gugakfugl $
+ * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @version    $Id: File.php 109 2009-09-21 20:56:13Z gugakfugl $
  */
 
 /**
- *
- * @category ZFDebug
- * @package ZFDebug_Controller
+ * @category   ZFDebug
+ * @package    ZFDebug_Controller
  * @subpackage Plugins
- * @copyright Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
- * @license http://code.google.com/p/zfdebug/wiki/License     New BSD License
+ * @copyright  Copyright (c) 2008-2009 ZF Debug Bar Team (http://code.google.com/p/zfdebug)
+ * @license    http://code.google.com/p/zfdebug/wiki/License     New BSD License
  */
-class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
      * Contains plugin identifier name
      *
@@ -65,8 +65,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
         isset($options['library']) || $options['library'] = null;
-
-        $this->_basePath = $options['base_path'];
+        
+        $this->_basePath = realpath($options['base_path']);
         is_array($options['library']) || $options['library'] = array($options['library']);
         $this->_library = array_merge($options['library'], array('Zend', 'ZFDebug'));
     }
@@ -79,6 +79,16 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
     public function getIdentifier()
     {
         return $this->_identifier;
+    }
+    
+    /**
+     * Returns the base64 encoded icon
+     *
+     * @return string
+     **/
+    public function getIconData()
+    {
+        return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADPSURBVCjPdZFNCsIwEEZHPYdSz1DaHsMzuPM6RRcewSO4caPQ3sBDKCK02p+08DmZtGkKlQ+GhHm8MBmiFQUU2ng0B7khClTdQqdBiX1Ma1qMgbDlxh0XnJHiit2JNq5HgAo3KEx7BFAM/PMI0CDB2KNvh1gjHZBi8OR448GnAkeNDEDvKZDh2Xl4cBcwtcKXkZdYLJBYwCCFPDRpMEjNyKcDPC4RbXuPiWKkNABPOuNhItegz0pGFkD+y3p0s48DDB43dU7+eLWes3gdn5Y/LD9Y6skuWXcAAAAASUVORK5CYII=';
     }
 
     /**
@@ -100,14 +110,14 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
     {
         $included = $this->_getIncludedFiles();
         $html = '<h4>File Information</h4>';
-        $html .= count($included) . ' Files Included' . $this->getLinebreak();
+        $html .= count($included).' Files Included'.$this->getLinebreak();
         $size = 0;
         foreach ($included as $file) {
             $size += filesize($file);
         }
-        $html .= 'Total Size: ' . round($size / 1024, 1) . 'K' . $this->getLinebreak();
-
-        $html .= 'Basepath: ' . $this->_basePath . $this->getLinebreak();
+        $html .= 'Total Size: '. round($size/1024, 1).'K'.$this->getLinebreak();
+        
+        $html .= 'Basepath: ' . $this->_basePath .$this->getLinebreak();
 
         $libraryFiles = array();
         foreach ($this->_library as $key => $value) {
@@ -121,18 +131,19 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
             $file = str_replace($this->_basePath, '', $file);
             $filePaths = explode(DIRECTORY_SEPARATOR, $file);
             $inUserLib = false;
-            foreach ($this->_library as $key => $library) {
-                if ('' != $library && in_array($library, $filePaths)) {
-                    $libraryFiles[$key] .= $file . $this->getLinebreak();
-                    $inUserLib = true;
-                }
-            }
-            if (!$inUserLib) {
-                $html .= $file . $this->getLinebreak();
-            }
+        	foreach ($this->_library as $key => $library)
+        	{
+        		if('' != $library && in_array($library, $filePaths)) {
+        			$libraryFiles[$key] .= $file . $this->getLinebreak();
+        			$inUserLib = TRUE;
+        		}
+        	}
+        	if (!$inUserLib) {
+    			$html .= $file .$this->getLinebreak();
+        	}
         }
 
-        $html .= implode('', $libraryFiles);
+    	$html .= implode('', $libraryFiles);
 
         return $html;
     }
