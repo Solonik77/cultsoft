@@ -3,6 +3,7 @@ class Main_Model_SystemInfo
 {
     private $db;
     private $errors = array();
+    private $_siteModulesInfo = array();
 
     public function __construct()
     {
@@ -169,7 +170,7 @@ class Main_Model_SystemInfo
         return array(VAR_PATH , VAR_PATH . 'cache/system/' , VAR_PATH . 'cache/configs/' , VAR_PATH . 'indexes/' , VAR_PATH . 'logs/' , VAR_PATH . 'session/' , VAR_PATH . 'cache/system/' , STATIC_PATH . 'uploads/');
     }
 
-    public function getModuleInfo($module = null)
+    public function getModuleInfoFromDataFile($module = null)
     {
         $dirModules = glob(APPLICATION_PATH . 'modules/*', GLOB_ONLYDIR);
         $info = array();
@@ -186,6 +187,21 @@ class Main_Model_SystemInfo
         else{
             return $info;
         }
+    }
+    
+    public function getModuleInfo($module = null)
+    {
+       if($this->_siteModulesInfo == null){
+            $data = $this->db->fetchAll('SELECT * FROM ' . DB_TABLE_PREFIX . 'site_modules');
+            $siteModulesInfo = array();            
+            foreach($data as $value)
+            {
+                $siteModulesInfo[$value['module']] = $value;
+            }
+            
+            $this->_siteModulesInfo = $siteModulesInfo;
+       }
+       return $this->_siteModulesInfo;
     }
 
     public function checkWritableSystemDirectories()
