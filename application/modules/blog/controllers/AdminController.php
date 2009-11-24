@@ -169,7 +169,7 @@ class Blog_AdminController extends App_Controller_Action
                                     $currentBlogI18n->setBlogId($currentBlog->getId());
                                     $i18nBlog->next();
                                 }
-                            }                            
+                            }
                         }
 
                         if($i18nBlog->save()){
@@ -181,7 +181,7 @@ class Blog_AdminController extends App_Controller_Action
                             // Set message to view
                             $this->_helper->messages('Error editing blog', 'error', true);
                             // Clear post
-                            $this->_selfRedirect();                        
+                            $this->_selfRedirect();
                         }
                     }
                     else{

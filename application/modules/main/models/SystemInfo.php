@@ -188,20 +188,20 @@ class Main_Model_SystemInfo
             return $info;
         }
     }
-    
+
     public function getModulesInfo($module = null)
     {
-       if($this->_siteModulesInfo == null){
+        if($this->_siteModulesInfo == null){
             $data = $this->db->fetchAll('SELECT * FROM ' . DB_TABLE_PREFIX . 'site_modules');
-            $siteModulesInfo = array();            
+            $siteModulesInfo = array();
             foreach($data as $value)
             {
                 $siteModulesInfo[$value['module']] = $value;
             }
-            
+
             $this->_siteModulesInfo = $siteModulesInfo;
-       }
-       return $this->_siteModulesInfo;
+        }
+        return $this->_siteModulesInfo;
     }
 
     public function checkWritableSystemDirectories()
