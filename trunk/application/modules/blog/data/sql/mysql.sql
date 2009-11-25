@@ -85,9 +85,7 @@ CREATE TABLE `blog_member` (
   PRIMARY KEY (`blog_id`),
   UNIQUE KEY `blog_id_user_id_uniq` (`blog_id`,`member_id`),
   KEY `blog_id` (`blog_id`),
-  KEY `member_id` (`member_id`),
-  CONSTRAINT `blog_member_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `blog_member_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `blog_member` */
