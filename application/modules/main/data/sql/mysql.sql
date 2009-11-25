@@ -1,8 +1,8 @@
 /*
 SQLyog Community Edition- MySQL GUI v5.27
-Host - 5.1.35-community : Database - zfapp
+Host - 5.1.37 : Database - zfapp
 *********************************************************************
-Server version : 5.1.35-community
+Server version : 5.1.37
 */
 
 /*!40101 SET NAMES utf8 */;
@@ -75,7 +75,7 @@ CREATE TABLE `members` (
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `members` */
 
@@ -107,11 +107,11 @@ CREATE TABLE `settings` (
   `module` varchar(255) NOT NULL DEFAULT 'main',
   PRIMARY KEY (`id`,`setting_key`),
   KEY `setting_name` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 /*Data for the table `settings` */
 
-insert  into `settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(11,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main'),(14,'',NULL,'image.adapter','GD','main'),(15,'',NULL,'image.params.directory','','main'),(16,'',NULL,'encryption.default.key','Z4eN7D+PHP_7hE-SW!FtFraM3w0R|<','main'),(17,'',NULL,'encryption.default.mode','MCRYPT_MODE_NOFB','main'),(18,'',NULL,'encryption.default.cipher','MCRYPT_RIJNDAEL_128','main'),(19,'Blog languages','Languages for blog content','supported_languages','ru,en','blog');
+insert  into `settings`(`id`,`setting_name`,`setting_description`,`setting_key`,`setting_value`,`module`) values (1,'Log threshold','System log threshold','system_log_threshold','4','main'),(2,'Default items per page',NULL,'items_per_page','10','main'),(3,'',NULL,'project.template','simple','main'),(4,'',NULL,'project.email','info@example.com','main'),(5,'',NULL,'project.timezone','Europe/Helsinki','main'),(7,'',NULL,'remember_me_seconds ','864000','main'),(8,'',NULL,'mail.transport','smtp','main'),(9,'',NULL,'mail.host','localhost','main'),(10,'',NULL,'mail.password','smtppassword','main'),(11,'',NULL,'mail.username','smtpuser','main'),(12,'',NULL,'mail.port','25','main'),(13,'',NULL,'mail.auth','','main'),(14,'',NULL,'image.adapter','GD','main'),(15,'',NULL,'image.params.directory','','main'),(16,'',NULL,'encryption.default.key','Z4eN7D+PHP_7hE-SW!FtFraM3w0R|<','main'),(17,'',NULL,'encryption.default.mode','MCRYPT_MODE_NOFB','main'),(18,'',NULL,'encryption.default.cipher','MCRYPT_RIJNDAEL_128','main'),(19,'Blog languages','Languages for blog content','supported_languages','ru,en','blog'),(20,'Blog languages','Languages for blog content','supported_languages','ru,en','blog');
 
 /*Table structure for table `site_languages` */
 
@@ -133,6 +133,25 @@ CREATE TABLE `site_languages` (
 
 insert  into `site_languages`(`id`,`name`,`request_lang`,`locale`,`territory`,`is_default`,`is_active`,`project_title`) values (1,'U.S. English','en','en_US','US',0,1,''),(2,'Russian','ru','ru_RU','RU',1,1,'');
 
+/*Table structure for table `site_modules` */
+
+DROP TABLE IF EXISTS `site_modules`;
+
+CREATE TABLE `site_modules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `short_description` varchar(255) DEFAULT NULL,
+  `long_description` text,
+  `is_active` tinyint(1) DEFAULT NULL,
+  `is_installed` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `site_modules` */
+
+insert  into `site_modules`(`module`,`name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('main','Core','Main module','Main module',1,1);
+
 /*Table structure for table `site_structure` */
 
 DROP TABLE IF EXISTS `site_structure`;
@@ -153,24 +172,6 @@ CREATE TABLE `site_structure` (
 /*Data for the table `site_structure` */
 
 insert  into `site_structure`(`id`,`label`,`title`,`module`,`controller`,`action`,`visible`,`left_column_id`,`right_column_id`) values (1,'Home','','default','index','index',1,1,20),(2,'Blog','','blog','index','index',1,2,9),(3,'IT Blog','','blog','index','it',1,3,4),(4,'Music blog','','blog','index','music',1,5,6),(5,'3D Blog','','blog','index','3d',1,7,8),(6,'Shop','','store','index','index',1,10,19),(7,'Titanium','','store','product','titanium',1,11,14),(8,'FLASH','','store','product','flash',1,12,13),(9,'CD PLAYERS','','store','product','cd',1,15,16),(10,'2 WAY RADIOS','','store','product','radios',1,17,18);
-
-
-/*Table structure for table `site_modules` */
-
-DROP TABLE IF EXISTS `site_modules`;
-
-CREATE TABLE `site_modules` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `module` varchar(255) NOT NULL,    
-    `name` varchar(255) DEFAULT NULL, 
-    `short_description` varchar(255) DEFAULT NULL,       
-    `long_description` text,          
-    `is_active` tinyint(1) DEFAULT NULL,                 
-    `is_installed` tinyint(1) DEFAULT NULL,    
-    PRIMARY KEY (`id`)                
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-insert  into `site_modules`(`module`, `name`,`short_description`,`long_description`,`is_active`,`is_installed`) values ('main','Core','Main module','Main module',1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

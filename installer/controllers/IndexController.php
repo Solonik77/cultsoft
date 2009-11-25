@@ -185,7 +185,7 @@ class Install_IndexController extends Zend_Controller_Action
                     $adminData = array('login' => $_POST['admin_login'] , 'email' => $_POST['admin_email'] , 'password' => md5(md5($_POST['admin_password'])) , 'role_id' => 1 , 'is_active' => 1 , 'date_registered' => new Zend_Db_Expr('NOW()'));
                     $sqlFile = APPLICATION_PATH . 'modules/main/data/sql/mysql.sql';
                     $sqlData = file_get_contents($sqlFile);
-                    $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix), $sqlData);
+                    $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `', 'CONSTRAINT `', 'REFERENCES `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix, 'CONSTRAINT `' . $tablePrefix,  'REFERENCES `' . $tablePrefix), $sqlData);
                     try{
                         $db->multi_query($sqlData);
                         $db->insert($tablePrefix . 'members', $adminData);
