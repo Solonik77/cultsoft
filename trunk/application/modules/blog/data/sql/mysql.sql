@@ -78,11 +78,12 @@ CREATE TABLE `blog_i18n` (
 DROP TABLE IF EXISTS `blog_member`;
 
 CREATE TABLE `blog_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) unsigned NOT NULL,
   `member_id` int(11) unsigned DEFAULT NULL,
   `is_moderator` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `is_administrator` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`blog_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `blog_id_user_id_uniq` (`blog_id`,`member_id`),
   KEY `blog_id` (`blog_id`),
   KEY `member_id` (`member_id`)
