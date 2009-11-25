@@ -77,7 +77,15 @@ class Blog_AdminController extends App_Controller_Action
                 $newBlogRow->setFancyUrl(Vendor_Helper_Text::fancy_url($fancy_url));
                 $newBlogRow->setType($postParams['type']);
                 // Saving new blog
-                if($newBlogRow->save()){
+                if($newBlogRow->save()){                
+                    $blogMemberCollection = App_Db_Table::collectionFactory('Blog_Model_DbTable_Blog_Member');
+                    $newBlogMemberRow = $blogMemberCollection->createItem();
+                    $newBlogMemberRow->setIsModerator(1);
+                    $newBlogMemberRow->setIsAdministrator(1);
+                    $newBlogMemberRow->setBlogId($newBlogRow->getId());
+                    $newBlogMemberRow->setMemberId(App_Member::getInstance()->getId());                    
+                    $blogMemberCollection->addItem($newBlogMemberRow);
+                    $blogMemberCollection->save();
                     $moduleLangs = App::i18n()->getModuleLanguages();
                     $i18nCollection = App_Db_Table::collectionFactory('Blog_Model_DbTable_Blog_I18n');
                     if(count($moduleLangs) > 0){
