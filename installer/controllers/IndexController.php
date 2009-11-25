@@ -225,7 +225,7 @@ class Install_IndexController extends Zend_Controller_Action
                         if(isset($_POST['modules'][$module]) and $_POST['modules'][$module] > 0){
                             $sqlFile = APPLICATION_PATH . 'modules/' . $module . '/data/sql/mysql.sql';
                             $sqlData = file_get_contents($sqlFile);
-                            $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `' , 'CONSTRAINT `', 'REFERENCES `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix, , 'CONSTRAINT `' . $tablePrefix,  'REFERENCES `' . $tablePrefix), $sqlData);
+                            $sqlData = str_ireplace(array('DROP TABLE IF EXISTS `' , 'CREATE TABLE `' , 'insert  into `' , 'CONSTRAINT `', 'REFERENCES `'), array('DROP TABLE IF EXISTS `' . $tablePrefix , 'CREATE TABLE `' . $tablePrefix , 'INSERT INTO `' . $tablePrefix, 'CONSTRAINT `' . $tablePrefix,  'REFERENCES `' . $tablePrefix), $sqlData);
                             App::db()->multi_query($sqlData);
                         }
                     }
