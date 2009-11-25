@@ -120,6 +120,24 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
             $this->rewind();
         }
     }
+    
+    public function updateItem(App_Db_Table_Row $row)
+    {
+        return $this->updateRow($row);
+    }
+    
+    public function updateRow(App_Db_Table_Row $row)
+    {
+        $rowData = $row->getData();
+        foreach($this->_data as $key => $value)
+        {
+            if($value['id'] == $rowData['id'])
+            {
+               $this->_data[$key] = $rowData;
+               break;               
+            }
+        }
+    }
 
     public function save()
     {
@@ -133,7 +151,8 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
                         $id = $this->_table->insert($value);
                         $this->_data[$key]['id'] = $id;
                     } else {
-                        $this->_table->update($value);
+                        $id = $value['id'];
+                        $this->getTable()->update($value, $this->getTable()->getAdapter()->quoteInto('id = ?', $id));
                     }
                 }
                 App::db()->commit();

@@ -175,6 +175,7 @@ class Blog_AdminController extends App_Controller_Action
                                     $currentBlogI18n->setAttributes($postParams['blog_i18n'][$lang['id']]);
                                     $currentBlogI18n->setLangId($lang['id']);
                                     $currentBlogI18n->setBlogId($currentBlog->getId());
+                                    $i18nBlog->updateItem($currentBlogI18n);
                                     $i18nBlog->next();
                                 }
                             }
