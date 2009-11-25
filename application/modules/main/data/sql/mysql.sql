@@ -146,7 +146,7 @@ CREATE TABLE `site_modules` (
   `is_active` tinyint(1) DEFAULT NULL,
   `is_installed` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `site_modules` */
 
