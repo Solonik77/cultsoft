@@ -21,12 +21,6 @@ AddDefaultCharset UTF-8
     php_value short_open_tag On
     php_value mbstring.func_overload  0
     php_value default_charset         UTF-8
-    php_value mbstring.language       Russian
-    php_value mbstring.internal_encoding      UTF-8
-    php_flag  mbstring.encoding_translation   on
-    php_value mbstring.http_input     "UTF-8,CP1251,KOI8-R"
-    php_value mbstring.http_output    UTF-8
-    php_value mbstring.detect_order   "UTF-8,CP1251,KOI8-R"
 </IfModule>
 
 <IfModule mod_security.c>
