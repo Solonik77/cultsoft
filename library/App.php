@@ -3,7 +3,7 @@
  * BASE APPLICATION
  * Provides Zend application-specific helper functions.
  *
- * $Id$ 
+ * $Id$
  *
  * @author Denysenko Dmytro
  */
@@ -173,13 +173,13 @@ final class App
     {
         return self::VERSION;
     }
-    
+
     public static function systemInfo()
     {
         if(!self::$_systemInfo){
             self::$_systemInfo = new Main_Model_SystemInfo;
         }
-            return self::$_systemInfo;
+        return self::$_systemInfo;
     }
 }
 /**

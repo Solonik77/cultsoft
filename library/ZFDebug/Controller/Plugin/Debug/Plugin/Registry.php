@@ -52,7 +52,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
     {
         return $this->_identifier;
     }
-    
+
     /**
      * Returns the base64 encoded icon
      *
@@ -80,8 +80,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Registry extends ZFDebug_Controller
      */
     public function getPanel()
     {
-    	$html = '<h4>Registered Instances</h4>';
-    	$this->_registry->ksort();
+        $html = '<h4>Registered Instances</h4>';
+        $this->_registry->ksort();
 
         $html .= $this->_cleanData($this->_registry);
         return $html;

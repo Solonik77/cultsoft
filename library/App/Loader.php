@@ -50,8 +50,8 @@ class App_Loader
         $classFileIncCache = VAR_PATH . "cache/system" . '/plugin_loader_cache_' . md5((isset($_SERVER['REMOTE_ADDR']) and isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['REMOTE_ADDR'] . $_SERVER['SCRIPT_FILENAME'] . @php_uname('s') . ' ' . @php_uname('r') : 'Zend Framework')) . '.php';
         if(file_exists($classFileIncCache)){
             include_once $classFileIncCache;
-        }        
-        
+        }
+
         if(is_writable(VAR_PATH . "cache/system/")){
             Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
         }

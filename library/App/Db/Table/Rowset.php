@@ -120,12 +120,12 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
             $this->rewind();
         }
     }
-    
+
     public function updateItem(App_Db_Table_Row $row)
     {
         return $this->updateRow($row);
     }
-    
+
     public function updateRow(App_Db_Table_Row $row)
     {
         $rowData = $row->getData();
@@ -133,8 +133,8 @@ class App_Db_Table_Rowset extends Zend_Db_Table_Rowset_Abstract implements App_C
         {
             if($value['id'] == $rowData['id'])
             {
-               $this->_data[$key] = $rowData;
-               break;               
+                $this->_data[$key] = $rowData;
+                break;
             }
         }
     }

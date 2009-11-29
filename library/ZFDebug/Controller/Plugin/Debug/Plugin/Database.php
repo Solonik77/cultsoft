@@ -36,7 +36,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
      * @var array
      */
     protected $_db = array();
-    
+
     protected $_explain = false;
 
     /**
@@ -54,7 +54,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
             }
         } else if ($options['adapter'] instanceof Zend_Db_Adapter_Abstract ) {
             $this->_db[0] = $options['adapter'];
-        	$this->_db[0]->getProfiler()->setEnabled(true);
+            $this->_db[0]->getProfiler()->setEnabled(true);
         } else {
             foreach ($options['adapter'] as $name => $adapter) {
                 if ($adapter instanceof Zend_Db_Adapter_Abstract) {
@@ -63,8 +63,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
                 }
             }
         }
-        
-        if (isset($options['explain'])) {            
+
+        if (isset($options['explain'])) {
             $this->_explain = (bool)$options['explain'];
         }
     }
@@ -78,7 +78,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     {
         return $this->_identifier;
     }
-    
+
     /**
      * Returns the base64 encoded icon
      *
@@ -97,7 +97,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     public function getTab()
     {
         if (!$this->_db)
-            return 'No adapter';
+        return 'No adapter';
 
         foreach ($this->_db as $adapter) {
             $profiler = $adapter->getProfiler();
@@ -116,7 +116,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
     public function getPanel()
     {
         if (!$this->_db)
-            return '';
+        return '';
 
         $html = '<h4>Database queries</h4>';
         if (Zend_Db_Table_Abstract::getDefaultMetadataCache ()) {
@@ -144,18 +144,18 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Database extends ZFDebug_Controller
                         $html .= '<li>'.htmlspecialchars($profile->getQuery());
                     }
                     $html .= '<p><strong>Time:</strong> '.round($profile->getElapsedSecs()*1000, 2).' ms'.$this->getLinebreak();
-                    
-                    $supportedAdapter = ($adapter instanceof Zend_Db_Adapter_Mysqli 
-                        || $adapter instanceof Zend_Db_Adapter_Pdo_Mysql);
-                
+
+                    $supportedAdapter = ($adapter instanceof Zend_Db_Adapter_Mysqli
+                    || $adapter instanceof Zend_Db_Adapter_Pdo_Mysql);
+
                     # Run explain if enabled, supported adapter and SELECT query
                     if ($this->_explain && $supportedAdapter && Zend_Db_Profiler::SELECT == $profile->getQueryType()) {
                         $explain = $adapter->fetchRow('EXPLAIN '.$profile->getQuery());
                         $html .= '<strong>Type:</strong> '.strtolower($explain['select_type']).', '.$explain['type'].$this->getLinebreak()
-                                .'<strong>Possible Keys:</strong> '.$explain['possible_keys'].$this->getLinebreak()
-                                .'<strong>Key Used:</strong> '.$explain['key'].$this->getLinebreak()
-                                .'<strong>Rows:</strong> '.$explain['rows'].$this->getLinebreak()
-                                .'<strong>Extra:</strong> '.$explain['Extra'];
+                        .'<strong>Possible Keys:</strong> '.$explain['possible_keys'].$this->getLinebreak()
+                        .'<strong>Key Used:</strong> '.$explain['key'].$this->getLinebreak()
+                        .'<strong>Rows:</strong> '.$explain['rows'].$this->getLinebreak()
+                        .'<strong>Extra:</strong> '.$explain['Extra'];
                     }
 
                     $html .= '</p></li>';
