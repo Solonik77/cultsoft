@@ -22,7 +22,7 @@ class Install_IndexController extends Zend_Controller_Action
         unset($actions['index']);
         $this->_session->actions = $actions;
         $action = $this->_request->getActionName();
-        if(!isset($actions[$action])) { 
+        if(!isset($actions[$action])) {
             $actions[$action] = 0;
         }
         if($action != 'index' and $actions[$action] === 0){

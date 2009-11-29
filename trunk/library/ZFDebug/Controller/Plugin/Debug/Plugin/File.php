@@ -65,7 +65,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
         isset($options['library']) || $options['library'] = null;
-        
+
         $this->_basePath = realpath($options['base_path']);
         is_array($options['library']) || $options['library'] = array($options['library']);
         $this->_library = array_merge($options['library'], array('Zend', 'ZFDebug'));
@@ -80,7 +80,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
     {
         return $this->_identifier;
     }
-    
+
     /**
      * Returns the base64 encoded icon
      *
@@ -116,7 +116,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
             $size += filesize($file);
         }
         $html .= 'Total Size: '. round($size/1024, 1).'K'.$this->getLinebreak();
-        
+
         $html .= 'Basepath: ' . $this->_basePath .$this->getLinebreak();
 
         $libraryFiles = array();
@@ -131,19 +131,19 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File extends ZFDebug_Controller_Plu
             $file = str_replace($this->_basePath, '', $file);
             $filePaths = explode(DIRECTORY_SEPARATOR, $file);
             $inUserLib = false;
-        	foreach ($this->_library as $key => $library)
-        	{
-        		if('' != $library && in_array($library, $filePaths)) {
-        			$libraryFiles[$key] .= $file . $this->getLinebreak();
-        			$inUserLib = TRUE;
-        		}
-        	}
-        	if (!$inUserLib) {
-    			$html .= $file .$this->getLinebreak();
-        	}
+            foreach ($this->_library as $key => $library)
+            {
+                if('' != $library && in_array($library, $filePaths)) {
+                    $libraryFiles[$key] .= $file . $this->getLinebreak();
+                    $inUserLib = TRUE;
+                }
+            }
+            if (!$inUserLib) {
+                $html .= $file .$this->getLinebreak();
+            }
         }
 
-    	$html .= implode('', $libraryFiles);
+        $html .= implode('', $libraryFiles);
 
         return $html;
     }

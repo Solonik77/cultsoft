@@ -54,7 +54,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     {
         return $this->_identifier;
     }
-    
+
     /**
      * Returns the base64 encoded icon
      *
@@ -94,7 +94,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
         }
         return $panel;
     }
-    
+
     /**
      * Sets a memory mark identified with $name
      *
@@ -105,12 +105,12 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
             return;
         }
         if (isset($this->_memory['user'][$name]))
-            $this->_memory['user'][$name] = memory_get_peak_usage()-$this->_memory['user'][$name];
+        $this->_memory['user'][$name] = memory_get_peak_usage()-$this->_memory['user'][$name];
         else
-            $this->_memory['user'][$name] = memory_get_peak_usage();
+        $this->_memory['user'][$name] = memory_get_peak_usage();
     }
-    
-    
+
+
     /**
      * Defined by Zend_Controller_Plugin_Abstract
      *
@@ -136,7 +136,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
             $this->_memory['dispatchLoopShutdown'] = memory_get_peak_usage();
         }
     }
-    
+
     public function getLinebreak()
     {
         return '<br'.$this->getClosingBracket();
@@ -153,13 +153,13 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
         }
 
         return $this->_closingBracket;
-    }  
-    
+    }
+
     protected function _isXhtml()
     {
         $view = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->view;
         $doctype = $view->doctype();
         return $doctype->isXhtml();
     }
-    
+
 }

@@ -47,7 +47,7 @@ final class Bootstrap
         if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
-        
+
         if(is_writeable(VAR_PATH . "logs")){
             $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/installer_log_" . date('Y-m-d') . '.log'));
         }

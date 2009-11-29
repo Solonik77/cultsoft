@@ -64,7 +64,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         return $this->_identifier;
     }
-    
+
     /**
      * Returns the base64 encoded icon
      *
@@ -156,9 +156,9 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
      */
     public function mark($name) {
         if (isset($this->_timer['user'][$name]))
-            $this->_timer['user'][$name] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000-$this->_timer['user'][$name];
+        $this->_timer['user'][$name] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000-$this->_timer['user'][$name];
         else
-            $this->_timer['user'][$name] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000;
+        $this->_timer['user'][$name] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000;
     }
 
     #public function routeStartup(Zend_Controller_Request_Abstract $request) {
@@ -185,7 +185,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
             $timerNamespace = new Zend_Session_Namespace('ZFDebug_Time',false);
             $timerNamespace->unsetAll();
         }
-        
+
         $this->_timer['dispatchLoopStartup'] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000;
     }
 
@@ -199,7 +199,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
     {
         $this->_timer['dispatchLoopShutdown'] = (microtime(true)-$_SERVER['REQUEST_TIME'])*1000;
     }
-    
+
     /**
      * Calculate average time from $array
      *
@@ -214,14 +214,14 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
         }
 
         foreach ($array as $value)
-            if (!is_numeric($value)) {
-                return 'ERROR in method _calcAvg(): the array contains one or more non-numeric values';
-            }
+        if (!is_numeric($value)) {
+            return 'ERROR in method _calcAvg(): the array contains one or more non-numeric values';
+        }
 
         $cuantos=count($array);
         return round(array_sum($array)/$cuantos,$precision);
     }
-    
+
     public function getLinebreak()
     {
         return '<br'.$this->getClosingBracket();
@@ -238,8 +238,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Time extends Zend_Controller_Plugin
         }
 
         return $this->_closingBracket;
-    }  
-    
+    }
+
     protected function _isXhtml()
     {
         $view = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->view;
