@@ -12,7 +12,7 @@ class App_Cache {
     protected $_defaultFrontendOptions;
     protected $_defaultBackendOptions;
     protected $_default_cache_lifetime = 7200;
-
+    
     /**
      * Singleton Application cache
      */
@@ -30,14 +30,12 @@ class App_Cache {
         }
     }
 
-    private function __clone()
-    {
-    }
+    private function __clone(){}
 
     /**
      * Constructor
      */
-    public function __construct()
+    final private function __construct()
     {
         if (App_Cache::$instance === null) {
             $this->_defaultFrontendOptions = array('lifetime' => $this->_default_cache_lifetime , 'cache_id_prefix' => 'content_' , 'write_control' => true , 'automatic_serialization' => true , 'ignore_user_abort' => true);

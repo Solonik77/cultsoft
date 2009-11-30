@@ -21,15 +21,12 @@ class App_Member {
         }
         return App_Member::$instance;
     }
-
-    private function __clone()
-    {
-    }
+    private function __clone(){}
 
     /**
      * Constructor
      */
-    public function __construct()
+    final private function __construct()
     {
         if (App_Member::$instance === null) {
             $this->_model = new Main_Model_DbTable_Members();
