@@ -25,7 +25,7 @@ final class Bootstrap
      *
      * @return void
      */
-    public function __construct ()
+    private function __construct ()
     {
         App_Loader::init();
         $this->_initErrorHandler();

@@ -9,7 +9,7 @@
  */
 final class App
 {
-    const VERSION = '0.0.1';
+    const VERSION = '0.0.2';
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
@@ -25,6 +25,10 @@ final class App
     protected static $base_uri = '';
     // System info
     protected static $_systemInfo = '';
+    
+    final private function __construct() {}
+    final private function __clone() {}
+    
     /**
      * Return application configuration
      */
