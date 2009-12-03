@@ -72,8 +72,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      */
     public function getTab()
     {
-        if (function_exists('memory_get_peak_usage')) {
-            return round(memory_get_peak_usage()/1024) . 'K of '.ini_get("memory_limit");
+        if (function_exists('memory_get_usage')) {
+            return round(memory_get_usage()/1024/1024) . 'Mb of '.ini_get("memory_limit");
         }
         return 'MemUsage n.a.';
     }
@@ -86,7 +86,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     public function getPanel()
     {
         $panel = '<h4>Memory Usage</h4>';
-        $panel .= 'Dispatch: ' . round(($this->_memory['dispatchLoopShutdown']-$this->_memory['dispatchLoopStartup'])/1024,2) .'K'.$this->getLinebreak();
+        $panel .= 'Dispatch: ' . round(($this->_memory['dispatchLoopShutdown']-$this->_memory['dispatchLoopStartup'])/1024/1024,2) .'Mb'.$this->getLinebreak();
         if (isset($this->_memory['user']) && count($this->_memory['user'])) {
             foreach ($this->_memory['user'] as $key => $value) {
                 $panel .= $key.': '.round($value/1024).'K'.$this->getLinebreak();
@@ -101,13 +101,13 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      * @param string $name
      */
     public function mark($name) {
-        if (!function_exists('memory_get_peak_usage')) {
+        if (!function_exists('memory_get_usage')) {
             return;
         }
         if (isset($this->_memory['user'][$name]))
-        $this->_memory['user'][$name] = memory_get_peak_usage()-$this->_memory['user'][$name];
+        $this->_memory['user'][$name] = memory_get_usage()-$this->_memory['user'][$name];
         else
-        $this->_memory['user'][$name] = memory_get_peak_usage();
+        $this->_memory['user'][$name] = memory_get_usage();
     }
 
 
@@ -119,8 +119,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      */
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
-        if (function_exists('memory_get_peak_usage')) {
-            $this->_memory['dispatchLoopStartup'] = memory_get_peak_usage();
+        if (function_exists('memory_get_usage')) {
+            $this->_memory['dispatchLoopStartup'] = memory_get_usage();
         }
     }
 
@@ -132,8 +132,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
      */
     public function dispatchLoopShutdown()
     {
-        if (function_exists('memory_get_peak_usage')) {
-            $this->_memory['dispatchLoopShutdown'] = memory_get_peak_usage();
+        if (function_exists('memory_get_usage')) {
+            $this->_memory['dispatchLoopShutdown'] = memory_get_usage();
         }
     }
 
