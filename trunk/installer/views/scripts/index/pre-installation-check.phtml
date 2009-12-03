@@ -1,6 +1,5 @@
 <h2>System Requirements</h2>
-<p><big>PHP:</big> v<?php echo $this->sysInfo->getRequiredPhpVersion()?>
-or better</p>
+<p><big>PHP:</big> v<?php echo $this->sysInfo->getRequiredPhpVersion()?> or better</p>
 <p><big>SQL:</big> MySQL v<?php echo $this->sysInfo->getRequiredMySQLVersion()?>
 (5.0.0 or better preferred) with InnoDB engine</p>
 <p>Your PHP version: <?php if (version_compare(PHP_VERSION, $this->sysInfo->getRequiredPhpVersion()) < 0) { ?>
