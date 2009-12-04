@@ -12,7 +12,7 @@ class App_Cache {
     protected $_defaultFrontendOptions;
     protected $_defaultBackendOptions;
     protected $_default_cache_lifetime = 7200;
-    
+
     /**
      * Singleton Application cache
      */

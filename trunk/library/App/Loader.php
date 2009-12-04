@@ -33,7 +33,7 @@ class App_Loader
     const CACHE_ENABLED = FALSE;
     private static $baseIncludedFiles = array();
     private static $cacheFile;
-    
+
     private function __clone(){}
     final private function __construct(){}
 
