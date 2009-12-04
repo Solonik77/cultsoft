@@ -5,6 +5,9 @@
  *
  * @author Denysenko Dmytro
  */
+
+require_once 'Zend/Exception.php';
+
 class App_Exception extends Zend_Exception {
     /**
      *

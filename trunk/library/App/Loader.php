@@ -11,6 +11,7 @@ include_once LIBRARY_PATH . 'App/Input.php';
 include_once LIBRARY_PATH . 'App/Utf8.php';
 include_once LIBRARY_PATH . 'App/Exception.php';
 
+if(function_exists('__autoload')){
 function __autoload($class)
 {
     if(class_exists($class, false) || interface_exists($class, false)){
@@ -27,6 +28,7 @@ function __autoload($class)
         include_once LIBRARY_PATH . 'Zend/Exception.php';
         throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
     }
+}
 }
 class App_Loader
 {
