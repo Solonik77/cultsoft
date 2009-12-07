@@ -2,6 +2,8 @@
 class Install_IndexController extends Zend_Controller_Action
 {
     private $_session;
+    
+
 
     /**
      * Init method
