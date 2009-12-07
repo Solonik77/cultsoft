@@ -25,10 +25,10 @@ final class App
     protected static $base_uri = '';
     // System info
     protected static $_systemInfo = '';
-    
+
     final private function __construct() {}
     final private function __clone() {}
-    
+
     /**
      * Return application configuration
      */
