@@ -5,7 +5,7 @@
  * @author Denysenko Dmytro
  */
 if (version_compare(phpversion(), '5.2', '<') === true) {
-    echo '<h3>It looks like you have an invalid PHP version.</h3></div><p>CultEngine supports PHP 5.2.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
+    echo '<h3>It looks like you have an invalid PHP version.</h3></div><p>Engine supports PHP 5.2.0 or newer. Your vesrion is ' . phpversion() . '. <a href="http://cultsoft.org.ua/engine/install" target="">Find out</a> how to install</a> CultEngine using PHP-CGI as a work-around.</p>';
     exit();
 }
 define('TIME_NOW', time());
