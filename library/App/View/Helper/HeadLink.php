@@ -18,7 +18,7 @@ class App_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
      *
      * @return string
      */
-    public function toString()
+    public function toString($indent = null)
     {
         $stylesheets = array();
         $stylesheets = array();

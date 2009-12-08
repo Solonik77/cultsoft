@@ -17,7 +17,7 @@ if (extension_loaded('mbstring')) {
     define('SERVER_UTF8', false);
 }
 require_once LIBRARY_PATH . 'App/Loader.php';
-final class Bootstrap
+class Main_Bootstrap
 {
     private $_language_identificator;
     /**
@@ -55,7 +55,7 @@ final class Bootstrap
         ini_set('log_errors', true);
         if ('development' === APPLICATION_ENV) {
             ini_set('display_errors', true);
-            error_reporting(E_ALL & ~ E_STRICT);
+            error_reporting(E_ALL | E_STRICT);
         } else {
             ini_set('display_errors', false);
             error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
@@ -116,7 +116,7 @@ final class Bootstrap
         if ('development' === APPLICATION_ENV) {
             $logger->addWriter(new Zend_Log_Writer_Firebug());
         }
-        $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/system_log_" . date('Y-m-d') . '.log'));
+        $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/system_log_" . @date('Y-m-d') . '.log'));
         App::setLog($logger);
     }
     /**

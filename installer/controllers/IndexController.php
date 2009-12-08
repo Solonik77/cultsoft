@@ -2,7 +2,7 @@
 class Install_IndexController extends Zend_Controller_Action
 {
     private $_session;
-    
+
 
 
     /**
@@ -97,6 +97,10 @@ class Install_IndexController extends Zend_Controller_Action
         if($this->_request->isPost()){
             if($this->view->form->isValid($this->_request->getPost()) and $hasError === FALSE){
                 $this->_session->actions['config'] = 1;
+                mkdir(STATIC_PATH . 'uploads/main/', 0777);
+                mkdir(STATIC_PATH . 'uploads/members/', 0777);
+                mkdir(STATIC_PATH . 'uploads/members/avatars/', 0777);
+                mkdir(STATIC_PATH . 'uploads/members/photos/', 0777);
                 $this->_redirect('install/config');
             }
         }
