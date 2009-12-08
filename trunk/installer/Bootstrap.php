@@ -5,21 +5,13 @@
  * @author Denysenko Dmytro
  */
 define('INSTALLER_RUN', TRUE);
-define('TIME_NOW', time());
-// SERVER_UTF8 ? use mb_* functions : use non-native functions
-if (extension_loaded('mbstring')) {
-    mb_internal_encoding('UTF-8');
-    define('SERVER_UTF8', true);
-} else {
-    define('SERVER_UTF8', false);
-}
 @set_include_path(INSTALLER_PATH . PATH_SEPARATOR . get_include_path());
+require_once LIBRARY_PATH . 'Bootstrap.php';
 require_once LIBRARY_PATH . 'App/Loader.php';
-final class Bootstrap
+class Installer_Bootstrap extends Main_Bootstrap
 {
     public function __construct()
     {
-         
         App_Loader::init();
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array('basePath' => INSTALLER_PATH, 'namespace' => 'Install'));
         $resourceLoader->addResourceTypes(array('component' => array('namespace' => 'Component' , 'path' => 'components') , 'dbtable' => array('namespace' => 'Model_DbTable' , 'path' => 'models/DbTable') , 'form' => array('namespace' => 'Form' , 'path' => 'forms') , 'model' => array('namespace' => 'Model' , 'path' => 'models') , 'plugin' => array('namespace' => 'Plugin' , 'path' => 'plugins') , 'service' => array('namespace' => 'Service' , 'path' => 'services') , 'helper' => array('namespace' => 'Helper' , 'path' => 'helpers') , 'viewhelper' => array('namespace' => 'View_Helper' , 'path' => 'views/helpers') , 'viewfilter' => array('namespace' => 'View_Filter' , 'path' => 'views/filters')));
@@ -49,7 +41,7 @@ final class Bootstrap
         }
 
         if(is_writeable(VAR_PATH . "logs")){
-            $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/installer_log_" . date('Y-m-d') . '.log'));
+            $logger->addWriter(new Zend_Log_Writer_Stream(VAR_PATH . "logs" . "/installer_log_" . @date('Y-m-d') . '.log'));
         }
         App::setLog($logger);
     }

@@ -5,8 +5,10 @@
  * @author Denysenko Dmytro
  */
 ini_set('display_errors', true);
-error_reporting(E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR);
-define ( 'DS', DIRECTORY_SEPARATOR );
+error_reporting(E_ALL | E_STRICT);
+define('DS', DIRECTORY_SEPARATOR );
+define('PS', PATH_SEPARATOR);
+define('BP', dirname(dirname(__FILE__)));
 $pathinfo = pathinfo ( __FILE__ );
 // Define the front controller name and docroot
 define ( 'DOC_ROOT', $pathinfo ['dirname'] . DS );
@@ -25,9 +27,11 @@ define('LIBRARY_PATH', DOC_ROOT . 'library' . DS);
 if(!file_exists(VAR_PATH . 'configuration.ini') AND file_exists(INSTALLER_PATH . 'Bootstrap.php'))
 {
     $bootstrap = INSTALLER_PATH . 'Bootstrap.php';
+    $bootstrapClass = 'Installer_Bootstrap';
 } else {
     $bootstrap = LIBRARY_PATH . 'Bootstrap.php';
+    $bootstrapClass = 'Main_Bootstrap';
 }
 require_once $bootstrap;
-$bootstrap = new Bootstrap;
+$bootstrap = new $bootstrapClass;
 $bootstrap->run();

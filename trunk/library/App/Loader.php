@@ -66,7 +66,7 @@ class App_Loader
         self::$baseIncludedFiles = get_included_files();
     }
 
-    public function autoload($class)
+    public static function autoload($class)
     {
         if(class_exists($class, false) || interface_exists($class, false)){
             return;
