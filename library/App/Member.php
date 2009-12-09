@@ -9,9 +9,9 @@
 class App_Member {
     // Member singleton
     protected static $instance = null;
-    protected $_data = null;
-    protected $_model = null;
-    protected $_acl = null;
+    protected $_data;
+    protected $_model;
+    protected $_acl;
 
     public static function getInstance()
     {

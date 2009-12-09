@@ -38,6 +38,7 @@ class App_Cache {
     final private function __construct()
     {
         if (App_Cache::$instance === null) {
+            $this->cache = new stdClass();
             $this->_defaultFrontendOptions = array('lifetime' => $this->_default_cache_lifetime , 'cache_id_prefix' => 'content_' , 'write_control' => true , 'automatic_serialization' => true , 'ignore_user_abort' => true);
             $this->_defaultBackendOptions = array('cache_dir' => VAR_PATH . "cache/system" . '/' , 'read_control' => true , 'hashed_directory_umask' => 0777 , 'cache_file_umask' => 0777 , 'hashed_directory_level' => 1 , 'file_name_prefix' => 'app_file_cache');
             $systemCacheFrontend = $this->_defaultFrontendOptions;

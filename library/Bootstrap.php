@@ -27,10 +27,15 @@ class Main_Bootstrap
      */
     public function __construct ()
     {
+        $ER = error_reporting(~E_NOTICE & ~E_STRICT);
+        if (function_exists('date_default_timezone_set')) {
+            date_default_timezone_set(date_default_timezone_get());
+        }
+        error_reporting($ER);
         App_Loader::init();
         $this->_initErrorHandler();
         $this->_initConfiguration();
-        try {
+
             $this->_initEnvironment();
             $this->_initDatabase();
             $this->_initInternationalization();
@@ -41,9 +46,7 @@ class Main_Bootstrap
             $this->_initView();
             $this->_initApplicationMailer();
             $this->_initDebug();
-        } catch (Exception $e) {
-            throw new App_Exception($e->getMessage());
-        }
+        
     }
     /**
      * Setup php, server environment, clean input parameters
@@ -55,6 +58,7 @@ class Main_Bootstrap
         ini_set('log_errors', true);
         if ('development' === APPLICATION_ENV) {
             ini_set('display_errors', true);
+            //error_reporting(E_ALL | E_STRICT);
             error_reporting(E_ALL | E_STRICT);
         } else {
             ini_set('display_errors', false);
@@ -78,12 +82,14 @@ class Main_Bootstrap
      */
     private function _initInternationalization ()
     {
+        $ER = error_reporting(~E_NOTICE & ~E_STRICT);
         if (function_exists('date_default_timezone_set')) {
             $timezone = App::config()->project->timezone;
             // Set default timezone, due to increased validation of date settings
             // which cause massive amounts of E_NOTICEs to be generated in PHP 5.2+
             date_default_timezone_set(empty($timezone) ? date_default_timezone_get() : $timezone);
         }
+        error_reporting($ER);
         $i18n = new App_I18n();
         $languages = $i18n->getSiteLanguages();
         $default_request_lang = 'en';
