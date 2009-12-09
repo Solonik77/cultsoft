@@ -11,7 +11,7 @@ include_once LIBRARY_PATH . 'App/Input.php';
 include_once LIBRARY_PATH . 'App/Utf8.php';
 include_once LIBRARY_PATH . 'App/Exception.php';
 
-if(function_exists('__autoload')){
+if(!function_exists('__autoload')){
     function __autoload($class)
     {
         if(class_exists($class, false) || interface_exists($class, false)){
