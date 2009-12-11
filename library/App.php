@@ -9,7 +9,7 @@
  */
 final class App
 {
-    const VERSION = '0.0.2';
+    const VERSION = '0.0.3';
     const CHARSET = 'UTF-8';
     // Application front controller object
     protected static $front = null;
