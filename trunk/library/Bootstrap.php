@@ -149,9 +149,11 @@ class Main_Bootstrap
             $config['charset'] = 'utf8';
             $config['driver_options'] = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION , PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
             App::setDb(Zend_Db::factory(App_Utf8::strtoupper($config['adapter']), $config));
-            $profiler = new Zend_Db_Profiler_Firebug('Database queries');
-            $profiler->setEnabled(true);
-            App::db()->setProfiler($profiler);
+            if('development' === APPLICATION_ENV){
+                $profiler = new Zend_Db_Profiler_Firebug('Database queries');
+                $profiler->setEnabled(true);
+                App::db()->setProfiler($profiler);
+            }
             Zend_Db_Table_Abstract::setDefaultMetadataCache(App_Cache::getInstance('File'));
             Zend_Db_Table_Abstract::setDefaultAdapter(App::db());
             App::db()->getConnection();
