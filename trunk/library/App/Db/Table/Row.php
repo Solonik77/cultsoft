@@ -17,7 +17,7 @@ class App_Db_Table_Row extends Zend_Db_Table_Row_Abstract
         parent:: __construct($config);
     }
 
-    public function __call($name, $args)
+    public function __call($name, array $args)
     {
         if(preg_match('/^(get|set)(\w+)/', $name, $match) && $attribute = $this->validateAttribute(strtolower(Zend_Filter::filterStatic($match[2], 'Word_CamelCaseToUnderscore')))){
             if('get' == $match[1]){
