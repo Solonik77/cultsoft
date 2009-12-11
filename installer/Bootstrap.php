@@ -93,6 +93,7 @@ class Installer_Bootstrap extends Main_Bootstrap
             $config['driver_options'] = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION , PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
             App::setDb(Zend_Db::factory(App_Utf8::strtoupper($config['adapter']), $config));
             App::db()->getConnection();
+            App::db()->query("SET SQL_MODE=''");
             App::db()->query("SET NAMES 'utf8'");
             defined('DB_TABLE_PREFIX') or define('DB_TABLE_PREFIX', App::config()->database->table_prefix);
         } catch (Zend_Db_Adapter_Exception $e) {
