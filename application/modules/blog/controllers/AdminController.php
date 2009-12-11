@@ -145,7 +145,7 @@ class Blog_AdminController extends App_Controller_Action
                 $postParams = $this->_request->getPost('blog');
                 if(isset($postParams['delete_blog'])){
                     // Delete blog
-                    if($blogTable->delete()){
+                    if($blogTable->delete(null)){
                         $this->_helper->messages('Blog deleted successfully', 'success', true);
                         $this->_redirect('blog/admin/manage-blogs');
                     }

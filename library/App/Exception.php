@@ -14,6 +14,7 @@ class App_Exception extends Zend_Exception {
      * @var array PHP error code => human readable name
      */
     public static $php_errors = array(
+    E_STRICT => 'Strict coding standats error',
     E_ERROR => 'Fatal Error',
     E_USER_ERROR => 'User Error',
     E_PARSE => 'Parse Error',

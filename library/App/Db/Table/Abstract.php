@@ -126,9 +126,12 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      * @return Zend_Db_Table_Rowset_Abstract Row(s) matching the criteria.
      * @throws Zend_Db_Table_Exception
      */
-    public function find($arguments)
+    public function find()
     {
-        $this->_systemRowset = parent::find($arguments);
+        $arguments = func_get_args();
+        if(count($arguments) > 0){
+            $this->_systemRowset = parent::find($arguments[0]);
+        }
         return $this;
     }
 
@@ -177,7 +180,7 @@ abstract class App_Db_Table_Abstract extends Zend_Db_Table
      * @param  array|string $where SQL WHERE clause(s).
      * @return int          The number of rows deleted.
      */
-    public function delete($where = NULL)
+    public function delete($where)
     {
         $result = false;
         $this->_preDelete();
