@@ -17,7 +17,7 @@ if(extension_loaded('mbstring')){
 else{
     define('SERVER_UTF8', false);
 }
-$ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
+$ER = error_reporting(~ E_NOTICE & ~ E_WARNING & ~ E_STRICT);
 if(function_exists('date_default_timezone_set')){
     date_default_timezone_set(date_default_timezone_get());
 }
