@@ -5,19 +5,19 @@ namespace Ectorus;
 defined('DOC_ROOT') or exit('No direct script access.');
 
 /**
- * Ectorus
- * @author Dmytro Denysenko
- * @copyright (c) 2010 Dmytro Denysenko
- */
-class Config
-{
+* Ectorus
+*
+* @author Dmytro Denysenko
+* @copyright (c) 2010 Dmytro Denysenko
+*/
+class Config {
     // Singleton static instance
     protected static $_instance;
     protected $_config;
-    
-    /*
-     * Enforce singleton constructor
-     */
+
+    /**
+    * Enforce singleton constructor
+    */
     final private function __construct()
     {
         \Kohana::set_config(\Kohana_Config::instance());
@@ -33,13 +33,14 @@ class Config
     }
 
     final private function __clone()
-    {}
-    
+    {
+    }
+
     public function get_config()
     {
         return $this->_config;
     }
-    
+
     public function attach_reader(\Kohana_Config_Reader $reader)
     {
         if ($this->get_config()) {
@@ -47,20 +48,20 @@ class Config
         }
         return $this;
     }
-    
+
     public function get($group)
     {
         return \Kohana::config($group);
     }
-    
+
     /**
-     * Get the singleton instance of Ectorus\Config.
-     *
-     * @return  Ectorus_Config
-     */
+    * Get the singleton instance of Ectorus\Config.
+    *
+    * @return Ectorus_Config
+    */
     public static function instance()
     {
-        if (self::$_instance === NULL) {
+        if (self::$_instance === null) {
             // Create a new instance
             self::$_instance = new Config();
         }

@@ -1,41 +1,43 @@
-<?php 
+<?php
 
 namespace Ectorus;
 
 defined('DOC_ROOT') or exit('No direct script access.');
 
 /**
- * Ectorus
- * @author Dmytro Denysenko
- * @copyright (c) 2010 Dmytro Denysenko
- */
-class I18n
-{
+* Ectorus
+*
+* @author Dmytro Denysenko
+* @copyright (c) 2010 Dmytro Denysenko
+*/
+class I18n {
     // Singleton static instance
     protected static $_instance;
-	protected $_locale;
-    
+    protected $_locale;
+
     private function __construct()
-    {}
-    
+    {
+    }
+
     public function __clone()
-    {}
-    
+    {
+    }
+
     /**
-     * Get the singleton instance of Ectorus\I18n.
-     *
-     * @return Ectorus\I18n
-     */
+    * Get the singleton instance of Ectorus\I18n.
+    *
+    * @return Ectorus \I18n
+    */
     public static function instance()
     {
-        if (self::$_instance === NULL) {
+        if (self::$_instance === null) {
             // Create a new instance
             self::$_instance = new self();
         }
         return self::$_instance;
     }
-	
-	 public function set_locale($locale)
+
+    public function set_locale($locale)
     {
         $locale = (string) $locale . '.UTF-8';
         $this->_locale = setlocale(LC_ALL, $locale);
@@ -44,14 +46,14 @@ class I18n
     public function set_timezone($timezone)
     {
         date_default_timezone_set($timezone);
-    }	
-	
+    }
+
     public function get_locale()
     {
         return self::$locale;
     }
-    
-    public function __($string, array $values = NULL, $lang = 'en-us')
+
+    public function __($string, array $values = null, $lang = 'en-us')
     {
         return $string;
     }
