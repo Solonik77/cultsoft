@@ -1,3 +1,0 @@
-# Modelo Vista Controlador
-
-[!!] inacabado
