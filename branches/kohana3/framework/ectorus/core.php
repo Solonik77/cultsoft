@@ -58,6 +58,7 @@ abstract class Core
     {
         if (self::$_run === null) {
             
+        
             // Enable classes auto-loader.
             spl_autoload_register(array('Kohana' , 'auto_load'));
             spl_autoload_register(array(__CLASS__ , 'auto_load'));
@@ -65,6 +66,13 @@ abstract class Core
             // Enable auto-loader for unserialization.
             ini_set('unserialize_callback_func', 'spl_autoload_call');
 
+            // Set default server timezone
+            $ER = error_reporting(~ E_NOTICE & ~ E_STRICT & ~ E_WARNING);
+            if(function_exists('date_default_timezone_set')){
+                date_default_timezone_set(date_default_timezone_get());
+            }
+            error_reporting($ER);
+            
             \Kohana::init(array(
                     'errors'     => TRUE,
                     'profile'    => ('production' === APP_ENV),
