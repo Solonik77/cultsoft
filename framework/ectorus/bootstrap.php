@@ -33,7 +33,6 @@ class Bootstrap
         // Set error reporting level
         ini_set('log_errors', true);
         // Attach the file write to logging. Multiple writers are supported. 
-        \Kohana::logger()->attach(new \Kohana_Log_File(VAR_PATH . 'logs'));
         if ('production' != APP_ENV) {
             ini_set('display_errors', true);
             error_reporting(E_ALL | E_STRICT);
@@ -74,7 +73,6 @@ class Bootstrap
      */    
     public function init_internationalization()
     {
-		
 		// Disable notices and "strict" errors
         $ER = error_reporting(~ E_NOTICE & ~ E_STRICT);
         $i18n = I18n::instance();
