@@ -5,12 +5,6 @@
 * @author Dmytro Denysenko
 * @copyright (c) 2010 Dmytro Denysenko
 */
-if (version_compare(phpversion(), '5.3.0', '<') === true) {
-    echo '<h3>You have an invalid PHP version</h3>';
-    echo '<p>Ectorus supports PHP 5.3.0 or newer</p>';
-    exit();
-}
-
 require_once FW_PATH . 'ectorus' . DIRECTORY_SEPARATOR . 'core.php';
 require_once FW_PATH . 'ectorus' . DIRECTORY_SEPARATOR . 'kohana.php';
 
