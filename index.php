@@ -59,6 +59,12 @@ define('VAR_PATH', str_replace('\\', '/', realpath($var_path) . DIRECTORY_SEPARA
 // Clean up the configuration vars
 unset($framework_path, $application_path, $var_path, $pathinfo);
 
+if (version_compare(phpversion(), '5.3.0', '<') === true) {
+    echo '<h3>You have an invalid PHP version</h3>';
+    echo '<p>Ectorus supports PHP 5.3.0 or newer</p>';
+    exit();
+}
+
 $ectorus_file = FW_PATH . 'ectorus.php';
 
 if (! file_exists($ectorus_file)) {
