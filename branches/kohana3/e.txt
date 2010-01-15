@@ -1,0 +1,1 @@
+Database Error: Unable to connect to your database. Your database appears to be turned off or the database connection settings in your config file are not correct. Please contact your hosting provider if the problem persists.
